@@ -1,0 +1,183 @@
+import type { Product } from "@/lib/types";
+
+/**
+ * Catálogo de ejemplo.
+ *
+ * Los NOMBRES son ilustrativos y se pueden cambiar libremente. Los precios
+ * están a `null` (se muestra "[precio] €") hasta tener los reales, y las
+ * descripciones son marcadores. Ver README.md → "Cómo cambiar el catálogo".
+ */
+const DESCRIPTION = "[Descripción del producto: origen, elaboración, curación y maridaje]";
+
+export const products: Product[] = [
+  // ——— Quesos ———
+  {
+    slug: "queso-roncal-dop",
+    name: "Queso Roncal DOP",
+    categorySlug: "quesos",
+    producerSlug: "productor-queso-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Queso Roncal DOP", placeholder: "Foto · queso" },
+    attributes: { denominacion: "dop-roncal", leche: "oveja" },
+    featured: true,
+    rank: 1,
+  },
+  {
+    slug: "queso-oveja-curado",
+    name: "Queso de oveja curado",
+    categorySlug: "quesos",
+    producerSlug: "productor-queso-2",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Queso de oveja curado", placeholder: "Foto · queso" },
+    attributes: { denominacion: "sin-denominacion", leche: "oveja" },
+    rank: 2,
+  },
+  {
+    slug: "queso-cabra-fresco",
+    name: "Queso de cabra fresco",
+    categorySlug: "quesos",
+    producerSlug: "productor-queso-3",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Queso de cabra fresco", placeholder: "Foto · queso" },
+    attributes: { denominacion: "sin-denominacion", leche: "cabra" },
+    rank: 3,
+  },
+  {
+    slug: "queso-idiazabal-dop",
+    name: "Queso Idiazábal DOP",
+    categorySlug: "quesos",
+    producerSlug: "productor-queso-2",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Queso Idiazábal DOP", placeholder: "Foto · queso" },
+    attributes: { denominacion: "dop-idiazabal", leche: "oveja" },
+    rank: 4,
+  },
+  {
+    slug: "queso-oveja-semicurado",
+    name: "Queso de oveja semicurado",
+    categorySlug: "quesos",
+    producerSlug: "productor-queso-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Queso de oveja semicurado", placeholder: "Foto · queso" },
+    attributes: { denominacion: "sin-denominacion", leche: "oveja" },
+    rank: 5,
+  },
+  {
+    slug: "tabla-quesos-navarros",
+    name: "Tabla de quesos navarros",
+    categorySlug: "quesos",
+    producerSlug: null,
+    subtitle: "Selección de la casa",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Tabla de quesos navarros", placeholder: "Foto · queso" },
+    attributes: { denominacion: "sin-denominacion" },
+    rank: 6,
+  },
+
+  // ——— Embutidos ———
+  {
+    slug: "chistorra-artesana",
+    name: "Chistorra artesana",
+    categorySlug: "embutidos",
+    producerSlug: "productor-embutido-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Chistorra artesana", placeholder: "Foto · embutido" },
+    attributes: {},
+    featured: true,
+    rank: 1,
+  },
+  {
+    slug: "chorizo-navarro",
+    name: "Chorizo navarro",
+    categorySlug: "embutidos",
+    producerSlug: "productor-embutido-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Chorizo navarro", placeholder: "Foto · embutido" },
+    attributes: {},
+    rank: 2,
+  },
+
+  // ——— Vinos ———
+  {
+    slug: "vino-tinto-do-navarra",
+    name: "Vino tinto D.O. Navarra",
+    categorySlug: "vinos",
+    producerSlug: "productor-vino-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Botella de vino tinto D.O. Navarra", placeholder: "Foto · botella" },
+    attributes: { tipo: "tinto" },
+    featured: true,
+    rank: 1,
+  },
+  {
+    slug: "vino-rosado-do-navarra",
+    name: "Vino rosado D.O. Navarra",
+    categorySlug: "vinos",
+    producerSlug: "productor-vino-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Botella de vino rosado D.O. Navarra", placeholder: "Foto · botella" },
+    attributes: { tipo: "rosado" },
+    rank: 2,
+  },
+
+  // ——— Conservas y verduras ———
+  {
+    slug: "pimientos-del-piquillo",
+    name: "Pimientos del piquillo",
+    categorySlug: "conservas-y-verduras",
+    producerSlug: "productor-verdura-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Pimientos del piquillo en conserva", placeholder: "Foto · conserva" },
+    attributes: {},
+    featured: true,
+    rank: 1,
+  },
+  {
+    slug: "esparragos-de-navarra",
+    name: "Espárragos de Navarra",
+    categorySlug: "conservas-y-verduras",
+    producerSlug: "productor-verdura-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Espárragos de Navarra en conserva", placeholder: "Foto · conserva" },
+    attributes: {},
+    rank: 2,
+  },
+
+  // ——— Aceites ———
+  {
+    slug: "aceite-oliva-virgen-extra",
+    name: "Aceite de oliva virgen extra",
+    categorySlug: "aceites",
+    producerSlug: "productor-aceite-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Botella de aceite de oliva virgen extra", placeholder: "Foto · aceite" },
+    attributes: {},
+    rank: 1,
+  },
+
+  // ——— Dulces y licores ———
+  {
+    slug: "pacharan-navarro",
+    name: "Pacharán navarro",
+    categorySlug: "dulces-y-licores",
+    producerSlug: "productor-licor-1",
+    price: null,
+    description: DESCRIPTION,
+    image: { alt: "Botella de pacharán navarro", placeholder: "Foto · pacharán" },
+    attributes: {},
+    rank: 1,
+  },
+];

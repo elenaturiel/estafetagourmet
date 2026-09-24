@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/*
+ * Sistema de diseño de Estafeta Gourmet.
+ * Cada token genera utilidades de Tailwind: bg-crema, text-vino, border-linea…
+ */
+@theme {
+  /* Fondos */
+  --color-crema: #f6f0e4;
+  --color-papel: #fbf8f1;
+  --color-crema-oscuro: #eadfc9;
+  --color-placeholder: #e6dac4;
+
+  /* Texto y líneas */
+  --color-tinta: #2a1f1a;
+  --color-secundario: #5e4e43;
+  --color-linea: #dccfb8;
+  --color-borde-input: #8c7b69;
+
+  /* Acento */
+  --color-vino: #6e1f2e;
+  --color-vino-oscuro: #561723;
+  --color-dorado: #e2b872;
+  --color-crema-sobre-vino: #eadfc9;
+
+  /* Pie de página */
+  --color-pie: #241a15;
+  --color-pie-borde: #4a3b31;
+  --color-pie-texto: #d8cbb6;
+
+  /* Tipografía (variables inyectadas por next/font en app/layout.tsx) */
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-dm-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Radio único de 2px en botones, inputs y tarjetas */
+  --radius-eg: 2px;
+
+  /* Contenedor */
+  --container-site: 1440px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-crema);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  /* Foco visible y consistente en todos los elementos interactivos */
+  :focus-visible {
+    outline: 2px solid var(--color-vino);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-dorado);
+  }
+
+  ::selection {
+    background-color: var(--color-vino);
+    color: var(--color-crema);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: 24px;
+
+  @media (width >= 64rem) {
+    padding-inline: 64px;
+  }
+}
