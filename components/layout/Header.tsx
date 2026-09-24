@@ -15,8 +15,8 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-const iconButton =
-  "inline-flex h-11 w-11 items-center justify-center rounded-eg text-tinta hover:text-vino";
+const iconButtonBase = "h-11 w-11 items-center justify-center rounded-eg text-tinta hover:text-vino";
+const iconButton = `inline-flex ${iconButtonBase}`;
 
 export function Header() {
   const pathname = usePathname();
@@ -53,7 +53,7 @@ export function Header() {
           </button>
         </div>
 
-        <Logo className="justify-self-center lg:justify-self-start" centered={false} />
+        <Logo className="justify-self-center lg:justify-self-start" />
 
         {/* Escritorio: navegación principal */}
         <nav aria-label={t.nav.label} className="hidden justify-self-center lg:block">
@@ -83,7 +83,7 @@ export function Header() {
           <LanguageSwitcher className="hidden lg:flex" />
           <button
             type="button"
-            className={cn(iconButton, "hidden lg:inline-flex")}
+            className={cn(iconButtonBase, "hidden lg:inline-flex")}
             aria-label={t.header.search}
             aria-haspopup="dialog"
             onClick={() => searchRef.current?.showModal()}
