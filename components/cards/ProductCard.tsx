@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { productByline, productHref } from "@/lib/catalog";
+import { productByline, productHref } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/format";
 import type { Producer, Product } from "@/lib/types";
 
