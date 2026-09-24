@@ -20,6 +20,7 @@ export function VisitSection({
   headingLevel?: "h1" | "h2";
 }) {
   const Heading = headingLevel;
+  const SubHeading = headingLevel === "h1" ? "h2" : "h3";
   return (
     <Section aria-labelledby="visitanos-title" id="contacto">
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -87,7 +88,7 @@ export function VisitSection({
           >
             <ImagePlaceholder label="Mapa · Calle Estafeta, 70" className="h-[200px] lg:h-[240px]" />
           </a>
-          <h3 className="sr-only">Escríbenos</h3>
+          <SubHeading className="sr-only">Escríbenos</SubHeading>
           <div className="mt-8">
             <ContactForm />
           </div>
