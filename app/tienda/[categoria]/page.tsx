@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
 import { CategoryBrowser } from "@/components/shop/CategoryBrowser";
@@ -30,9 +31,10 @@ export default async function CategoryPage({ params }: Params) {
   const category = await getCategory(categoria);
   if (!category) notFound();
 
-  const [products, allProducers] = await Promise.all([
+  const [products, allProducers, categories] = await Promise.all([
     getProducts({ category: category.slug }),
     getProducers(),
+    getCategories(),
   ]);
   // Solo los productores que tienen productos en esta categoría.
   const producerSlugs = new Set(products.map((p) => p.producerSlug).filter(Boolean));
@@ -48,12 +50,34 @@ export default async function CategoryPage({ params }: Params) {
             { name: category.name, path: `/tienda/${category.slug}` },
           ]}
         />
-        <header className="mt-6 mb-10 lg:mb-14">
-          <h1 className="text-[40px] leading-[1.05] tracking-[-0.02em] lg:text-[60px]">
+        <header className="mt-6 mb-8 lg:mb-12">
+          <h1 className="text-[42px] leading-[1.02] tracking-[-0.025em] lg:text-[68px]">
             {category.title}
           </h1>
-          <p className="mt-3 max-w-2xl text-[17px] text-secundario">{category.intro}</p>
+          <p className="mt-3 max-w-2xl text-[17px] text-secundario lg:text-[18px]">{category.intro}</p>
         </header>
+        <nav aria-label="Otras categorías" className="mb-10 lg:mb-14">
+          <ul className="rail -mx-6 auto-cols-max gap-2 px-6 lg:mx-0 lg:flex lg:flex-wrap lg:px-0">
+            {categories.map((c) => {
+              const current = c.slug === category.slug;
+              return (
+                <li key={c.slug}>
+                  <Link
+                    href={`/tienda/${c.slug}`}
+                    aria-current={current ? "page" : undefined}
+                    className={
+                      current
+                        ? "inline-flex min-h-[44px] items-center rounded-full border border-tinta bg-tinta px-5 text-[14px] font-semibold whitespace-nowrap text-crema"
+                        : "inline-flex min-h-[44px] items-center rounded-full border border-linea px-5 text-[14px] font-semibold whitespace-nowrap hover:border-tinta"
+                    }
+                  >
+                    {c.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
         <CategoryBrowser products={products} producers={producers} filters={category.filters} />
       </div>
 

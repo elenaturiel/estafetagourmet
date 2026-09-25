@@ -9,6 +9,7 @@ export async function BlogSection() {
     <Section tone="papel" aria-labelledby="blog-title">
       <SectionHeader
         id="blog-title"
+        eyebrow="Blog"
         title="De la huerta a la despensa"
         subtitle="Notas de temporada, maridajes y el trabajo de nuestros productores."
         action={<ArrowLink href="/blog">Ver todo el blog</ArrowLink>}

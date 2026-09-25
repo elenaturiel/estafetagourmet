@@ -5,6 +5,7 @@ import { buttonClasses, type ButtonVariant } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import type { CartItemInput } from "./cart-store";
+import { cartUi } from "./cart-ui";
 import { useCart } from "./useCart";
 
 export function AddToCartButton({
@@ -12,11 +13,17 @@ export function AddToCartButton({
   variant = "secondary",
   size = "sm",
   className,
+  label,
+  openDrawer = true,
 }: {
   item: CartItemInput;
   variant?: ButtonVariant;
   size?: "sm" | "md";
   className?: string;
+  /** Texto del botón (por defecto "Añadir a la cesta"). */
+  label?: string;
+  /** Abre el cajón de la cesta tras añadir. */
+  openDrawer?: boolean;
 }) {
   const { add } = useCart();
   const [justAdded, setJustAdded] = useState(false);
@@ -34,10 +41,11 @@ export function AddToCartButton({
         onClick={() => {
           add(item);
           setJustAdded(true);
+          if (openDrawer) cartUi.setOpen(true);
         }}
         className={cn(buttonClasses(variant, size), "w-full", className)}
       >
-        {justAdded ? t.cart.added : t.cart.add}
+        {justAdded ? t.cart.added : (label ?? t.cart.add)}
         <span className="sr-only"> {item.name}</span>
       </button>
       <span className="sr-only" role="status" aria-live="polite">

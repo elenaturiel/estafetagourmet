@@ -7,10 +7,12 @@ import { GiftsBand } from "@/components/home/GiftsBand";
 import { Hero } from "@/components/home/Hero";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { ProducersSection } from "@/components/home/ProducersSection";
+import { ProductMarquee } from "@/components/home/ProductMarquee";
+import { PromiseSection } from "@/components/home/PromiseSection";
 import { ReviewsSection } from "@/components/home/ReviewsSection";
-import { TrustStrip } from "@/components/home/TrustStrip";
 import { VisitSection } from "@/components/home/VisitSection";
 import { site } from "@/data/site";
+import { getGiftBoxes } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: { absolute: `${site.name} · Productos gourmet de Navarra en Pamplona` },
@@ -25,15 +27,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const gifts = await getGiftBoxes();
   return (
     <>
-      <Hero />
-      <TrustStrip />
+      <Hero featuredGift={gifts.find((g) => g.slug === "cesta-san-fermin") ?? gifts[0]} />
+      <ProductMarquee />
       <CategoriesSection />
       <FeaturedProducts />
       <GiftsBand />
       <ProducersSection />
+      <PromiseSection />
       <AboutSection />
       <ReviewsSection />
       <BlogSection />

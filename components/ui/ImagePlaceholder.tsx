@@ -32,7 +32,7 @@ export function ImagePlaceholder({
 }: Props) {
   return (
     <div
-      className={cn("relative w-full overflow-hidden bg-placeholder", className)}
+      className={cn("relative overflow-hidden bg-placeholder", className)}
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {src ? (

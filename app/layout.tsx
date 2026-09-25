@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 import { Analytics, CookieBanner } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { TopBar } from "@/components/layout/TopBar";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL, site } from "@/data/site";
+import { getCategories, getOccasions } from "@/lib/catalog";
 import { t } from "@/lib/i18n";
 import { localBusinessJsonLd } from "@/lib/structured-data";
 import "./globals.css";
@@ -43,7 +45,8 @@ export const viewport: Viewport = {
   themeColor: "#F6F0E4",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const [categories, occasions] = await Promise.all([getCategories(), getOccasions()]);
   return (
     <html lang="es" className={`${fraunces.variable} ${dmSans.variable}`}>
       <body className="flex min-h-dvh flex-col">
@@ -54,11 +57,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {t.skipToContent}
         </a>
         <TopBar />
-        <Header />
+        <Header
+          categories={categories.map((c) => ({
+            slug: c.slug,
+            name: c.name,
+            placeholder: c.image.placeholder,
+            src: c.image.src,
+          }))}
+          occasions={occasions.map((o) => ({ slug: o.slug, name: o.name, href: o.href }))}
+        />
         <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">
           {children}
         </main>
         <Footer />
+        <CartDrawer />
         <CookieBanner />
         <Analytics />
         <JsonLd data={localBusinessJsonLd()} />

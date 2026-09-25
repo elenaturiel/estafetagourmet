@@ -64,6 +64,19 @@ export type Product = {
   rank: number;
   /** Texto alternativo a "Productor · Localidad" (p. ej. "Selección de la casa"). */
   subtitle?: string;
+  /** Etiquetas visibles en la tarjeta (máx. 2): "DOP", "Favorito de la casa"… */
+  tags?: string[];
+  /** Productos que se sugieren en su ficha ("Combina con"). Slugs. */
+  pairsWith?: string[];
+};
+
+export type Occasion = {
+  slug: string;
+  name: string;
+  /** Frase corta bajo el nombre. */
+  line: string;
+  image: Image;
+  href: string;
 };
 
 export type GiftBox = {
@@ -73,6 +86,7 @@ export type GiftBox = {
   price: number | null;
   /** Texto de precio alternativo (p. ej. "Desde [importe] €"). */
   priceLabel?: string;
+  tag?: string;
   image: Image;
 };
 

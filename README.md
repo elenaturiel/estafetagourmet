@@ -56,6 +56,13 @@ lib/
   seo.ts, structured-data.ts
 ```
 
+### Diseño
+
+- **Cabecera fija** con el sello centrado, buscador y mega menú de la tienda (categorías, regalos por ocasión y una cesta destacada).
+- **Cajón de la cesta**: se abre al añadir un producto, con la barra de envío gratis.
+- **Recursos de marca**: fotos en **arco** (utilidad `arch`, un guiño a los soportales del casco viejo), **sello giratorio** (`components/ui/Stamp.tsx`), **cinta** de productos (`Marquee`), **etiquetas** tipo pegatina (`sticker`) y **carruseles** táctiles en móvil (`rail`).
+- Las animaciones se desactivan si el sistema pide reducir el movimiento.
+
 Los colores y las fuentes son tokens de Tailwind definidos en `app/globals.css` (`bg-crema`, `text-vino`, `border-linea`…).
 
 ## Cómo cambiar el catálogo
@@ -68,7 +75,8 @@ Todo el contenido está en `/data`:
 | `categories.ts` | Categorías: nombre, H1, textos SEO y filtros propios (p. ej. Denominación, Tipo de leche) |
 | `products.ts` | Productos |
 | `producers.ts` | Productores (`featured: true` para que salgan en el inicio) |
-| `gifts.ts` | Cestas y regalos |
+| `gifts.ts` | Cestas y regalos (con etiqueta opcional, p. ej. "Edición San Fermín") |
+| `occasions.ts` | Regalos por ocasión (inicio, mega menú y menú móvil) |
 | `posts.ts` | Entradas del blog |
 | `reviews.ts` | Reseñas de Google (solo reales) |
 | `legal.ts` | Datos del titular para las páginas legales |
@@ -88,6 +96,8 @@ Todo el contenido está en `/data`:
   image: { src: "/images/productos/roncal.jpg", alt: "Cuña de queso Roncal", placeholder: "Foto · queso" },
   attributes: { denominacion: "dop-roncal", leche: "oveja" },  // valores de los filtros
   featured: true,                      // sale en "Los favoritos de la casa"
+  tags: ["DOP", "Favorito de la casa"], // etiquetas sobre la foto (máx. 2)
+  pairsWith: ["vino-tinto-do-navarra"], // "Combina con" en la ficha
   rank: 1,                             // orden en "Destacados"
 }
 ```

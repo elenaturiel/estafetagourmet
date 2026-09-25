@@ -38,12 +38,16 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
 /** Cabecera de sección: título H2 + subtítulo opcional + acción a la derecha. */
 export function SectionHeader({
   id,
+  eyebrow,
   title,
   subtitle,
   action,
   className,
+  tone = "light",
 }: {
   id: string;
+  eyebrow?: string;
+  tone?: "light" | "dark";
   title: ReactNode;
   subtitle?: ReactNode;
   action?: ReactNode;
@@ -57,10 +61,22 @@ export function SectionHeader({
       )}
     >
       <div>
-        <h2 id={id} className="text-[32px] leading-[1.1] tracking-[-0.02em] lg:text-[44px]">
+        {eyebrow ? (
+          <p className={cn("eyebrow mb-3", tone === "dark" ? "text-dorado" : "text-vino")}>{eyebrow}</p>
+        ) : null}
+        <h2 id={id} className="text-[34px] leading-[1.05] tracking-[-0.02em] lg:text-[48px]">
           {title}
         </h2>
-        {subtitle ? <p className="mt-2 text-[16px] text-secundario">{subtitle}</p> : null}
+        {subtitle ? (
+          <p
+            className={cn(
+              "mt-3 max-w-xl text-[16px] lg:text-[17px]",
+              tone === "dark" ? "text-crema-sobre-vino" : "text-secundario",
+            )}
+          >
+            {subtitle}
+          </p>
+        ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>

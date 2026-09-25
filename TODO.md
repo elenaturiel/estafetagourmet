@@ -5,7 +5,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 ## Datos de la tienda (`data/site.ts`)
 
 - [ ] **Dirección web definitiva.** Variable `NEXT_PUBLIC_SITE_URL`; ver README → "Dirección web". Hasta entonces el pie muestra `[dirección web]`.
-- [ ] **Importe para envío gratis** (`shipping.freeShippingFrom`). Aparece en la barra superior, la cesta y la página de envíos.
+- [ ] **Importe para envío gratis** (`shipping.freeShippingFrom`). Aparece en la barra superior, la cesta y la página de envíos. Escribe también el número en `shipping.freeShippingThreshold`: activa la barra "Te faltan X € para el envío gratis" del cajón de la cesta.
 - [ ] **Días de apertura y festivos** (`hours.daysLabel`).
 - [ ] **Horario estructurado para Google** (`hours.structured`). Rellénalo cuando se confirmen los días; mientras esté vacío no se publica el horario en los datos estructurados.
 - [ ] **Correo de contacto** (`email`).
@@ -18,6 +18,9 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 
 - [ ] **Precios** de todos los productos (`products.ts → price`) y de las cestas (`gifts.ts`).
 - [ ] **Descripciones** de producto (hoy son marcadores).
+- [ ] **Ficha de producto:** formato (peso o volumen) y el texto "Conservación y maridaje" (hoy marcadores en `app/tienda/[categoria]/[producto]/page.tsx`; conviene pasarlos a `data/products.ts`).
+- [ ] **Etiquetas y maridajes** de cada producto (`tags` y `pairsWith` en `products.ts`). Las etiquetas actuales ("Favorito de la casa", "DOP"…) son un punto de partida.
+- [ ] **Regalos por ocasión** (`data/occasions.ts`): textos, fotos y a qué cesta lleva cada ocasión.
 - [ ] **Revisar los nombres de ejemplo** de productos y cestas (son ilustrativos) y completar el catálogo real.
 - [ ] **Productores:** nombre, localidad y retrato (`producers.ts`). Asignar cada producto a su productor real.
 - [ ] **Contenido de las cestas** (`gifts.ts → description`) y cantidad mínima del regalo de empresa.

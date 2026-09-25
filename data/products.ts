@@ -22,6 +22,8 @@ export const products: Product[] = [
     attributes: { denominacion: "dop-roncal", leche: "oveja" },
     featured: true,
     rank: 1,
+    tags: ["DOP", "Favorito de la casa"],
+    pairsWith: ["vino-tinto-do-navarra", "tabla-quesos-navarros", "pacharan-navarro"],
   },
   {
     slug: "queso-oveja-curado",
@@ -55,6 +57,8 @@ export const products: Product[] = [
     image: { alt: "Queso Idiazábal DOP", placeholder: "Foto · queso" },
     attributes: { denominacion: "dop-idiazabal", leche: "oveja" },
     rank: 4,
+    tags: ["DOP"],
+    pairsWith: ["vino-tinto-do-navarra", "queso-roncal-dop"],
   },
   {
     slug: "queso-oveja-semicurado",
@@ -78,6 +82,8 @@ export const products: Product[] = [
     image: { alt: "Tabla de quesos navarros", placeholder: "Foto · queso" },
     attributes: { denominacion: "sin-denominacion" },
     rank: 6,
+    tags: ["Para compartir"],
+    pairsWith: ["vino-tinto-do-navarra", "vino-rosado-do-navarra"],
   },
 
   // ——— Embutidos ———
@@ -92,6 +98,8 @@ export const products: Product[] = [
     attributes: {},
     featured: true,
     rank: 1,
+    tags: ["Favorito de la casa"],
+    pairsWith: ["vino-rosado-do-navarra", "pimientos-del-piquillo"],
   },
   {
     slug: "chorizo-navarro",
@@ -117,6 +125,8 @@ export const products: Product[] = [
     attributes: { tipo: "tinto" },
     featured: true,
     rank: 1,
+    tags: ["D.O. Navarra", "Favorito de la casa"],
+    pairsWith: ["queso-roncal-dop", "chistorra-artesana"],
   },
   {
     slug: "vino-rosado-do-navarra",
@@ -128,6 +138,8 @@ export const products: Product[] = [
     image: { alt: "Botella de vino rosado D.O. Navarra", placeholder: "Foto · botella" },
     attributes: { tipo: "rosado" },
     rank: 2,
+    tags: ["D.O. Navarra"],
+    pairsWith: ["chistorra-artesana", "esparragos-de-navarra"],
   },
 
   // ——— Conservas y verduras ———
@@ -142,6 +154,8 @@ export const products: Product[] = [
     attributes: {},
     featured: true,
     rank: 1,
+    tags: ["Favorito de la casa"],
+    pairsWith: ["aceite-oliva-virgen-extra", "vino-rosado-do-navarra"],
   },
   {
     slug: "esparragos-de-navarra",

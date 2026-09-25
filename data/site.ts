@@ -68,6 +68,11 @@ export const site = {
   shipping: {
     leadTime: "24–48 h",
     freeShippingFrom: "[importe]",
+    /**
+     * Mismo importe como número (euros) para la barra de progreso de la cesta
+     * ("Te faltan X € para el envío gratis"). Null mientras no esté definido.
+     */
+    freeShippingThreshold: null as number | null,
   },
 
   googleRating: {
