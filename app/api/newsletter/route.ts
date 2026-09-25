@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { NewsletterNotConfiguredError, subscribe } from "@/lib/newsletter";
+import { BrevoError, NewsletterNotConfiguredError, subscribe } from "@/lib/newsletter";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const source = typeof data.source === "string" ? data.source.slice(0, 40) : "web";
 
   try {
-    const { doubleOptIn } = await subscribe(email, source);
+    const { doubleOptIn } = await subscribe(email, source, req.nextUrl.origin);
     return NextResponse.json({ ok: true, doubleOptIn });
   } catch (err) {
     if (err instanceof NewsletterNotConfiguredError) {
@@ -34,8 +34,10 @@ export async function POST(req: NextRequest) {
       );
     }
     console.error("[newsletter]", err);
+    // El código (p. ej. "ip_no_autorizada") ayuda a saber qué ajustar en Brevo.
+    const code = err instanceof BrevoError ? err.code : "error_de_conexion";
     return NextResponse.json(
-      { ok: false, error: "No hemos podido apuntarte. Inténtalo de nuevo en un momento." },
+      { ok: false, error: "No hemos podido apuntarte. Inténtalo de nuevo en un momento.", code },
       { status: 502 },
     );
   }

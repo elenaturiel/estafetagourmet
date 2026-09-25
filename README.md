@@ -173,6 +173,18 @@ Los correos se guardan en **Brevo** (brevo.com), un servicio europeo con plan gr
 6. En Vercel añade `BREVO_API_KEY`, `BREVO_LIST_ID` y, si lo hiciste, `BREVO_DOI_TEMPLATE_ID`. Vuelve a publicar.
 7. **Automatizaciones:** en Brevo → **Automations**, crea p. ej. "Bienvenida" (se envía al entrar en la lista) y los recordatorios que quieras.
 
+**Si al apuntarse sale "No hemos podido apuntarte (código: …)"**, el código indica qué ajustar:
+
+| Código | Qué hacer |
+|---|---|
+| `clave_api_incorrecta` | La clave no es válida. Genera una **clave API** (empieza por `xkeysib-`, no `xsmtpsib-`) y pégala sin espacios en `BREVO_API_KEY` |
+| `ip_no_autorizada` | Brevo → Seguridad → IP autorizadas → desactiva el bloqueo |
+| `cuenta_sin_permiso` | La cuenta de Brevo aún no está validada, o la clave no tiene permiso para contactos |
+| `lista_no_encontrada` | Revisa el número de lista en `BREVO_LIST_ID` |
+| `plantilla_doi_no_valida` | La plantilla de `BREVO_DOI_TEMPLATE_ID` no está activa o no tiene el enlace `{{ doubleoptin }}` |
+
+Después de cambiar una variable en Vercel hay que volver a publicar (Redeploy). El detalle completo del error aparece en Vercel → el proyecto → **Logs**.
+
 **Para probarlo**, añade `?popup=1` a la dirección (p. ej. `tuweb.com/?popup=1`): se abre siempre, aunque ya lo hayas cerrado antes.
 
 **Si Brevo no está configurado, el popup no aparece en la web publicada**, para no pedir correos que no se guardarían. En local (`npm run dev`) sí aparece, para poder verlo, y los correos solo se escriben en la consola.

@@ -17,10 +17,11 @@ export async function submitNewsletter(
     body: JSON.stringify({ email, source, website }),
   });
   const json = (await res.json().catch(() => null)) as
-    | { ok?: boolean; error?: string; doubleOptIn?: boolean }
+    | { ok?: boolean; error?: string; code?: string; doubleOptIn?: boolean }
     | null;
   if (!res.ok || !json?.ok) {
-    throw new Error(json?.error ?? "No hemos podido apuntarte. Inténtalo de nuevo en un momento.");
+    const message = json?.error ?? "No hemos podido apuntarte. Inténtalo de nuevo en un momento.";
+    throw new Error(json?.code ? `${message} (código: ${json.code})` : message);
   }
   return { doubleOptIn: Boolean(json.doubleOptIn) };
 }
