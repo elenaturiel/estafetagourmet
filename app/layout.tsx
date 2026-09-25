@@ -43,7 +43,12 @@ export const viewport: Viewport = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${fraunces.variable} ${dmSans.variable}`}>
+    <html
+      lang="es"
+      // Next desactiva el scroll suave durante los cambios de página (ver globals.css).
+      data-scroll-behavior="smooth"
+      className={`${fraunces.variable} ${dmSans.variable}`}
+    >
       <body className="flex min-h-dvh flex-col">{children}</body>
     </html>
   );

@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { EMAIL_RE, inputClasses } from "@/components/forms/Field";
-import { consentStore } from "@/components/layout/consent";
 import { buttonClasses } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CheckCircleIcon, CloseIcon } from "@/components/ui/icons";
@@ -13,8 +12,8 @@ import { cn } from "@/lib/cn";
 import { submitNewsletter } from "@/lib/forms";
 import { markDismissed, markSubscribed, shouldShowPopup } from "./popup-store";
 
-/** Segundos que se espera, tras decidir sobre las cookies, antes de mostrarlo. */
-const DELAY_MS = 5000;
+/** Pequeña espera para que la página se pinte antes de que entre el popup. */
+const DELAY_MS = 800;
 /** Páginas donde no molestamos: comprando o buscando. */
 const EXCLUDED = ["/cesta", "/buscar"];
 
@@ -27,25 +26,21 @@ const perks = [
 /**
  * Popup de bienvenida para captar suscriptores.
  *
- * - Sale 5 s después de que la persona decida sobre las cookies (nunca se
- *   apilan dos capas a la vez) y una sola vez: si lo cierra no vuelve hasta
- *   dentro de 30 días, y si se suscribe no vuelve más.
- * - En móvil es una hoja inferior que no tapa toda la pantalla (Google
- *   penaliza los intersticiales que ocultan el contenido al entrar).
- * - <dialog> nativo: Esc lo cierra y el foco queda dentro.
+ * - Sale nada más entrar en la web. Si lo cierra no vuelve hasta dentro de
+ *   30 días, y si se suscribe no vuelve más.
+ * - Convive con la barra de cookies: se coloca justo encima de ella
+ *   (variable --cookie-h) y la barra sigue siendo usable, por eso el popup
+ *   no bloquea la página como un modal.
+ * - En móvil es una hoja inferior. Esc o el fondo oscuro lo cierran.
  */
 export function NewsletterPopup() {
   const pathname = usePathname();
-  const ref = useRef<HTMLDialogElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "confirmed">("idle");
   const [doubleOptIn, setDoubleOptIn] = useState(false);
   const [error, setError] = useState<string>();
-  const consent = useSyncExternalStore(
-    consentStore.subscribe,
-    consentStore.getSnapshot,
-    consentStore.getServerSnapshot,
-  );
 
   // Vuelta desde el correo de confirmación de Brevo (?suscrito=1).
   useEffect(() => {
@@ -54,25 +49,49 @@ export function NewsletterPopup() {
     markSubscribed();
     const id = window.setTimeout(() => {
       setStatus("confirmed");
-      ref.current?.showModal();
+      setOpen(true);
     }, 400);
     return () => window.clearTimeout(id);
   }, []);
 
   useEffect(() => {
-    if (consent === null || consent === "unknown") return; // aún se ve el banner de cookies
     if (EXCLUDED.some((p) => pathname.startsWith(p))) return;
     if (!shouldShowPopup()) return;
     const id = window.setTimeout(() => {
-      if (!ref.current?.open && shouldShowPopup()) ref.current?.showModal();
+      if (shouldShowPopup()) setOpen(true);
     }, DELAY_MS);
     return () => window.clearTimeout(id);
-  }, [consent, pathname]);
+  }, [pathname]);
 
-  const close = () => {
-    if (status === "idle" || status === "sending") markDismissed();
-    ref.current?.close();
-  };
+  // Cerrar sin suscribirse cuenta como "no, gracias" (no vuelve en 30 días).
+  const statusRef = useRef(status);
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+  const close = useCallback(() => {
+    if (statusRef.current === "idle" || statusRef.current === "sending") markDismissed();
+    setOpen(false);
+  }, []);
+
+  // Abierto: foco dentro, Esc cierra y la página de fondo no hace scroll.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.activeElement as HTMLElement | null;
+    panelRef.current?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    document.addEventListener("keydown", onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
+      previous?.focus?.({ preventScroll: true });
+    };
+  }, [open, close]);
+
+
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -96,17 +115,25 @@ export function NewsletterPopup() {
     }
   }
 
+  if (!open) return null;
+
   return (
-    <dialog
-      ref={ref}
+    <>
+      {/* Fondo oscuro: al pulsarlo se cierra. La barra de cookies queda por encima. */}
+      <div
+        aria-hidden="true"
+        onClick={close}
+        className="fixed inset-0 z-[60] animate-[fade-in_300ms_var(--ease-out)] bg-tinta/55"
+      />
+      <div className="pointer-events-none fixed inset-x-0 top-0 bottom-[var(--cookie-h,0px)] z-[70] flex items-end justify-center sm:items-center sm:p-6">
+    <div
+      ref={panelRef}
+      role="dialog"
       aria-labelledby="popup-title"
-      onCancel={() => markDismissed()}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) close();
-      }}
+      tabIndex={-1}
       className={cn(
-        "m-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-y-auto rounded-t-[20px] bg-crema p-0 text-tinta backdrop:bg-tinta/55 open:animate-rise",
-        "sm:m-auto sm:max-w-[820px] sm:rounded-eg",
+        "pointer-events-auto max-h-full w-full overflow-y-auto rounded-t-[20px] bg-crema text-tinta outline-none animate-rise",
+        "sm:max-h-[calc(100%-16px)] sm:max-w-[820px] sm:rounded-eg sm:shadow-[0_30px_60px_-30px_rgba(42,31,26,0.6)]",
       )}
     >
       <div className="grid sm:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
@@ -140,7 +167,7 @@ export function NewsletterPopup() {
                     ? "Te hemos enviado un correo: pulsa el enlace para confirmar (mira también en spam)."
                     : "Gracias. Serás de los primeros en enterarte de todo lo nuevo."}
               </p>
-              <button type="button" onClick={() => ref.current?.close()} className={cn(buttonClasses("primary", "md"), "mt-6")}>
+              <button type="button" onClick={() => setOpen(false)} className={cn(buttonClasses("primary", "md"), "mt-6")}>
                 Seguir mirando
               </button>
             </div>
@@ -232,6 +259,8 @@ export function NewsletterPopup() {
           )}
         </div>
       </div>
-    </dialog>
+    </div>
+      </div>
+    </>
   );
 }

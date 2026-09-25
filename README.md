@@ -157,9 +157,9 @@ Mientras Sanity no esté configurado, el blog muestra las entradas de ejemplo de
 
 Al entrar en la web aparece un popup del **Club Estafeta** que invita a dejar el correo para enterarse antes que nadie de lanzamientos, cestas de temporada y recetas:
 
-- **Cuándo sale.** 5 segundos después de que la persona decida sobre las cookies, para no tapar un aviso con otro. No sale en la cesta ni en la búsqueda.
+- **Cuándo sale.** Nada más entrar en la web (en menos de un segundo). No sale en la cesta ni en la búsqueda. La barra de cookies sigue visible y usable abajo, con el popup justo encima.
 - **Cuántas veces.** Si lo cierra, no vuelve a salir en 30 días. Si se suscribe, no vuelve a salir.
-- **En móvil** es una hoja inferior que no tapa toda la pantalla (Google penaliza los popups que ocultan el contenido al entrar).
+- **En móvil** sale como una hoja desde abajo. Ojo: Google puede posicionar algo peor en móvil las páginas cuyo popup tapa el contenido nada más entrar. Si lo notas, sube `DELAY_MS` en `components/newsletter/NewsletterPopup.tsx`.
 
 Los correos se guardan en **Brevo** (brevo.com), un servicio europeo con plan gratuito. Desde Brevo se envían las campañas (lanzamientos, novedades) y los correos automáticos (bienvenida, recordatorios). El formulario de la portada usa el mismo sistema.
 

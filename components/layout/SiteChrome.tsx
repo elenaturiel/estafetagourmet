@@ -10,6 +10,7 @@ import { Analytics, CookieBanner } from "./CookieBanner";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { ScrollReveal } from "./ScrollReveal";
+import { ScrollToTop } from "./ScrollToTop";
 import { TopBar } from "./TopBar";
 
 /** Estructura común de la web pública: barra superior, cabecera, pie y capas. */
@@ -39,6 +40,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       <Footer />
       <CartDrawer />
       <ScrollReveal />
+      <ScrollToTop />
       <CookieBanner />
       {isNewsletterEnabled() ? <NewsletterPopup /> : null}
       <Analytics />
