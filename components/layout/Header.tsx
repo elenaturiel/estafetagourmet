@@ -320,24 +320,33 @@ function MegaMenu({
       <div className="container-site grid grid-cols-[minmax(0,1fr)_220px_300px] gap-10 py-8">
         <div>
           <p className="eyebrow mb-4 text-[12px] text-vino">Compra por categoría</p>
-          <ul className="grid grid-cols-6 gap-4">
+          {/*
+            Al pasar el ratón (o con el foco del teclado) la categoría crece y
+            sube, su foto hace zoom y se enmarca en vino; el resto se atenúa
+            para que se note cuál está señalada. 200 ms con curva ease-out.
+          */}
+          <ul className="group/cats grid grid-cols-6 gap-4">
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link
                   href={`/tienda/${c.slug}`}
                   onClick={onNavigate}
-                  className="group block text-center"
+                  className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06] motion-reduce:transform-none!"
                 >
-                  <div className="arch overflow-hidden">
+                  <div className="arch overflow-hidden ring-vino ring-offset-2 ring-offset-crema transition-shadow duration-200 ease-out group-hover:ring-2 group-focus-visible:ring-2">
                     <ImagePlaceholder
                       label=""
                       src={c.src}
                       ratio="3 / 4"
-                      className="transition-transform duration-500 group-hover:scale-[1.04]"
+                      className="transition-transform duration-300 ease-out group-hover:scale-110 group-focus-visible:scale-110 motion-reduce:transform-none!"
                     />
                   </div>
-                  <span className="mt-2 block font-serif text-[16px] leading-tight group-hover:text-vino">
+                  <span className="mt-3 inline-block font-serif text-[16px] leading-tight transition-colors duration-200 group-hover:text-vino group-focus-visible:text-vino">
                     {c.name}
+                    <span
+                      aria-hidden="true"
+                      className="mx-auto mt-1 block h-0.5 w-full origin-center scale-x-0 bg-vino transition-transform duration-200 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                    />
                   </span>
                 </Link>
               </li>
@@ -352,7 +361,7 @@ function MegaMenu({
                 <Link
                   href={o.href}
                   onClick={onNavigate}
-                  className="inline-flex min-h-[36px] items-center text-[15px] hover:text-vino hover:underline"
+                  className="inline-flex min-h-[36px] items-center text-[15px] transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-vino focus-visible:translate-x-1 focus-visible:text-vino motion-reduce:transform-none!"
                 >
                   {o.name}
                 </Link>
@@ -374,7 +383,13 @@ function MegaMenu({
           onClick={onNavigate}
           className="group relative block overflow-hidden bg-vino text-crema"
         >
-          <ImagePlaceholder label="Foto · Cesta Estafeta" ratio="16 / 9" />
+          <div className="overflow-hidden">
+            <ImagePlaceholder
+              label="Foto · Cesta Estafeta"
+              ratio="16 / 9"
+              className="transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transform-none!"
+            />
+          </div>
           <div className="p-5">
             <p className="eyebrow text-[11px] text-dorado">Cesta de la casa</p>
             <p className="mt-1 font-serif text-[22px] leading-tight">Cesta Estafeta</p>
