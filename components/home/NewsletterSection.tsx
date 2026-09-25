@@ -9,7 +9,7 @@ export function NewsletterSection() {
         text="Novedades de temporada · Estafeta Gourmet · "
         className="absolute -top-10 -right-10 hidden w-[180px] opacity-90 lg:block"
       />
-      <div className="container-site relative text-center">
+      <div data-reveal className="container-site relative text-center">
         <p className="eyebrow text-vino">Newsletter</p>
         <h2
           id="newsletter-title"

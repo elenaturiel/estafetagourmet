@@ -37,6 +37,11 @@
 
   /* Contenedor */
   --container-site: 1440px;
+
+  /* Curvas de animación (más marcadas que las de serie) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -135,7 +140,7 @@
 @theme {
   --animate-marquee: marquee 40s linear infinite;
   --animate-spin-slow: spin 28s linear infinite;
-  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-rise: rise 0.5s var(--ease-out) both;
 
   @keyframes marquee {
     from {
@@ -181,5 +186,141 @@
 
   & > * {
     scroll-snap-align: start;
+  }
+}
+
+/* ——— Movimiento al hacer scroll ———
+ *
+ * 1. Aparición: los elementos con [data-reveal] entran suavemente la primera
+ *    vez que se ven (components/layout/ScrollReveal.tsx añade data-visible).
+ *    Solo se ocultan si hay JavaScript, para no dejar nada invisible.
+ * 2. Parallax: .parallax-media desplaza la foto dentro de su marco mientras
+ *    se hace scroll. Va ligado al scroll con CSS (fuera del hilo principal).
+ * 3. Carruseles: en .rail-focus las tarjetas crecen al llegar al centro.
+ * 4. Profundidad: .drift-up/.drift-down mueven piezas del hero a distinta
+ *    velocidad que el resto.
+ * Con "reducir movimiento" solo queda un fundido de opacidad.
+ */
+
+html {
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (scripting: enabled) {
+  [data-reveal] {
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 700ms var(--ease-out);
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+
+  [data-reveal]:not([data-visible]) {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  /* Fotos grandes: se descubren de abajo arriba, como una persiana. El
+     recorte va en el hijo para que el observer siga viendo el contenedor. */
+  [data-reveal="clip"],
+  [data-reveal="clip"]:not([data-visible]) {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal="clip"] > * {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 900ms var(--ease-in-out);
+  }
+
+  [data-reveal="clip"]:not([data-visible]) > * {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    [data-reveal="clip"] {
+      transition: opacity 400ms ease;
+      transition-delay: 0ms;
+    }
+
+    [data-reveal]:not([data-visible]),
+    [data-reveal="clip"]:not([data-visible]) {
+      transform: none;
+      opacity: 0;
+    }
+
+    [data-reveal="clip"] > *,
+    [data-reveal="clip"]:not([data-visible]) > * {
+      clip-path: none;
+    }
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax-media {
+      animation: parallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    .drift-up,
+    .drift-down {
+      animation: linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    .drift-up {
+      animation-name: drift-up;
+    }
+
+    .drift-down {
+      animation-name: drift-down;
+    }
+
+    @keyframes parallax {
+      from {
+        transform: translateY(-7%) scale(1.15);
+      }
+      to {
+        transform: translateY(7%) scale(1.15);
+      }
+    }
+
+    @keyframes drift-up {
+      to {
+        transform: translateY(-90px);
+      }
+    }
+
+    @keyframes drift-down {
+      to {
+        transform: translateY(60px) rotate(-12deg);
+      }
+    }
+  }
+
+  /* Carruseles táctiles: la tarjeta centrada se ve plena, las de los bordes algo más pequeñas. */
+  @media (prefers-reduced-motion: no-preference) and (width < 64rem) {
+    .rail-focus > * > * {
+      animation: rail-focus linear both;
+      animation-timeline: view(inline);
+    }
+
+    @keyframes rail-focus {
+      0% {
+        transform: scale(0.9);
+      }
+      35%,
+      65% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0.9);
+      }
+    }
   }
 }

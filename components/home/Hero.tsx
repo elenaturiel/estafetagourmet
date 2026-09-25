@@ -62,13 +62,14 @@ export function Hero({ featuredGift }: { featuredGift?: GiftBox }) {
               ratio="4 / 5"
               sizes="(min-width: 1024px) 45vw, 100vw"
               priority
+              parallax
             />
           </div>
-          <Stamp className="absolute -top-4 -left-4 w-[112px] sm:w-[136px] lg:-left-12 lg:w-[150px]" />
+          <Stamp className="drift-down absolute -top-4 -left-4 w-[112px] sm:w-[136px] lg:-left-12 lg:w-[150px]" />
           {featuredGift ? (
             <Link
               href={`/regalos#${featuredGift.slug}`}
-              className="group absolute right-0 bottom-0 flex w-[250px] items-center gap-3 rounded-eg border border-linea bg-papel p-3 shadow-[0_20px_40px_-20px_rgba(42,31,26,0.35)] sm:-right-4 lg:-right-8 lg:bottom-12"
+              className="drift-up group absolute right-0 bottom-0 flex w-[250px] items-center gap-3 rounded-eg border border-linea bg-papel p-3 shadow-[0_20px_40px_-20px_rgba(42,31,26,0.35)] sm:-right-4 lg:-right-8 lg:bottom-12"
             >
               <ImagePlaceholder label="" src={featuredGift.image.src} ratio="1 / 1" className="w-16 shrink-0" />
               <span className="min-w-0">

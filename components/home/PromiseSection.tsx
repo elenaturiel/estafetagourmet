@@ -27,7 +27,7 @@ export function PromiseSection() {
         <h2 id="promesa-title" className="sr-only">
           Por qué comprar en Estafeta Gourmet
         </h2>
-        <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
+        <ol data-reveal-stagger className="grid gap-10 md:grid-cols-3 md:gap-8">
           {promises.map(({ Icon, title, text }, i) => (
             <li key={title} className="relative">
               <span

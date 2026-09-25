@@ -14,7 +14,7 @@ export async function ProducersSection({ headingId = "productores-title" }: { he
         subtitle="Pequeños productores navarros, con nombre y apellidos."
         action={<ArrowLink href="/productores">Ver todos los productores</ArrowLink>}
       />
-      <ul className="rail -mx-6 auto-cols-[62%] gap-5 px-6 sm:auto-cols-[40%] lg:mx-0 lg:grid-flow-row lg:grid-cols-4 lg:gap-8 lg:overflow-visible lg:px-0">
+      <ul data-reveal-stagger className="rail rail-focus -mx-6 auto-cols-[62%] gap-5 px-6 sm:auto-cols-[40%] lg:mx-0 lg:grid-flow-row lg:grid-cols-4 lg:gap-8 lg:overflow-visible lg:px-0">
         {producers.map((p) => (
           <li key={p.slug}>
             <ProducerCard producer={p} />

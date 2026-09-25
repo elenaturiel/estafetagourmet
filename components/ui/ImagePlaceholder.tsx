@@ -14,6 +14,8 @@ type Props = {
   /** Atributo `sizes` para next/image. */
   sizes?: string;
   priority?: boolean;
+  /** La foto se desliza dentro del marco al hacer scroll (ver .parallax-media). */
+  parallax?: boolean;
 };
 
 /**
@@ -29,6 +31,7 @@ export function ImagePlaceholder({
   className,
   sizes = "(min-width: 1024px) 33vw, 100vw",
   priority,
+  parallax,
 }: Props) {
   return (
     <div
@@ -36,22 +39,31 @@ export function ImagePlaceholder({
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {src ? (
-        <Image
-          src={src}
-          alt={alt ?? ""}
-          fill
-          sizes={sizes}
-          priority={priority}
-          className="object-cover"
-        />
+        <div className={cn("absolute inset-0", parallax && "parallax-media")}>
+          <Image
+            src={src}
+            alt={alt ?? ""}
+            fill
+            sizes={sizes}
+            priority={priority}
+            className="object-cover"
+          />
+        </div>
       ) : (
-        <span
-          role={alt ? "img" : undefined}
-          aria-label={alt}
-          className="absolute inset-0 flex items-end p-3 text-[12px] leading-tight text-secundario"
-        >
-          <span aria-hidden={alt ? "true" : undefined}>{label}</span>
-        </span>
+        <>
+          {/* Capa de fondo: con foto real es la que se desplaza en el parallax. */}
+          <div
+            aria-hidden="true"
+            className={cn("absolute inset-0 bg-placeholder", parallax && "parallax-media")}
+          />
+          <span
+            role={alt ? "img" : undefined}
+            aria-label={alt}
+            className="absolute inset-0 flex items-end p-3 text-[12px] leading-tight text-secundario"
+          >
+            <span aria-hidden={alt ? "true" : undefined}>{label}</span>
+          </span>
+        </>
       )}
     </div>
   );

@@ -15,7 +15,7 @@ export async function GiftsBand() {
       />
       <div className="container-site relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:items-center lg:gap-14">
-          <div>
+          <div data-reveal>
             <p className="eyebrow text-dorado">Regalos y cestas</p>
             <h2
               id="regalos-title"
@@ -40,7 +40,7 @@ export async function GiftsBand() {
               </ButtonLink>
             </div>
           </div>
-          <ul className="rail -mx-6 auto-cols-[78%] gap-4 px-6 sm:auto-cols-[46%] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0">
+          <ul data-reveal-stagger className="rail rail-focus -mx-6 auto-cols-[78%] gap-4 px-6 sm:auto-cols-[46%] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0">
             {gifts.map((g) => (
               <li key={g.slug}>
                 <GiftCard gift={g} />
@@ -52,7 +52,7 @@ export async function GiftsBand() {
         {/* Regalos por ocasión */}
         <div className="mt-16 border-t border-crema/20 pt-10 lg:mt-20">
           <h3 className="font-serif text-[24px] lg:text-[28px]">¿Qué celebras?</h3>
-          <ul className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+          <ul data-reveal-stagger className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {occasions.map((o) => (
               <li key={o.slug}>
                 <Link href={o.href} className="group flex items-center gap-4">

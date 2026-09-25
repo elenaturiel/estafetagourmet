@@ -12,6 +12,7 @@ export function ProducerCard({ producer }: { producer: Producer }) {
           alt={producer.image.src ? producer.image.alt : undefined}
           ratio="3 / 4"
           sizes="(min-width: 1024px) 25vw, 60vw"
+          parallax
           className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
       </div>

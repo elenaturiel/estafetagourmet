@@ -61,7 +61,10 @@ lib/
 - **Cabecera fija** con el sello centrado, buscador y mega menú de la tienda (categorías, regalos por ocasión y una cesta destacada).
 - **Cajón de la cesta**: se abre al añadir un producto, con la barra de envío gratis.
 - **Recursos de marca**: fotos en **arco** (utilidad `arch`, un guiño a los soportales del casco viejo), **sello giratorio** (`components/ui/Stamp.tsx`), **cinta** de productos (`Marquee`), **etiquetas** tipo pegatina (`sticker`) y **carruseles** táctiles en móvil (`rail`).
-- Las animaciones se desactivan si el sistema pide reducir el movimiento.
+- **Movimiento al hacer scroll** (portada): las secciones aparecen con un escalonado suave, las fotos se deslizan dentro de su marco (parallax), la foto de la tienda se descubre como una persiana, el sello y la tarjeta del hero se mueven a otra velocidad, y en los carruseles del móvil la tarjeta centrada se ve plena y las de los bordes algo más pequeñas.
+  - Uso: `data-reveal` en un elemento, `data-reveal-stagger` en una lista, `data-reveal="clip"` para la persiana y `parallax` en `ImagePlaceholder`.
+  - CSS nativo ligado al scroll (`animation-timeline`), sin librerías. En navegadores sin soporte simplemente no hay parallax.
+  - Si el sistema pide reducir el movimiento, solo quedan fundidos suaves.
 
 Los colores y las fuentes son tokens de Tailwind definidos en `app/globals.css` (`bg-crema`, `text-vino`, `border-linea`…).
 

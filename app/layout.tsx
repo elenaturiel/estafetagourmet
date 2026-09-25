@@ -4,6 +4,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { Analytics, CookieBanner } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { ScrollReveal } from "@/components/layout/ScrollReveal";
 import { TopBar } from "@/components/layout/TopBar";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL, site } from "@/data/site";
@@ -71,6 +72,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </main>
         <Footer />
         <CartDrawer />
+        <ScrollReveal />
         <CookieBanner />
         <Analytics />
         <JsonLd data={localBusinessJsonLd()} />

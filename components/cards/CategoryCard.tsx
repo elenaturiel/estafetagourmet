@@ -13,6 +13,7 @@ export function CategoryCard({ category, count }: { category: Category; count?: 
           alt={category.image.src ? category.image.alt : undefined}
           ratio="3 / 4"
           sizes="(min-width: 1024px) 16vw, 45vw"
+          parallax
           className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
         />
       </div>

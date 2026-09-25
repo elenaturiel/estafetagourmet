@@ -18,7 +18,7 @@ export async function ReviewsSection() {
           </p>
         }
       />
-      <ul tabIndex={0} aria-label="Reseñas de clientes" className="rail -mx-6 auto-cols-[85%] gap-4 px-6 md:mx-0 md:grid-flow-row md:grid-cols-3 md:overflow-visible md:px-0 lg:gap-6">
+      <ul tabIndex={0} aria-label="Reseñas de clientes" data-reveal-stagger className="rail rail-focus -mx-6 auto-cols-[85%] gap-4 px-6 md:mx-0 md:grid-flow-row md:grid-cols-3 md:overflow-visible md:px-0 lg:gap-6">
         {reviews.map((r) => (
           <li key={r.id}>
             <ReviewCard review={r} />

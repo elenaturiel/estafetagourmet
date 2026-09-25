@@ -14,7 +14,7 @@ export async function BlogSection() {
         subtitle="Notas de temporada, maridajes y el trabajo de nuestros productores."
         action={<ArrowLink href="/blog">Ver todo el blog</ArrowLink>}
       />
-      <ul className="grid gap-10 md:grid-cols-3 md:gap-5">
+      <ul data-reveal-stagger className="grid gap-10 md:grid-cols-3 md:gap-5">
         {posts.map((p) => (
           <li key={p.slug}>
             <PostCard post={p} />

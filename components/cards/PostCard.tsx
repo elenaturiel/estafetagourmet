@@ -12,6 +12,7 @@ export function PostCard({ post }: { post: Post }) {
         alt={post.image.src ? post.image.alt : undefined}
         ratio="16 / 10"
         sizes="(min-width: 1024px) 33vw, 100vw"
+        parallax
       />
       <p className="eyebrow mt-5 text-[12px] text-vino">{post.category}</p>
       <h3 className="mt-2 text-[20px] leading-snug lg:text-[22px]">{post.title}</h3>

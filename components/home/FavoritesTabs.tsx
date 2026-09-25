@@ -68,7 +68,7 @@ export function FavoritesTabs({
       <div role="tabpanel" id={`${id}-panel`} aria-labelledby={`${id}-tab-${active}`}>
         <ul
           key={current.key}
-          className="rail -mx-6 auto-cols-[72%] gap-4 px-6 sm:auto-cols-[42%] lg:mx-0 lg:grid-flow-row lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:px-0"
+          className="rail rail-focus -mx-6 auto-cols-[72%] gap-4 px-6 sm:auto-cols-[42%] lg:mx-0 lg:grid-flow-row lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:px-0"
         >
           {current.products.map((p, i) => (
             <li key={p.slug} className="animate-rise" style={{ animationDelay: `${i * 60}ms` }}>

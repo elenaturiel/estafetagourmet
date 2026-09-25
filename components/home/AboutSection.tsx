@@ -8,13 +8,16 @@ export function AboutSection() {
     <Section tone="papel" aria-labelledby="quienes-title">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,640px)_minmax(0,1fr)] lg:items-center lg:gap-20">
         <div className="relative">
+          <div data-reveal="clip">
           <ImagePlaceholder
             label="Foto de la tienda · interior, calle Estafeta 70"
             alt="Interior de la tienda Estafeta Gourmet en la calle Estafeta, 70"
             ratio="640 / 440"
             sizes="(min-width: 1024px) 640px, 100vw"
             className="rounded-eg"
+            parallax
           />
+          </div>
           <div className="arch absolute -right-3 -bottom-10 hidden w-[180px] overflow-hidden border-[6px] border-papel sm:block lg:-right-10">
             <ImagePlaceholder label="Detalle · estantería" ratio="3 / 4" />
           </div>
@@ -23,7 +26,7 @@ export function AboutSection() {
             className="absolute -top-8 -left-4 w-[110px] lg:w-[130px]"
           />
         </div>
-        <div className="max-w-xl">
+        <div data-reveal className="max-w-xl">
           <Eyebrow>Quiénes somos</Eyebrow>
           <h2
             id="quienes-title"
