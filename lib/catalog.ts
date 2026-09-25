@@ -16,6 +16,7 @@ import { producers } from "@/data/producers";
 import { products } from "@/data/products";
 import { occasions } from "@/data/occasions";
 import { reviews } from "@/data/reviews";
+import { getSanityPosts } from "@/lib/sanity/posts";
 import type { Category, GiftBox, Occasion, Post, Producer, Product, Review } from "@/lib/types";
 
 export async function getCategories(): Promise<Category[]> {
@@ -70,8 +71,18 @@ export async function getGiftBoxes(): Promise<GiftBox[]> {
   return giftBoxes;
 }
 
+/**
+ * Entradas del blog. Si Sanity está configurado se leen del panel /admin
+ * (lo que escribe la dueña de la tienda); si no, de data/posts.ts.
+ */
 export async function getPosts(limit?: number): Promise<Post[]> {
-  return typeof limit === "number" ? posts.slice(0, limit) : posts;
+  const list = (await getSanityPosts()) ?? posts;
+  return typeof limit === "number" ? list.slice(0, limit) : list;
+}
+
+export async function getPost(slug: string): Promise<Post | undefined> {
+  const list = (await getSanityPosts()) ?? posts;
+  return list.find((p) => p.slug === slug);
 }
 
 export async function getReviews(): Promise<Review[]> {

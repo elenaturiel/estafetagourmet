@@ -5,6 +5,7 @@ import { useId, useRef, useState, type FormEvent } from "react";
 import { EMAIL_RE, inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
 import { submitNewsletter } from "@/lib/forms";
+import { markSubscribed } from "@/components/newsletter/popup-store";
 
 export function NewsletterForm() {
   const id = useId();
@@ -23,8 +24,14 @@ export function NewsletterForm() {
     }
     setError(undefined);
     setStatus("sending");
-    await submitNewsletter(email);
-    setStatus("done");
+    try {
+      await submitNewsletter(email, "portada");
+      markSubscribed();
+      setStatus("done");
+    } catch (err) {
+      setError((err as Error).message);
+      setStatus("idle");
+    }
   }
 
   if (status === "done") {

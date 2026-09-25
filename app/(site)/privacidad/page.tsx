@@ -20,7 +20,10 @@ export default function Page() {
       <ul>
         <li>Pedidos: nombre, dirección, correo y teléfono para gestionar y enviar tu compra.</li>
         <li>Formulario de contacto: nombre, correo y mensaje para responderte.</li>
-        <li>Newsletter: tu correo para enviarte novedades, solo si te suscribes.</li>
+        <li>
+          Newsletter (Club Estafeta): tu correo para enviarte novedades, lanzamientos y recordatorios,
+          solo si te suscribes. Puedes darte de baja desde el enlace de cualquier correo.
+        </li>
       </ul>
       <h2>Base legal</h2>
       <p>
@@ -31,8 +34,9 @@ export default function Page() {
       <p>[Plazos de conservación de cada tipo de dato.]</p>
       <h2>Destinatarios</h2>
       <p>
-        [Proveedores que tratan datos por cuenta de la tienda: plataforma de comercio electrónico,
-        pasarela de pago, empresa de transporte, herramienta de newsletter, alojamiento web…]
+        Brevo (Sendinblue SAS, Francia) para el envío de la newsletter. [Resto de proveedores que
+        tratan datos por cuenta de la tienda: plataforma de comercio electrónico, pasarela de pago,
+        empresa de transporte, alojamiento web…]
       </p>
       <h2>Tus derechos</h2>
       <p>

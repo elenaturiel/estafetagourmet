@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   },
 };
 
+/** La portada muestra las últimas entradas del blog: se refresca cada 5 minutos. */
+export const revalidate = 300;
+
 export default async function Home() {
   const gifts = await getGiftBoxes();
   return (

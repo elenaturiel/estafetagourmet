@@ -27,6 +27,10 @@ function canonicalHostRedirects() {
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: {
+    // Fotos que la dueña sube al blog desde el panel (Sanity).
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+  },
   async redirects() {
     return canonicalHostRedirects();
   },

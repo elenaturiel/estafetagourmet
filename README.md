@@ -123,6 +123,58 @@ Los componentes nunca leen `/data` directamente, siempre pasan por `lib/catalog.
 4. **Pago.** El botón "Finalizar pedido" de `components/cart/CartView.tsx` debe redirigir a `cart.checkoutUrl`, el checkout alojado por Shopify.
 5. **Actualización.** Si los datos vienen de una API, añade revalidación (`revalidate` o webhooks de Shopify) para que las páginas estáticas se actualicen.
 
+## Blog: panel para escribir entradas
+
+La dueña de la tienda escribe las entradas desde **`/admin`** (p. ej. `www.tudominio.com/admin`) con **Sanity**, un editor visual que se abre desde la propia web y funciona en ordenador y en móvil. Puede poner título, categoría, foto principal, texto con subtítulos, citas y más fotos. Al pulsar **Publish** la entrada aparece en el blog y en la portada.
+
+**Solo entra quien está invitado al proyecto.** `/admin` pide iniciar sesión con Google, GitHub o correo y contraseña, y únicamente acepta a los miembros del proyecto de Sanity. Cualquier otra persona ve la pantalla de acceso y no puede entrar. Además, `/admin` no aparece en Google.
+
+### Puesta en marcha (una vez, unos 10 minutos)
+
+1. Entra en **sanity.io** y crea una cuenta gratuita (el plan gratis sobra para un blog).
+2. Crea un proyecto nuevo (**Create new project**), p. ej. "Estafeta Gourmet", con el dataset **production**. Copia el **Project ID**.
+3. En Vercel → tu proyecto → **Settings → Environment Variables**, añade:
+   - `NEXT_PUBLIC_SANITY_PROJECT_ID` = el Project ID
+   - `NEXT_PUBLIC_SANITY_DATASET` = `production`
+4. En **sanity.io/manage** → tu proyecto → **API → CORS origins**, añade la dirección de la web (p. ej. `https://www.tudominio.com`) marcando **Allow credentials**. Añade también `http://localhost:3000` si vas a probar en local.
+5. En **Members**, invita a la dueña con su correo y rol **Editor** (o **Administrator** si también gestionará el proyecto). Nadie más necesita acceso.
+6. Vuelve a publicar la web en Vercel. Ya puede entrar en `/admin`.
+
+**Publicación al momento (recomendado).** Sin este paso, las entradas nuevas tardan hasta 5 minutos en aparecer.
+
+1. Inventa una clave larga y añádela en Vercel como `SANITY_REVALIDATE_SECRET`.
+2. En sanity.io/manage → **API → Webhooks → Create webhook**:
+   - **URL:** `https://www.tudominio.com/api/revalidate`
+   - **Dataset:** production
+   - **Trigger on:** Create, Update y Delete
+   - **Filter:** `_type == "post"`
+   - **Projection:** `{_type, slug}`
+   - **Secret:** la misma clave.
+
+Mientras Sanity no esté configurado, el blog muestra las entradas de ejemplo de `data/posts.ts` y `/admin` explica qué falta.
+
+## Newsletter y popup de bienvenida
+
+Al entrar en la web aparece un popup del **Club Estafeta** que invita a dejar el correo para enterarse antes que nadie de lanzamientos, cestas de temporada y recetas:
+
+- **Cuándo sale.** 5 segundos después de que la persona decida sobre las cookies, para no tapar un aviso con otro. No sale en la cesta ni en la búsqueda.
+- **Cuántas veces.** Si lo cierra, no vuelve a salir en 30 días. Si se suscribe, no vuelve a salir.
+- **En móvil** es una hoja inferior que no tapa toda la pantalla (Google penaliza los popups que ocultan el contenido al entrar).
+
+Los correos se guardan en **Brevo** (brevo.com), un servicio europeo con plan gratuito. Desde Brevo se envían las campañas (lanzamientos, novedades) y los correos automáticos (bienvenida, recordatorios). El formulario de la portada usa el mismo sistema.
+
+### Puesta en marcha
+
+1. Crea una cuenta en **brevo.com**.
+2. **Contactos → Listas → Crear lista**, p. ej. "Club Estafeta". Anota su número (ID).
+3. **Contactos → Ajustes → Atributos de contacto**: crea el atributo de texto `ORIGEN` para saber si cada persona se apuntó desde el popup o la portada. Es opcional.
+4. **Doble confirmación (recomendado):** en **Plantillas**, crea una plantilla de tipo "Double opt-in" ("Confirma tu suscripción"). Anota su ID. Así solo entran correos reales y la lista cumple mejor el RGPD.
+5. **Ajustes → SMTP y API → Claves API → Generar**.
+6. En Vercel añade `BREVO_API_KEY`, `BREVO_LIST_ID` y, si lo hiciste, `BREVO_DOI_TEMPLATE_ID`. Vuelve a publicar.
+7. **Automatizaciones:** en Brevo → **Automations**, crea p. ej. "Bienvenida" (se envía al entrar en la lista) y los recordatorios que quieras.
+
+**Si Brevo no está configurado, el popup no aparece en la web publicada**, para no pedir correos que no se guardarían. En local (`npm run dev`) sí aparece, para poder verlo, y los correos solo se escriben en la consola.
+
 ## Idiomas
 
 Hoy solo se publica el español, sin prefijo en la URL. El selector "ES · EN" muestra EN desactivado. Para activar el inglés:

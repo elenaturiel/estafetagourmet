@@ -1,16 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
-import { CartDrawer } from "@/components/cart/CartDrawer";
-import { Analytics, CookieBanner } from "@/components/layout/CookieBanner";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
-import { ScrollReveal } from "@/components/layout/ScrollReveal";
-import { TopBar } from "@/components/layout/TopBar";
-import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL, site } from "@/data/site";
-import { getCategories, getOccasions } from "@/lib/catalog";
-import { t } from "@/lib/i18n";
-import { localBusinessJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -46,37 +36,15 @@ export const viewport: Viewport = {
   themeColor: "#F6F0E4",
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [categories, occasions] = await Promise.all([getCategories(), getOccasions()]);
+/**
+ * Layout raíz: solo fuentes, metadatos y <html>/<body>.
+ * La estructura de la web pública (cabecera, pie, cesta…) está en
+ * app/(site)/layout.tsx; el panel del blog (/admin) no la usa.
+ */
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${fraunces.variable} ${dmSans.variable}`}>
-      <body className="flex min-h-dvh flex-col">
-        <a
-          href="#contenido"
-          className="sr-only z-[60] rounded-eg bg-vino px-4 py-3 font-semibold text-crema focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-        >
-          {t.skipToContent}
-        </a>
-        <TopBar />
-        <Header
-          categories={categories.map((c) => ({
-            slug: c.slug,
-            name: c.name,
-            placeholder: c.image.placeholder,
-            src: c.image.src,
-          }))}
-          occasions={occasions.map((o) => ({ slug: o.slug, name: o.name, href: o.href }))}
-        />
-        <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">
-          {children}
-        </main>
-        <Footer />
-        <CartDrawer />
-        <ScrollReveal />
-        <CookieBanner />
-        <Analytics />
-        <JsonLd data={localBusinessJsonLd()} />
-      </body>
+      <body className="flex min-h-dvh flex-col">{children}</body>
     </html>
   );
 }

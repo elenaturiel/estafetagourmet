@@ -30,7 +30,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 ## Contenido
 
 - [ ] **Reseñas reales de Google** (`data/reviews.ts`), copiadas con nombre y fecha. No inventarlas.
-- [ ] **Artículos del blog** (`data/posts.ts`): textos, fechas, el nombre del "productor del mes" y las páginas individuales `/blog/[slug]`.
+- [ ] **Artículos del blog:** se escriben desde `/admin` cuando Sanity esté configurado. Las entradas de `data/posts.ts` son solo de ejemplo y dejan de mostrarse en cuanto Sanity está conectado.
 - [ ] **Página "Nuestra historia".** Hoy "Conoce nuestra historia" enlaza a `/visitanos`.
 - [ ] **Imagen para compartir en redes (Open Graph).** Añadir `app/opengraph-image.jpg` (1200×630).
 - [ ] **Favicon** con la marca (`app/favicon.ico` e `app/icon.png`).
@@ -48,5 +48,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 
 - [ ] **Pago.** Conectar Shopify y el checkout; ver README → "Conectar Shopify". Hoy "Finalizar pedido" está desactivado e invita a llamar.
 - [ ] **Formulario de contacto.** Hoy solo simula el envío (`lib/forms.ts → submitContact`). Conectarlo a un servicio de correo.
-- [ ] **Newsletter.** Hoy solo simula la suscripción (`lib/forms.ts → submitNewsletter`). Conectarla a Shopify, Mailchimp, Brevo…
+- [ ] **Newsletter y popup:** crear la cuenta de Brevo y añadir las variables. Ver README → "Newsletter y popup de bienvenida". Hasta entonces el popup no aparece en la web publicada.
+- [ ] **Panel del blog:** crear el proyecto de Sanity, añadir las variables e invitar a la dueña. Ver README → "Blog: panel para escribir entradas".
+- [ ] **Foto del popup** de la newsletter (`components/newsletter/NewsletterPopup.tsx`).
 - [ ] **Analítica.** Elegir la herramienta y cargarla en `Analytics` (`components/layout/CookieBanner.tsx`), solo con consentimiento. Actualizar `/cookies` con las cookies reales.

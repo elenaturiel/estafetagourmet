@@ -10,6 +10,9 @@ export const metadata = pageMetadata({
   path: "/blog",
 });
 
+/** Las entradas nuevas del panel aparecen sin volver a publicar la web. */
+export const revalidate = 300;
+
 export default async function BlogPage() {
   const posts = await getPosts();
   return (
@@ -21,7 +24,6 @@ export default async function BlogPage() {
       />
       <div className="container-site pb-16 lg:pb-24">
         <h2 className="sr-only">Artículos</h2>
-        {/* TODO: crear páginas individuales /blog/[slug] cuando haya artículos escritos. */}
         <ul className="grid gap-10 md:grid-cols-3 md:gap-5">
           {posts.map((p) => (
             <li key={p.slug}>

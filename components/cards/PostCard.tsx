@@ -3,9 +3,9 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import type { Post } from "@/lib/types";
 
 export function PostCard({ post }: { post: Post }) {
-  const href = `/blog#${post.slug}`;
+  const href = `/blog/${post.slug}`;
   return (
-    <article id={post.slug} className="group relative">
+    <article className="group relative">
       <ImagePlaceholder
         label={post.image.placeholder}
         src={post.image.src}

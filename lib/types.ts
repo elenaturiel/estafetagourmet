@@ -95,9 +95,15 @@ export type Post = {
   category: string;
   title: string;
   excerpt: string;
+  /** Fecha ISO de publicación. */
   date: string | null;
   image: Image;
+  /** Cuerpo en Portable Text (Sanity). Vacío en las entradas de ejemplo. */
+  body?: PortableBlock[];
 };
+
+/** Bloque de texto enriquecido de Sanity (Portable Text), sin tipar en detalle. */
+export type PortableBlock = { _type: string; _key: string; [key: string]: unknown };
 
 export type Review = {
   id: string;
