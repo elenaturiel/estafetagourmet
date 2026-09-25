@@ -173,6 +173,8 @@ Los correos se guardan en **Brevo** (brevo.com), un servicio europeo con plan gr
 6. En Vercel añade `BREVO_API_KEY`, `BREVO_LIST_ID` y, si lo hiciste, `BREVO_DOI_TEMPLATE_ID`. Vuelve a publicar.
 7. **Automatizaciones:** en Brevo → **Automations**, crea p. ej. "Bienvenida" (se envía al entrar en la lista) y los recordatorios que quieras.
 
+**Para probarlo**, añade `?popup=1` a la dirección (p. ej. `tuweb.com/?popup=1`): se abre siempre, aunque ya lo hayas cerrado antes.
+
 **Si Brevo no está configurado, el popup no aparece en la web publicada**, para no pedir correos que no se guardarían. En local (`npm run dev`) sí aparece, para poder verlo, y los correos solo se escriben en la consola.
 
 ## Idiomas

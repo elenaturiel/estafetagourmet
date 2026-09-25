@@ -55,6 +55,12 @@ export function NewsletterPopup() {
   }, []);
 
   useEffect(() => {
+    // Prueba: ?popup=1 lo abre siempre, aunque ya se haya cerrado o suscrito.
+    const forced = new URLSearchParams(window.location.search).get("popup") === "1";
+    if (forced) {
+      const id = window.setTimeout(() => setOpen(true), DELAY_MS);
+      return () => window.clearTimeout(id);
+    }
     if (EXCLUDED.some((p) => pathname.startsWith(p))) return;
     if (!shouldShowPopup()) return;
     const id = window.setTimeout(() => {
