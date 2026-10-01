@@ -37,7 +37,7 @@ export const producers: Producer[] = [
     name: "[Huerta 1]",
     locality: "[Localidad]",
     specialty: "Verdura",
-    categorySlug: "conservas-y-verduras",
+    categorySlug: "pimientos",
     featured: true,
     image: { alt: "Retrato del productor", placeholder: "Retrato · productor/a" },
   },
@@ -70,7 +70,7 @@ export const producers: Producer[] = [
     name: "[Productor de pacharán 1]",
     locality: "[Localidad]",
     specialty: "Pacharán",
-    categorySlug: "dulces-y-licores",
+    categorySlug: "bebidas",
     image: { alt: "Retrato del productor", placeholder: "Retrato · productor/a" },
   },
 ];

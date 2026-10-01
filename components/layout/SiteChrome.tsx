@@ -3,6 +3,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getCategories, getOccasions } from "@/lib/catalog";
+import { categoryHref } from "@/lib/product-utils";
 import { t } from "@/lib/i18n";
 import { isNewsletterEnabled } from "@/lib/newsletter";
 import { localBusinessJsonLd } from "@/lib/structured-data";
@@ -31,6 +32,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
           name: c.name,
           placeholder: c.image.placeholder,
           src: c.image.src,
+          href: categoryHref(c),
         }))}
         occasions={occasions.map((o) => ({ slug: o.slug, name: o.name, href: o.href }))}
       />

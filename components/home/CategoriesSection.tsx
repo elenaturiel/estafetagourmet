@@ -1,23 +1,29 @@
 import { CategoryCard } from "@/components/cards/CategoryCard";
 import { ArrowLink } from "@/components/ui/Button";
 import { Section, SectionHeader } from "@/components/ui/Section";
-import { getAllProducts, getCategories } from "@/lib/catalog";
+import { getCategories } from "@/lib/catalog";
 
+/**
+ * Todas las categorías: en móvil, carrusel de dos filas para deslizar; en
+ * escritorio, un muro de fotos (8 u 11 por fila según el ancho).
+ */
 export async function CategoriesSection() {
-  const [categories, products] = await Promise.all([getCategories(), getAllProducts()]);
-  const count = (slug: string) => products.filter((p) => p.categorySlug === slug).length;
+  const categories = await getCategories();
   return (
     <Section aria-labelledby="categorias-title">
       <SectionHeader
         id="categorias-title"
-        eyebrow="La despensa navarra"
+        eyebrow="La despensa"
         title="Compra por categoría"
         action={<ArrowLink href="/tienda">Ver toda la tienda</ArrowLink>}
       />
-      <ul data-reveal-stagger className="rail rail-focus -mx-6 auto-cols-[44%] gap-4 px-6 sm:auto-cols-[30%] lg:mx-0 lg:grid-flow-row lg:grid-cols-6 lg:gap-6 lg:overflow-visible lg:px-0">
+      <ul
+        data-reveal-stagger
+        className="rail rail-focus -mx-6 grid-rows-2 auto-cols-[38%] gap-x-4 gap-y-6 px-6 sm:auto-cols-[24%] lg:mx-0 lg:grid-flow-row lg:grid-rows-none lg:grid-cols-8 lg:gap-x-5 lg:gap-y-8 lg:overflow-visible lg:px-0 xl:grid-cols-11"
+      >
         {categories.map((c) => (
           <li key={c.slug}>
-            <CategoryCard category={c} count={count(c.slug)} />
+            <CategoryCard category={c} size="sm" />
           </li>
         ))}
       </ul>

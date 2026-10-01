@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
   const paths = [
     ...staticPaths,
-    ...categories.map((c) => `/tienda/${c.slug}`),
+    ...categories.filter((c) => !c.href).map((c) => `/tienda/${c.slug}`),
     ...products.map(productHref),
     ...posts.map((p) => `/blog/${p.slug}`),
   ];

@@ -32,6 +32,8 @@ export type Category = {
   image: Image;
   seo: { title: string; description: string; heading: string; text: string[] };
   filters: AttributeFilter[];
+  /** Si existe, la categoría enlaza aquí en vez de a su propia página (p. ej. "/regalos"). */
+  href?: string;
 };
 
 export type Producer = {

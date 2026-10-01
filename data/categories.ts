@@ -2,16 +2,97 @@ import type { Category } from "@/lib/types";
 
 /**
  * Categorías de la tienda, en el orden en que aparecen en la web.
- * Para añadir una categoría, añade un objeto aquí y sus productos en products.ts.
+ *
+ * - Para añadir una categoría: añade un objeto aquí (o una línea con
+ *   `simple(...)`), su foto en public/images/categorias/<slug>.webp y sus
+ *   productos en products.ts.
+ * - Las categorías sin productos muestran un aviso de "muy pronto".
+ * - `href` hace que la categoría enlace a otra página (p. ej. Lotes → Regalos).
+ *
+ * TODO: revisar los textos de presentación y SEO de las categorías nuevas.
  */
+
+const img = (slug: string) => `/images/categorias/${slug}.webp`;
+
+/** Categoría sencilla: sin filtros propios y con textos SEO genéricos. */
+function simple(
+  slug: string,
+  name: string,
+  title: string,
+  intro: string,
+  alt: string,
+  extra: Partial<Category> = {},
+): Category {
+  const lower = name.toLowerCase();
+  return {
+    slug,
+    name,
+    title,
+    intro,
+    image: { src: img(slug), alt, placeholder: `Foto · ${lower}` },
+    seo: {
+      title: `${title}: compra online`,
+      description: `${intro} Compra online con envío a toda la península en 24–48 h o recoge tu pedido en nuestra tienda de la calle Estafeta de Pamplona.`,
+      heading: `${title}, online y en Pamplona`,
+      text: [
+        `${intro} Pide online con envío a toda la península en 24–48 h o recoge tu pedido en la calle Estafeta, 70.`,
+      ],
+    },
+    filters: [],
+    ...extra,
+  };
+}
+
 export const categories: Category[] = [
+  simple(
+    "esparragos",
+    "Espárragos",
+    "Espárragos de Navarra",
+    "Espárragos de la huerta navarra, seleccionados en nuestra tienda.",
+    "Espárragos blancos con aceite y perejil",
+  ),
+  simple(
+    "alcachofas",
+    "Alcachofas",
+    "Alcachofas",
+    "Alcachofas en conserva de la huerta, seleccionadas en nuestra tienda.",
+    "Corazones de alcachofa con perejil",
+  ),
+  simple(
+    "pimientos",
+    "Pimientos",
+    "Pimientos",
+    "Pimientos del piquillo y otras variedades, seleccionados en nuestra tienda.",
+    "Pimientos del piquillo asados con ajo laminado",
+  ),
+  simple(
+    "conservas",
+    "Conservas",
+    "Conservas",
+    "Conservas seleccionadas en nuestra tienda de la calle Estafeta.",
+    "Lata de conserva de pescado con un tenedor",
+  ),
+  simple(
+    "legumbres",
+    "Legumbres",
+    "Legumbres",
+    "Alubias, lentejas y otras legumbres seleccionadas en nuestra tienda.",
+    "Alubias blancas, alubias rojas y lentejas",
+  ),
+  simple(
+    "verduras",
+    "Verduras",
+    "Verduras",
+    "Verduras en conserva de la huerta, seleccionadas en nuestra tienda.",
+    "Menestra de verduras, borraja y cardo",
+  ),
   {
     slug: "quesos",
     name: "Quesos",
     title: "Quesos navarros",
     intro:
       "Quesos artesanos de pequeños productores, catados uno a uno en nuestra tienda.",
-    image: { alt: "Quesos navarros", placeholder: "Foto · quesos" },
+    image: { src: img("quesos"), alt: "Cuña de queso curado y dados de queso", placeholder: "Foto · quesos" },
     seo: {
       title: "Quesos navarros artesanos: Roncal e Idiazábal",
       description:
@@ -47,7 +128,7 @@ export const categories: Category[] = [
     name: "Embutidos",
     title: "Embutidos navarros",
     intro: "Chistorra, chorizo y embutidos curados de obradores navarros.",
-    image: { alt: "Embutidos navarros", placeholder: "Foto · embutidos" },
+    image: { src: img("embutidos"), alt: "Chorizo, jamón y salchichón cortados en lonchas", placeholder: "Foto · embutidos" },
     seo: {
       title: "Embutidos navarros artesanos: chistorra y chorizo",
       description:
@@ -60,11 +141,91 @@ export const categories: Category[] = [
     filters: [],
   },
   {
+    slug: "aceites",
+    name: "Aceites",
+    title: "Aceites de Navarra",
+    intro: "Aceite de oliva virgen extra de almazaras navarras.",
+    image: { src: img("aceites"), alt: "Botella de aceite de oliva virgen extra", placeholder: "Foto · aceites" },
+    seo: {
+      title: "Aceite de oliva virgen extra de Navarra",
+      description:
+        "Aceite de oliva virgen extra de almazaras navarras, seleccionado en nuestra tienda de la calle Estafeta de Pamplona. Envío a toda la península en 24–48 h.",
+      heading: "Aceites de Navarra, online y en Pamplona",
+      text: [
+        "Aceites de oliva virgen extra de almazaras navarras. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos por la calle Estafeta.",
+      ],
+    },
+    filters: [],
+  },
+  simple(
+    "cremas",
+    "Cremas",
+    "Cremas",
+    "Cremas de verduras listas para calentar y servir.",
+    "Dos cuencos de crema de verduras",
+  ),
+  simple(
+    "salsas",
+    "Salsas",
+    "Salsas",
+    "Salsas para acompañar carnes, pescados y verduras.",
+    "Tarro de salsa con una cuchara",
+  ),
+  simple(
+    "pates",
+    "Patés",
+    "Patés",
+    "Patés para untar, ideales para el aperitivo.",
+    "Paté en terrina y sobre una tostada",
+  ),
+  simple(
+    "encurtidos",
+    "Encurtidos",
+    "Encurtidos",
+    "Guindillas y encurtidos para el aperitivo.",
+    "Cuenco de guindillas encurtidas",
+  ),
+  simple(
+    "condimentos",
+    "Condimentos",
+    "Condimentos",
+    "Sales, especias y condimentos para cocinar.",
+    "Escamas de sal sobre un plato",
+  ),
+  simple(
+    "preparados",
+    "Preparados",
+    "Platos preparados",
+    "Platos preparados listos para calentar y servir.",
+    "Cazuela de alubias guisadas",
+  ),
+  simple(
+    "mermeladas",
+    "Mermeladas",
+    "Mermeladas",
+    "Mermeladas y confituras para desayunos y tablas de quesos.",
+    "Tarro de mermelada con una cuchara",
+  ),
+  simple(
+    "chocolates",
+    "Chocolates",
+    "Chocolates",
+    "Chocolates seleccionados en nuestra tienda de la calle Estafeta.",
+    "Tableta de chocolate negro en onzas",
+  ),
+  simple(
+    "dulces",
+    "Dulces",
+    "Dulces",
+    "Pastas, dulces tradicionales y caprichos para el café.",
+    "Pastas y dulces tradicionales",
+  ),
+  {
     slug: "vinos",
     name: "Vinos D.O. Navarra",
     title: "Vinos D.O. Navarra",
     intro: "Tintos, rosados y blancos de bodegas pequeñas de Navarra.",
-    image: { alt: "Vinos de la D.O. Navarra", placeholder: "Foto · vinos" },
+    image: { src: img("vinos"), alt: "Copas de vino tinto, rosado y blanco", placeholder: "Foto · vinos" },
     seo: {
       title: "Vinos D.O. Navarra: tintos, rosados y blancos",
       description:
@@ -86,55 +247,26 @@ export const categories: Category[] = [
       },
     ],
   },
-  {
-    slug: "conservas-y-verduras",
-    name: "Conservas y verduras",
-    title: "Conservas y verduras de Navarra",
-    intro: "Pimientos del piquillo, espárragos y verduras de la huerta navarra.",
-    image: { alt: "Conservas y verduras de Navarra", placeholder: "Foto · conservas" },
-    seo: {
-      title: "Conservas navarras: piquillo, espárragos y verduras",
-      description:
-        "Conservas y verduras de la huerta navarra: pimientos del piquillo, espárragos y más, de pequeños productores. Envío en 24–48 h o recogida en Pamplona.",
-      heading: "Conservas y verduras navarras, online y en Pamplona",
-      text: [
-        "Conservas de la huerta navarra elaboradas por pequeños productores. Pídelas online con envío a toda la península en 24–48 h o pasa a recogerlas por la calle Estafeta.",
-      ],
-    },
-    filters: [],
-  },
-  {
-    slug: "aceites",
-    name: "Aceites",
-    title: "Aceites de Navarra",
-    intro: "Aceite de oliva virgen extra de almazaras navarras.",
-    image: { alt: "Aceites de oliva de Navarra", placeholder: "Foto · aceites" },
-    seo: {
-      title: "Aceite de oliva virgen extra de Navarra",
-      description:
-        "Aceite de oliva virgen extra de almazaras navarras, seleccionado en nuestra tienda de la calle Estafeta de Pamplona. Envío a toda la península en 24–48 h.",
-      heading: "Aceites de Navarra, online y en Pamplona",
-      text: [
-        "Aceites de oliva virgen extra de almazaras navarras. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos por la calle Estafeta.",
-      ],
-    },
-    filters: [],
-  },
-  {
-    slug: "dulces-y-licores",
-    name: "Dulces y licores",
-    title: "Dulces y licores navarros",
-    intro: "Pacharán, dulces tradicionales y licores de Navarra.",
-    image: { alt: "Dulces y pacharán navarro", placeholder: "Foto · dulces y pacharán" },
-    seo: {
-      title: "Dulces y licores navarros: pacharán y repostería",
-      description:
-        "Pacharán navarro, dulces tradicionales y licores de pequeños productores. Compra online con envío en 24–48 h o recoge en la calle Estafeta de Pamplona.",
-      heading: "Dulces y licores navarros, online y en Pamplona",
-      text: [
-        "Pacharán y dulces tradicionales de Navarra. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos por la calle Estafeta.",
-      ],
-    },
-    filters: [],
-  },
+  simple(
+    "espumosos",
+    "Espumosos",
+    "Espumosos",
+    "Vinos espumosos para brindar y celebrar.",
+    "Copa de vino espumoso",
+  ),
+  simple(
+    "bebidas",
+    "Bebidas",
+    "Bebidas y licores",
+    "Pacharán, licores y otras bebidas.",
+    "Copas de pacharán y licor",
+  ),
+  simple(
+    "lotes",
+    "Lotes",
+    "Lotes y cestas",
+    "Lotes y cestas de regalo con lo mejor de la tienda.",
+    "Lote con chistorra, espárragos, pimientos y vino",
+    { href: "/regalos" },
+  ),
 ];

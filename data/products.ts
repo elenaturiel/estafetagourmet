@@ -142,11 +142,11 @@ export const products: Product[] = [
     pairsWith: ["chistorra-artesana", "esparragos-de-navarra"],
   },
 
-  // ——— Conservas y verduras ———
+  // ——— Pimientos y espárragos ———
   {
     slug: "pimientos-del-piquillo",
     name: "Pimientos del piquillo",
-    categorySlug: "conservas-y-verduras",
+    categorySlug: "pimientos",
     producerSlug: "productor-verdura-1",
     price: null,
     description: DESCRIPTION,
@@ -160,7 +160,7 @@ export const products: Product[] = [
   {
     slug: "esparragos-de-navarra",
     name: "Espárragos de Navarra",
-    categorySlug: "conservas-y-verduras",
+    categorySlug: "esparragos",
     producerSlug: "productor-verdura-1",
     price: null,
     description: DESCRIPTION,
@@ -182,11 +182,11 @@ export const products: Product[] = [
     rank: 1,
   },
 
-  // ——— Dulces y licores ———
+  // ——— Bebidas ———
   {
     slug: "pacharan-navarro",
     name: "Pacharán navarro",
-    categorySlug: "dulces-y-licores",
+    categorySlug: "bebidas",
     producerSlug: "productor-licor-1",
     price: null,
     description: DESCRIPTION,

@@ -75,7 +75,7 @@ Todo el contenido está en `/data`:
 | Archivo | Contenido |
 |---|---|
 | `site.ts` | Dirección, horario, teléfono, correo, WhatsApp, envío gratis, valoración de Google, incentivo de la newsletter |
-| `categories.ts` | Categorías: nombre, H1, textos SEO y filtros propios (p. ej. Denominación, Tipo de leche) |
+| `categories.ts` | Categorías (22): nombre, H1, foto, textos SEO y filtros propios (p. ej. Denominación, Tipo de leche). Las fotos están en `public/images/categorias/<slug>.webp`. Las que no tienen productos muestran un aviso de "muy pronto"; `href` hace que una categoría enlace a otra página (Lotes → Regalos) |
 | `products.ts` | Productos |
 | `producers.ts` | Productores (`featured: true` para que salgan en el inicio) |
 | `gifts.ts` | Cestas y regalos (con etiqueta opcional, p. ej. "Edición San Fermín") |

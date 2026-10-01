@@ -19,7 +19,14 @@ import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
 import { Logo } from "./Logo";
 
-export type HeaderCategory = { slug: string; name: string; placeholder: string; src?: string };
+export type HeaderCategory = {
+  slug: string;
+  name: string;
+  placeholder: string;
+  src?: string;
+  /** Destino del enlace (normalmente /tienda/<slug>). */
+  href: string;
+};
 export type HeaderOccasion = { slug: string; name: string; href: string };
 
 function isActive(pathname: string, href: string) {
@@ -237,15 +244,15 @@ export function Header({
         </div>
         <nav aria-label={t.nav.label} className="px-6 pt-2 pb-8">
           <p className="eyebrow mt-4 mb-3 text-[12px] text-vino">Compra por categoría</p>
-          <ul className="grid grid-cols-3 gap-3">
+          <ul className="grid grid-cols-4 gap-x-3 gap-y-4">
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link
-                  href={`/tienda/${c.slug}`}
+                  href={c.href}
                   onClick={() => menuRef.current?.close()}
-                  className="block text-center text-[13px] leading-tight font-medium"
+                  className="block text-center text-[12px] leading-tight font-medium"
                 >
-                  <ImagePlaceholder label="" src={c.src} ratio="3 / 4" className="arch mb-2" />
+                  <ImagePlaceholder label="" src={c.src} ratio="1 / 1" sizes="80px" className="arch mb-1.5" />
                   {c.name}
                 </Link>
               </li>
@@ -317,7 +324,7 @@ function MegaMenu({
       hidden={!open}
       className="absolute inset-x-0 top-full border-y border-linea bg-crema shadow-[0_24px_40px_-24px_rgba(42,31,26,0.25)]"
     >
-      <div className="container-site grid grid-cols-[minmax(0,1fr)_220px_300px] gap-10 py-8">
+      <div className="container-site grid grid-cols-[minmax(0,1fr)_180px_240px] gap-8 xl:gap-10 py-8">
         <div>
           <p className="eyebrow mb-4 text-[12px] text-vino">Compra por categoría</p>
           {/*
@@ -325,11 +332,11 @@ function MegaMenu({
             sube, su foto hace zoom y se enmarca en vino; el resto se atenúa
             para que se note cuál está señalada. 200 ms con curva ease-out.
           */}
-          <ul className="group/cats grid grid-cols-6 gap-4">
+          <ul className="group/cats grid grid-cols-8 gap-x-3 gap-y-5">
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link
-                  href={`/tienda/${c.slug}`}
+                  href={c.href}
                   onClick={onNavigate}
                   className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06] motion-reduce:transform-none!"
                 >
@@ -337,11 +344,12 @@ function MegaMenu({
                     <ImagePlaceholder
                       label=""
                       src={c.src}
-                      ratio="3 / 4"
+                      ratio="1 / 1"
+                      sizes="96px"
                       className="transition-transform duration-300 ease-out group-hover:scale-110 group-focus-visible:scale-110 motion-reduce:transform-none!"
                     />
                   </div>
-                  <span className="mt-3 inline-block font-serif text-[16px] leading-tight transition-colors duration-200 group-hover:text-vino group-focus-visible:text-vino">
+                  <span className="mt-2 inline-block font-serif text-[13px] leading-tight transition-colors xl:text-[14px] duration-200 group-hover:text-vino group-focus-visible:text-vino">
                     {c.name}
                     <span
                       aria-hidden="true"

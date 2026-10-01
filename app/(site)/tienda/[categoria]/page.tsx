@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
 import { CategoryBrowser } from "@/components/shop/CategoryBrowser";
 import { getCategories, getCategory, getProducers, getProducts } from "@/lib/catalog";
+import { categoryHref } from "@/lib/product-utils";
+import { site } from "@/data/site";
+import { ButtonLink } from "@/components/ui/Button";
 import { pageMetadata } from "@/lib/seo";
 
 type Params = { params: Promise<{ categoria: string }> };
@@ -12,7 +15,8 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const categories = await getCategories();
-  return categories.map((c) => ({ categoria: c.slug }));
+  // Las categorías con enlace propio (p. ej. Lotes → /regalos) no tienen página.
+  return categories.filter((c) => !c.href).map((c) => ({ categoria: c.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -29,7 +33,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function CategoryPage({ params }: Params) {
   const { categoria } = await params;
   const category = await getCategory(categoria);
-  if (!category) notFound();
+  if (!category || category.href) notFound();
 
   const [products, allProducers, categories] = await Promise.all([
     getProducts({ category: category.slug }),
@@ -63,7 +67,7 @@ export default async function CategoryPage({ params }: Params) {
               return (
                 <li key={c.slug}>
                   <Link
-                    href={`/tienda/${c.slug}`}
+                    href={categoryHref(c)}
                     aria-current={current ? "page" : undefined}
                     className={
                       current
@@ -78,7 +82,11 @@ export default async function CategoryPage({ params }: Params) {
             })}
           </ul>
         </nav>
-        <CategoryBrowser products={products} producers={producers} filters={category.filters} />
+        {products.length ? (
+          <CategoryBrowser products={products} producers={producers} filters={category.filters} />
+        ) : (
+          <EmptyCategory name={category.name} />
+        )}
       </div>
 
       <section aria-labelledby="seo-title" className="border-t border-linea bg-papel py-14 lg:py-16">
@@ -94,5 +102,27 @@ export default async function CategoryPage({ params }: Params) {
         </div>
       </section>
     </>
+  );
+}
+
+/** Categoría que aún no tiene productos en la web. */
+function EmptyCategory({ name }: { name: string }) {
+  return (
+    <div className="border border-linea bg-papel px-6 py-12 text-center lg:py-16">
+      <p className="eyebrow text-vino">Muy pronto</p>
+      <p className="mx-auto mt-3 max-w-xl font-serif text-[26px] leading-tight lg:text-[32px]">
+        Estamos preparando nuestra selección de {name.toLowerCase()} para la tienda online
+      </p>
+      <p className="mx-auto mt-3 max-w-lg text-[16px] text-secundario">
+        Mientras tanto, pásate por la tienda en {site.address.street} o llámanos y te
+        contamos qué tenemos.
+      </p>
+      <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <ButtonLink href={site.phone.href}>Llamar al {site.phone.display}</ButtonLink>
+        <ButtonLink href="/tienda" variant="secondary">
+          Ver otras categorías
+        </ButtonLink>
+      </div>
+    </div>
   );
 }

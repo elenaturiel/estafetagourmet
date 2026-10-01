@@ -27,10 +27,10 @@ export default async function ShopPage() {
       />
       <div className="container-site pb-16 lg:pb-24">
         <h2 className="sr-only">Categorías</h2>
-        <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-5">
+        <ul className="grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-4 lg:grid-cols-8 lg:gap-x-5 xl:grid-cols-11">
           {categories.map((c) => (
             <li key={c.slug}>
-              <CategoryCard category={c} />
+              <CategoryCard category={c} size="sm" />
             </li>
           ))}
         </ul>
