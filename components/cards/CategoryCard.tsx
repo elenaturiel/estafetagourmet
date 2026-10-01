@@ -29,7 +29,7 @@ export function CategoryCard({
       <h3
         className={cn(
           "mt-3 leading-tight group-hover:text-vino",
-          size === "sm" ? "text-[16px] lg:text-[17px]" : "text-[19px] lg:text-[22px]",
+          size === "sm" ? "text-[16px] xl:text-[15px]" : "text-[19px] lg:text-[22px]",
         )}
       >
         {category.name}

@@ -18,16 +18,21 @@ import {
 } from "@/lib/filters";
 import type { AttributeFilter, Producer, Product } from "@/lib/types";
 
+/** Productos que se cargan de golpe; el resto, con "Ver más productos". */
+const PAGE_SIZE = 24;
+
 type Props = {
   products: Product[];
   producers: Producer[];
   filters: AttributeFilter[];
+  /** Si se pasa, aparece el filtro "Categoría" (tienda completa). */
+  categories?: { slug: string; name: string }[];
 };
 
 /**
- * Listado de categoría con filtros y orden en cliente.
- * El HTML estático incluye todos los productos (bueno para SEO); al cargar,
- * se aplica el filtro ?productor= si viene en la URL.
+ * Listado de productos con filtros y orden en cliente (categoría o tienda
+ * completa). Carga 24 y el resto con "Ver más productos". Al cargar aplica
+ * ?productor= y ?categoria= si vienen en la URL (p. ej. desde /productores).
  */
 export function CategoryBrowser(props: Props) {
   return (
@@ -37,17 +42,41 @@ export function CategoryBrowser(props: Props) {
   );
 }
 
-function BrowserFromUrl(props: Props) {
-  const params = useSearchParams();
-  const producer = params.get("productor");
-  const valid = producer && props.producers.some((p) => p.slug === producer);
-  const initial = valid ? { ...emptyFilters, producers: [producer] } : emptyFilters;
-  return <Browser key={producer ?? ""} {...props} initial={initial} />;
+/** Valores válidos de un parámetro de la URL (puede venir "a,b,c"). */
+function fromParam(value: string | null, valid: string[]): string[] {
+  return (value ?? "")
+    .split(",")
+    .map((v) => v.trim())
+    .filter((v) => valid.includes(v));
 }
 
-function Browser({ products, producers, filters, initial }: Props & { initial: FilterState }) {
-  const [state, setState] = useState<FilterState>(initial);
-  const [sort, setSort] = useState<SortKey>("destacados");
+function BrowserFromUrl(props: Props) {
+  const params = useSearchParams();
+  const producers = fromParam(params.get("productor"), props.producers.map((p) => p.slug));
+  const categories = fromParam(params.get("categoria"), (props.categories ?? []).map((c) => c.slug));
+  const initial: FilterState = { ...emptyFilters, producers, categories };
+  return <Browser key={`${producers}|${categories}`} {...props} initial={initial} />;
+}
+
+function Browser({
+  products,
+  producers,
+  filters,
+  categories,
+  initial,
+}: Props & { initial: FilterState }) {
+  const [state, setStateRaw] = useState<FilterState>(initial);
+  const [sort, setSortRaw] = useState<SortKey>("destacados");
+  const [limit, setLimit] = useState(PAGE_SIZE);
+  // Al cambiar un filtro o el orden se vuelve a empezar por los primeros 24.
+  const setState = (next: FilterState) => {
+    setStateRaw(next);
+    setLimit(PAGE_SIZE);
+  };
+  const setSort = (next: SortKey) => {
+    setSortRaw(next);
+    setLimit(PAGE_SIZE);
+  };
   const drawerRef = useRef<HTMLDialogElement>(null);
   const sortId = useId();
 
@@ -59,6 +88,7 @@ function Browser({ products, producers, filters, initial }: Props & { initial: F
     () => sortProducts(filterProducts(products, state), sort),
     [products, state, sort],
   );
+  const shown = visible.slice(0, limit);
   const active = countActiveFilters(state);
   const countLabel = `${visible.length} ${visible.length === 1 ? "producto" : "productos"}`;
 
@@ -70,6 +100,7 @@ function Browser({ products, producers, filters, initial }: Props & { initial: F
       filters={filters}
       producers={producers}
       products={products}
+      categories={categories}
     />
   );
 
@@ -137,7 +168,7 @@ function Browser({ products, producers, filters, initial }: Props & { initial: F
         <h2 className="sr-only">Productos</h2>
         {visible.length ? (
           <ul className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-3 lg:gap-x-5">
-            {visible.map((p) => (
+            {shown.map((p) => (
               <li key={p.slug}>
                 <ProductCard
                   product={p}
@@ -146,7 +177,22 @@ function Browser({ products, producers, filters, initial }: Props & { initial: F
               </li>
             ))}
           </ul>
-        ) : (
+        ) : null}
+        {visible.length > shown.length ? (
+          <div className="mt-12 text-center">
+            <p className="text-[14px] text-secundario" aria-live="polite">
+              Mostrando {shown.length} de {visible.length} productos
+            </p>
+            <button
+              type="button"
+              onClick={() => setLimit((l) => l + PAGE_SIZE)}
+              className={cn(buttonClasses("secondary", "md"), "mt-4")}
+            >
+              Ver más productos
+            </button>
+          </div>
+        ) : null}
+        {visible.length === 0 ? (
           <div className="border border-linea bg-papel p-8 text-center">
             <p className="font-serif text-[22px]">Ningún producto coincide con estos filtros</p>
             <button
@@ -157,7 +203,7 @@ function Browser({ products, producers, filters, initial }: Props & { initial: F
               Borrar filtros
             </button>
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Filtros: cajón en móvil */}
@@ -203,11 +249,22 @@ function Browser({ products, producers, filters, initial }: Props & { initial: F
   );
 }
 
-function FilterGroup({ legend, children }: { legend: string; children: ReactNode }) {
+function FilterGroup({
+  legend,
+  children,
+  scroll,
+}: {
+  legend: string;
+  children: ReactNode;
+  /** Listas largas (categorías, productores): altura limitada con scroll. */
+  scroll?: boolean;
+}) {
   return (
     <fieldset className="mb-7">
       <legend className="mb-2 font-serif text-[18px] font-medium">{legend}</legend>
-      {children}
+      <div className={scroll ? "max-h-[300px] overflow-y-auto overscroll-contain pr-2" : undefined}>
+        {children}
+      </div>
     </fieldset>
   );
 }
@@ -215,11 +272,14 @@ function FilterGroup({ legend, children }: { legend: string; children: ReactNode
 function Checkbox({
   id,
   label,
+  count,
   checked,
   onChange,
 }: {
   id: string;
   label: string;
+  /** Número de productos (se muestra entre paréntesis). */
+  count?: number;
   checked: boolean;
   onChange: (checked: boolean) => void;
 }) {
@@ -234,6 +294,7 @@ function Checkbox({
       />
       <label htmlFor={id} className="text-[15px]">
         {label}
+        {count !== undefined ? <span className="ml-1.5 text-[13px] text-secundario">({count})</span> : null}
       </label>
     </div>
   );
@@ -243,6 +304,16 @@ function toggle(list: string[], value: string, on: boolean) {
   return on ? [...list, value] : list.filter((v) => v !== value);
 }
 
+/** Cuántos productos hay por clave (categoría o productor). */
+function countBy(products: Product[], key: (p: Product) => string | null) {
+  const out: Record<string, number> = {};
+  for (const p of products) {
+    const k = key(p);
+    if (k) out[k] = (out[k] ?? 0) + 1;
+  }
+  return out;
+}
+
 function FilterPanel({
   idPrefix,
   state,
@@ -250,6 +321,7 @@ function FilterPanel({
   filters,
   producers,
   products,
+  categories,
 }: {
   idPrefix: string;
   state: FilterState;
@@ -257,12 +329,51 @@ function FilterPanel({
   filters: AttributeFilter[];
   producers: Producer[];
   products: Product[];
+  categories?: { slug: string; name: string }[];
 }) {
   const prices = products.map((p) => p.price).filter((p): p is number => p !== null);
   const hasPrices = prices.length > 0;
+  const perCategory = useMemo(() => countBy(products, (p) => p.categorySlug), [products]);
+  const perProducer = useMemo(() => countBy(products, (p) => p.producerSlug), [products]);
 
   return (
     <div>
+      {categories?.length ? (
+        <FilterGroup legend="Categoría" scroll>
+          {categories
+            .filter((c) => perCategory[c.slug])
+            .map((c) => (
+              <Checkbox
+                key={c.slug}
+                id={`${idPrefix}-cat-${c.slug}`}
+                label={c.name}
+                count={perCategory[c.slug]}
+                checked={state.categories.includes(c.slug)}
+                onChange={(on) =>
+                  onChange({ ...state, categories: toggle(state.categories, c.slug, on) })
+                }
+              />
+            ))}
+        </FilterGroup>
+      ) : null}
+
+      {producers.length > 1 ? (
+        <FilterGroup legend="Productor" scroll>
+          {[...producers].sort((a, b) => a.name.localeCompare(b.name, "es")).map((p) => (
+            <Checkbox
+              key={p.slug}
+              id={`${idPrefix}-producer-${p.slug}`}
+              label={p.name}
+              count={perProducer[p.slug]}
+              checked={state.producers.includes(p.slug)}
+              onChange={(on) =>
+                onChange({ ...state, producers: toggle(state.producers, p.slug, on) })
+              }
+            />
+          ))}
+        </FilterGroup>
+      ) : null}
+
       {filters.map((f) => (
         <FilterGroup key={f.key} legend={f.label}>
           {f.options.map((o) => (
@@ -284,22 +395,6 @@ function FilterPanel({
           ))}
         </FilterGroup>
       ))}
-
-      {producers.length > 1 ? (
-        <FilterGroup legend="Productor">
-          {producers.map((p) => (
-            <Checkbox
-              key={p.slug}
-              id={`${idPrefix}-producer-${p.slug}`}
-              label={p.name}
-              checked={state.producers.includes(p.slug)}
-              onChange={(on) =>
-                onChange({ ...state, producers: toggle(state.producers, p.slug, on) })
-              }
-            />
-          ))}
-        </FilterGroup>
-      ) : null}
 
       <FilterGroup legend="Precio">
         {hasPrices ? (

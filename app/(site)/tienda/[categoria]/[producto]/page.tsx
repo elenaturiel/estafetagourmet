@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
 import { ProductCard, tagClass } from "@/components/cards/ProductCard";
 import { FreeShippingMeter } from "@/components/cart/FreeShippingMeter";
+import { ButtonLink } from "@/components/ui/Button";
 import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { isPlaceholder, site } from "@/data/site";
@@ -113,16 +114,27 @@ export default async function ProductPage({ params }: Params) {
           <h1 className="mt-2 text-[38px] leading-[1.03] tracking-[-0.02em] lg:text-[56px]">
             {product.name}
           </h1>
-          <p className="mt-5 text-[28px] font-semibold tabular-nums">{formatPrice(product.price)}</p>
-          <p className="mt-1 text-[13px] text-secundario">IVA incluido</p>
+          {product.price === null ? (
+            <p className="mt-5 text-[24px] font-semibold text-secundario">Precio a consultar</p>
+          ) : (
+            <>
+              <p className="mt-5 text-[28px] font-semibold tabular-nums">{formatPrice(product.price)}</p>
+              <p className="mt-1 text-[13px] text-secundario">IVA incluido</p>
+            </>
+          )}
           <p className="mt-6 text-[17px] leading-[1.6] text-secundario">{product.description}</p>
 
           <div id="comprar" className="mt-8">
-            <AddToCartButton
-              variant="primary"
-              size="md"
-              item={cartItem}
-            />
+            {product.price === null ? (
+              <div className="grid gap-3 sm:grid-cols-2">
+                <ButtonLink href="/visitanos#contacto">Consultar precio</ButtonLink>
+                <ButtonLink href={site.phone.href} variant="secondary">
+                  Llamar al {site.phone.display}
+                </ButtonLink>
+              </div>
+            ) : (
+              <AddToCartButton variant="primary" size="md" item={cartItem} />
+            )}
           </div>
           <div className="mt-5 rounded-eg border border-linea bg-papel p-4">
             <FreeShippingMeter subtotal={null} />
@@ -206,10 +218,18 @@ export default async function ProductPage({ params }: Params) {
       <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t border-linea bg-crema/95 px-6 py-3 backdrop-blur lg:hidden">
         <div className="min-w-0 flex-1">
           <p className="truncate font-serif text-[16px] leading-tight">{product.name}</p>
-          <p className="text-[15px] font-semibold">{formatPrice(product.price)}</p>
+          <p className="text-[15px] font-semibold">
+            {product.price === null ? "Precio a consultar" : formatPrice(product.price)}
+          </p>
         </div>
         <div className="w-[150px] shrink-0">
-          <AddToCartButton variant="primary" label="Añadir" item={cartItem} />
+          {product.price === null ? (
+            <ButtonLink href="/visitanos#contacto" size="sm" className="w-full">
+              Consultar
+            </ButtonLink>
+          ) : (
+            <AddToCartButton variant="primary" label="Añadir" item={cartItem} />
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { ProducerCard } from "@/components/cards/ProducerCard";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getProducers } from "@/lib/catalog";
+import { getProducerCounts, getProducers } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -11,7 +11,7 @@ export const metadata = pageMetadata({
 });
 
 export default async function ProducersPage() {
-  const producers = await getProducers();
+  const [producers, counts] = await Promise.all([getProducers(), getProducerCounts()]);
   return (
     <>
       <PageHeader
@@ -24,7 +24,7 @@ export default async function ProducersPage() {
         <ul className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {producers.map((p) => (
             <li key={p.slug}>
-              <ProducerCard producer={p} />
+              <ProducerCard producer={p} count={counts[p.slug]} />
             </li>
           ))}
         </ul>

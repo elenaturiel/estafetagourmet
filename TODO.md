@@ -16,7 +16,14 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 
 ## Catálogo (`data/`)
 
-- [ ] **Precios** de todos los productos (`products.ts → price`) y de las cestas (`gifts.ts`).
+- [ ] **Precios que faltan en la hoja** (hoy salen como "Precio a consultar"): los 8 de **Chivite**, los 7 de **Monjardin** y 2 estuches de **Inurrieta** (tienen 0,00 €). Rellénalos en la hoja y vuelve a importar (ver README). Precios de las cestas en `gifts.ts`.
+- [ ] **Títulos de los productos:** se muestran tal cual están en la hoja (formato de ticket: muchos en MAYÚSCULAS y con abreviaturas como LVN, LC o PCIRSUS). Si quieres títulos más cuidados para la web, se pueden mejorar en la hoja o con una limpieza automática.
+- [ ] **Elegir los destacados de la portada** (`FEATURED` en `data/products.ts`): ahora son 4 productos de ejemplo. Y los productores de la portada (`FEATURED` en `data/producers.ts`).
+- [ ] **Localidad de cada productor** (`LOCALITY` en `data/producers.ts`) y su foto.
+- [ ] **Comprobar la ortografía de los proveedores**: p. ej. "Monjardin" probablemente es "Monjardín".
+- [ ] **Fotos de las categorías nuevas:** "Atún y bonito" y "Setas y hongos" no tienen foto todavía (`public/images/categorias/atun-y-bonito.webp` y `setas-y-hongos.webp`, y enlazarlas en `data/categories.ts`).
+- [ ] **Categorías sin productos** (Conservas, Verduras, Cremas, Salsas, Mermeladas, Chocolates, Espumosos): muestran "muy pronto". Decidir si se quedan, se rellenan o se quitan de `data/categories.ts`. Ojo: los 3 vinos "BRUT" de Monjardin están en Vinos porque así vienen en la hoja.
+- [ ] **Filtros por atributo** (denominación, tipo de vino, tipo de leche…): no hay datos en la hoja. Si se añaden columnas, se pueden crear.
 - [ ] **Descripciones** de producto (hoy son marcadores).
 - [ ] **Ficha de producto:** formato (peso o volumen) y el texto "Conservación y maridaje" (hoy marcadores en `app/tienda/[categoria]/[producto]/page.tsx`; conviene pasarlos a `data/products.ts`).
 - [ ] **Etiquetas y maridajes** de cada producto (`tags` y `pairsWith` en `products.ts`). Las etiquetas actuales ("Favorito de la casa", "DOP"…) son un punto de partida.
@@ -24,7 +31,6 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 - [ ] **Revisar los nombres de ejemplo** de productos y cestas (son ilustrativos) y completar el catálogo real.
 - [ ] **Productores:** nombre, localidad y retrato (`producers.ts`). Asignar cada producto a su productor real.
 - [ ] **Contenido de las cestas** (`gifts.ts → description`) y cantidad mínima del regalo de empresa.
-- [ ] **Filtros de cada categoría** (`categories.ts → filters`) y sus valores en cada producto (`attributes`).
 - [ ] **Fotos de categorías en alta resolución:** las actuales (`public/images/categorias/`) salen de una captura de pantalla y miden unos 150 px; se ven bien en tamaño pequeño, pero conviene sustituirlas por los originales (mín. 600×600 px) con el mismo nombre de archivo.
 - [ ] **Textos de las categorías nuevas** (`data/categories.ts`): presentación y SEO son genéricos; revisarlos.
 - [ ] **Fotos:** portada, productos, cestas, productores, tienda y blog. Van en `public/images/` y se enlazan con `image.src`.

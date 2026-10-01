@@ -70,44 +70,50 @@ Los colores y las fuentes son tokens de Tailwind definidos en `app/globals.css` 
 
 ## Cómo cambiar el catálogo
 
-Todo el contenido está en `/data`:
+### Productos y precios: se cargan desde la hoja de cálculo
+
+Los 333 productos salen de la hoja de productos (.ods) con las columnas **FAMILIA · SUBFAMILIA · ARTICULO · PVP final**:
+
+- **Familia** → categoría de la tienda (Quesos, Vinos, Espárragos…).
+- **Subfamilia** → productor / proveedor (Inurrieta, La Catedral, Anko…). Es lo que usa el filtro **Productor**: marcando uno salen todos sus productos juntos, y se pueden marcar varios a la vez.
+- **Artículo** → título del producto, tal cual está en la hoja (solo se limpian los guiones bajos y los guiones que unen palabras).
+- **PVP final** → precio con IVA. Vacío o 0 muestra **"Precio a consultar"** y, en vez de "Añadir", un botón "Consultar" que lleva al formulario de contacto.
+
+Para actualizar precios o añadir productos, cambia la hoja y vuelve a importarla (necesita Python 3, que ya trae Mac y Linux):
+
+```bash
+python3 scripts/importar-productos.py ruta/a/productos.ods
+```
+
+Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja trae una familia nueva, el script se detiene y te dice cuál: añádela en `FAMILIAS` (arriba del script) y créala en `data/categories.ts`.
+
+### Lo demás está en `/data`
 
 | Archivo | Contenido |
 |---|---|
+| `products.generated.ts` | Productos y proveedores, **generado** desde la hoja (ver arriba) |
+| `products.ts` | Extras de los productos que no están en la hoja: **destacados** de la portada (`FEATURED`), **etiquetas** (`TAGS`) y **maridajes** "Combina con" (`PAIRS_WITH`) |
+| `producers.ts` | Localidad (`LOCALITY`) y cuáles salen en la portada (`FEATURED`). Los nombres vienen de la hoja |
+| `categories.ts` | Categorías (24): nombre, H1, foto, textos SEO y, si se quiere, filtros por atributos. Las fotos están en `public/images/categorias/<slug>.webp`. Las que no tienen productos muestran "muy pronto". `href` hace que una categoría enlace a otra página |
 | `site.ts` | Dirección, horario, teléfono, correo, WhatsApp, envío gratis, valoración de Google, incentivo de la newsletter |
-| `categories.ts` | Categorías (22): nombre, H1, foto, textos SEO y filtros propios (p. ej. Denominación, Tipo de leche). Las fotos están en `public/images/categorias/<slug>.webp`. Las que no tienen productos muestran un aviso de "muy pronto"; `href` hace que una categoría enlace a otra página (Lotes → Regalos) |
-| `products.ts` | Productos |
-| `producers.ts` | Productores (`featured: true` para que salgan en el inicio) |
 | `gifts.ts` | Cestas y regalos (con etiqueta opcional, p. ej. "Edición San Fermín") |
 | `occasions.ts` | Regalos por ocasión (inicio, mega menú y menú móvil) |
-| `posts.ts` | Entradas del blog |
+| `posts.ts` | Entradas del blog de ejemplo (el real se escribe en `/admin`) |
 | `reviews.ts` | Reseñas de Google (solo reales) |
 | `legal.ts` | Datos del titular para las páginas legales |
 | `navigation.ts` | Menús de cabecera y pie |
 
-### Añadir un producto
+### Filtros de la tienda
 
-```ts
-// data/products.ts
-{
-  slug: "queso-roncal-dop",            // URL: /tienda/quesos/queso-roncal-dop
-  name: "Queso Roncal DOP",
-  categorySlug: "quesos",              // slug de data/categories.ts
-  producerSlug: "productor-queso-1",   // slug de data/producers.ts (o null)
-  price: 18.5,                         // euros con IVA; null muestra "[precio] €"
-  description: "…",
-  image: { src: "/images/productos/roncal.jpg", alt: "Cuña de queso Roncal", placeholder: "Foto · queso" },
-  attributes: { denominacion: "dop-roncal", leche: "oveja" },  // valores de los filtros
-  featured: true,                      // sale en "Los favoritos de la casa"
-  tags: ["DOP", "Favorito de la casa"], // etiquetas sobre la foto (máx. 2)
-  pairsWith: ["vino-tinto-do-navarra"], // "Combina con" en la ficha
-  rank: 1,                             // orden en "Destacados"
-}
-```
+- **Tienda completa (`/tienda`)**: filtros por **Categoría**, **Productor** y **Precio**, con el número de productos de cada opción y orden "Agrupar por productor". Carga 24 productos y el resto con "Ver más productos".
+- **Cada categoría**: filtros por **Productor** y **Precio**.
+- **Enlaces directos**: `/tienda?productor=inurrieta` muestra todos los de un productor; `?productor=anko,la-catedral` varios; `?categoria=vinos` una categoría. Desde `/productores`, cada tarjeta enlaza así.
+- Dentro de un mismo filtro las opciones se suman (Inurrieta **o** Pago de Cirsus); entre filtros distintos se cruzan (Vinos **y** Chivite).
 
-- **Filtros.** Denominación, Tipo de leche y demás se definen por categoría en `categories.ts → filters`. Los valores de `attributes` de cada producto deben coincidir con los `value` de esas opciones. El filtro de Productor se genera solo. El de Precio aparece cuando la categoría tiene al menos un producto con precio.
+### Fotos y marcadores
+
 - **Fotos.** Ponlas en `public/images/…` e indica la ruta en `image.src`. `ImagePlaceholder` usa `next/image` con el mismo tamaño y recorte, así que el diseño no cambia. Mientras no haya `src`, se muestra el bloque de color con la etiqueta `placeholder`.
-- **Marcadores.** Cualquier texto entre corchetes (`[precio]`, `[Localidad]`…) se muestra tal cual en la web para que se vea que falta. Consulta [TODO.md](./TODO.md).
+- **Marcadores.** Cualquier texto entre corchetes (`[Localidad]`, `[Descripción del producto…]`…) se muestra tal cual en la web para que se vea que falta. Consulta [TODO.md](./TODO.md).
 
 ## Conectar Shopify más adelante
 

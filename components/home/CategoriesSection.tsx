@@ -19,7 +19,7 @@ export async function CategoriesSection() {
       />
       <ul
         data-reveal-stagger
-        className="rail rail-focus -mx-6 grid-rows-2 auto-cols-[38%] gap-x-4 gap-y-6 px-6 sm:auto-cols-[24%] lg:mx-0 lg:grid-flow-row lg:grid-rows-none lg:grid-cols-8 lg:gap-x-5 lg:gap-y-8 lg:overflow-visible lg:px-0 xl:grid-cols-11"
+        className="rail rail-focus -mx-6 grid-rows-2 auto-cols-[38%] gap-x-4 gap-y-6 px-6 sm:auto-cols-[24%] lg:mx-0 lg:grid-flow-row lg:grid-rows-none lg:grid-cols-8 lg:gap-x-5 lg:gap-y-8 lg:overflow-visible lg:px-0 xl:grid-cols-12 xl:gap-x-3"
       >
         {categories.map((c) => (
           <li key={c.slug}>

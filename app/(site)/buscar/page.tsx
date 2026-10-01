@@ -31,7 +31,9 @@ export default async function SearchPage({
   const terms = normalize(q).split(/\s+/).filter(Boolean);
   const results = terms.length
     ? products.filter((p) => {
-        const haystack = normalize(`${p.name} ${categoryName[p.categorySlug] ?? ""}`);
+        const haystack = normalize(
+          `${p.name} ${categoryName[p.categorySlug] ?? ""} ${p.producerSlug ? (producers[p.producerSlug]?.name ?? "") : ""}`,
+        );
         return terms.every((t) => haystack.includes(t));
       })
     : [];

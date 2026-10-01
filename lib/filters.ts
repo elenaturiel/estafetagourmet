@@ -1,27 +1,32 @@
 /**
- * Filtrado y orden de productos en la página de categoría.
+ * Filtrado y orden de productos en la tienda.
  * Funciones puras: se usan en cliente y se pueden testear aisladas.
  */
 import type { Product } from "@/lib/types";
 
-export type SortKey = "destacados" | "precio-asc" | "precio-desc" | "nombre";
+export type SortKey = "destacados" | "productor" | "precio-asc" | "precio-desc" | "nombre";
 
 export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "destacados", label: "Destacados" },
+  { value: "productor", label: "Agrupar por productor" },
   { value: "precio-asc", label: "Precio: de menor a mayor" },
   { value: "precio-desc", label: "Precio: de mayor a menor" },
   { value: "nombre", label: "Nombre (A–Z)" },
 ];
 
 export type FilterState = {
+  /** Slugs de categoría marcados (solo en la tienda completa). */
+  categories: string[];
   /** Valores marcados por clave de atributo: { denominacion: ["dop-roncal"] } */
   attributes: Record<string, string[]>;
+  /** Slugs de productor (la "subfamilia" de la hoja de productos). */
   producers: string[];
   minPrice: number | null;
   maxPrice: number | null;
 };
 
 export const emptyFilters: FilterState = {
+  categories: [],
   attributes: {},
   producers: [],
   minPrice: null,
@@ -30,6 +35,7 @@ export const emptyFilters: FilterState = {
 
 export function countActiveFilters(state: FilterState): number {
   return (
+    state.categories.length +
     Object.values(state.attributes).reduce((n, v) => n + v.length, 0) +
     state.producers.length +
     (state.minPrice !== null ? 1 : 0) +
@@ -40,6 +46,7 @@ export function countActiveFilters(state: FilterState): number {
 export function filterProducts(products: Product[], state: FilterState): Product[] {
   return products.filter((p) => {
     // Dentro de un mismo filtro las opciones se suman (O); entre filtros, se cruzan (Y).
+    if (state.categories.length && !state.categories.includes(p.categorySlug)) return false;
     for (const [key, values] of Object.entries(state.attributes)) {
       if (values.length && !values.includes(p.attributes[key] ?? "")) return false;
     }
@@ -61,6 +68,14 @@ export function sortProducts(products: Product[], sort: SortKey): Product[] {
   // Los productos sin precio van siempre al final al ordenar por precio.
   const priceOf = (p: Product, fallback: number) => p.price ?? fallback;
   switch (sort) {
+    case "productor":
+      // Todos los de un mismo productor juntos (A–Z) y, dentro, en el orden de la tienda.
+      return list.sort(
+        (a, b) =>
+          (a.producerSlug ?? "~").localeCompare(b.producerSlug ?? "~", "es") ||
+          a.categorySlug.localeCompare(b.categorySlug, "es") ||
+          a.rank - b.rank,
+      );
     case "precio-asc":
       return list.sort((a, b) => priceOf(a, Infinity) - priceOf(b, Infinity) || a.rank - b.rank);
     case "precio-desc":

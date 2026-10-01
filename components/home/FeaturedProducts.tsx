@@ -21,6 +21,12 @@ export async function FeaturedProducts() {
       }))
       .filter((t) => t.products.length > 1),
   ];
+  // Con muchas categorías, solo las 5 con más productos tienen pestaña.
+  const byCount = new Map(categories.map((c) => [c.slug, all.filter((p) => p.categorySlug === c.slug).length]));
+  const top = new Set(
+    [...tabs.slice(1)].sort((a, b) => (byCount.get(b.key) ?? 0) - (byCount.get(a.key) ?? 0)).slice(0, 5).map((t) => t.key),
+  );
+  const shownTabs = [tabs[0], ...tabs.slice(1).filter((t) => top.has(t.key))];
 
   return (
     <Section tone="papel" aria-labelledby="favoritos-title">
@@ -31,7 +37,7 @@ export async function FeaturedProducts() {
         subtitle="Selección de temporada, directa de los productores."
         action={<ArrowLink href="/tienda">Ver toda la tienda</ArrowLink>}
       />
-      <FavoritesTabs tabs={tabs} producers={producers} />
+      <FavoritesTabs tabs={shownTabs} producers={producers} />
     </Section>
   );
 }

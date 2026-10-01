@@ -4,7 +4,10 @@ import type { Product, Producer } from "@/lib/types";
 export function productByline(product: Product, producer?: Producer): string {
   if (product.subtitle) return product.subtitle;
   if (!producer) return "";
-  return `${producer.name} · ${producer.locality}`;
+  // Mientras la localidad sea un [marcador], se muestra solo el nombre del productor.
+  return /^\[.*\]$/.test(producer.locality.trim())
+    ? producer.name
+    : `${producer.name} · ${producer.locality}`;
 }
 
 export function productHref(product: Pick<Product, "categorySlug" | "slug">): string {

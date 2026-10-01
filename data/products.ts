@@ -1,197 +1,63 @@
+import { slugify } from "@/lib/slug";
 import type { Product } from "@/lib/types";
+import { productRows } from "./products.generated";
 
 /**
- * Catálogo de ejemplo.
+ * Catálogo.
  *
- * Los NOMBRES son ilustrativos y se pueden cambiar libremente. Los precios
- * están a `null` (se muestra "[precio] €") hasta tener los reales, y las
- * descripciones son marcadores. Ver README.md → "Cómo cambiar el catálogo".
+ * Los productos (categoría, proveedor, título y precio) vienen de la hoja de
+ * cálculo y se cargan con `python3 scripts/importar-productos.py <hoja.ods>`
+ * en data/products.generated.ts. Aquí se añaden los extras que no están en la
+ * hoja: destacados, etiquetas y maridajes. Ver README → "Cómo cambiar el catálogo".
  */
-const DESCRIPTION = "[Descripción del producto: origen, elaboración, curación y maridaje]";
 
-export const products: Product[] = [
-  // ——— Quesos ———
-  {
-    slug: "queso-roncal-dop",
-    name: "Queso Roncal DOP",
-    categorySlug: "quesos",
-    producerSlug: "productor-queso-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Queso Roncal DOP", placeholder: "Foto · queso" },
-    attributes: { denominacion: "dop-roncal", leche: "oveja" },
-    featured: true,
-    rank: 1,
-    tags: ["DOP", "Favorito de la casa"],
-    pairsWith: ["vino-tinto-do-navarra", "tabla-quesos-navarros", "pacharan-navarro"],
-  },
-  {
-    slug: "queso-oveja-curado",
-    name: "Queso de oveja curado",
-    categorySlug: "quesos",
-    producerSlug: "productor-queso-2",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Queso de oveja curado", placeholder: "Foto · queso" },
-    attributes: { denominacion: "sin-denominacion", leche: "oveja" },
-    rank: 2,
-  },
-  {
-    slug: "queso-cabra-fresco",
-    name: "Queso de cabra fresco",
-    categorySlug: "quesos",
-    producerSlug: "productor-queso-3",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Queso de cabra fresco", placeholder: "Foto · queso" },
-    attributes: { denominacion: "sin-denominacion", leche: "cabra" },
-    rank: 3,
-  },
-  {
-    slug: "queso-idiazabal-dop",
-    name: "Queso Idiazábal DOP",
-    categorySlug: "quesos",
-    producerSlug: "productor-queso-2",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Queso Idiazábal DOP", placeholder: "Foto · queso" },
-    attributes: { denominacion: "dop-idiazabal", leche: "oveja" },
-    rank: 4,
-    tags: ["DOP"],
-    pairsWith: ["vino-tinto-do-navarra", "queso-roncal-dop"],
-  },
-  {
-    slug: "queso-oveja-semicurado",
-    name: "Queso de oveja semicurado",
-    categorySlug: "quesos",
-    producerSlug: "productor-queso-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Queso de oveja semicurado", placeholder: "Foto · queso" },
-    attributes: { denominacion: "sin-denominacion", leche: "oveja" },
-    rank: 5,
-  },
-  {
-    slug: "tabla-quesos-navarros",
-    name: "Tabla de quesos navarros",
-    categorySlug: "quesos",
-    producerSlug: null,
-    subtitle: "Selección de la casa",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Tabla de quesos navarros", placeholder: "Foto · queso" },
-    attributes: { denominacion: "sin-denominacion" },
-    rank: 6,
-    tags: ["Para compartir"],
-    pairsWith: ["vino-tinto-do-navarra", "vino-rosado-do-navarra"],
-  },
+const DESCRIPTION = "[Descripción del producto: origen, elaboración, conservación y maridaje]";
 
-  // ——— Embutidos ———
-  {
-    slug: "chistorra-artesana",
-    name: "Chistorra artesana",
-    categorySlug: "embutidos",
-    producerSlug: "productor-embutido-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Chistorra artesana", placeholder: "Foto · embutido" },
-    attributes: {},
-    featured: true,
-    rank: 1,
-    tags: ["Favorito de la casa"],
-    pairsWith: ["vino-rosado-do-navarra", "pimientos-del-piquillo"],
-  },
-  {
-    slug: "chorizo-navarro",
-    name: "Chorizo navarro",
-    categorySlug: "embutidos",
-    producerSlug: "productor-embutido-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Chorizo navarro", placeholder: "Foto · embutido" },
-    attributes: {},
-    rank: 2,
-  },
-
-  // ——— Vinos ———
-  {
-    slug: "vino-tinto-do-navarra",
-    name: "Vino tinto D.O. Navarra",
-    categorySlug: "vinos",
-    producerSlug: "productor-vino-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Botella de vino tinto D.O. Navarra", placeholder: "Foto · botella" },
-    attributes: { tipo: "tinto" },
-    featured: true,
-    rank: 1,
-    tags: ["D.O. Navarra", "Favorito de la casa"],
-    pairsWith: ["queso-roncal-dop", "chistorra-artesana"],
-  },
-  {
-    slug: "vino-rosado-do-navarra",
-    name: "Vino rosado D.O. Navarra",
-    categorySlug: "vinos",
-    producerSlug: "productor-vino-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Botella de vino rosado D.O. Navarra", placeholder: "Foto · botella" },
-    attributes: { tipo: "rosado" },
-    rank: 2,
-    tags: ["D.O. Navarra"],
-    pairsWith: ["chistorra-artesana", "esparragos-de-navarra"],
-  },
-
-  // ——— Pimientos y espárragos ———
-  {
-    slug: "pimientos-del-piquillo",
-    name: "Pimientos del piquillo",
-    categorySlug: "pimientos",
-    producerSlug: "productor-verdura-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Pimientos del piquillo en conserva", placeholder: "Foto · conserva" },
-    attributes: {},
-    featured: true,
-    rank: 1,
-    tags: ["Favorito de la casa"],
-    pairsWith: ["aceite-oliva-virgen-extra", "vino-rosado-do-navarra"],
-  },
-  {
-    slug: "esparragos-de-navarra",
-    name: "Espárragos de Navarra",
-    categorySlug: "esparragos",
-    producerSlug: "productor-verdura-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Espárragos de Navarra en conserva", placeholder: "Foto · conserva" },
-    attributes: {},
-    rank: 2,
-  },
-
-  // ——— Aceites ———
-  {
-    slug: "aceite-oliva-virgen-extra",
-    name: "Aceite de oliva virgen extra",
-    categorySlug: "aceites",
-    producerSlug: "productor-aceite-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Botella de aceite de oliva virgen extra", placeholder: "Foto · aceite" },
-    attributes: {},
-    rank: 1,
-  },
-
-  // ——— Bebidas ———
-  {
-    slug: "pacharan-navarro",
-    name: "Pacharán navarro",
-    categorySlug: "bebidas",
-    producerSlug: "productor-licor-1",
-    price: null,
-    description: DESCRIPTION,
-    image: { alt: "Botella de pacharán navarro", placeholder: "Foto · pacharán" },
-    attributes: {},
-    rank: 1,
-  },
+/**
+ * "Los favoritos de la casa" de la portada: títulos exactos de la hoja.
+ * TODO: elegir los favoritos reales (se muestran 4: el primero de cada categoría, en el orden de la tienda).
+ */
+const FEATURED = [
+  "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
+  "LVN QUESO CURADO 1/2 PIEZAS 400 G.",
+  "ARBIZU Txistorra 1 kg",
+  "INURRIETA TINTO altos de inurrieta",
 ];
+
+/** Etiquetas visibles sobre la foto (máx. 2), por slug de producto. */
+const TAGS: Record<string, string[]> = {};
+
+/** "Combina con" en la ficha, por slug de producto. Si no se indica, se sugieren otros de la categoría. */
+const PAIRS_WITH: Record<string, string[]> = {};
+
+const featured = new Set(FEATURED.map(slugify));
+const taken = new Set<string>();
+const rankByCategory = new Map<string, number>();
+
+function uniqueSlug(name: string): string {
+  const base = slugify(name) || "producto";
+  let slug = base;
+  for (let i = 2; taken.has(slug); i++) slug = `${base}-${i}`;
+  taken.add(slug);
+  return slug;
+}
+
+export const products: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
+  const slug = uniqueSlug(name);
+  const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
+  rankByCategory.set(categorySlug, rank);
+  return {
+    slug,
+    name,
+    categorySlug,
+    producerSlug,
+    price,
+    description: DESCRIPTION,
+    image: { alt: name, placeholder: "Foto · producto" },
+    attributes: {},
+    featured: featured.has(slug) || undefined,
+    tags: TAGS[slug],
+    pairsWith: PAIRS_WITH[slug],
+    rank,
+  };
+});

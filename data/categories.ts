@@ -73,6 +73,14 @@ export const categories: Category[] = [
     "Lata de conserva de pescado con un tenedor",
   ),
   simple(
+    "atun-y-bonito",
+    "Atún y bonito",
+    "Atún y bonito en conserva",
+    "Bonito y atún en aceite y en escabeche, seleccionados en nuestra tienda.",
+    "Conserva de bonito del norte",
+    { image: { alt: "Atún y bonito en conserva", placeholder: "Foto · atún y bonito" } },
+  ),
+  simple(
     "legumbres",
     "Legumbres",
     "Legumbres",
@@ -102,26 +110,7 @@ export const categories: Category[] = [
         "Selección de quesos de pequeños productores navarros, catados uno a uno en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
       ],
     },
-    filters: [
-      {
-        key: "denominacion",
-        label: "Denominación",
-        options: [
-          { value: "dop-roncal", label: "DOP Roncal" },
-          { value: "dop-idiazabal", label: "DOP Idiazábal" },
-          { value: "sin-denominacion", label: "Sin denominación" },
-        ],
-      },
-      {
-        key: "leche",
-        label: "Tipo de leche",
-        options: [
-          { value: "oveja", label: "Oveja" },
-          { value: "cabra", label: "Cabra" },
-          { value: "vaca", label: "Vaca" },
-        ],
-      },
-    ],
+    filters: [],
   },
   {
     slug: "embutidos",
@@ -157,6 +146,14 @@ export const categories: Category[] = [
     },
     filters: [],
   },
+  simple(
+    "setas-y-hongos",
+    "Setas y hongos",
+    "Setas y hongos",
+    "Hongos y setas en conserva, seleccionados en nuestra tienda.",
+    "Setas y hongos en aceite",
+    { image: { alt: "Setas y hongos en conserva", placeholder: "Foto · setas y hongos" } },
+  ),
   simple(
     "cremas",
     "Cremas",
@@ -235,17 +232,7 @@ export const categories: Category[] = [
         "Vinos de bodegas pequeñas de la D.O. Navarra, catados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
       ],
     },
-    filters: [
-      {
-        key: "tipo",
-        label: "Tipo de vino",
-        options: [
-          { value: "tinto", label: "Tinto" },
-          { value: "rosado", label: "Rosado" },
-          { value: "blanco", label: "Blanco" },
-        ],
-      },
-    ],
+    filters: [],
   },
   simple(
     "espumosos",
@@ -267,6 +254,5 @@ export const categories: Category[] = [
     "Lotes y cestas",
     "Lotes y cestas de regalo con lo mejor de la tienda.",
     "Lote con chistorra, espárragos, pimientos y vino",
-    { href: "/regalos" },
   ),
 ];

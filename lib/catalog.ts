@@ -100,3 +100,10 @@ export async function getProductsBySlugs(slugs: string[]): Promise<Product[]> {
 export async function getOccasions(): Promise<Occasion[]> {
   return occasions;
 }
+
+/** Número de productos de cada productor, por slug. */
+export async function getProducerCounts(): Promise<Record<string, number>> {
+  const out: Record<string, number> = {};
+  for (const p of products) if (p.producerSlug) out[p.producerSlug] = (out[p.producerSlug] ?? 0) + 1;
+  return out;
+}

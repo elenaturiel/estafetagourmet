@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
+import { ButtonLink } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
@@ -64,8 +65,22 @@ export function ProductCard({
           </Link>
         </Heading>
         <div className="mt-auto flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[18px] font-semibold tabular-nums">{formatPrice(product.price)}</p>
+          {product.price === null ? (
+            <p className="text-[15px] font-semibold text-secundario">Precio a consultar</p>
+          ) : (
+            <p className="text-[18px] font-semibold tabular-nums">{formatPrice(product.price)}</p>
+          )}
           <div className="relative z-10 sm:w-auto">
+            {product.price === null ? (
+              <ButtonLink
+                href="/visitanos#contacto"
+                variant="secondary"
+                size="sm"
+                className="w-full sm:w-auto sm:px-5"
+              >
+                Consultar<span className="sr-only"> {product.name}</span>
+              </ButtonLink>
+            ) : (
             <AddToCartButton
               variant="primary"
               label="Añadir"
@@ -79,6 +94,7 @@ export function ProductCard({
                 imageLabel: product.image.placeholder,
               }}
             />
+            )}
           </div>
         </div>
       </div>
