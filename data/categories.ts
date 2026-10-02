@@ -116,12 +116,12 @@ export const categories: Category[] = [
     slug: "embutidos",
     name: "Embutidos",
     title: "Embutidos navarros",
-    intro: "Chistorra, chorizo y embutidos curados de obradores navarros.",
+    intro: "Txistorra, chorizo y embutidos curados de obradores navarros.",
     image: { src: img("embutidos"), alt: "Chorizo, jamón y salchichón cortados en lonchas", placeholder: "Foto · embutidos" },
     seo: {
-      title: "Embutidos navarros artesanos: chistorra y chorizo",
+      title: "Embutidos navarros artesanos: txistorra y chorizo",
       description:
-        "Chistorra, chorizo y embutidos artesanos de obradores navarros. Compra online con envío en 24–48 h o recoge tu pedido en la calle Estafeta de Pamplona.",
+        "Txistorra (chistorra), chorizo y embutidos artesanos de obradores navarros. Compra online con envío en 24–48 h o recoge tu pedido en la calle Estafeta de Pamplona.",
       heading: "Embutidos navarros artesanos, online y en Pamplona",
       text: [
         "Embutidos de pequeños obradores navarros, seleccionados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
@@ -245,14 +245,14 @@ export const categories: Category[] = [
     "bebidas",
     "Bebidas",
     "Bebidas y licores",
-    "Pacharán, licores y otras bebidas.",
-    "Copas de pacharán y licor",
+    "Patxarán, licores y otras bebidas.",
+    "Copas de patxarán y licor",
   ),
   simple(
     "lotes",
     "Lotes",
     "Lotes",
     "Lotes con lo mejor de la tienda, ya preparados para disfrutar o regalar.",
-    "Lote con chistorra, espárragos, pimientos y vino",
+    "Lote con txistorra, espárragos, pimientos y vino",
   ),
 ];

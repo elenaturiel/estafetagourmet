@@ -2,10 +2,10 @@ import { Marquee } from "@/components/ui/Marquee";
 
 const words = [
   "Queso Roncal",
-  "Chistorra",
+  "Txistorra",
   "Vino D.O. Navarra",
   "Pimientos del piquillo",
-  "Pacharán",
+  "Patxarán",
   "Espárragos",
   "Idiazábal",
   "Aceite de oliva",
