@@ -14,7 +14,7 @@ export const es = {
   nav: {
     label: "Navegación principal",
     shop: "Tienda",
-    gifts: "Regalos y cestas",
+    lots: "Lotes",
     producers: "Productores",
     blog: "Blog",
     visit: "Visítanos",
@@ -24,7 +24,7 @@ export const es = {
     languageLabel: "Idioma",
     languageSoon: "English version coming soon",
     search: "Buscar",
-    searchPlaceholder: "Buscar quesos, vinos, cestas…",
+    searchPlaceholder: "Buscar quesos, vinos, lotes…",
     searchClose: "Cerrar la búsqueda",
     cart: (n: number) => `Cesta (${n})`,
     cartAria: (n: number) => `Cesta, ${n} ${n === 1 ? "producto" : "productos"}`,

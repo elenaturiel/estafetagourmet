@@ -19,7 +19,7 @@ const EXCLUDED = ["/cesta", "/buscar"];
 
 const perks = [
   "Lanzamientos y ediciones limitadas, antes que nadie",
-  "Cestas de temporada: San Fermín, Navidad…",
+  "Lotes y productos de temporada, como los de Navidad",
   "Maridajes y recetas con producto navarro",
 ];
 
@@ -187,7 +187,7 @@ export function NewsletterPopup() {
                 Sé de los primeros en <em className="font-normal text-vino italic">probar lo nuevo</em>
               </h2>
               <p className="mt-3 text-[16px] text-secundario">
-                Apúntate y te avisamos antes que a nadie<span className="sm:hidden"> de lanzamientos, cestas de temporada y recetas.</span>
+                Apúntate y te avisamos antes que a nadie<span className="sm:hidden"> de lanzamientos, lotes de temporada y recetas.</span>
                 <span className="hidden sm:inline">:</span>
               </p>
               {/* En móvil se omite la lista para que la hoja no tape la página. */}

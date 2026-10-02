@@ -11,9 +11,7 @@ import type { Producer, Product } from "@/lib/types";
 export function tagClass(tag: string) {
   return /favorit/i.test(tag)
     ? "sticker bg-dorado text-tinta"
-    : /san ferm/i.test(tag)
-      ? "sticker bg-vino text-crema"
-      : "sticker bg-crema text-vino";
+    : "sticker bg-crema text-vino";
 }
 
 export function ProductCard({

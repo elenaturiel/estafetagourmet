@@ -27,9 +27,12 @@ export type HeaderCategory = {
   /** Destino del enlace (normalmente /tienda/<slug>). */
   href: string;
 };
-export type HeaderOccasion = { slug: string; name: string; href: string };
+/** Lote que se destaca en el menú de la tienda. */
+export type HeaderLot = { name: string; href: string; price: number | null };
 
 function isActive(pathname: string, href: string) {
+  // "Lotes" es una categoría de la tienda: dentro de ella solo se marca "Lotes", no "Tienda".
+  if (href === "/tienda" && pathname.startsWith("/tienda/lotes")) return false;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -38,10 +41,10 @@ const iconButton =
 
 export function Header({
   categories,
-  occasions,
+  featuredLot,
 }: {
   categories: HeaderCategory[];
-  occasions: HeaderOccasion[];
+  featuredLot?: HeaderLot;
 }) {
   const pathname = usePathname();
   const { count } = useCart();
@@ -215,7 +218,7 @@ export function Header({
                 <MegaMenu
                   open={megaOpen}
                   categories={categories}
-                  occasions={occasions}
+                  featuredLot={featuredLot}
                   onNavigate={() => setMegaOpen(false)}
                 />
               </li>
@@ -278,20 +281,6 @@ export function Header({
               );
             })}
           </ul>
-          <p className="eyebrow mt-8 mb-2 text-[12px] text-vino">Regalos por ocasión</p>
-          <ul className="flex flex-wrap gap-2">
-            {occasions.map((o) => (
-              <li key={o.slug}>
-                <Link
-                  href={o.href}
-                  onClick={() => menuRef.current?.close()}
-                  className="inline-flex min-h-[44px] items-center rounded-full border border-linea bg-papel px-4 text-[14px]"
-                >
-                  {o.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
           <div className="mt-8 space-y-1 text-[14px] text-secundario">
             <p>
               <a href={site.phone.href} className="font-semibold text-vino">
@@ -310,12 +299,12 @@ export function Header({
 function MegaMenu({
   open,
   categories,
-  occasions,
+  featuredLot,
   onNavigate,
 }: {
   open: boolean;
   categories: HeaderCategory[];
-  occasions: HeaderOccasion[];
+  featuredLot?: HeaderLot;
   onNavigate: () => void;
 }) {
   return (
@@ -324,7 +313,7 @@ function MegaMenu({
       hidden={!open}
       className="absolute inset-x-0 top-full border-y border-linea bg-crema shadow-[0_24px_40px_-24px_rgba(42,31,26,0.25)]"
     >
-      <div className="container-site grid grid-cols-[minmax(0,1fr)_180px_240px] gap-8 xl:gap-10 py-8">
+      <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 xl:gap-12 py-8">
         <div>
           <p className="eyebrow mb-4 text-[12px] text-vino">Compra por categoría</p>
           {/*
@@ -361,51 +350,37 @@ function MegaMenu({
             ))}
           </ul>
         </div>
-        <div>
-          <p className="eyebrow mb-4 text-[12px] text-vino">Regalos por ocasión</p>
-          <ul className="space-y-1">
-            {occasions.map((o) => (
-              <li key={o.slug}>
-                <Link
-                  href={o.href}
-                  onClick={onNavigate}
-                  className="inline-flex min-h-[36px] items-center text-[15px] transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-vino focus-visible:translate-x-1 focus-visible:text-vino motion-reduce:transform-none!"
-                >
-                  {o.name}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href="/tienda"
-                onClick={onNavigate}
-                className="mt-3 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino"
-              >
-                Ver toda la tienda →
-              </Link>
-            </li>
-          </ul>
+        <div className="flex flex-col gap-4">
+          {featuredLot ? (
+            <Link
+              href={featuredLot.href}
+              onClick={onNavigate}
+              className="group relative block overflow-hidden bg-vino text-crema"
+            >
+              <div className="overflow-hidden">
+                <ImagePlaceholder
+                  label="Foto · lote"
+                  ratio="16 / 9"
+                  className="transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transform-none!"
+                />
+              </div>
+              <div className="p-5">
+                <p className="eyebrow text-[11px] text-dorado">Lote destacado</p>
+                <p className="mt-1 font-serif text-[20px] leading-tight">{featuredLot.name}</p>
+                <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
+                  Descúbrelo →
+                </p>
+              </div>
+            </Link>
+          ) : null}
+          <Link
+            href="/tienda"
+            onClick={onNavigate}
+            className="inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
+          >
+            Ver toda la tienda →
+          </Link>
         </div>
-        <Link
-          href="/regalos#cesta-estafeta"
-          onClick={onNavigate}
-          className="group relative block overflow-hidden bg-vino text-crema"
-        >
-          <div className="overflow-hidden">
-            <ImagePlaceholder
-              label="Foto · Cesta Estafeta"
-              ratio="16 / 9"
-              className="transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transform-none!"
-            />
-          </div>
-          <div className="p-5">
-            <p className="eyebrow text-[11px] text-dorado">Cesta de la casa</p>
-            <p className="mt-1 font-serif text-[22px] leading-tight">Cesta Estafeta</p>
-            <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
-              Descúbrela →
-            </p>
-          </div>
-        </Link>
       </div>
     </div>
   );

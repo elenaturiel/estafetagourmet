@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getCategories, getOccasions } from "@/lib/catalog";
-import { categoryHref } from "@/lib/product-utils";
+import { getCategories, getProducts } from "@/lib/catalog";
+import { categoryHref, productHref } from "@/lib/product-utils";
 import { t } from "@/lib/i18n";
 import { isNewsletterEnabled } from "@/lib/newsletter";
 import { localBusinessJsonLd } from "@/lib/structured-data";
@@ -12,11 +12,13 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { ScrollReveal } from "./ScrollReveal";
 import { ScrollToTop } from "./ScrollToTop";
+import { WhatsAppButton } from "./WhatsAppButton";
 import { TopBar } from "./TopBar";
 
 /** Estructura común de la web pública: barra superior, cabecera, pie y capas. */
 export async function SiteChrome({ children }: { children: ReactNode }) {
-  const [categories, occasions] = await Promise.all([getCategories(), getOccasions()]);
+  const [categories, lots] = await Promise.all([getCategories(), getProducts({ category: "lotes" })]);
+  const lot = lots[0];
   return (
     <>
       <a
@@ -34,12 +36,13 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
           src: c.image.src,
           href: categoryHref(c),
         }))}
-        occasions={occasions.map((o) => ({ slug: o.slug, name: o.name, href: o.href }))}
+        featuredLot={lot ? { name: lot.name, href: productHref(lot), price: lot.price } : undefined}
       />
       <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
       <Footer />
+      <WhatsAppButton />
       <CartDrawer />
       <ScrollReveal />
       <ScrollToTop />

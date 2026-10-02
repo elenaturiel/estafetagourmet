@@ -3,7 +3,7 @@ import { AboutSection } from "@/components/home/AboutSection";
 import { BlogSection } from "@/components/home/BlogSection";
 import { CategoriesSection } from "@/components/home/CategoriesSection";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
-import { GiftsBand } from "@/components/home/GiftsBand";
+import { LotsBand } from "@/components/home/LotsBand";
 import { Hero } from "@/components/home/Hero";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { ProducersSection } from "@/components/home/ProducersSection";
@@ -12,7 +12,7 @@ import { PromiseSection } from "@/components/home/PromiseSection";
 import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { VisitSection } from "@/components/home/VisitSection";
 import { site } from "@/data/site";
-import { getGiftBoxes } from "@/lib/catalog";
+import { getProducts } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: { absolute: `${site.name} · Productos gourmet de Navarra en Pamplona` },
@@ -31,14 +31,14 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function Home() {
-  const gifts = await getGiftBoxes();
+  const [featuredLot] = await getProducts({ category: "lotes" });
   return (
     <>
-      <Hero featuredGift={gifts.find((g) => g.slug === "cesta-san-fermin") ?? gifts[0]} />
+      <Hero featuredLot={featuredLot} />
       <ProductMarquee />
       <CategoriesSection />
       <FeaturedProducts />
-      <GiftsBand />
+      <LotsBand />
       <ProducersSection />
       <PromiseSection />
       <AboutSection />

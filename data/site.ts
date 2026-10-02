@@ -47,23 +47,31 @@ export const site = {
   },
 
   phone: {
-    display: "624 642 742",
+    display: "624 64 27 42",
     href: "tel:+34624642742",
-    international: "+34 624 642 742",
+    international: "+34 624 64 27 42",
   },
 
-  /** WhatsApp: se asume el mismo número que el teléfono. Confírmalo en TODO.md. */
+  /** WhatsApp (mismo número que el teléfono). El mensaje se rellena solo al abrir el chat. */
   whatsappHref: "https://wa.me/34624642742",
+  whatsappMessage: "Hola, os escribo desde la web de Estafeta Gourmet.",
 
-  email: "[correo de contacto]",
+  email: "estafetagourmet@gmail.com",
 
   instagram: {
     handle: "@estafetagourmet",
     href: "https://www.instagram.com/estafetagourmet/",
   },
 
+  /** Ficha del negocio en Google Maps. */
   mapsHref:
     "https://www.google.com/maps/search/?api=1&query=Calle+Estafeta+70+31001+Pamplona",
+  /** Abre Google Maps con la ruta hasta la tienda ("Cómo llegar"). */
+  directionsHref:
+    "https://www.google.com/maps/dir/?api=1&destination=Calle+Estafeta+70+31001+Pamplona",
+  /** Mapa interactivo incrustado (Google Maps, sin clave de API). */
+  mapEmbedSrc:
+    "https://www.google.com/maps?q=Calle+Estafeta+70,+31001+Pamplona&hl=es&z=17&output=embed",
 
   shipping: {
     leadTime: "24–48 h",

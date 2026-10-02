@@ -32,7 +32,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
   async redirects() {
-    return canonicalHostRedirects();
+    return [
+      // La antigua página de regalos y cestas ahora es la categoría Lotes.
+      { source: "/regalos", destination: "/tienda/lotes", permanent: true },
+      ...canonicalHostRedirects(),
+    ];
   },
 };
 

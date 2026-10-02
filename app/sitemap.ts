@@ -6,7 +6,6 @@ import { productHref } from "@/lib/product-utils";
 const staticPaths = [
   "/",
   "/tienda",
-  "/regalos",
   "/productores",
   "/blog",
   "/visitanos",

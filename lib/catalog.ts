@@ -10,14 +10,12 @@
  * el cambio a una API remota no obligue a tocar quién las llama.
  */
 import { categories } from "@/data/categories";
-import { giftBoxes } from "@/data/gifts";
 import { posts } from "@/data/posts";
 import { producers } from "@/data/producers";
 import { products } from "@/data/products";
-import { occasions } from "@/data/occasions";
 import { reviews } from "@/data/reviews";
 import { getSanityPosts } from "@/lib/sanity/posts";
-import type { Category, GiftBox, Occasion, Post, Producer, Product, Review } from "@/lib/types";
+import type { Category, Post, Producer, Product, Review } from "@/lib/types";
 
 export async function getCategories(): Promise<Category[]> {
   return categories;
@@ -67,10 +65,6 @@ export async function getProducerMap(): Promise<Record<string, Producer>> {
   return Object.fromEntries(producers.map((p) => [p.slug, p]));
 }
 
-export async function getGiftBoxes(): Promise<GiftBox[]> {
-  return giftBoxes;
-}
-
 /**
  * Entradas del blog. Si Sanity está configurado se leen del panel /admin
  * (lo que escribe la dueña de la tienda); si no, de data/posts.ts.
@@ -95,10 +89,6 @@ export async function getProductsBySlugs(slugs: string[]): Promise<Product[]> {
   return slugs
     .map((slug) => products.find((p) => p.slug === slug))
     .filter((p): p is Product => Boolean(p));
-}
-
-export async function getOccasions(): Promise<Occasion[]> {
-  return occasions;
 }
 
 /** Número de productos de cada productor, por slug. */

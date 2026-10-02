@@ -12,7 +12,7 @@ export const en: DeepPartial<Dictionary> = {
   nav: {
     label: "Main navigation",
     shop: "Shop",
-    gifts: "Gifts & hampers",
+    lots: "Gift sets",
     producers: "Producers",
     blog: "Blog",
     visit: "Visit us",

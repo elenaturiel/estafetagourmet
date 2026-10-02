@@ -7,7 +7,7 @@ import type { Category } from "@/lib/types";
  *   `simple(...)`), su foto en public/images/categorias/<slug>.webp y sus
  *   productos en products.ts.
  * - Las categorías sin productos muestran un aviso de "muy pronto".
- * - `href` hace que la categoría enlace a otra página (p. ej. Lotes → Regalos).
+ * - `href` hace que la categoría enlace a otra página en vez de a la suya.
  *
  * TODO: revisar los textos de presentación y SEO de las categorías nuevas.
  */
@@ -251,8 +251,8 @@ export const categories: Category[] = [
   simple(
     "lotes",
     "Lotes",
-    "Lotes y cestas",
-    "Lotes y cestas de regalo con lo mejor de la tienda.",
+    "Lotes",
+    "Lotes con lo mejor de la tienda, ya preparados para disfrutar o regalar.",
     "Lote con chistorra, espárragos, pimientos y vino",
   ),
 ];

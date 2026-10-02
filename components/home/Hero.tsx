@@ -5,9 +5,10 @@ import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { Stamp } from "@/components/ui/Stamp";
 import { site } from "@/data/site";
 import { formatPrice } from "@/lib/format";
-import type { GiftBox } from "@/lib/types";
+import { productHref } from "@/lib/product-utils";
+import type { Product } from "@/lib/types";
 
-export function Hero({ featuredGift }: { featuredGift?: GiftBox }) {
+export function Hero({ featuredLot }: { featuredLot?: Product }) {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-crema">
       <div className="container-site grid items-center gap-12 pt-10 pb-14 lg:min-h-[680px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16 lg:py-16">
@@ -31,8 +32,8 @@ export function Hero({ featuredGift }: { featuredGift?: GiftBox }) {
             <ButtonLink href="/tienda" className="w-full sm:w-auto sm:px-9">
               Comprar ahora
             </ButtonLink>
-            <ButtonLink href="/regalos" variant="secondary" className="w-full sm:w-auto">
-              Ver cestas de regalo
+            <ButtonLink href="/tienda/lotes" variant="secondary" className="w-full sm:w-auto">
+              Ver lotes
             </ButtonLink>
           </div>
           <ul className="mt-9 grid gap-3 border-t border-linea pt-6 text-[14px] sm:grid-cols-3 sm:gap-4">
@@ -66,19 +67,19 @@ export function Hero({ featuredGift }: { featuredGift?: GiftBox }) {
             />
           </div>
           <Stamp className="drift-down absolute -top-4 -left-4 w-[112px] sm:w-[136px] lg:-left-12 lg:w-[150px]" />
-          {featuredGift ? (
+          {featuredLot ? (
             <Link
-              href={`/regalos#${featuredGift.slug}`}
+              href={productHref(featuredLot)}
               className="drift-up group absolute right-0 bottom-0 flex w-[250px] items-center gap-3 rounded-eg border border-linea bg-papel p-3 shadow-[0_20px_40px_-20px_rgba(42,31,26,0.35)] sm:-right-4 lg:-right-8 lg:bottom-12"
             >
-              <ImagePlaceholder label="" src={featuredGift.image.src} ratio="1 / 1" className="w-16 shrink-0" />
+              <ImagePlaceholder label="" src={featuredLot.image.src} ratio="1 / 1" className="w-16 shrink-0" />
               <span className="min-w-0">
-                <span className="eyebrow block text-[10px] text-vino">Para regalar</span>
-                <span className="block font-serif text-[18px] leading-tight group-hover:text-vino">
-                  {featuredGift.name}
+                <span className="eyebrow block text-[10px] text-vino">Lote destacado</span>
+                <span className="line-clamp-2 block font-serif text-[16px] leading-tight group-hover:text-vino">
+                  {featuredLot.name}
                 </span>
                 <span className="block text-[14px] font-semibold">
-                  {featuredGift.priceLabel ?? formatPrice(featuredGift.price)}
+                  {featuredLot.price === null ? "Precio a consultar" : formatPrice(featuredLot.price)}
                 </span>
               </span>
             </Link>

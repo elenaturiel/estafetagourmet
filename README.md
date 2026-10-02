@@ -95,9 +95,7 @@ Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja
 | `products.ts` | Extras de los productos que no están en la hoja: **destacados** de la portada (`FEATURED`), **etiquetas** (`TAGS`) y **maridajes** "Combina con" (`PAIRS_WITH`) |
 | `producers.ts` | Localidad (`LOCALITY`) y cuáles salen en la portada (`FEATURED`). Los nombres vienen de la hoja |
 | `categories.ts` | Categorías (24): nombre, H1, foto, textos SEO y, si se quiere, filtros por atributos. Las fotos están en `public/images/categorias/<slug>.webp`. Las que no tienen productos muestran "muy pronto". `href` hace que una categoría enlace a otra página |
-| `site.ts` | Dirección, horario, teléfono, correo, WhatsApp, envío gratis, valoración de Google, incentivo de la newsletter |
-| `gifts.ts` | Cestas y regalos (con etiqueta opcional, p. ej. "Edición San Fermín") |
-| `occasions.ts` | Regalos por ocasión (inicio, mega menú y menú móvil) |
+| `site.ts` | Dirección, horario, teléfono, correo, WhatsApp (y su mensaje), enlaces de Google Maps, envío gratis, valoración de Google, incentivo de la newsletter |
 | `posts.ts` | Entradas del blog de ejemplo (el real se escribe en `/admin`) |
 | `reviews.ts` | Reseñas de Google (solo reales) |
 | `legal.ts` | Datos del titular para las páginas legales |
@@ -109,6 +107,12 @@ Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja
 - **Cada categoría**: filtros por **Productor** y **Precio**.
 - **Enlaces directos**: `/tienda?productor=inurrieta` muestra todos los de un productor; `?productor=anko,la-catedral` varios; `?categoria=vinos` una categoría. Desde `/productores`, cada tarjeta enlaza así.
 - Dentro de un mismo filtro las opciones se suman (Inurrieta **o** Pago de Cirsus); entre filtros distintos se cruzan (Vinos **y** Chivite).
+
+### Lotes, WhatsApp y mapa
+
+- **Lotes.** No hay cestas por ahora. "Lotes" es una categoría más (familia LOTES de la hoja): tiene su entrada en el menú, su banda en la portada con sus productos y su página en `/tienda/lotes`. La dirección antigua `/regalos` redirige ahí.
+- **Botón de WhatsApp.** Flotante abajo a la derecha en toda la web (`components/layout/WhatsAppButton.tsx`). Al pasar el ratón se despliega con el texto; en una ficha de producto el mensaje ya lleva el nombre del producto. El número y el mensaje inicial están en `data/site.ts` (`whatsappHref`, `whatsappMessage`).
+- **Mapa.** Google Maps interactivo en "Visítanos" (`components/home/GoogleMap.tsx`), sin clave de API. Como Google instala cookies, el mapa se carga cuando la persona pulsa "Ver mapa interactivo" y se recuerda su elección; mientras tanto se ve un plano con la dirección y un enlace directo a Google Maps. El botón "Cómo llegar" abre la ruta.
 
 ### Fotos y marcadores
 

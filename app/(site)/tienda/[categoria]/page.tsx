@@ -15,7 +15,7 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const categories = await getCategories();
-  // Las categorías con enlace propio (p. ej. Lotes → /regalos) no tienen página.
+  // Las categorías con enlace propio (`href`) no tienen página.
   return categories.filter((c) => !c.href).map((c) => ({ categoria: c.slug }));
 }
 

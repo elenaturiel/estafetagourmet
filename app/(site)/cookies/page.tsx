@@ -24,6 +24,11 @@ export default function Page() {
           tu navegador (localStorage) y no requieren consentimiento.
         </li>
         <li>
+          Mapa de Google Maps (opcional): el mapa de la sección «Visítanos» solo se carga si pulsas
+          «Ver mapa interactivo». Entonces Google puede instalar sus propias cookies. Tu elección
+          se recuerda en este navegador.
+        </li>
+        <li>
           Analítica (opcional): [herramienta por definir]. Solo se cargan si las aceptas.
         </li>
       </ul>

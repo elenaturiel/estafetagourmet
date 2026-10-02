@@ -1,7 +1,7 @@
 /** Menús de la web. Cambia aquí los enlaces de cabecera y pie. */
 export const mainNav = [
   { href: "/tienda", key: "shop" },
-  { href: "/regalos", key: "gifts" },
+  { href: "/tienda/lotes", key: "lots" },
   { href: "/productores", key: "producers" },
   { href: "/blog", key: "blog" },
   { href: "/visitanos", key: "visit" },
@@ -12,7 +12,7 @@ export const footerNav = {
     { href: "/tienda/quesos", label: "Quesos" },
     { href: "/tienda/embutidos", label: "Embutidos" },
     { href: "/tienda/vinos", label: "Vinos" },
-    { href: "/regalos", label: "Regalos y cestas" },
+    { href: "/tienda/lotes", label: "Lotes" },
   ],
   help: [
     { href: "/envios-y-devoluciones", label: "Envíos y devoluciones" },

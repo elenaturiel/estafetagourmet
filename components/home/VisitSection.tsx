@@ -1,6 +1,6 @@
 import { ContactForm } from "@/components/forms/ContactForm";
+import { DirectionsButton, GoogleMap } from "@/components/home/GoogleMap";
 import { ButtonLink } from "@/components/ui/Button";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Eyebrow, Section } from "@/components/ui/Section";
 import { isPlaceholder, site } from "@/data/site";
 
@@ -59,11 +59,9 @@ export function VisitSection({
             </InfoBlock>
           </dl>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href={site.mapsHref} target="_blank" rel="noopener" className="w-full sm:w-auto">
-              Cómo llegar<span className="sr-only"> (abre Google Maps en otra pestaña)</span>
-            </ButtonLink>
+            <DirectionsButton className="w-full sm:w-auto" />
             <ButtonLink
-              href={site.whatsappHref}
+              href={`${site.whatsappHref}?text=${encodeURIComponent(site.whatsappMessage)}`}
               target="_blank"
               rel="noopener"
               variant="secondary"
@@ -75,19 +73,7 @@ export function VisitSection({
         </div>
 
         <div>
-          {/*
-            Mapa: se usa una imagen estática para no cargar Google Maps (que
-            instala cookies de terceros) sin consentimiento. Ver TODO.md.
-          */}
-          <a
-            href={site.mapsHref}
-            target="_blank"
-            rel="noopener"
-            className="block"
-            aria-label="Ver Calle Estafeta, 70 en Google Maps (abre en otra pestaña)"
-          >
-            <ImagePlaceholder label="Mapa · Calle Estafeta, 70" className="h-[200px] lg:h-[240px]" />
-          </a>
+          <GoogleMap className="h-[300px] lg:h-[360px]" />
           <SubHeading className="sr-only">Escríbenos</SubHeading>
           <div className="mt-8">
             <ContactForm />

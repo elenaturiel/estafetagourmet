@@ -32,7 +32,7 @@ export type Category = {
   image: Image;
   seo: { title: string; description: string; heading: string; text: string[] };
   filters: AttributeFilter[];
-  /** Si existe, la categoría enlaza aquí en vez de a su propia página (p. ej. "/regalos"). */
+  /** Si existe, la categoría enlaza aquí en vez de a su propia página . */
   href?: string;
 };
 
@@ -70,26 +70,6 @@ export type Product = {
   tags?: string[];
   /** Productos que se sugieren en su ficha ("Combina con"). Slugs. */
   pairsWith?: string[];
-};
-
-export type Occasion = {
-  slug: string;
-  name: string;
-  /** Frase corta bajo el nombre. */
-  line: string;
-  image: Image;
-  href: string;
-};
-
-export type GiftBox = {
-  slug: string;
-  name: string;
-  description: string;
-  price: number | null;
-  /** Texto de precio alternativo (p. ej. "Desde [importe] €"). */
-  priceLabel?: string;
-  tag?: string;
-  image: Image;
 };
 
 export type Post = {

@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: "Buscar productos",
-  description: "Busca quesos, vinos, embutidos, conservas y cestas de regalo en Estafeta Gourmet.",
+  description: "Busca quesos, vinos, embutidos, conservas y lotes en Estafeta Gourmet.",
   alternates: { canonical: "/buscar" },
 };
 
@@ -51,7 +51,7 @@ export default async function SearchPage({
             name="q"
             type="search"
             defaultValue={q}
-            placeholder="Buscar quesos, vinos, cestas…"
+            placeholder="Buscar quesos, vinos, lotes…"
             className={cn(inputClasses, "min-h-[52px]")}
           />
           <button type="submit" className={buttonClasses("primary", "md")}>

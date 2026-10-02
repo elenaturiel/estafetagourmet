@@ -34,7 +34,7 @@ export default function Page() {
       <p>[Plazos de conservación de cada tipo de dato.]</p>
       <h2>Destinatarios</h2>
       <p>
-        Brevo (Sendinblue SAS, Francia) para el envío de la newsletter. [Resto de proveedores que
+        Brevo (Sendinblue SAS, Francia) para el envío de la newsletter, y Google (Google Maps) si decides cargar el mapa de la tienda. [Resto de proveedores que
         tratan datos por cuenta de la tienda: plataforma de comercio electrónico, pasarela de pago,
         empresa de transporte, alojamiento web…]
       </p>
