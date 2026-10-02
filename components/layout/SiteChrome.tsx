@@ -2,9 +2,8 @@ import type { ReactNode } from "react";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getCategoryTree } from "@/lib/category-tree";
-import { getProducts } from "@/lib/catalog";
-import { productHref } from "@/lib/product-utils";
+import { getCategories, getProducts } from "@/lib/catalog";
+import { categoryHref, productHref } from "@/lib/product-utils";
 import { t } from "@/lib/i18n";
 import { isNewsletterEnabled } from "@/lib/newsletter";
 import { localBusinessJsonLd } from "@/lib/structured-data";
@@ -18,7 +17,8 @@ import { TopBar } from "./TopBar";
 
 /** Estructura común de la web pública: barra superior, cabecera, pie y capas. */
 export async function SiteChrome({ children }: { children: ReactNode }) {
-  const [lot] = await getProducts({ category: "lotes" });
+  const [categories, lots] = await Promise.all([getCategories(), getProducts({ category: "lotes" })]);
+  const lot = lots[0];
   return (
     <>
       <a
@@ -29,7 +29,13 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       </a>
       <TopBar />
       <Header
-        tree={getCategoryTree()}
+        categories={categories.map((c) => ({
+          slug: c.slug,
+          name: c.name,
+          placeholder: c.image.placeholder,
+          src: c.image.src,
+          href: categoryHref(c),
+        }))}
         featuredLot={lot ? { name: lot.name, href: productHref(lot), price: lot.price } : undefined}
       />
       <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">

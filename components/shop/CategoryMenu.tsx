@@ -91,7 +91,7 @@ export function CategoryMenu({
             <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:gap-10">
               {food ? (
                 <section aria-labelledby={`${panelId}-comida`}>
-                  <h2 id={`${panelId}-comida`} className="mb-4 font-serif text-[22px]">
+                  <h2 id={`${panelId}-comida`} className="mb-4 border-b border-vino/25 pb-2 font-serif text-[22px]">
                     {food.name}
                   </h2>
                   <CategoryColumns group={food} columns={3} current={current} onNavigate={() => setOpen(false)} showCounts />
@@ -100,7 +100,7 @@ export function CategoryMenu({
               <div className="space-y-8">
                 {rest.map((g) => (
                   <section key={g.slug} aria-labelledby={`${panelId}-${g.slug}`}>
-                    <h2 id={`${panelId}-${g.slug}`} className="mb-3 font-serif text-[22px]">
+                    <h2 id={`${panelId}-${g.slug}`} className="mb-3 border-b border-vino/25 pb-2 font-serif text-[22px]">
                       {g.name}
                     </h2>
                     <CategoryLinks group={g} current={current} onNavigate={() => setOpen(false)} showCounts />

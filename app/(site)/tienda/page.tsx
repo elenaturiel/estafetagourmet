@@ -1,6 +1,5 @@
-import { CategoryCard } from "@/components/cards/CategoryCard";
 import { CategoryBrowser } from "@/components/shop/CategoryBrowser";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { CategoryMenu } from "@/components/shop/CategoryMenu";
 import { getAllProducts, getProducers } from "@/lib/catalog";
 import { getCategoryTree } from "@/lib/category-tree";
 import { pageMetadata } from "@/lib/seo";
@@ -12,6 +11,10 @@ export const metadata = pageMetadata({
   path: "/tienda",
 });
 
+/**
+ * Tienda: el desplegable de categorías (Comida / Bebida / Lotes) queda fijo
+ * bajo la cabecera y los productos salen directamente, con sus filtros.
+ */
 export default async function ShopPage() {
   const [products, producers] = await Promise.all([getAllProducts(), getProducers()]);
   const tree = getCategoryTree();
@@ -23,54 +26,30 @@ export default async function ShopPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Tienda online"
-        title="Tienda"
-        intro="Todo lo que tenemos en la estantería de la calle Estafeta, ahora también con envío a casa."
-      />
-      <div className="container-site space-y-12 pb-14 lg:space-y-14 lg:pb-20">
-        <h2 className="sr-only">Categorías</h2>
-        {tree
-          .filter((g) => g.slug !== "lotes")
-          .map((g) => (
-            <section key={g.slug} aria-labelledby={`tienda-${g.slug}`}>
-              <h3 id={`tienda-${g.slug}`} className="mb-6 border-b border-linea pb-3 text-[28px] leading-none lg:text-[34px]">
-                {g.name}
-              </h3>
-              <div className="space-y-8">
-                {g.sections.map((section, i) => (
-                  <div key={section.name ?? i}>
-                    {section.name ? (
-                      <p className="mb-4 text-[13px] font-semibold tracking-[0.1em] text-secundario uppercase">
-                        {section.name}
-                      </p>
-                    ) : null}
-                    <ul className="grid grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-5 lg:grid-cols-9 lg:gap-x-5">
-                      {section.items.map((c) => (
-                        <li key={c.slug}>
-                          <CategoryCard category={c} size="sm" />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ))}
-      </div>
-      <section aria-labelledby="todos-title" className="border-t border-linea bg-papel py-14 lg:py-20">
+      <header className="container-site pt-8 pb-5 lg:pt-10">
+        <h1 className="text-[40px] leading-[1.05] tracking-[-0.02em] lg:text-[56px]">Tienda</h1>
+        <p className="mt-2 max-w-2xl text-[16px] text-secundario">
+          Todo lo que tenemos en la estantería de la calle Estafeta, ahora también con envío a casa.
+        </p>
+      </header>
+
+      {/* Barra fija bajo la cabecera (en escritorio) con el desplegable de categorías.
+          Sin backdrop-filter para no romper la hoja de categorías del móvil. */}
+      <div className="z-30 border-y border-linea bg-crema py-3 lg:sticky lg:top-[var(--header-h,0px)]">
         <div className="container-site">
-          <h2 id="todos-title" className="mb-10 text-[34px] leading-[1.05] tracking-[-0.02em] lg:text-[48px]">
-            Todos los productos
-          </h2>
-          <CategoryBrowser
-            products={products}
-            producers={producers}
-            filters={[]}
-            categoryGroups={filterGroups}
-          />
+          <CategoryMenu tree={tree} />
         </div>
-      </section>
+      </div>
+
+      <div className="container-site pt-8 pb-16 lg:pt-10 lg:pb-24">
+        <h2 className="sr-only">Todos los productos</h2>
+        <CategoryBrowser
+          products={products}
+          producers={producers}
+          filters={[]}
+          categoryGroups={filterGroups}
+        />
+      </div>
     </>
   );
 }

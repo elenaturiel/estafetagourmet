@@ -16,7 +16,7 @@ function SectionBlock({
   return (
     <div style={style}>
       {section.name ? (
-        <p className="mb-1.5 text-[12px] font-semibold tracking-[0.08em] text-secundario uppercase">
+        <p className="mb-1.5 text-[12px] font-bold tracking-[0.1em] text-vino uppercase">
           {section.name}
         </p>
       ) : null}

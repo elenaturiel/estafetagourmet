@@ -17,10 +17,16 @@ import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { t } from "@/lib/i18n";
-import { CategoryColumns, CategoryLinks } from "@/components/shop/CategoryLinks";
-import type { CategoryGroup } from "@/lib/category-tree";
 import { Logo } from "./Logo";
 
+export type HeaderCategory = {
+  slug: string;
+  name: string;
+  placeholder: string;
+  src?: string;
+  /** Destino del enlace (normalmente /tienda/<slug>). */
+  href: string;
+};
 /** Lote que se destaca en el menú de la tienda. */
 export type HeaderLot = { name: string; href: string; price: number | null };
 
@@ -34,16 +40,17 @@ const iconButton =
   "inline-flex h-11 w-11 items-center justify-center rounded-eg text-tinta hover:text-vino";
 
 export function Header({
-  tree,
+  categories,
   featuredLot,
 }: {
-  tree: CategoryGroup[];
+  categories: HeaderCategory[];
   featuredLot?: HeaderLot;
 }) {
   const pathname = usePathname();
   const { count } = useCart();
   const menuRef = useRef<HTMLDialogElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [compact, setCompact] = useState(false);
@@ -53,6 +60,21 @@ export function Header({
   useEffect(() => {
     menuRef.current?.close();
   }, [pathname]);
+
+  // Publica la altura de la cabecera (--header-h) para fijar barras justo debajo.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const update = () => root.style.setProperty("--header-h", `${el.offsetHeight}px`);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--header-h");
+    };
+  }, []);
 
   // Cabecera compacta al hacer scroll.
   useEffect(() => {
@@ -109,7 +131,7 @@ export function Header({
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-linea bg-crema/95 backdrop-blur supports-[backdrop-filter]:bg-crema/85">
+    <header ref={headerRef} className="sticky top-0 z-40 border-b border-linea bg-crema/95 backdrop-blur supports-[backdrop-filter]:bg-crema/85">
       {/* Fila superior: búsqueda · logotipo · idioma y cesta */}
       <div
         className={cn(
@@ -211,7 +233,7 @@ export function Header({
                 </button>
                 <MegaMenu
                   open={megaOpen}
-                  tree={tree}
+                  categories={categories}
                   featuredLot={featuredLot}
                   onNavigate={() => setMegaOpen(false)}
                 />
@@ -240,22 +262,21 @@ export function Header({
           </button>
         </div>
         <nav aria-label={t.nav.label} className="px-6 pt-2 pb-8">
-          <p className="eyebrow mt-4 mb-1 text-[12px] text-vino">Compra por categoría</p>
-          <div className="border-t border-linea">
-            {tree
-              .filter((g) => g.slug !== "lotes")
-              .map((g, i) => (
-                <details key={g.slug} className="group border-b border-linea" open={i === 0}>
-                  <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[22px] [&::-webkit-details-marker]:hidden">
-                    {g.name}
-                    <ChevronDownIcon size={18} className="transition-transform group-open:rotate-180" />
-                  </summary>
-                  <div className="pb-4">
-                    <CategoryLinks group={g} onNavigate={() => menuRef.current?.close()} />
-                  </div>
-                </details>
-              ))}
-          </div>
+          <p className="eyebrow mt-4 mb-3 text-[12px] text-vino">Compra por categoría</p>
+          <ul className="grid grid-cols-4 gap-x-3 gap-y-4">
+            {categories.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={c.href}
+                  onClick={() => menuRef.current?.close()}
+                  className="block text-center text-[12px] leading-tight font-medium"
+                >
+                  <ImagePlaceholder label="" src={c.src} ratio="1 / 1" sizes="80px" className="arch mb-1.5" />
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <ul className="mt-6 border-t border-linea">
             {mainNav.map((item) => {
               const active = isActive(pathname, item.href);
@@ -293,86 +314,89 @@ export function Header({
 
 function MegaMenu({
   open,
-  tree,
+  categories,
   featuredLot,
   onNavigate,
 }: {
   open: boolean;
-  tree: CategoryGroup[];
+  categories: HeaderCategory[];
   featuredLot?: HeaderLot;
   onNavigate: () => void;
 }) {
-  const food = tree.find((g) => g.slug === "comida");
-  const drinks = tree.find((g) => g.slug === "bebida");
   return (
     <div
       id="mega-tienda"
       hidden={!open}
       className="absolute inset-x-0 top-full border-y border-linea bg-crema shadow-[0_24px_40px_-24px_rgba(42,31,26,0.25)]"
     >
-      {/*
-        Solo texto, ordenado en grupos (Comida, Bebida, Lotes) y subgrupos: sin
-        fotos ni cuadrículas, para que no haya ruido visual. Al pasar el ratón
-        (o con el teclado) cada enlace se desplaza y se pone en vino.
-      */}
-      <div className="container-site grid grid-cols-[minmax(0,5fr)_minmax(0,2fr)_240px] gap-10 py-8 xl:gap-14">
-        {food ? (
-          <section aria-labelledby="mega-comida">
-            <h2 id="mega-comida" className="mb-4 font-serif text-[22px]">
-              {food.name}
-            </h2>
-            <CategoryColumns group={food} columns={3} onNavigate={onNavigate} />
-          </section>
-        ) : null}
-        <div className="space-y-8">
-          {drinks ? (
-            <section aria-labelledby="mega-bebida">
-              <h2 id="mega-bebida" className="mb-4 font-serif text-[22px]">
-                {drinks.name}
-              </h2>
-              <CategoryLinks group={drinks} onNavigate={onNavigate} />
-            </section>
-          ) : null}
-          <div className="space-y-1 border-t border-linea pt-5">
-            <Link
-              href="/tienda/lotes"
-              onClick={onNavigate}
-              className="inline-flex min-h-[36px] items-center font-serif text-[22px] hover:text-vino"
-            >
-              Lotes
-            </Link>
-            <br />
-            <Link
-              href="/tienda"
-              onClick={onNavigate}
-              className="inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
-            >
-              Ver toda la tienda →
-            </Link>
-          </div>
+      <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 xl:gap-12 py-8">
+        <div>
+          <p className="eyebrow mb-4 text-[12px] text-vino">Compra por categoría</p>
+          {/*
+            Al pasar el ratón (o con el foco del teclado) la categoría crece y
+            sube, su foto hace zoom y se enmarca en vino; el resto se atenúa
+            para que se note cuál está señalada. 200 ms con curva ease-out.
+          */}
+          <ul className="group/cats grid grid-cols-8 gap-x-3 gap-y-5">
+            {categories.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={c.href}
+                  onClick={onNavigate}
+                  className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06] motion-reduce:transform-none!"
+                >
+                  <div className="arch overflow-hidden ring-vino ring-offset-2 ring-offset-crema transition-shadow duration-200 ease-out group-hover:ring-2 group-focus-visible:ring-2">
+                    <ImagePlaceholder
+                      label=""
+                      src={c.src}
+                      ratio="1 / 1"
+                      sizes="96px"
+                      className="transition-transform duration-300 ease-out group-hover:scale-110 group-focus-visible:scale-110 motion-reduce:transform-none!"
+                    />
+                  </div>
+                  <span className="mt-2 inline-block font-serif text-[13px] leading-tight transition-colors xl:text-[14px] duration-200 group-hover:text-vino group-focus-visible:text-vino">
+                    {c.name}
+                    <span
+                      aria-hidden="true"
+                      className="mx-auto mt-1 block h-0.5 w-full origin-center scale-x-0 bg-vino transition-transform duration-200 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                    />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-        {featuredLot ? (
+        <div className="flex flex-col gap-4">
+          {featuredLot ? (
+            <Link
+              href={featuredLot.href}
+              onClick={onNavigate}
+              className="group relative block overflow-hidden bg-vino text-crema"
+            >
+              <div className="overflow-hidden">
+                <ImagePlaceholder
+                  label="Foto · lote"
+                  ratio="16 / 9"
+                  className="transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transform-none!"
+                />
+              </div>
+              <div className="p-5">
+                <p className="eyebrow text-[11px] text-dorado">Lote destacado</p>
+                <p className="mt-1 font-serif text-[20px] leading-tight">{featuredLot.name}</p>
+                <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
+                  Descúbrelo →
+                </p>
+              </div>
+            </Link>
+          ) : null}
           <Link
-            href={featuredLot.href}
+            href="/tienda"
             onClick={onNavigate}
-            className="group relative block self-start overflow-hidden bg-vino text-crema"
+            className="inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
           >
-            <div className="overflow-hidden">
-              <ImagePlaceholder
-                label="Foto · lote"
-                ratio="16 / 9"
-                className="transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transform-none!"
-              />
-            </div>
-            <div className="p-5">
-              <p className="eyebrow text-[11px] text-dorado">Lote destacado</p>
-              <p className="mt-1 font-serif text-[20px] leading-tight">{featuredLot.name}</p>
-              <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
-                Descúbrelo →
-              </p>
-            </div>
+            Ver toda la tienda →
           </Link>
-        ) : null}
+        </div>
       </div>
     </div>
   );

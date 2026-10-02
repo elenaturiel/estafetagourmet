@@ -111,9 +111,9 @@ Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja
 
 ### Navegación por categorías
 
-- **Página de categoría:** en vez de una fila con todas las categorías, un desplegable "Categoría: Quesos ▾" que abre la lista ordenada por Comida / Bebida / Lotes y sus subgrupos, con el número de productos. Se cierra con Esc o al elegir. En móvil se abre como una hoja desde abajo.
-- **Menú de Tienda:** solo texto, en columnas (Comida con sus subgrupos, Bebida, Lotes) y el lote destacado. En móvil, acordeones Comida / Bebida.
-- **Portada y `/tienda`:** las fotos de categorías se agrupan bajo Comida / Bebida (pestañas en la portada).
+- **Tienda (`/tienda`):** el desplegable **"Categoría"** (sin fotos, por Comida / Bebida / Lotes y sus subgrupos, con el nº de productos) queda **fijo bajo la cabecera** al bajar, y los **productos salen directamente**, con filtros por categoría, productor y precio. En móvil el desplegable no es fijo y se abre como una hoja desde abajo.
+- **Cada categoría:** el mismo desplegable bajo el título, con la categoría actual marcada. Los títulos de subgrupo (Quesos y embutidos, Dulces…) van en vino.
+- **Con fotos:** el menú que sale al pasar por "Tienda" y la sección "Compra por categoría" de la portada muestran las 24 categorías con su foto.
 
 ### Lotes, WhatsApp y mapa
 
