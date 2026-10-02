@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
 import { CategoryBrowser } from "@/components/shop/CategoryBrowser";
+import { CategoryMenu } from "@/components/shop/CategoryMenu";
 import { getCategories, getCategory, getProducers, getProducts } from "@/lib/catalog";
-import { categoryHref } from "@/lib/product-utils";
+import { getCategoryTree } from "@/lib/category-tree";
 import { site } from "@/data/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { pageMetadata } from "@/lib/seo";
@@ -35,11 +35,11 @@ export default async function CategoryPage({ params }: Params) {
   const category = await getCategory(categoria);
   if (!category || category.href) notFound();
 
-  const [products, allProducers, categories] = await Promise.all([
+  const [products, allProducers] = await Promise.all([
     getProducts({ category: category.slug }),
     getProducers(),
-    getCategories(),
   ]);
+  const tree = getCategoryTree();
   // Solo los productores que tienen productos en esta categoría.
   const producerSlugs = new Set(products.map((p) => p.producerSlug).filter(Boolean));
   const producers = allProducers.filter((p) => producerSlugs.has(p.slug));
@@ -54,34 +54,15 @@ export default async function CategoryPage({ params }: Params) {
             { name: category.name, path: `/tienda/${category.slug}` },
           ]}
         />
-        <header className="mt-6 mb-8 lg:mb-12">
+        <header className="mt-6 mb-7 lg:mb-8">
           <h1 className="text-[42px] leading-[1.02] tracking-[-0.025em] lg:text-[68px]">
             {category.title}
           </h1>
           <p className="mt-3 max-w-2xl text-[17px] text-secundario lg:text-[18px]">{category.intro}</p>
         </header>
-        <nav aria-label="Otras categorías" className="mb-10 lg:mb-14">
-          <ul className="rail -mx-6 auto-cols-max gap-2 px-6 lg:mx-0 lg:flex lg:flex-wrap lg:px-0">
-            {categories.map((c) => {
-              const current = c.slug === category.slug;
-              return (
-                <li key={c.slug}>
-                  <Link
-                    href={categoryHref(c)}
-                    aria-current={current ? "page" : undefined}
-                    className={
-                      current
-                        ? "inline-flex min-h-[44px] items-center rounded-full border border-tinta bg-tinta px-5 text-[14px] font-semibold whitespace-nowrap text-crema"
-                        : "inline-flex min-h-[44px] items-center rounded-full border border-linea px-5 text-[14px] font-semibold whitespace-nowrap hover:border-tinta"
-                    }
-                  >
-                    {c.name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <div className="mb-10 lg:mb-12">
+          <CategoryMenu tree={tree} current={category.slug} currentName={category.name} />
+        </div>
         {products.length ? (
           <CategoryBrowser products={products} producers={producers} filters={category.filters} />
         ) : (

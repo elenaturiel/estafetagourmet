@@ -94,6 +94,7 @@ Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja
 | `products.generated.ts` | Productos y proveedores, **generado** desde la hoja (ver arriba) |
 | `products.ts` | Extras de los productos que no están en la hoja: **destacados** de la portada (`FEATURED`), **etiquetas** (`TAGS`) y **maridajes** "Combina con" (`PAIRS_WITH`) |
 | `producers.ts` | Localidad (`LOCALITY`) y cuáles salen en la portada (`FEATURED`). Los nombres vienen de la hoja |
+| `category-groups.ts` | Cómo se agrupan las categorías en los menús: **Comida** (con subgrupos: Quesos y embutidos, Conservas y verduras, Despensa, Dulces), **Bebida** y **Lotes**. Para mover una categoría de sitio, cambia su slug de lugar. Una categoría que no esté aquí se añade sola al final de Comida |
 | `categories.ts` | Categorías (24): nombre, H1, foto, textos SEO y, si se quiere, filtros por atributos. Las fotos están en `public/images/categorias/<slug>.webp`. Las que no tienen productos muestran "muy pronto". `href` hace que una categoría enlace a otra página |
 | `site.ts` | Dirección, horario, teléfono, correo, WhatsApp (y su mensaje), enlaces de Google Maps, envío gratis, valoración de Google, incentivo de la newsletter |
 | `posts.ts` | Entradas del blog de ejemplo (el real se escribe en `/admin`) |
@@ -107,6 +108,12 @@ Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja
 - **Cada categoría**: filtros por **Productor** y **Precio**.
 - **Enlaces directos**: `/tienda?productor=inurrieta` muestra todos los de un productor; `?productor=anko,la-catedral` varios; `?categoria=vinos` una categoría. Desde `/productores`, cada tarjeta enlaza así.
 - Dentro de un mismo filtro las opciones se suman (Inurrieta **o** Pago de Cirsus); entre filtros distintos se cruzan (Vinos **y** Chivite).
+
+### Navegación por categorías
+
+- **Página de categoría:** en vez de una fila con todas las categorías, un desplegable "Categoría: Quesos ▾" que abre la lista ordenada por Comida / Bebida / Lotes y sus subgrupos, con el número de productos. Se cierra con Esc o al elegir. En móvil se abre como una hoja desde abajo.
+- **Menú de Tienda:** solo texto, en columnas (Comida con sus subgrupos, Bebida, Lotes) y el lote destacado. En móvil, acordeones Comida / Bebida.
+- **Portada y `/tienda`:** las fotos de categorías se agrupan bajo Comida / Bebida (pestañas en la portada).
 
 ### Lotes, WhatsApp y mapa
 

@@ -18,6 +18,9 @@ import {
 } from "@/lib/filters";
 import type { AttributeFilter, Producer, Product } from "@/lib/types";
 
+/** Categorías del filtro, agrupadas (Comida, Bebida…). */
+export type CategoryFilterGroup = { name: string; items: { slug: string; name: string }[] };
+
 /** Productos que se cargan de golpe; el resto, con "Ver más productos". */
 const PAGE_SIZE = 24;
 
@@ -26,7 +29,7 @@ type Props = {
   producers: Producer[];
   filters: AttributeFilter[];
   /** Si se pasa, aparece el filtro "Categoría" (tienda completa). */
-  categories?: { slug: string; name: string }[];
+  categoryGroups?: CategoryFilterGroup[];
 };
 
 /**
@@ -53,7 +56,7 @@ function fromParam(value: string | null, valid: string[]): string[] {
 function BrowserFromUrl(props: Props) {
   const params = useSearchParams();
   const producers = fromParam(params.get("productor"), props.producers.map((p) => p.slug));
-  const categories = fromParam(params.get("categoria"), (props.categories ?? []).map((c) => c.slug));
+  const categories = fromParam(params.get("categoria"), (props.categoryGroups ?? []).flatMap((g) => g.items.map((c) => c.slug)));
   const initial: FilterState = { ...emptyFilters, producers, categories };
   return <Browser key={`${producers}|${categories}`} {...props} initial={initial} />;
 }
@@ -62,7 +65,7 @@ function Browser({
   products,
   producers,
   filters,
-  categories,
+  categoryGroups,
   initial,
 }: Props & { initial: FilterState }) {
   const [state, setStateRaw] = useState<FilterState>(initial);
@@ -100,7 +103,7 @@ function Browser({
       filters={filters}
       producers={producers}
       products={products}
-      categories={categories}
+      categoryGroups={categoryGroups}
     />
   );
 
@@ -321,7 +324,7 @@ function FilterPanel({
   filters,
   producers,
   products,
-  categories,
+  categoryGroups,
 }: {
   idPrefix: string;
   state: FilterState;
@@ -329,7 +332,7 @@ function FilterPanel({
   filters: AttributeFilter[];
   producers: Producer[];
   products: Product[];
-  categories?: { slug: string; name: string }[];
+  categoryGroups?: CategoryFilterGroup[];
 }) {
   const prices = products.map((p) => p.price).filter((p): p is number => p !== null);
   const hasPrices = prices.length > 0;
@@ -338,22 +341,31 @@ function FilterPanel({
 
   return (
     <div>
-      {categories?.length ? (
+      {categoryGroups?.length ? (
         <FilterGroup legend="Categoría" scroll>
-          {categories
-            .filter((c) => perCategory[c.slug])
-            .map((c) => (
-              <Checkbox
-                key={c.slug}
-                id={`${idPrefix}-cat-${c.slug}`}
-                label={c.name}
-                count={perCategory[c.slug]}
-                checked={state.categories.includes(c.slug)}
-                onChange={(on) =>
-                  onChange({ ...state, categories: toggle(state.categories, c.slug, on) })
-                }
-              />
-            ))}
+          {categoryGroups.map((g) => {
+            const items = g.items.filter((c) => perCategory[c.slug]);
+            if (!items.length) return null;
+            return (
+              <div key={g.name} className="mb-3">
+                <p className="mt-2 mb-0.5 text-[12px] font-semibold tracking-[0.08em] text-secundario uppercase">
+                  {g.name}
+                </p>
+                {items.map((c) => (
+                  <Checkbox
+                    key={c.slug}
+                    id={`${idPrefix}-cat-${c.slug}`}
+                    label={c.name}
+                    count={perCategory[c.slug]}
+                    checked={state.categories.includes(c.slug)}
+                    onChange={(on) =>
+                      onChange({ ...state, categories: toggle(state.categories, c.slug, on) })
+                    }
+                  />
+                ))}
+              </div>
+            );
+          })}
         </FilterGroup>
       ) : null}
 
