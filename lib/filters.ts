@@ -4,15 +4,34 @@
  */
 import type { Product } from "@/lib/types";
 
-export type SortKey = "destacados" | "productor" | "precio-asc" | "precio-desc" | "nombre";
+export type SortKey =
+  | "relevancia"
+  | "precio-desc"
+  | "precio-asc"
+  | "nombre"
+  | "nombre-desc"
+  | "productor";
+
+export const DEFAULT_SORT: SortKey = "relevancia";
 
 export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
-  { value: "destacados", label: "Destacados" },
-  { value: "productor", label: "Agrupar por productor" },
-  { value: "precio-asc", label: "Precio: de menor a mayor" },
+  { value: "relevancia", label: "Relevancia" },
   { value: "precio-desc", label: "Precio: de mayor a menor" },
+  { value: "precio-asc", label: "Precio: de menor a mayor" },
   { value: "nombre", label: "Nombre (A–Z)" },
+  { value: "nombre-desc", label: "Nombre (Z–A)" },
+  { value: "productor", label: "Agrupar por productor" },
 ];
+
+/** Valida el orden que llega en la URL (?orden=); si no es válido, el de por defecto. */
+export function parseSort(value: string | null): SortKey {
+  return SORT_OPTIONS.some((o) => o.value === value) ? (value as SortKey) : DEFAULT_SORT;
+}
+
+/** Puntuación de relevancia: favoritos de la casa, luego con etiquetas, luego con precio. */
+function relevance(p: Product): number {
+  return (p.featured ? 4 : 0) + (p.tags?.length ? 2 : 0) + (p.price !== null ? 1 : 0);
+}
 
 export type FilterState = {
   /** Slugs de categoría marcados (solo en la tienda completa). */
@@ -82,7 +101,10 @@ export function sortProducts(products: Product[], sort: SortKey): Product[] {
       return list.sort((a, b) => priceOf(b, -Infinity) - priceOf(a, -Infinity) || a.rank - b.rank);
     case "nombre":
       return list.sort((a, b) => a.name.localeCompare(b.name, "es"));
+    case "nombre-desc":
+      return list.sort((a, b) => b.name.localeCompare(a.name, "es"));
     default:
-      return list.sort((a, b) => a.rank - b.rank);
+      // Relevancia: a igual puntuación se respeta el orden de la tienda (sort es estable).
+      return list.sort((a, b) => relevance(b) - relevance(a));
   }
 }
