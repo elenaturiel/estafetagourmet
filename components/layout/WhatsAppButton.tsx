@@ -20,7 +20,7 @@ function chatUrl(message: string) {
  * - En una ficha de producto el mensaje ya lleva el nombre del producto.
  * - Se coloca encima de la barra de cookies (--cookie-h) y, en móvil, de la
  *   barra de compra de la ficha, para no estorbar a ninguna.
- * - Aro que "late" cada pocos segundos; se quita con "reducir movimiento".
+ * - Aro que "late" cada pocos segundos.
  */
 export function WhatsAppButton() {
   const pathname = usePathname();
@@ -48,7 +48,7 @@ export function WhatsAppButton() {
       {/* Aro que late: llama la atención sin ser pesado (fuera del botón, para que no se recorte) */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-full bg-vino motion-safe:animate-[wa-pulse_3.6s_var(--ease-out)_infinite]"
+        className="pointer-events-none absolute inset-0 rounded-full bg-vino animate-[wa-pulse_3.6s_var(--ease-out)_infinite]"
       />
       <a
         href={chatUrl(site.whatsappMessage)}
