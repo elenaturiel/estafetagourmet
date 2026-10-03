@@ -19,6 +19,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 - [ ] **Precios que faltan en la hoja** (hoy salen como "Precio a consultar"): los 8 de **Chivite**, los 7 de **Monjardin** y 2 estuches de **Inurrieta** (tienen 0,00 €). Rellénalos en la hoja y vuelve a importar (ver README). 
 - [ ] **Títulos de los productos:** se muestran tal cual están en la hoja (formato de ticket: muchos en MAYÚSCULAS y con abreviaturas como LVN, LC o PCIRSUS). Si quieres títulos más cuidados para la web, se pueden mejorar en la hoja o con una limpieza automática.
 - [ ] **Elegir los destacados de la portada** (`FEATURED` en `data/products.ts`): ahora son 4 productos de ejemplo. Y los productores de la portada (`FEATURED` en `data/producers.ts`).
+- [ ] **Más vendidos** (`BESTSELLERS` en `data/products.ts`): orden "Más vendidos" de la tienda. Ahora son los favoritos de la casa; poner los títulos de los productos que más se venden, del más vendido al menos.
 - [ ] **Localidad de cada productor** (`LOCALITY` en `data/producers.ts`) y su foto.
 - [ ] **Comprobar la ortografía de los proveedores**: p. ej. "Monjardin" probablemente es "Monjardín".
 - [ ] **Fotos de las categorías nuevas:** "Atún y bonito" y "Setas y hongos" no tienen foto todavía (`public/images/categorias/atun-y-bonito.webp` y `setas-y-hongos.webp`, y enlazarlas en `data/categories.ts`).

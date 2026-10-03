@@ -6,6 +6,7 @@ import type { Product } from "@/lib/types";
 
 export type SortKey =
   | "relevancia"
+  | "mas-vendidos"
   | "precio-desc"
   | "precio-asc"
   | "nombre"
@@ -16,11 +17,12 @@ export const DEFAULT_SORT: SortKey = "relevancia";
 
 export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "relevancia", label: "Relevancia" },
+  { value: "mas-vendidos", label: "Más vendidos" },
   { value: "precio-desc", label: "Precio: de mayor a menor" },
   { value: "precio-asc", label: "Precio: de menor a mayor" },
   { value: "nombre", label: "Nombre (A–Z)" },
   { value: "nombre-desc", label: "Nombre (Z–A)" },
-  { value: "productor", label: "Agrupar por productor" },
+  { value: "productor", label: "Productor (A–Z)" },
 ];
 
 /** Valida el orden que llega en la URL (?orden=); si no es válido, el de por defecto. */
@@ -99,6 +101,12 @@ export function sortProducts(products: Product[], sort: SortKey): Product[] {
       return list.sort((a, b) => priceOf(a, Infinity) - priceOf(b, Infinity) || a.rank - b.rank);
     case "precio-desc":
       return list.sort((a, b) => priceOf(b, -Infinity) - priceOf(a, -Infinity) || a.rank - b.rank);
+    case "mas-vendidos":
+      // Primero los de la lista de más vendidos, en su orden; luego, por relevancia.
+      return list.sort(
+        (a, b) =>
+          (a.bestseller ?? Number.MAX_SAFE_INTEGER) - (b.bestseller ?? Number.MAX_SAFE_INTEGER) || relevance(b) - relevance(a),
+      );
     case "nombre":
       return list.sort((a, b) => a.name.localeCompare(b.name, "es"));
     case "nombre-desc":

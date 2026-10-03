@@ -62,7 +62,9 @@ export type Product = {
   attributes: Record<string, string>;
   /** Aparece en "Los favoritos de la casa". */
   featured?: boolean;
-  /** Orden en "Destacados" (menor primero). */
+  /** Puesto en "Más vendidos" (1 = el más vendido). Sin valor, va detrás. */
+  bestseller?: number;
+  /** Orden en la hoja dentro de su categoría (menor primero). */
   rank: number;
   /** Texto alternativo a "Productor · Localidad" (p. ej. "Selección de la casa"). */
   subtitle?: string;

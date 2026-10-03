@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 /**
  * Cinta de texto en movimiento continuo. Decorativa: el contenido se repite
  * para el bucle y se oculta a lectores de pantalla (el texto no aporta
- * información que no esté en la página). Se detiene con "reducir movimiento".
+ * información que no esté en la página). Se detiene al pasar el ratón.
  */
 export function Marquee({
   items,

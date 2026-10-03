@@ -343,7 +343,7 @@ function MegaMenu({
                 <Link
                   href={c.href}
                   onClick={onNavigate}
-                  className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06] motion-reduce:transform-none!"
+                  className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06]"
                 >
                   <div className="arch overflow-hidden ring-vino ring-offset-2 ring-offset-crema transition-shadow duration-200 ease-out group-hover:ring-2 group-focus-visible:ring-2">
                     <ImagePlaceholder
@@ -351,7 +351,7 @@ function MegaMenu({
                       src={c.src}
                       ratio="1 / 1"
                       sizes="96px"
-                      className="transition-transform duration-300 ease-out group-hover:scale-110 group-focus-visible:scale-110 motion-reduce:transform-none!"
+                      className="transition-transform duration-300 ease-out group-hover:scale-110 group-focus-visible:scale-110"
                     />
                   </div>
                   <span className="mt-2 inline-block font-serif text-[13px] leading-tight transition-colors xl:text-[14px] duration-200 group-hover:text-vino group-focus-visible:text-vino">
@@ -377,7 +377,7 @@ function MegaMenu({
                 <ImagePlaceholder
                   label="Foto · lote"
                   ratio="16 / 9"
-                  className="transition-transform duration-300 ease-out group-hover:scale-105 motion-reduce:transform-none!"
+                  className="transition-transform duration-300 ease-out group-hover:scale-105"
                 />
               </div>
               <div className="p-5">
