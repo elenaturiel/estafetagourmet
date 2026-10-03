@@ -1,5 +1,6 @@
 import { slugify } from "@/lib/slug";
 import type { Product } from "@/lib/types";
+import { DESCRIPTIONS } from "./descriptions";
 import { productRows } from "./products.generated";
 
 /**
@@ -11,6 +12,7 @@ import { productRows } from "./products.generated";
  * hoja: destacados, etiquetas y maridajes. Ver README → "Cómo cambiar el catálogo".
  */
 
+/** Descripciones (borrador, ver data/descriptions.ts). Si falta alguna, se muestra este marcador. */
 const DESCRIPTION = "[Descripción del producto: origen, elaboración, conservación y maridaje]";
 
 /**
@@ -52,7 +54,7 @@ export const products: Product[] = productRows.map(([categorySlug, producerSlug,
     categorySlug,
     producerSlug,
     price,
-    description: DESCRIPTION,
+    description: DESCRIPTIONS[slug] ?? DESCRIPTION,
     image: { alt: name, placeholder: "Foto · producto" },
     attributes: {},
     featured: featured.has(slug) || undefined,

@@ -24,7 +24,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 - [ ] **Fotos de las categorías nuevas:** "Atún y bonito" y "Setas y hongos" no tienen foto todavía (`public/images/categorias/atun-y-bonito.webp` y `setas-y-hongos.webp`, y enlazarlas en `data/categories.ts`).
 - [ ] **Categorías sin productos** (Conservas, Verduras, Cremas, Salsas, Mermeladas, Chocolates, Espumosos): muestran "muy pronto". Decidir si se quedan, se rellenan o se quitan de `data/categories.ts`. Ojo: los 3 vinos "BRUT" de Monjardin están en Vinos porque así vienen en la hoja.
 - [ ] **Filtros por atributo** (denominación, tipo de vino, tipo de leche…): no hay datos en la hoja. Si se añaden columnas, se pueden crear.
-- [ ] **Descripciones** de producto (hoy son marcadores).
+- [ ] **Revisar las descripciones** de producto (`data/descriptions.ts`): son un borrador redactado a partir del nombre del producto y datos públicos de cada productor. Hay que comprobar ingredientes, alérgenos, denominaciones y datos de cada productor (el catálogo no incluye esa información). Se regeneran con `scripts/generar-descripciones.py` (sobrescribe los retoques manuales).
 - [ ] **Ficha de producto:** formato (peso o volumen) y el texto "Conservación y maridaje" (hoy marcadores en `app/tienda/[categoria]/[producto]/page.tsx`; conviene pasarlos a `data/products.ts`).
 - [ ] **Etiquetas y maridajes** de cada producto (`tags` y `pairsWith` en `products.ts`). Las etiquetas actuales ("Favorito de la casa", "DOP"…) son un punto de partida.
 - [ ] **Productores:** nombre, localidad y retrato (`producers.ts`). Asignar cada producto a su productor real.
