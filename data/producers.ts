@@ -16,6 +16,9 @@ const FEATURED = ["la-catedral", "el-navarrico", "la-vasco-navarra", "inurrieta"
 /** Localidad de cada productor, por slug. TODO: rellenar (mientras tanto sale el marcador). */
 const LOCALITY: Record<string, string> = {};
 
+/** Productores con foto en public/images/productores/<slug>.webp. */
+const WITH_IMAGE = new Set(["aidin", "alconde", "anko", "baines", "unsi"]);
+
 /** Categoría donde más productos tiene cada productor. */
 function mainCategory(producerSlug: string) {
   const count = new Map<string, number>();
@@ -36,7 +39,9 @@ export const producers: Producer[] = Object.entries(producerNames)
       specialty: category.name,
       categorySlug: category.slug,
       featured: FEATURED.includes(slug) || undefined,
-      image: { alt: `Retrato de ${name}`, placeholder: "Retrato · productor/a" },
+      image: WITH_IMAGE.has(slug)
+        ? { alt: `Productos de ${name}`, src: `/images/productores/${slug}.webp`, placeholder: name }
+        : { alt: `Retrato de ${name}`, placeholder: "Retrato · productor/a" },
     };
   })
   .sort((a, b) => {

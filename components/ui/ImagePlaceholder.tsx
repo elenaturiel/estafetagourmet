@@ -16,6 +16,8 @@ type Props = {
   priority?: boolean;
   /** La foto se desliza dentro del marco al hacer scroll (ver .parallax-media). */
   parallax?: boolean;
+  /** "contain" muestra la foto entera (fondo blanco) en vez de recortarla. */
+  fit?: "cover" | "contain";
 };
 
 /**
@@ -32,10 +34,15 @@ export function ImagePlaceholder({
   sizes = "(min-width: 1024px) 33vw, 100vw",
   priority,
   parallax,
+  fit = "cover",
 }: Props) {
   return (
     <div
-      className={cn("relative overflow-hidden bg-placeholder", className)}
+      className={cn(
+        "relative overflow-hidden",
+        src && fit === "contain" ? "bg-white" : "bg-placeholder",
+        className,
+      )}
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {src ? (
@@ -46,7 +53,7 @@ export function ImagePlaceholder({
             fill
             sizes={sizes}
             priority={priority}
-            className="object-cover"
+            className={fit === "contain" ? "object-contain" : "object-cover"}
           />
         </div>
       ) : (
