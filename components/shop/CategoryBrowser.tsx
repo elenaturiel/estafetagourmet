@@ -8,10 +8,12 @@ import { buttonClasses } from "@/components/ui/Button";
 import { ChevronDownIcon, CloseIcon, FilterIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import {
+  DEFAULT_SORT,
   SORT_OPTIONS,
   countActiveFilters,
   emptyFilters,
   filterProducts,
+  parseSort,
   sortProducts,
   type FilterState,
   type SortKey,
@@ -35,11 +37,12 @@ type Props = {
 /**
  * Listado de productos con filtros y orden en cliente (categoría o tienda
  * completa). Carga 24 y el resto con "Ver más productos". Al cargar aplica
- * ?productor= y ?categoria= si vienen en la URL (p. ej. desde /productores).
+ * ?productor=, ?categoria= y ?orden= si vienen en la URL (p. ej. desde /productores).
+ * El orden elegido se guarda en ?orden= para compartirlo o volver atrás sin perderlo.
  */
 export function CategoryBrowser(props: Props) {
   return (
-    <Suspense fallback={<Browser {...props} initial={emptyFilters} />}>
+    <Suspense fallback={<Browser {...props} initial={emptyFilters} initialSort={DEFAULT_SORT} />}>
       <BrowserFromUrl {...props} />
     </Suspense>
   );
@@ -58,7 +61,15 @@ function BrowserFromUrl(props: Props) {
   const producers = fromParam(params.get("productor"), props.producers.map((p) => p.slug));
   const categories = fromParam(params.get("categoria"), (props.categoryGroups ?? []).flatMap((g) => g.items.map((c) => c.slug)));
   const initial: FilterState = { ...emptyFilters, producers, categories };
-  return <Browser key={`${producers}|${categories}`} {...props} initial={initial} />;
+  const initialSort = parseSort(params.get("orden"));
+  return (
+    <Browser
+      key={`${producers}|${categories}`}
+      {...props}
+      initial={initial}
+      initialSort={initialSort}
+    />
+  );
 }
 
 function Browser({
@@ -67,9 +78,10 @@ function Browser({
   filters,
   categoryGroups,
   initial,
-}: Props & { initial: FilterState }) {
+  initialSort,
+}: Props & { initial: FilterState; initialSort: SortKey }) {
   const [state, setStateRaw] = useState<FilterState>(initial);
-  const [sort, setSortRaw] = useState<SortKey>("destacados");
+  const [sort, setSortRaw] = useState<SortKey>(initialSort);
   const [limit, setLimit] = useState(PAGE_SIZE);
   // Al cambiar un filtro o el orden se vuelve a empezar por los primeros 24.
   const setState = (next: FilterState) => {
@@ -79,6 +91,11 @@ function Browser({
   const setSort = (next: SortKey) => {
     setSortRaw(next);
     setLimit(PAGE_SIZE);
+    // Se refleja en la URL sin recargar ni añadir entradas al historial.
+    const url = new URL(window.location.href);
+    if (next === DEFAULT_SORT) url.searchParams.delete("orden");
+    else url.searchParams.set("orden", next);
+    window.history.replaceState(null, "", url);
   };
   const drawerRef = useRef<HTMLDialogElement>(null);
   const sortId = useId();

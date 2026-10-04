@@ -30,7 +30,7 @@ function SectionBlock({
                 onClick={onNavigate}
                 aria-current={isCurrent ? "page" : undefined}
                 className={cn(
-                  "group/link inline-flex min-h-[40px] items-center gap-2 text-[16px] transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-vino focus-visible:translate-x-1 focus-visible:text-vino motion-reduce:transform-none! lg:min-h-[34px] lg:text-[15px]",
+                  "group/link inline-flex min-h-[40px] items-center gap-2 text-[16px] transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-vino focus-visible:translate-x-1 focus-visible:text-vino lg:min-h-[34px] lg:text-[15px]",
                   isCurrent ? "font-semibold text-vino" : item.count === 0 && showCounts ? "text-secundario" : "text-tinta",
                 )}
               >

@@ -26,6 +26,13 @@ const FEATURED = [
   "INURRIETA TINTO altos de inurrieta",
 ];
 
+/**
+ * "Más vendidos" (orden de la tienda): títulos exactos de la hoja, del más
+ * vendido al menos. Los que no estén aquí van detrás, por relevancia.
+ * TODO: poner los más vendidos reales (ahora son los favoritos de la casa).
+ */
+const BESTSELLERS = [...FEATURED];
+
 /** Etiquetas visibles sobre la foto (máx. 2), por slug de producto. */
 const TAGS: Record<string, string[]> = {};
 
@@ -33,6 +40,7 @@ const TAGS: Record<string, string[]> = {};
 const PAIRS_WITH: Record<string, string[]> = {};
 
 const featured = new Set(FEATURED.map(slugify));
+const bestsellerRank = new Map(BESTSELLERS.map((name, i) => [slugify(name), i + 1]));
 const taken = new Set<string>();
 const rankByCategory = new Map<string, number>();
 
@@ -58,6 +66,7 @@ export const products: Product[] = productRows.map(([categorySlug, producerSlug,
     image: { alt: name, placeholder: "Foto · producto" },
     attributes: {},
     featured: featured.has(slug) || undefined,
+    bestseller: bestsellerRank.get(slug),
     tags: TAGS[slug],
     pairsWith: PAIRS_WITH[slug],
     rank,
