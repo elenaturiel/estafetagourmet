@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cartUi } from "@/components/cart/cart-ui";
 import { useCart } from "@/components/cart/useCart";
+import { Seek } from "@/components/ui/Search";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import {
   CartIcon,
@@ -66,7 +67,8 @@ export function Header({
     const el = headerRef.current;
     if (!el) return;
     const root = document.documentElement;
-    const update = () => root.style.setProperty("--header-h", `${el.offsetHeight}px`);
+    const update = () =>
+      root.style.setProperty("--header-h", `${el.offsetHeight}px`);
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
@@ -87,7 +89,8 @@ export function Header({
   // Esc y clic fuera cierran el mega menú.
   useEffect(() => {
     if (!megaOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMegaOpen(false);
+    const onKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && setMegaOpen(false);
     const onClick = (e: MouseEvent) => {
       if (!megaRef.current?.contains(e.target as Node)) setMegaOpen(false);
     };
@@ -131,7 +134,10 @@ export function Header({
   );
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-40 border-b border-linea bg-crema/95 backdrop-blur supports-[backdrop-filter]:bg-crema/85">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-40 border-b border-linea bg-crema/95 backdrop-blur supports-[backdrop-filter]:bg-crema/85"
+    >
       {/* Fila superior: búsqueda · logotipo · idioma y cesta */}
       <div
         className={cn(
@@ -153,31 +159,28 @@ export function Header({
           >
             <MenuIcon size={24} />
           </button>
-          <form action="/buscar" role="search" className="hidden w-full max-w-[300px] lg:block">
-            <label htmlFor="header-search" className="sr-only">
-              {t.header.search}
-            </label>
-            <div className="relative">
-              <SearchIcon
-                size={18}
-                className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-secundario"
-              />
-              <input
-                id="header-search"
-                name="q"
-                type="search"
-                placeholder={t.header.searchPlaceholder}
-                className="h-11 w-full rounded-full border border-linea bg-papel pr-4 pl-10 text-[14px] placeholder:text-secundario focus:border-borde-input"
-              />
-            </div>
-          </form>
+          {/* Un contenedor aparte: el CSS de .sek fija display y taparía "hidden". */}
+          <div className="hidden lg:block">
+            <Seek
+              shut={44}
+              width={300}
+              frameX={8}
+              frameY={8}
+              placeholder={t.header.searchPlaceholder}
+              label={t.header.search}
+            />
+          </div>
         </div>
 
         <Logo compact={compact} />
 
         <div className="flex items-center justify-self-end gap-1 lg:gap-4">
           <LanguageSwitcher className="hidden lg:flex" />
-          <Link href="/buscar" className={cn(iconButton, "lg:hidden")} aria-label={t.header.search}>
+          <Link
+            href="/buscar"
+            className={cn(iconButton, "lg:hidden")}
+            aria-label={t.header.search}
+          >
             <SearchIcon size={22} />
           </Link>
           {cartButton}
@@ -185,7 +188,10 @@ export function Header({
       </div>
 
       {/* Fila de navegación (escritorio) */}
-      <nav aria-label={t.nav.label} className="relative hidden border-t border-linea lg:block">
+      <nav
+        aria-label={t.nav.label}
+        className="relative hidden border-t border-linea lg:block"
+      >
         <ul className="container-site flex h-12 items-center justify-center gap-2 xl:gap-8">
           {mainNav.map((item) => {
             const active = isActive(pathname, item.href);
@@ -197,7 +203,11 @@ export function Header({
             if (item.key !== "shop") {
               return (
                 <li key={item.href}>
-                  <Link href={item.href} aria-current={active ? "page" : undefined} className={linkClass}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={linkClass}
+                  >
                     {t.nav[item.key]}
                   </Link>
                 </li>
@@ -211,7 +221,11 @@ export function Header({
                 onMouseLeave={hoverClose}
                 className="flex items-center"
               >
-                <Link href={item.href} aria-current={active ? "page" : undefined} className={linkClass}>
+                <Link
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={linkClass}
+                >
                   {t.nav[item.key]}
                 </Link>
                 <button
@@ -221,14 +235,18 @@ export function Header({
                   aria-label="Ver categorías de la tienda"
                   onClick={() => {
                     // Si el ratón acaba de abrirlo al pasar por encima, el clic no lo cierra.
-                    if (Date.now() - hoverOpenedAt.current < 400) return setMegaOpen(true);
+                    if (Date.now() - hoverOpenedAt.current < 400)
+                      return setMegaOpen(true);
                     setMegaOpen((o) => !o);
                   }}
                   className="-ml-2 inline-flex h-11 w-8 items-center justify-center hover:text-vino"
                 >
                   <ChevronDownIcon
                     size={14}
-                    className={cn("transition-transform", megaOpen && "rotate-180")}
+                    className={cn(
+                      "transition-transform",
+                      megaOpen && "rotate-180",
+                    )}
                   />
                 </button>
                 <MegaMenu
@@ -262,7 +280,9 @@ export function Header({
           </button>
         </div>
         <nav aria-label={t.nav.label} className="px-6 pt-2 pb-8">
-          <p className="eyebrow mt-4 mb-3 text-[12px] text-vino">Compra por categoría</p>
+          <p className="eyebrow mt-4 mb-3 text-[12px] text-vino">
+            Compra por categoría
+          </p>
           <ul className="grid grid-cols-4 gap-x-3 gap-y-4">
             {categories.map((c) => (
               <li key={c.slug}>
@@ -271,7 +291,13 @@ export function Header({
                   onClick={() => menuRef.current?.close()}
                   className="block text-center text-[12px] leading-tight font-medium"
                 >
-                  <ImagePlaceholder label="" src={c.src} ratio="1 / 1" sizes="80px" className="arch mb-1.5" />
+                  <ImagePlaceholder
+                    label=""
+                    src={c.src}
+                    ratio="1 / 1"
+                    sizes="80px"
+                    className="arch mb-1.5"
+                  />
                   {c.name}
                 </Link>
               </li>
@@ -331,7 +357,9 @@ function MegaMenu({
     >
       <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 xl:gap-12 py-8">
         <div>
-          <p className="eyebrow mb-4 text-[12px] text-vino">Compra por categoría</p>
+          <p className="eyebrow mb-4 text-[12px] text-vino">
+            Compra por categoría
+          </p>
           {/*
             Al pasar el ratón (o con el foco del teclado) la categoría crece y
             sube, su foto hace zoom y se enmarca en vino; el resto se atenúa
@@ -381,8 +409,12 @@ function MegaMenu({
                 />
               </div>
               <div className="p-5">
-                <p className="eyebrow text-[11px] text-dorado">Lote destacado</p>
-                <p className="mt-1 font-serif text-[20px] leading-tight">{featuredLot.name}</p>
+                <p className="eyebrow text-[11px] text-dorado">
+                  Lote destacado
+                </p>
+                <p className="mt-1 font-serif text-[20px] leading-tight">
+                  {featuredLot.name}
+                </p>
                 <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
                   Descúbrelo →
                 </p>
@@ -411,7 +443,10 @@ function LanguageSwitcher({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={t.header.languageLabel}
-      className={cn("items-center gap-1 text-[13px] font-semibold tracking-[0.04em]", className)}
+      className={cn(
+        "items-center gap-1 text-[13px] font-semibold tracking-[0.04em]",
+        className,
+      )}
     >
       <span aria-current="true" lang="es" className="text-vino">
         ES
