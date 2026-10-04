@@ -576,3 +576,146 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .sek-skin, .sek-lens { transition: none; }
 }
+
+/* ══ MagnifyingDock (Bencho, MIT — bencho.dev/licence) ══════════
+   El menú de escritorio de la cabecera. Componente:
+   components/ui/MagnifyingDock.tsx.
+
+   Los tokens de Bencho se asignan aquí, en la propia raíz del dock, a
+   los de esta web, para que no se escape nada:
+     --pane       la superficie: papel, sólido
+     --ink        texto y punto del elemento activo: tinta
+     --ink-rgb    tinta en tres números (el CSS arma rgba() con ellos)
+     --on-ink     texto sobre tinta (solo la etiqueta flotante del original,
+                  que aquí no se usa porque el texto del menú ya es la etiqueta)
+     --pane-edge  el filo: la línea de la web
+     --font-mono  tipografía de la etiqueta flotante (sin uso, ver arriba)
+     --g-blur, --g-sat, --g-bright   el vidrio: apagado, la superficie es plana
+     --g-edge-*, --g-lift, --g-shadow, --g-spec, --shadow-rgb, --try-edge
+                  el canto biselado, el grosor y el banco de pruebas de
+                  Bencho. Solo se usan bajo data-surface="glass" y dentro de
+                  un .gtry, que aquí no existen, así que no se definen y esas
+                  reglas (vidrio, grosor, canto) no se han copiado. */
+.gdock {
+  --pane: var(--color-papel);
+  --ink: var(--color-tinta);
+  --ink-rgb: 42, 31, 26;
+  --on-ink: var(--color-crema);
+  --pane-edge: var(--color-linea);
+  --g-blur: 0px;
+  --g-sat: 100%;
+  --g-bright: 100%;
+}
+
+/* ── glass navigation ──────────────────────────────────────
+   Same recipe as .gcard: 60% white, 2px frost, refraction,
+   lit inner edge. Shapes differ, the material does not. */
+
+/* The bare pane. Same recipe as .gnav and .gdock, with no
+   layout of its own — for components that are just a surface
+   and want to arrange themselves. A card with a title in one
+   corner and a chip in the other is a house style, not a
+   requirement, and most things do not need either. */
+.gdock {
+  position: relative;
+  background: var(--pane);
+  -webkit-backdrop-filter:
+    blur(var(--g-blur, 2px)) saturate(var(--g-sat, 150%)) brightness(var(--g-bright, 100%));
+  backdrop-filter:
+    blur(var(--g-blur, 2px)) saturate(var(--g-sat, 150%)) brightness(var(--g-bright, 100%));
+  isolation: isolate;
+  color: var(--ink);}
+
+.gdock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  /* transparent unless Stroke says otherwise — see the
+     stroke block below. Aquí SÍ se dibuja siempre: es una
+     superficie plana sobre el crema, y sin el filo no se vería. */
+  border: 1px solid var(--pane-edge);
+  pointer-events: none;
+  z-index: 3;}
+
+/* dock */
+.gdock {
+  display: inline-flex;
+  align-items: center;
+  /* el hueco original (10px) entre iconos; entre palabras, el que ya
+     tenía el menú */
+  gap: 4px;
+  margin: 0;
+  padding: 2px 10px;
+  list-style: none;
+  border-radius: 999px;
+  /* sideways is the dock's, up and down stays the page's — a
+     finger passing over this on the way down the wall is
+     scrolling, not picking. See .tick-row. */
+  touch-action: pan-y;}
+
+@media (width >= 80rem) {
+  .gdock { gap: 14px; padding-inline: 16px; }
+}
+
+/* no tile behind the icon: scaling a translucent rectangle over
+   glass is what made this look cheap. The glyph scales instead,
+   and SVG scales cleanly at any size. */
+.gdock-item {
+  /* sin position: relative. En el original el elemento es el bloque de
+     referencia del dot; aquí el dot se coloca respecto al propio elemento
+     igualmente (display: grid abajo) y no hay nada más posicionado dentro. */
+  position: relative;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  display: grid; place-items: center;}
+
+/* the magnification lives here, so the dot and the label keep
+   their own size and their own distance from the bar */
+.gdock-glyph {
+  display: grid; place-items: center;
+  transform-origin: center bottom;
+  transition: transform 320ms cubic-bezier(0.24, 1.2, 0.32, 1);}
+
+/* el original atenúa (opacity .42 → .66 → 1) a los vecinos; aquí no:
+   es texto, y a .42 no cumpliría el contraste. Lo que marca la distancia
+   es el tamaño y la altura. */
+.gdock-item[data-near="0"] { color: var(--color-vino); }
+
+.gdock-item:focus-within { border-radius: 10px; }
+
+/* the running dot, the only persistent mark in the dock */
+.gdock-dot {
+  position: absolute;
+  /* inside the item, not slung underneath it. The glyph is
+     20px in a 44px box, so anything hung off the bottom edge
+     lands 17px from the mark it belongs to. */
+  left: 50%; bottom: 1px;
+  width: 4px; height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--color-vino);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 240ms ease, transform 360ms cubic-bezier(0.28, 1.4, 0.36, 1);}
+
+.gdock-dot[data-on="true"] { opacity: 1; transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gdock-glyph, .gdock-dot { transition: none; }
+}
+
+/* ── flat panes ────────────────────────────────────────────
+   Set data-surface="flat" on any ancestor and every glass
+   surface under it becomes a solid fill with a hairline. The
+   inner buttons already sit on rgba(var(--ink-rgb), 0.05)
+   with no border, which is what flat wants anyway, so they
+   need nothing.
+
+   The frost is switched off at the element rather than through
+   a token. A var() holding a url() filter cannot be validated
+   at parse time, so the browser would treat it as invalid at
+   computed-value time and drop the property outright — which
+   breaks the two-declaration fallback the glass depends on.
+   (Esta web siempre es plana: --g-blur vale 0 arriba y no hace falta más.) */

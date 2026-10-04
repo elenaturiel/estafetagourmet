@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cartUi } from "@/components/cart/cart-ui";
 import { useCart } from "@/components/cart/useCart";
+import { MagnifyingDock } from "@/components/ui/MagnifyingDock";
 import { Seek } from "@/components/ui/Search";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import {
@@ -51,6 +52,7 @@ export function Header({
   const { count } = useCart();
   const menuRef = useRef<HTMLDialogElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
@@ -92,7 +94,9 @@ export function Header({
     const onKey = (e: KeyboardEvent) =>
       e.key === "Escape" && setMegaOpen(false);
     const onClick = (e: MouseEvent) => {
-      if (!megaRef.current?.contains(e.target as Node)) setMegaOpen(false);
+      const t = e.target as Node;
+      if (!megaRef.current?.contains(t) && !panelRef.current?.contains(t))
+        setMegaOpen(false);
     };
     document.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onClick);
@@ -103,14 +107,14 @@ export function Header({
   }, [megaOpen]);
 
   const hoverOpenedAt = useRef(0);
-  const hoverOpen = () => {
+  const hoverOpen = useCallback(() => {
     window.clearTimeout(closeTimer.current);
     if (!megaOpen) hoverOpenedAt.current = Date.now();
     setMegaOpen(true);
-  };
-  const hoverClose = () => {
+  }, [megaOpen]);
+  const hoverClose = useCallback(() => {
     closeTimer.current = window.setTimeout(() => setMegaOpen(false), 150);
-  };
+  }, []);
 
   const cartButton = (
     <button
@@ -187,78 +191,92 @@ export function Header({
         </div>
       </div>
 
-      {/* Fila de navegación (escritorio) */}
+      {/* Fila de navegación (escritorio): dock con magnificación (Bencho). */}
       <nav
         aria-label={t.nav.label}
         className="relative hidden border-t border-linea lg:block"
       >
-        <ul className="container-site flex h-12 items-center justify-center gap-2 xl:gap-8">
-          {mainNav.map((item) => {
-            const active = isActive(pathname, item.href);
-            const linkClass = cn(
-              "relative inline-flex h-12 items-center gap-1 px-3 text-[14px] font-semibold tracking-[0.06em] uppercase hover:text-vino",
-              active &&
-                "text-vino after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:bg-vino",
-            );
-            if (item.key !== "shop") {
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={linkClass}
-                  >
-                    {t.nav[item.key]}
-                  </Link>
-                </li>
+        <div className="container-site flex justify-center py-2">
+          <MagnifyingDock
+            items={mainNav.map((item) => {
+              const active = isActive(pathname, item.href);
+              const linkClass = cn(
+                "inline-flex h-10 items-center px-3 text-[14px] font-semibold tracking-[0.06em] uppercase transition-colors hover:text-vino",
+                active && "text-vino",
               );
-            }
-            return (
-              <li
-                key={item.href}
-                ref={megaRef as React.Ref<HTMLLIElement>}
-                onMouseEnter={hoverOpen}
-                onMouseLeave={hoverClose}
-                className="flex items-center"
-              >
-                <Link
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={linkClass}
-                >
-                  {t.nav[item.key]}
-                </Link>
-                <button
-                  type="button"
-                  aria-expanded={megaOpen}
-                  aria-controls="mega-tienda"
-                  aria-label="Ver categorías de la tienda"
-                  onClick={() => {
-                    // Si el ratón acaba de abrirlo al pasar por encima, el clic no lo cierra.
-                    if (Date.now() - hoverOpenedAt.current < 400)
-                      return setMegaOpen(true);
-                    setMegaOpen((o) => !o);
-                  }}
-                  className="-ml-2 inline-flex h-11 w-8 items-center justify-center hover:text-vino"
-                >
-                  <ChevronDownIcon
-                    size={14}
-                    className={cn(
-                      "transition-transform",
-                      megaOpen && "rotate-180",
-                    )}
-                  />
-                </button>
-                <MegaMenu
-                  open={megaOpen}
-                  categories={categories}
-                  featuredLot={featuredLot}
-                  onNavigate={() => setMegaOpen(false)}
-                />
-              </li>
-            );
-          })}
-        </ul>
+              if (item.key !== "shop") {
+                return {
+                  key: item.href,
+                  active,
+                  content: (
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={linkClass}
+                    >
+                      {t.nav[item.key]}
+                    </Link>
+                  ),
+                };
+              }
+              return {
+                key: item.href,
+                active,
+                li: {
+                  ref: megaRef as React.Ref<HTMLLIElement>,
+                  onMouseEnter: hoverOpen,
+                  onMouseLeave: hoverClose,
+                },
+                content: (
+                  <span className="flex items-center">
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={linkClass}
+                    >
+                      {t.nav[item.key]}
+                    </Link>
+                    <button
+                      type="button"
+                      aria-expanded={megaOpen}
+                      aria-controls="mega-tienda"
+                      aria-label="Ver categorías de la tienda"
+                      onClick={() => {
+                        // Si el ratón acaba de abrirlo al pasar por encima, el clic no lo cierra.
+                        if (Date.now() - hoverOpenedAt.current < 400)
+                          return setMegaOpen(true);
+                        setMegaOpen((o) => !o);
+                      }}
+                      className="-ml-2 inline-flex h-10 w-8 items-center justify-center hover:text-vino"
+                    >
+                      <ChevronDownIcon
+                        size={14}
+                        className={cn(
+                          "transition-transform",
+                          megaOpen && "rotate-180",
+                        )}
+                      />
+                    </button>
+                  </span>
+                ),
+              };
+            })}
+          />
+        </div>
+        {/* Fuera del dock: el panel se coloca respecto a toda la fila, y lo
+            que está dentro de un elemento del dock crece y sube con él. */}
+        <div
+          ref={panelRef}
+          onMouseEnter={hoverOpen}
+          onMouseLeave={hoverClose}
+        >
+          <MegaMenu
+            open={megaOpen}
+            categories={categories}
+            featuredLot={featuredLot}
+            onNavigate={() => setMegaOpen(false)}
+          />
+        </div>
       </nav>
 
       {/* Menú móvil */}
