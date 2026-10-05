@@ -62,5 +62,5 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 
 ## Pendiente tras quitar las cestas
 
-- [ ] **Cestas y regalos:** se quitaron por ahora (sección, página `/regalos`, ocasiones). `/regalos` redirige a `/tienda/lotes`. Si vuelven, se recuperan del historial de Git (commit anterior a "Lotes en lugar de cestas").
+- [ ] **Ideas de regalo** (`/regalos`, `data/gifts.ts`): revisar a quién va cada lote/producto y las 10 parejas de productos (elegidas por mí; ajusta títulos, textos y filtros). Los lotes de Navarrico y sus fotos/contenidos salen de las fotos de las cajas: confirmar cuál es cuál.
 - [ ] **Mapa de Google:** si algún día quieres que cargue solo, sin pulsar, hay que añadir un consentimiento específico en el banner de cookies. Hoy se carga con un clic y se recuerda.

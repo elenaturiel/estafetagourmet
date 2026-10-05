@@ -36,7 +36,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
           src: c.image.src,
           href: categoryHref(c),
         }))}
-        featuredLot={lot ? { name: lot.name, href: productHref(lot), price: lot.price } : undefined}
+        featuredLot={lot ? { name: lot.name, href: productHref(lot), price: lot.price, src: lot.image.src } : undefined}
       />
       <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}

@@ -14,6 +14,7 @@ import {
   MenuIcon,
   SearchIcon,
 } from "@/components/ui/icons";
+import { RECIPIENTS, giftsHref } from "@/data/gifts";
 import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
@@ -29,7 +30,12 @@ export type HeaderCategory = {
   href: string;
 };
 /** Lote que se destaca en el menú de la tienda. */
-export type HeaderLot = { name: string; href: string; price: number | null };
+export type HeaderLot = {
+  name: string;
+  href: string;
+  price: number | null;
+  src?: string;
+};
 
 function isActive(pathname: string, href: string) {
   // "Lotes" es una categoría de la tienda: dentro de ella solo se marca "Lotes", no "Tienda".
@@ -166,6 +172,12 @@ export function Header({
           label: t.nav[item.key],
           href: item.href,
           current: isActive(pathname, item.href),
+          ...(item.key === "lots"
+            ? {
+                panelLabel: "Ver ideas de regalo",
+                panel: <GiftsMenu featuredLot={featuredLot} />,
+              }
+            : {}),
           ...(item.key === "shop"
             ? {
                 panelLabel: "Ver categorías de la tienda",
@@ -215,6 +227,22 @@ export function Header({
                     className="arch mb-1.5"
                   />
                   {c.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="eyebrow mt-6 mb-3 text-[12px] text-vino">
+            Ideas de regalo
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {RECIPIENTS.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={giftsHref(r.slug)}
+                  onClick={() => menuRef.current?.close()}
+                  className="inline-flex min-h-[44px] items-center rounded-full border border-tinta px-4 text-[14px] font-semibold"
+                >
+                  {r.label}
                 </Link>
               </li>
             ))}
@@ -302,6 +330,7 @@ function MegaMenu({
           </ul>
         </div>
         <div className="flex flex-col gap-4">
+          <GiftLinks />
           {featuredLot ? (
             <Link
               href={featuredLot.href}
@@ -310,7 +339,11 @@ function MegaMenu({
               <div className="overflow-hidden">
                 <ImagePlaceholder
                   label="Foto · lote"
+                  src={featuredLot.src}
+                  alt={featuredLot.src ? featuredLot.name : undefined}
                   ratio="16 / 9"
+                  blend
+                  sizes="260px"
                   className="transition-transform duration-300 ease-out group-hover:scale-105"
                 />
               </div>
@@ -335,6 +368,96 @@ function MegaMenu({
           </Link>
         </div>
       </div>
+    </div>
+  );
+}
+
+/** "Ideas de regalo": a quién se lo regalas, para filtrar la página /regalos. */
+function GiftLinks() {
+  return (
+    <div>
+      <p className="eyebrow mb-3 text-[12px] text-vino">Ideas de regalo</p>
+      <ul className="flex flex-wrap gap-2">
+        {RECIPIENTS.map((r) => (
+          <li key={r.slug}>
+            <Link
+              href={giftsHref(r.slug)}
+              className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
+            >
+              {r.short}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link
+        href={giftsHref()}
+        className="mt-2 inline-flex min-h-[36px] items-center text-[14px] font-semibold text-vino hover:underline"
+      >
+        Todas las ideas de regalo →
+      </Link>
+    </div>
+  );
+}
+
+/** Panel del menú "Lotes": ideas de regalo por destinatario y el lote destacado. */
+function GiftsMenu({ featuredLot }: { featuredLot?: HeaderLot }) {
+  return (
+    <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 py-8 xl:gap-12">
+      <div>
+        <p className="eyebrow mb-4 text-[12px] text-vino">Ideas de regalo</p>
+        <ul className="grid grid-cols-5 gap-3">
+          {RECIPIENTS.map((r) => (
+            <li key={r.slug}>
+              <Link
+                href={giftsHref(r.slug)}
+                className="group block h-full border border-linea bg-papel p-4 transition-colors hover:border-vino"
+              >
+                <span className="block font-serif text-[20px] leading-tight group-hover:text-vino">
+                  {r.label}
+                </span>
+                <span className="mt-2 block text-[14px] leading-snug text-secundario">
+                  {r.blurb}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-5 flex flex-wrap gap-x-6 gap-y-1 text-[15px] font-semibold text-vino">
+          <Link href={giftsHref()} className="hover:underline">
+            Todas las ideas de regalo →
+          </Link>
+          <Link href="/tienda/lotes" className="hover:underline">
+            Ver todos los lotes →
+          </Link>
+        </p>
+      </div>
+      {featuredLot ? (
+        <Link
+          href={featuredLot.href}
+          className="group relative block self-start overflow-hidden bg-vino text-crema"
+        >
+          <div className="overflow-hidden">
+            <ImagePlaceholder
+              label="Foto · lote"
+              src={featuredLot.src}
+              alt={featuredLot.src ? featuredLot.name : undefined}
+              ratio="16 / 9"
+              blend
+              sizes="260px"
+              className="transition-transform duration-300 ease-out group-hover:scale-105"
+            />
+          </div>
+          <div className="p-5">
+            <p className="eyebrow text-[11px] text-dorado">Lote destacado</p>
+            <p className="mt-1 font-serif text-[20px] leading-tight">
+              {featuredLot.name}
+            </p>
+            <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
+              Descúbrelo →
+            </p>
+          </div>
+        </Link>
+      ) : null}
     </div>
   );
 }

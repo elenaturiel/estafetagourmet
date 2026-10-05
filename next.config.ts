@@ -33,8 +33,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // La antigua página de regalos y cestas ahora es la categoría Lotes.
-      { source: "/regalos", destination: "/tienda/lotes", permanent: true },
       ...canonicalHostRedirects(),
     ];
   },
