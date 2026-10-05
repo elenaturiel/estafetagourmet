@@ -18,6 +18,7 @@ import { RECIPIENTS, giftsHref } from "@/data/gifts";
 import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
+import { formatPrice } from "@/lib/format";
 import { t } from "@/lib/i18n";
 import { Logo } from "./Logo";
 
@@ -49,9 +50,12 @@ const iconButton =
 export function Header({
   categories,
   featuredLot,
+  lots,
 }: {
   categories: HeaderCategory[];
   featuredLot?: HeaderLot;
+  /** Los lotes de siempre (sin los de ocasión), para el menú "Lotes". */
+  lots: HeaderLot[];
 }) {
   const pathname = usePathname();
   const { count } = useCart();
@@ -175,7 +179,7 @@ export function Header({
           ...(item.key === "lots"
             ? {
                 panelLabel: "Ver ideas de regalo",
-                panel: <GiftsMenu featuredLot={featuredLot} />,
+                panel: <GiftsMenu lots={lots} />,
               }
             : {}),
           ...(item.key === "shop"
@@ -399,65 +403,84 @@ function GiftLinks() {
   );
 }
 
-/** Panel del menú "Lotes": ideas de regalo por destinatario y el lote destacado. */
-function GiftsMenu({ featuredLot }: { featuredLot?: HeaderLot }) {
+/** "Navarrico lote detalle" en vez de "NAVARRICO LOTE DETALLE" (los títulos de la hoja vienen en mayúsculas). */
+const niceName = (name: string) => {
+  const lower = name.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+};
+
+/**
+ * Panel del menú "Lotes": a la izquierda cada lote por separado; a la derecha
+ * "¿Buscando un regalo?" con las ocasiones y destinatarios.
+ */
+function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
   return (
-    <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 py-8 xl:gap-12">
+    <div className="container-site grid grid-cols-[minmax(0,1fr)_380px] gap-8 py-8 xl:gap-12">
       <div>
-        <p className="eyebrow mb-4 text-[12px] text-vino">Ideas de regalo</p>
-        <ul className="grid grid-cols-5 gap-3">
-          {RECIPIENTS.map((r) => (
-            <li key={r.slug}>
+        <p className="eyebrow mb-4 text-[12px] text-vino">Nuestros lotes</p>
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-3 xl:grid-cols-3">
+          {lots.map((lot) => (
+            <li key={lot.href}>
               <Link
-                href={giftsHref(r.slug)}
-                className="group block h-full border border-linea bg-papel p-4 transition-colors hover:border-vino"
+                href={lot.href}
+                className="group flex items-center gap-3 rounded-eg p-1.5 transition-colors hover:bg-crema-oscuro/60"
               >
-                <span className="block font-serif text-[20px] leading-tight group-hover:text-vino">
-                  {r.label}
+                <span className="block w-16 shrink-0 overflow-hidden rounded-eg">
+                  <ImagePlaceholder
+                    label=""
+                    src={lot.src}
+                    alt=""
+                    ratio="1 / 1"
+                    blend
+                    sizes="64px"
+                    className="transition-transform duration-300 ease-out group-hover:scale-110"
+                  />
                 </span>
-                <span className="mt-2 block text-[14px] leading-snug text-secundario">
-                  {r.blurb}
+                <span className="min-w-0">
+                  <span className="block font-serif text-[16px] leading-tight group-hover:text-vino">
+                    {niceName(lot.name)}
+                  </span>
+                  <span className="mt-0.5 block text-[13px] text-secundario">
+                    {lot.price === null
+                      ? "Precio a consultar"
+                      : formatPrice(lot.price)}
+                  </span>
                 </span>
               </Link>
             </li>
           ))}
         </ul>
-        <p className="mt-5 flex flex-wrap gap-x-6 gap-y-1 text-[15px] font-semibold text-vino">
-          <Link href={giftsHref()} className="hover:underline">
-            Todas las ideas de regalo →
-          </Link>
-          <Link href="/tienda/lotes" className="hover:underline">
-            Ver todos los lotes →
-          </Link>
-        </p>
-      </div>
-      {featuredLot ? (
         <Link
-          href={featuredLot.href}
-          className="group relative block self-start overflow-hidden bg-vino text-crema"
+          href="/tienda/lotes"
+          className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
         >
-          <div className="overflow-hidden">
-            <ImagePlaceholder
-              label="Foto · lote"
-              src={featuredLot.src}
-              alt={featuredLot.src ? featuredLot.name : undefined}
-              ratio="16 / 9"
-              blend
-              sizes="260px"
-              className="transition-transform duration-300 ease-out group-hover:scale-105"
-            />
-          </div>
-          <div className="p-5">
-            <p className="eyebrow text-[11px] text-dorado">Lote destacado</p>
-            <p className="mt-1 font-serif text-[20px] leading-tight">
-              {featuredLot.name}
-            </p>
-            <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
-              Descúbrelo →
-            </p>
-          </div>
+          Ver todos los lotes →
         </Link>
-      ) : null}
+      </div>
+      <div className="self-start border border-linea bg-papel p-6">
+        <p className="font-serif text-[30px] leading-[1.1] tracking-[-0.02em] text-vino italic">
+          ¿Buscando un regalo?
+        </p>
+        <p className="mt-1 text-[13px] text-secundario">tenemos la solución</p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {RECIPIENTS.map((r) => (
+            <li key={r.slug}>
+              <Link
+                href={giftsHref(r.slug)}
+                className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
+              >
+                {r.short}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link
+          href={giftsHref()}
+          className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
+        >
+          Todas las ideas de regalo →
+        </Link>
+      </div>
     </div>
   );
 }

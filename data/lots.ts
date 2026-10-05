@@ -54,6 +54,11 @@ const NAMES: Record<string, string> = {
   "Pimientos del piquillo de navarra extra enteros (Anko)": "Pimientos del piquillo de Navarra extra enteros (Anko)",
 };
 
+/** Valor del filtro "Ocasión" de la categoría Lotes según el slug (lote-<ocasión>-opcion-x). */
+const OCCASION_FILTER: Record<string, string> = {
+  amigos: "amigos", cumpleanos: "cumpleanos", empresas: "empresas", navidad: "navidad", pareja: "pareja", "san-fermin": "sanfermin",
+};
+
 const clean = (n: string) => {
   const c = NAMES[n] ?? n;
   return c.charAt(0).toUpperCase() + c.slice(1);
@@ -81,6 +86,6 @@ export const lots: Omit<Product, "rank">[] = lotRows.map((l) => {
     description: `Lote ${l.why}, con ${items.length} productos. Contiene: ${list(items)}.`,
     image: gallery[0],
     gallery,
-    attributes: {},
+    attributes: { ocasion: OCCASION_FILTER[l.slug.replace(/^lote-/, "").replace(/-opcion-[ab]$/, "")] ?? "" },
   };
 });

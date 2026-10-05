@@ -19,6 +19,8 @@ import { TopBar } from "./TopBar";
 export async function SiteChrome({ children }: { children: ReactNode }) {
   const [categories, lots] = await Promise.all([getCategories(), getProducts({ category: "lotes" })]);
   const lot = lots[0];
+  // Los lotes de siempre; los de ocasión (Amigos, Navidad…) se encuentran en "¿Buscando un regalo?".
+  const classicLots = lots.filter((l) => l.attributes.ocasion === "navarrico");
   return (
     <>
       <a
@@ -36,6 +38,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
           src: c.image.src,
           href: categoryHref(c),
         }))}
+        lots={classicLots.map((l) => ({ name: l.name, href: productHref(l), price: l.price, src: l.image.src }))}
         featuredLot={lot ? { name: lot.name, href: productHref(lot), price: lot.price, src: lot.image.src } : undefined}
       />
       <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">

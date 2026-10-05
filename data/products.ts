@@ -126,7 +126,7 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
       alt: i === 0 ? name : im.alt,
       placeholder: "Foto · lote",
     })),
-    attributes: {},
+    attributes: (categorySlug === "lotes" ? { ocasion: "navarrico" } : {}) as Record<string, string>,
     featured: featured.has(slug) || undefined,
     bestseller: bestsellerRank.get(slug),
     tags: TAGS[slug],

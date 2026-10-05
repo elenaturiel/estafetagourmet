@@ -84,7 +84,7 @@ export default async function GiftsPage({ searchParams }: { searchParams: Promis
             <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
               {lots.map((p) => (
                 <li key={p.slug}>
-                  <ProductCard product={p} producer={p.producerSlug ? producers[p.producerSlug] : undefined} headingLevel="h3" />
+                  <ProductCard product={p} producer={p.producerSlug ? producers[p.producerSlug] : undefined} headingLevel="h3" lift />
                 </li>
               ))}
             </ul>
