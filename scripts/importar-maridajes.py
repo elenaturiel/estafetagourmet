@@ -7,7 +7,7 @@ Uso:
 De cada tarjeta del cartel de maridaje (producto + vino) recorta la foto, quita
 el blanco sobrante y la pone sobre el fondo arena de la web:
     public/images/maridajes/<n>.webp         (n = 1..18, en el orden del PDF)
-De cada ficha de lote (3) recorta cada foto suelta (1..5.webp, en marco 4:5) y
+De cada ficha de lote (9) recorta cada foto suelta (1..5.webp, en marco 4:5) y
 hace la principal juntándolas (0.webp):
     public/images/lotes/<slug>/
 Los textos están escritos a mano en data/pairings.ts y data/gift-lots.ts.
@@ -63,7 +63,8 @@ out = ROOT / "public/images/maridajes"
 out.mkdir(parents=True, exist_ok=True)
 n = 0
 for page in doc:
-    infos = sorted(page.get_image_info(), key=lambda i: (i["bbox"][0] > 190, i["bbox"][1]))
+    # (la imagen de arriba a la derecha, y < 130, es el logotipo del PDF)
+    infos = sorted([i for i in page.get_image_info() if i["bbox"][1] > 130], key=lambda i: (i["bbox"][0] > 190, i["bbox"][1]))
     left = sorted([i for i in infos if i["bbox"][0] < 200], key=lambda i: i["bbox"][1])
     right = sorted([i for i in infos if i["bbox"][0] >= 200], key=lambda i: i["bbox"][1])
     # las tarjetas (3 por página) están a ~ 200-380, 410-600 y 620-820 pt de alto
@@ -92,27 +93,36 @@ def framed(im, size=(960, 1200), box=(0.9, 0.9), upscale=2.0):
 
 
 def collage(ims, size=(960, 1200)):
-    """Foto principal del lote: todas sus fotos juntas (3 arriba, 2 abajo)."""
+    """Foto principal del lote: todas sus fotos juntas, en 2 filas (2+2, 3+2 o 3+3)."""
     W, H = size
     canvas = Image.new("RGB", size, ARENA)
-    layout = [(0, 0), (1, 0), (2, 0), (0.5, 1), (1.5, 1)]
-    cw, ch = W // 3, H // 2
-    for im, (cx, cy) in zip(ims, layout):
-        k = min((cw - 40) / im.width, (ch - 60) / im.height)
-        im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
-        x = int(cx * cw + (cw - im.width) / 2)
-        y = int(cy * ch + (ch - im.height) / 2)
-        canvas.paste(im, (x, y))
+    n = len(ims)
+    top = 2 if n <= 4 else 3
+    rows = [ims[:top], ims[top:]]
+    rh = H // 2
+    for r, row in enumerate(rows):
+        if not row:
+            continue
+        cw = W // top
+        x0 = (W - cw * len(row)) // 2
+        for c, im in enumerate(row):
+            k = min((cw - 50) / im.width, (rh - 80) / im.height)
+            im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
+            canvas.paste(im, (x0 + c * cw + (cw - im.width) // 2, r * rh + (rh - im.height) // 2))
     return canvas
 
 
-slugs = ["navarra-en-una-caja", "sobremesa-navarra", "regalo-gourmet"]
+# Fotos del PDF que no corresponden a lo que lleva el lote (por posición, desde 1).
+SKIP = {"dehesa": [4]}  # la ficha de Dehesa trae una foto de Sal d'Oro que el lote no incluye
+
+slugs = ["navarra-en-una-caja", "sobremesa-navarra", "regalo-gourmet", "txupinazo", "brisa-del-cantabrico", "dehesa", "huerta-de-la-ribera", "dulce-tentacion", "oro-de-navarra"]
 doc = pymupdf.open(sys.argv[2])
 for slug, page in zip(slugs, doc):
     d = ROOT / "public/images/lotes" / slug
     d.mkdir(parents=True, exist_ok=True)
-    infos = sorted(page.get_image_info(), key=lambda i: i["bbox"][0])
+    infos = sorted([i for i in page.get_image_info() if i["bbox"][1] > 130], key=lambda i: i["bbox"][0])
     tiles = []
+    infos = [i for k, i in enumerate(infos, 1) if k not in SKIP.get(slug, [])]
     for k, i in enumerate(infos, 1):
         tmp = d / f"_{k}.webp"
         to_arena(clip_image(page, pymupdf.Rect(*i["bbox"])), tmp, max_w=900)

@@ -27,19 +27,19 @@ export const pairingGroups: PairingGroup[] = [
     items: [
       {
         n: 1, kicker: "Espárrago · Chardonnay", title: "Espárragos de Navarra",
-        with: "Chardonnay Reserva de Castillo de Monjardín",
+        with: "Castillo de Monjardín Chardonnay Reserva",
         text: "El espárrago es de los alimentos más difíciles de maridar. Un chardonnay con paso por barrica tiene la untuosidad y la acidez necesarias para acompañarlo sin amargar. También con El Navarrico o La Catedral de Navarra.",
         shop: [{ label: "Espárragos", href: "/tienda/esparragos" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 2, kicker: "Bonito · Espumoso", title: "Ventresca de bonito Olasagasti con piparras Ubidea",
-        with: "Brut Nature de Castillo de Monjardín",
-        text: "La burbuja fina y la acidez del brut nature limpian la grasa de la ventresca, y el picor suave de la piparra lo aviva. Un aperitivo de barra elegante.",
+        with: "Castillo de Monjardín Brut Chardonnay Millésime",
+        text: "La burbuja fina y la acidez del espumoso limpian la grasa de la ventresca, y el picor suave de la piparra lo aviva. Un aperitivo de barra elegante.",
         shop: [{ label: "Atún y bonito", href: "/tienda/atun-y-bonito" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 3, kicker: "Piquillo · Rosado", title: "Pimientos del piquillo",
-        with: "Rosado de Palacio de Sada o Rosado Fresco de Alconde",
+        with: "Palacio de Sada Rosado Garnacha o Irache Rosado 1891",
         text: "Rosado de garnacha y piquillo: dos clásicos de Navarra. La fruta roja del vino acompaña el dulzor asado del pimiento. Servir el rosado a 8–10 ºC.",
         shop: [{ label: "Pimientos", href: "/tienda/pimientos" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
@@ -51,20 +51,20 @@ export const pairingGroups: PairingGroup[] = [
     subtitle: "Para la tabla perfecta",
     items: [
       {
-        n: 4, kicker: "Queso · Mermelada · Tinto", title: "Queso de oveja La Vasco Navarra con mermelada de higo y pimentón de Espelette de Irular",
+        n: 4, kicker: "Queso · Mermelada · Tinto", title: "Queso de oveja La Vasco Navarra con mermelada de higo de Irular",
         with: "Irache Crianza",
-        text: "El queso curado de oveja pide un dulce con carácter: el higo con un punto picante lo equilibra, y el crianza aporta estructura sin tapar el queso.",
+        text: "El queso curado de oveja pide un dulce con carácter: el higo lo equilibra, y el crianza aporta estructura sin tapar el queso.",
         shop: [{ label: "Quesos", href: "/tienda/quesos" }, { label: "Mermeladas y dulces", href: "/tienda/dulces" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 5, kicker: "Ibérico · Tinto de pago", title: "Ibérico de bellota de Ibericomio o Salamanca Ibérica",
-        with: "Pago de Cirsus",
-        text: "Un tinto con crianza y taninos pulidos para la grasa infiltrada del ibérico. Si se prefiere algo más fresco, el Brut Nature de Monjardín también funciona muy bien.",
+        with: "Pago de Cirsus Cuvée Especial",
+        text: "Un tinto con crianza y taninos pulidos para la grasa infiltrada del ibérico. Si se prefiere algo más fresco, el Brut Millésime de Monjardín también funciona muy bien.",
         shop: [{ label: "Embutidos", href: "/tienda/embutidos" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 6, kicker: "Txistorra · Garnacha", title: "Txistorra y chorizo de Arbizu",
-        with: "Altos de Inurrieta o garnachas de montaña Unsi",
+        with: "Altos de Inurrieta o Unsi Terrazas Garnacha Tinta",
         text: "Tintos con fruta y frescura que aguantan el pimentón y la grasa del embutido navarro. Ideal para picar en la barra o en casa.",
         shop: [{ label: "Embutidos", href: "/tienda/embutidos" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
@@ -77,19 +77,19 @@ export const pairingGroups: PairingGroup[] = [
     items: [
       {
         n: 7, kicker: "Pochas · Tinto reserva", title: "Pochas a la navarra de La Catedral de Navarra",
-        with: "Alconde Reserva",
-        text: "La pocha es suave y cremosa: pide un tinto con cuerpo medio y madera bien integrada que no la tape.",
+        with: "Irache 1891 Colección Privada Garnacha Clásica",
+        text: "La pocha es suave y cremosa: pide un tinto de cuerpo medio, con la fruta de la garnacha y sin exceso de madera, que no la tape.",
         shop: [{ label: "Legumbres", href: "/tienda/legumbres" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 8, kicker: "Alubias · Gran vino", title: "Alubias rojas con costilla de cerdo de Beola",
-        with: "Chivite Colección 125",
-        text: "Un plato contundente para un tinto con estructura. La costilla y el chorizo del guiso se entienden con la fruta madura y la crianza del vino.",
+        with: "Chivite Colección 125 Tinto",
+        text: "Un plato contundente para un tinto con estructura. La costilla del guiso se entiende con la fruta madura y la crianza del vino.",
         shop: [{ label: "Preparados", href: "/tienda/preparados" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 9, kicker: "Crema de hongos · Blanco de guarda", title: "Crema de hongos de Anko",
-        with: "Chardonnay Gran Reserva de Castillo de Monjardín",
+        with: "Castillo de Monjardín Chardonnay Gran Reserva",
         text: "Los aromas de sotobosque y la textura cremosa de los hongos casan con un blanco con crianza, de notas tostadas y volumen en boca.",
         shop: [{ label: "Preparados", href: "/tienda/preparados" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
@@ -107,15 +107,15 @@ export const pairingGroups: PairingGroup[] = [
         shop: [{ label: "Patés y foie", href: "/tienda/pates" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
-        n: 11, kicker: "Foie · Mermelada navarra", title: "Foie de Katealde con mermelada de castaña con patxarán de Aidin",
+        n: 11, kicker: "Foie · Mermelada navarra", title: "Foie de Katealde con mermelada de patxarán de Irular",
         with: "un toque de Sal d'Oro en escamas",
-        text: "La castaña y el patxarán dan un acento muy navarro. Unas escamas de sal ecológica sobre el foie realzan todo el conjunto.",
+        text: "La mermelada de patxarán da un acento muy navarro. Unas escamas de sal ecológica sobre el foie realzan todo el conjunto.",
         shop: [{ label: "Patés y foie", href: "/tienda/pates" }, { label: "Mermeladas y dulces", href: "/tienda/dulces" }, { label: "Condimentos", href: "/tienda/condimentos" }],
       },
       {
         n: 12, kicker: "Paté · Mermelada · Tinto joven", title: "Paté de campaña de Arbizu o paté de hígado de Beola",
-        with: "mermelada de tomate con vainilla de Aidin y un tinto joven",
-        text: "El tomate con vainilla aporta dulzor y frescura al paté. Un tinto joven y afrutado cierra un aperitivo sencillo y redondo.",
+        with: "mermelada de tomate de Aidin y Unsi Terrazas Garnacha Tinta",
+        text: "El tomate aporta dulzor y frescura al paté. Una garnacha joven y afrutada cierra un aperitivo sencillo y redondo.",
         shop: [{ label: "Patés y foie", href: "/tienda/pates" }, { label: "Mermeladas y dulces", href: "/tienda/dulces" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
     ],
@@ -126,7 +126,7 @@ export const pairingGroups: PairingGroup[] = [
     subtitle: "Chocolate y licores de Navarra",
     items: [
       {
-        n: 13, kicker: "Chocolate negro · Garnacha dulce", title: "Chocolate negro 70 % de Leyre o Pedro Mayo 62 % con almendras",
+        n: 13, kicker: "Chocolate negro · Garnacha dulce", title: "Chocolate Pedro Mayo sin azúcar con almendras o Leyre 85 %",
         with: "Dulce Garnacha de Unsi",
         text: "El cacao intenso necesita un vino dulce con fruta y estructura. La garnacha dulce suaviza el amargor y alarga el final.",
         shop: [{ label: "Chocolates y dulces", href: "/tienda/dulces" }, { label: "Vinos", href: "/tienda/vinos" }],
@@ -151,9 +151,9 @@ export const pairingGroups: PairingGroup[] = [
     subtitle: "Para alargar la tertulia",
     items: [
       {
-        n: 16, kicker: "Chocolate con fruta · Crema", title: "Chocolate negro con frambuesa de Leyre",
+        n: 16, kicker: "Chocolate al café · Crema", title: "Chocolate Leyre al café",
         with: "Baines Cream",
-        text: "La crema de patxarán, suave y dulce, acompaña la acidez de la frambuesa y el cacao. Servir con hielo.",
+        text: "La crema de patxarán, suave y dulce, envuelve las notas tostadas del café y el cacao. Servir con hielo.",
         shop: [{ label: "Chocolates y dulces", href: "/tienda/dulces" }, { label: "Patxarán y licores", href: "/tienda/bebidas" }],
       },
       {
@@ -163,9 +163,9 @@ export const pairingGroups: PairingGroup[] = [
         shop: [{ label: "Chocolates y dulces", href: "/tienda/dulces" }, { label: "Patxarán y licores", href: "/tienda/bebidas" }],
       },
       {
-        n: 18, kicker: "Queso · Mermelada · Patxarán", title: "Queso de oveja con mermelada de castaña con patxarán de Aidin",
-        with: "Patxarán Usua Oro",
-        text: "Un final salado-dulce: el queso curado, la castaña y el patxarán comparten los mismos aromas otoñales.",
+        n: 18, kicker: "Queso · Mermelada · Patxarán", title: "Queso de oveja con mermelada de patxarán de Irular",
+        with: "Patxarán La Navarra",
+        text: "Un final salado-dulce: el queso curado, la mermelada y el patxarán comparten los mismos aromas de endrina.",
         shop: [{ label: "Quesos", href: "/tienda/quesos" }, { label: "Mermeladas y dulces", href: "/tienda/dulces" }, { label: "Patxarán y licores", href: "/tienda/bebidas" }],
       },
     ],
