@@ -58,6 +58,8 @@ export type Product = {
   price: number | null;
   description: string;
   image: Image;
+  /** Más fotos (la principal va primero): en los lotes, el conjunto y cada producto. */
+  gallery?: Image[];
   /** Valores de los filtros de la categoría: { denominacion: "dop-roncal" }. */
   attributes: Record<string, string>;
   /** Aparece en "Los favoritos de la casa". */

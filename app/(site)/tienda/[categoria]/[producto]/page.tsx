@@ -7,7 +7,7 @@ import { ProductCard, tagClass } from "@/components/cards/ProductCard";
 import { FreeShippingMeter } from "@/components/cart/FreeShippingMeter";
 import { ButtonLink } from "@/components/ui/Button";
 import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ProductGallery } from "@/components/shop/ProductGallery";
 import { isPlaceholder, site } from "@/data/site";
 import {
   getAllProducts,
@@ -88,25 +88,17 @@ export default async function ProductPage({ params }: Params) {
       />
       <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16">
         <div className="relative lg:sticky lg:top-40 lg:self-start">
-          <ImagePlaceholder
-            label={product.image.placeholder}
-            src={product.image.src}
-            alt={product.image.alt}
-            ratio="4 / 5"
-            blend
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            priority
-            className="rounded-eg"
-          />
-          {product.tags?.length ? (
-            <ul className="absolute top-4 left-4 flex flex-col items-start gap-1.5" aria-label="Etiquetas">
-              {product.tags.map((tag) => (
-                <li key={tag} className={tagClass(tag)}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <ProductGallery images={product.gallery ?? [product.image]}>
+            {product.tags?.length ? (
+              <ul className="absolute top-4 left-4 flex flex-col items-start gap-1.5" aria-label="Etiquetas">
+                {product.tags.map((tag) => (
+                  <li key={tag} className={tagClass(tag)}>
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </ProductGallery>
         </div>
         <div className="max-w-xl">
           {byline ? (

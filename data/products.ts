@@ -2,6 +2,7 @@ import { slugify } from "@/lib/slug";
 import type { Product } from "@/lib/types";
 import { DESCRIPTIONS } from "./descriptions";
 import { productImages } from "./images.generated";
+import { lots } from "./lots";
 import { productRows } from "./products.generated";
 
 /**
@@ -53,7 +54,7 @@ function uniqueSlug(name: string): string {
   return slug;
 }
 
-export const products: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
+const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
   const slug = uniqueSlug(name);
   const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
   rankByCategory.set(categorySlug, rank);
@@ -73,3 +74,14 @@ export const products: Product[] = productRows.map(([categorySlug, producerSlug,
     rank,
   };
 });
+
+/** Hoja de cálculo + lotes especiales (data/lots.ts), que van al final de "Lotes". */
+export const products: Product[] = [
+  ...sheetProducts,
+  ...lots.map((lot) => {
+    taken.add(lot.slug);
+    const rank = (rankByCategory.get(lot.categorySlug) ?? 0) + 1;
+    rankByCategory.set(lot.categorySlug, rank);
+    return { ...lot, rank };
+  }),
+];
