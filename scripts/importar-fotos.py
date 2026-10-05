@@ -6,7 +6,7 @@ Uso (desde la raíz del proyecto):
 
 Cada producto se empareja con la foto del catálogo del proveedor mediante las
 reglas de este archivo (patrón sobre el título de la hoja → archivo). Las fotos
-se pasan a WebP, se centran sobre fondo blanco con margen (así el recorte de las
+se pasan a WebP, se recorta el blanco sobrante y se centran, a tamaño uniforme, sobre fondo blanco con margen (así el recorte de las
 tarjetas, 4:5, nunca corta el producto) y se guardan con el slug del producto.
 Los productos sin regla (o sin foto en Drive) quedan con el marcador.
 Necesita Pillow (pip install pillow).
@@ -249,7 +249,7 @@ def find(folder, key):
     return hits[0] if hits else None
 
 
-def tile(src, dst, ratio=(4, 5), size=(800, 1000), margin=0.07):
+def tile(src, dst, ratio=(4, 5), size=(800, 1000), margin=0.07, trim=False):
     im = Image.open(src)
     if im.mode in ("RGBA", "LA", "P"):
         im = im.convert("RGBA")
@@ -257,9 +257,21 @@ def tile(src, dst, ratio=(4, 5), size=(800, 1000), margin=0.07):
         bg.paste(im, mask=im.split()[-1])
         im = bg
     im = im.convert("RGB")
+    if trim:
+        # Recorta el blanco que rodea al producto (muchas fotos lo traen con
+        # mucho aire) para que todos llenen el mismo espacio dentro del marco.
+        from PIL import ImageChops
+        diff = ImageChops.difference(im, Image.new("RGB", im.size, "white")).convert("L").point(lambda v: 255 if v > 14 else 0)
+        box = diff.getbbox()
+        if box:
+            pad = int(max(im.size) * 0.01)
+            im = im.crop((max(0, box[0] - pad), max(0, box[1] - pad), min(im.width, box[2] + pad), min(im.height, box[3] + pad)))
     W, H = size
     box = (int(W * (1 - 2 * margin)), int(H * (1 - 2 * margin)))
-    im.thumbnail(box, Image.LANCZOS)
+    # Ajusta al marco (también ampliando las fotos pequeñas, hasta 3x) para que
+    # todos los productos ocupen el mismo espacio, vengan como vengan.
+    k = min(box[0] / im.width, box[1] / im.height, 3.0)
+    im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
     canvas = Image.new("RGB", size, "white")
     canvas.paste(im, ((W - im.width) // 2, (H - im.height) // 2))
     canvas.save(dst, "WEBP", quality=82, method=6)
@@ -281,7 +293,7 @@ for cat, prod, name, price in rows:
     if not src:
         missing.append(f"{prod} | {name}" + (f"  (regla '{key}' sin archivo)" if key else ""))
         continue
-    tile(src, OUT_P / f"{slug}.webp")
+    tile(src, OUT_P / f"{slug}.webp", margin=0.06, trim=True)
     mapping[slug] = f"/images/productos/{slug}.webp"
 
 # Productores (logotipos de "3. Imagen proveedor")
