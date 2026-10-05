@@ -1,6 +1,7 @@
 import { slugify } from "@/lib/slug";
 import type { Product } from "@/lib/types";
 import { DESCRIPTIONS } from "./descriptions";
+import { productImages } from "./images.generated";
 import { productRows } from "./products.generated";
 
 /**
@@ -63,7 +64,7 @@ export const products: Product[] = productRows.map(([categorySlug, producerSlug,
     producerSlug,
     price,
     description: DESCRIPTIONS[slug] ?? DESCRIPTION,
-    image: { alt: name, placeholder: "Foto · producto" },
+    image: { alt: name, placeholder: "Foto · producto", src: productImages[slug] },
     attributes: {},
     featured: featured.has(slug) || undefined,
     bestseller: bestsellerRank.get(slug),

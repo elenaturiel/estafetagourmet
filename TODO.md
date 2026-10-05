@@ -31,7 +31,8 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 - [ ] **Productores:** nombre, localidad y retrato (`producers.ts`). Asignar cada producto a su productor real.
 - [ ] **Fotos de categorías en alta resolución:** las actuales (`public/images/categorias/`) salen de una captura de pantalla y miden unos 150 px; se ven bien en tamaño pequeño, pero conviene sustituirlas por los originales (mín. 600×600 px) con el mismo nombre de archivo.
 - [ ] **Textos de las categorías nuevas** (`data/categories.ts`): presentación y SEO son genéricos; revisarlos.
-- [ ] **Fotos:** portada, productos (incluidos los 7 lotes), productores, tienda, blog y la del popup. Van en `public/images/` y se enlazan con `image.src`.
+- [ ] **Fotos de productos y productores:** ya están puestas desde la carpeta de Drive (`scripts/importar-fotos.py`, sale `data/images.generated.ts`). Faltan unos 26 productos sin foto en Drive (se ven con el marcador) y hay que confirmar las que son aproximadas (formatos/tamaños distintos del mismo producto y los lotes de Navarrico). Ver README.
+- [ ] **Fotos que siguen pendientes:** portada, tienda, blog y la del popup. Van en `public/images/` y se enlazan con `image.src`.
 
 ## Contenido
 

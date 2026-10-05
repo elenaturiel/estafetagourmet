@@ -1,3 +1,4 @@
+import { producerImages } from "./images.generated";
 import { categories } from "./categories";
 import { producerNames, productRows } from "./products.generated";
 import type { Producer } from "@/lib/types";
@@ -36,7 +37,7 @@ export const producers: Producer[] = Object.entries(producerNames)
       specialty: category.name,
       categorySlug: category.slug,
       featured: FEATURED.includes(slug) || undefined,
-      image: { alt: `Retrato de ${name}`, placeholder: "Retrato · productor/a" },
+      image: { alt: `Logotipo de ${name}`, placeholder: "Retrato · productor/a", src: producerImages[slug] },
     };
   })
   .sort((a, b) => {
