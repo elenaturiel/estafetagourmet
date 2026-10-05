@@ -6,7 +6,7 @@ Uso (desde la raíz del proyecto):
 
 Cada producto se empareja con la foto del catálogo del proveedor mediante las
 reglas de este archivo (patrón sobre el título de la hoja → archivo). Las fotos
-se pasan a WebP, se recorta el blanco sobrante y se centran, a tamaño uniforme, sobre fondo blanco con margen (así el recorte de las
+se pasan a WebP, se recorta el blanco sobrante, se centran a tamaño uniforme y el fondo blanco pasa a color arena (así el recorte de las
 tarjetas, 4:5, nunca corta el producto) y se guardan con el slug del producto.
 Los productos sin regla (o sin foto en Drive) quedan con el marcador.
 Necesita Pillow (pip install pillow).
@@ -249,7 +249,11 @@ def find(folder, key):
     return hits[0] if hits else None
 
 
-def tile(src, dst, ratio=(4, 5), size=(800, 1000), margin=0.07, trim=False):
+ARENA = (236, 226, 205)  # #ece2cd, el fondo de las fotos de producto (--color-arena)
+
+
+def tile(src, dst, size=(960, 1200), margin=0.06, trim=False, tint=False):
+    from PIL import ImageChops, ImageDraw, ImageFilter
     im = Image.open(src)
     if im.mode in ("RGBA", "LA", "P"):
         im = im.convert("RGBA")
@@ -260,7 +264,6 @@ def tile(src, dst, ratio=(4, 5), size=(800, 1000), margin=0.07, trim=False):
     if trim:
         # Recorta el blanco que rodea al producto (muchas fotos lo traen con
         # mucho aire) para que todos llenen el mismo espacio dentro del marco.
-        from PIL import ImageChops
         diff = ImageChops.difference(im, Image.new("RGB", im.size, "white")).convert("L").point(lambda v: 255 if v > 14 else 0)
         box = diff.getbbox()
         if box:
@@ -268,13 +271,27 @@ def tile(src, dst, ratio=(4, 5), size=(800, 1000), margin=0.07, trim=False):
             im = im.crop((max(0, box[0] - pad), max(0, box[1] - pad), min(im.width, box[2] + pad), min(im.height, box[3] + pad)))
     W, H = size
     box = (int(W * (1 - 2 * margin)), int(H * (1 - 2 * margin)))
-    # Ajusta al marco (también ampliando las fotos pequeñas, hasta 3x) para que
-    # todos los productos ocupen el mismo espacio, vengan como vengan.
-    k = min(box[0] / im.width, box[1] / im.height, 3.0)
+    # Ajusta al marco (ampliando las pequeñas, hasta 2,2x) para que todos los
+    # productos ocupen el mismo espacio; un toque de nitidez compensa el aumento.
+    k = min(box[0] / im.width, box[1] / im.height, 2.2)
     im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
+    if k > 1.05:
+        im = im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=70, threshold=2))
     canvas = Image.new("RGB", size, "white")
     canvas.paste(im, ((W - im.width) // 2, (H - im.height) // 2))
-    canvas.save(dst, "WEBP", quality=82, method=6)
+    if tint:
+        # El fondo blanco pasa a color arena SIN tocar el producto: solo se
+        # tiñe lo blanco que está conectado con el borde (el blanco de dentro,
+        # como una etiqueta, se queda blanco) y se difumina el contorno.
+        mask = canvas.convert("L").point(lambda v: 255 if v >= 232 else 0)
+        for pt in [(0, 0), (W - 1, 0), (0, H - 1), (W - 1, H - 1), (W // 2, 0), (W // 2, H - 1), (0, H // 2), (W - 1, H // 2)]:
+            if mask.getpixel(pt) == 255:
+                ImageDraw.floodfill(mask, pt, 128)
+        bgm = mask.point(lambda v: 255 if v == 128 else 0)
+        bgm = bgm.filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(4))
+        tinted = ImageChops.multiply(canvas, Image.new("RGB", size, ARENA))
+        canvas = Image.composite(tinted, canvas, bgm)
+    canvas.save(dst, "WEBP", quality=93, method=6)
 
 
 OUT_P.mkdir(parents=True, exist_ok=True)
@@ -293,7 +310,7 @@ for cat, prod, name, price in rows:
     if not src:
         missing.append(f"{prod} | {name}" + (f"  (regla '{key}' sin archivo)" if key else ""))
         continue
-    tile(src, OUT_P / f"{slug}.webp", margin=0.06, trim=True)
+    tile(src, OUT_P / f"{slug}.webp", margin=0.06, trim=True, tint=True)
     mapping[slug] = f"/images/productos/{slug}.webp"
 
 # Productores (logotipos de "3. Imagen proveedor")
@@ -301,7 +318,7 @@ brands = {}
 for f in sorted(BRANDS.glob("marca-*")):
     s = f.stem.replace("marca-", "")
     s = {"la-catedral-de-navarra": "la-catedral", "sal-d-oro": "d-oro"}.get(s, s)
-    tile(f, OUT_M / f"{s}.webp", ratio=(3, 4), size=(720, 960), margin=0.12)
+    tile(f, OUT_M / f"{s}.webp", size=(720, 960), margin=0.12)
     brands[s] = f"/images/productores/{s}.webp"
 
 out = ROOT / "data/images.generated.ts"

@@ -17,9 +17,9 @@ type Props = {
   /** La foto se desliza dentro del marco al hacer scroll (ver .parallax-media). */
   parallax?: boolean;
   /**
-   * Foto de producto sobre fondo blanco: el marco pasa a color arena y la foto
-   * se mezcla en "multiplicar", así el blanco de la foto toma el color del
-   * marco y el producto queda integrado en la web en vez de en un cuadro blanco.
+   * Foto de producto: el marco es del color arena de las fotos (el fondo ya
+   * viene teñido desde scripts/importar-fotos.py), de modo que si la imagen
+   * tarda en cargar o se recorta no asoma otro color.
    */
   blend?: boolean;
 };
@@ -53,7 +53,7 @@ export function ImagePlaceholder({
             fill
             sizes={sizes}
             priority={priority}
-            className={cn("object-cover", blend && "mix-blend-multiply")}
+            className="object-cover"
           />
         </div>
       ) : (
