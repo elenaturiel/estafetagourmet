@@ -73,14 +73,6 @@ export const categories: Category[] = [
     "Lata de conserva de pescado con un tenedor",
   ),
   simple(
-    "atun-y-bonito",
-    "Atún y bonito",
-    "Atún y bonito en conserva",
-    "Bonito y atún en aceite y en escabeche, seleccionados en nuestra tienda.",
-    "Conserva de bonito del norte",
-    { image: { alt: "Atún y bonito en conserva", placeholder: "Foto · atún y bonito" } },
-  ),
-  simple(
     "legumbres",
     "Legumbres",
     "Legumbres",
