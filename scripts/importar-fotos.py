@@ -97,13 +97,13 @@ RULES = {
   (r"LOTE CAPRICHO", "caja-negra"),
  ],
  "navarra-en-dulce": [
-  (r"PASTAS SAN FERMIN", "sanfermines-pastas"), (r"NEGRO PATXARAN", "72-al-pacharan"),
+  (r"PASTAS SAN FERMIN|Galletas", "sanfermines-pastas"), (r"NEGRO PATXARAN", "72-al-pacharan"),
   (r"NEGRO NARANJA SIN", "85-sin-azucares-con-naranja"), (r"NEGRO NARANJA", "72-con-naranja-confitada."),
   (r"CEREZA", "cereza-y-miel"), (r"CAF", "navarra-en-dulce-chocolate-negro-con-cafe"), (r"PASAS", "pasas-al-ron"),
  ],
  "leyre": [
   (r"TABLETON NEGRO ALMENDRAS", "negro-con-almendras-marcona"), (r"TABLETON NEGRO 85", "extrafino-negro-85"),
-  (r"TABLETON NEGRO CON NARANJA", "negro-con-naranja."), (r"85", "extrafino-negro-85"), (r"95", "extrafino-negro-95"),
+  (r"TABLETON NEGRO CON NARANJA", "negro-con-naranja."), (r"85", "extrafino-negro-85"), (r"95", "extrafino-negro-95"), (r"NUECES", "leyre-chocolate-negro-con-pasas-al-ron"),
   (r"NARANJA", "negro-con-naranja."), (r"ALMENDRA", "negro-con-almendras-marcona"), (r"CAFÉ", "negro-con-cafe"),
  ],
  "pedro-mayo": [
@@ -171,7 +171,7 @@ RULES = {
  ],
  "ochoa": [
   (r"Gran Reserva", "gran_reserva."), (r"Reserva", "reserva."), (r"Moscatel", "moscatel_vendimia"),
-  (r"Secadero", "alma_finca"), (r"Montijo", "corazon_finca"), (r"Labrit rosado", "labrit_rosado"),
+  (r"Secadero", "alma_finca"), (r"Montijo", "corazon_finca"), (r"Labrit tinto", "tinto_nude"), (r"Labrit rosado", "labrit_rosado"),
   (r"Labrit blanco", "labrit_garnacha_blanca"), (r"Uva Doble", "uva_doble"), (r"Moscato", "moscato_de_ochoa"),
  ],
  "olasagasti": [
