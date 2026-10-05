@@ -3,6 +3,7 @@ export const mainNav = [
   { href: "/tienda", key: "shop" },
   { href: "/tienda/lotes", key: "lots" },
   { href: "/productores", key: "producers" },
+  { href: "/maridajes", key: "pairings" },
   { href: "/blog", key: "blog" },
   { href: "/visitanos", key: "visit" },
 ] as const;
@@ -13,6 +14,8 @@ export const footerNav = {
     { href: "/tienda/embutidos", label: "Embutidos" },
     { href: "/tienda/vinos", label: "Vinos" },
     { href: "/tienda/lotes", label: "Lotes" },
+    { href: "/regalos", label: "Ideas de regalo" },
+    { href: "/maridajes", label: "Maridajes" },
   ],
   help: [
     { href: "/envios-y-devoluciones", label: "Envíos y devoluciones" },

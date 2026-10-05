@@ -16,6 +16,7 @@ export const es = {
     shop: "Tienda",
     lots: "Lotes",
     producers: "Productores",
+    pairings: "Maridajes",
     blog: "Blog",
     visit: "Visítanos",
   },

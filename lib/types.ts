@@ -48,6 +48,15 @@ export type Producer = {
   featured?: boolean;
 };
 
+export type ProductDetails = {
+  /** Qué lleva el lote: nombre y, debajo, el productor (o los productores posibles). */
+  contents: { name: string; by: string }[];
+  /** "Por qué funciona", "Cómo servirlo" y "Conservación": párrafos. */
+  why: string[];
+  serve: string[];
+  storage: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -58,6 +67,8 @@ export type Product = {
   price: number | null;
   description: string;
   image: Image;
+  /** Ficha de un lote de regalo: qué lleva y cómo disfrutarlo. */
+  details?: ProductDetails;
   /** Más fotos (la principal va primero): en los lotes, el conjunto y cada producto. */
   gallery?: Image[];
   /** Valores de los filtros de la categoría: { denominacion: "dop-roncal" }. */

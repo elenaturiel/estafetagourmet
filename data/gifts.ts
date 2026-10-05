@@ -27,6 +27,9 @@ export const giftsHref = (para?: RecipientSlug) => (para ? `/regalos?para=${para
 
 /** A quién va cada lote, por slug de producto. */
 export const LOT_RECIPIENTS: Record<string, RecipientSlug[]> = {
+  "navarra-en-una-caja": ["padres", "amigos", "navidad", "eventos"],
+  "sobremesa-navarra": ["padres", "sanfermin", "navidad", "amigos"],
+  "regalo-gourmet": ["pareja", "padres", "navidad", "empresas"],
   "lote-amigos-opcion-a": ["amigos"],
   "lote-amigos-opcion-b": ["amigos"],
   "lote-cumpleanos-opcion-a": ["cumpleanos", "amigos"],

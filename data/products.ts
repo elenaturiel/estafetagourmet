@@ -3,6 +3,7 @@ import type { Product } from "@/lib/types";
 import { DESCRIPTIONS } from "./descriptions";
 import { productImages } from "./images.generated";
 import { lotGalleries } from "./lot-galleries.generated";
+import { giftLots } from "./gift-lots";
 import { lots } from "./lots";
 import { productRows } from "./products.generated";
 
@@ -138,7 +139,7 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
 /** Hoja de cálculo + lotes especiales (data/lots.ts), que van al final de "Lotes". */
 export const products: Product[] = [
   ...sheetProducts,
-  ...lots.map((lot) => {
+  ...[...giftLots, ...lots].map((lot) => {
     taken.add(lot.slug);
     const rank = (rankByCategory.get(lot.categorySlug) ?? 0) + 1;
     rankByCategory.set(lot.categorySlug, rank);

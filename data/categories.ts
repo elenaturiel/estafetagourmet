@@ -260,6 +260,7 @@ export const categories: Category[] = [
           key: "ocasion",
           label: "Ocasión",
           options: [
+            { value: "regalo", label: "Lotes de regalo" },
             { value: "navarrico", label: "Lotes El Navarrico" },
             { value: "amigos", label: "Amigos" },
             { value: "cumpleanos", label: "Cumpleaños" },

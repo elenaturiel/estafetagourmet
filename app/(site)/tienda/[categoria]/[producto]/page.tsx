@@ -146,7 +146,23 @@ export default async function ProductPage({ params }: Params) {
           </ul>
 
           <div className="mt-8 border-t border-linea">
-            <details className="group border-b border-linea" open>
+            {product.details ? (
+              <details className="group border-b border-linea" open>
+                <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[20px] [&::-webkit-details-marker]:hidden">
+                  Contenido del lote
+                  <span aria-hidden="true" className="text-vino transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <ul className="pb-5">
+                  {product.details.contents.map((c) => (
+                    <li key={c.name} className="border-b border-linea py-2.5 last:border-b-0">
+                      <p className="text-[16px] font-semibold">{c.name}</p>
+                      <p className="text-[14px] text-secundario">{c.by}</p>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : null}
+            <details className="group border-b border-linea" open={!product.details}>
               <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[20px] [&::-webkit-details-marker]:hidden">
                 Detalles
                 <span aria-hidden="true" className="text-vino transition-transform group-open:rotate-45">+</span>
@@ -162,16 +178,41 @@ export default async function ProductPage({ params }: Params) {
                     <dd>{producer.locality}, Navarra</dd>
                   </>
                 ) : null}
-                <dt className="text-secundario">Formato</dt>
-                <dd>[peso o volumen]</dd>
+                {product.details ? null : (
+                  <>
+                    <dt className="text-secundario">Formato</dt>
+                    <dd>[peso o volumen]</dd>
+                  </>
+                )}
               </dl>
             </details>
-            <details className="group border-b border-linea">
+            <details className="group border-b border-linea" open={Boolean(product.details)}>
               <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[20px] [&::-webkit-details-marker]:hidden">
                 Conservación y maridaje
                 <span aria-hidden="true" className="text-vino transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="pb-5 text-[15px] text-secundario">[Cómo conservarlo y con qué acompañarlo]</p>
+              {product.details ? (
+                <div className="space-y-4 pb-5 text-[15px] leading-[1.6] text-secundario">
+                  <div>
+                    <p className="eyebrow mb-1 text-[12px] text-vino">Por qué funciona</p>
+                    {product.details.why.map((t) => (
+                      <p key={t}>{t}</p>
+                    ))}
+                  </div>
+                  <div>
+                    <p className="eyebrow mb-1 text-[12px] text-vino">Cómo servirlo</p>
+                    {product.details.serve.map((t) => (
+                      <p key={t}>{t}</p>
+                    ))}
+                  </div>
+                  <div>
+                    <p className="eyebrow mb-1 text-[12px] text-vino">Conservación</p>
+                    <p>{product.details.storage}</p>
+                  </div>
+                </div>
+              ) : (
+                <p className="pb-5 text-[15px] text-secundario">[Cómo conservarlo y con qué acompañarlo]</p>
+              )}
             </details>
             <details className="group border-b border-linea">
               <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[20px] [&::-webkit-details-marker]:hidden">
