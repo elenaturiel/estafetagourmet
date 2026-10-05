@@ -9,6 +9,8 @@ reglas de este archivo (patrón sobre el título de la hoja → archivo). Las fo
 se pasan a WebP, se recorta el blanco sobrante, se centran a tamaño uniforme y el fondo blanco pasa a color arena (así el recorte de las
 tarjetas, 4:5, nunca corta el producto) y se guardan con el slug del producto.
 Los productos sin regla (o sin foto en Drive) quedan con el marcador.
+Con --productores solo se rehacen los logotipos de los productores (rápido) y se
+conservan las fotos de producto ya generadas.
 Necesita Pillow (pip install pillow).
 """
 import json, re, sys, unicodedata
@@ -16,7 +18,9 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else None
+ONLY_BRANDS = "--productores" in sys.argv
+args = [a for a in sys.argv[1:] if not a.startswith("--")]
+SRC = Path(args[0]) if args else None
 if not SRC or not SRC.exists():
     sys.exit(__doc__)
 CAT = SRC / "2. Catálogos"
@@ -298,7 +302,10 @@ OUT_P.mkdir(parents=True, exist_ok=True)
 OUT_M.mkdir(parents=True, exist_ok=True)
 
 taken, mapping, missing = set(), {}, []
-for cat, prod, name, price in rows:
+if ONLY_BRANDS:
+    old = (ROOT / "data/images.generated.ts").read_text(encoding="utf-8")
+    mapping = json.loads(re.search(r"productImages[^=]*=\s*(\{.*?\});", old, re.S).group(1))
+for cat, prod, name, price in ([] if ONLY_BRANDS else rows):
     base = slugify(name) or "producto"
     slug, i = base, 2
     while slug in taken:
@@ -318,6 +325,8 @@ brands = {}
 for f in sorted(BRANDS.glob("marca-*")):
     s = f.stem.replace("marca-", "")
     s = {"la-catedral-de-navarra": "la-catedral", "sal-d-oro": "d-oro"}.get(s, s)
+    if s in ("etxeko", "laxoa", "licores-usua"):
+        continue  # marcas de patxarán, no son productores de la tienda
     tile(f, OUT_M / f"{s}.webp", size=(720, 960), margin=0.12)
     brands[s] = f"/images/productores/{s}.webp"
 
