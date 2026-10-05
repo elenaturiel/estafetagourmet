@@ -93,6 +93,7 @@ export default async function ProductPage({ params }: Params) {
             src={product.image.src}
             alt={product.image.alt}
             ratio="4 / 5"
+            blend
             sizes="(min-width: 1024px) 50vw, 100vw"
             priority
             className="rounded-eg"

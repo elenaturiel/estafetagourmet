@@ -16,6 +16,12 @@ type Props = {
   priority?: boolean;
   /** La foto se desliza dentro del marco al hacer scroll (ver .parallax-media). */
   parallax?: boolean;
+  /**
+   * Foto de producto sobre fondo blanco: el marco pasa a color arena y la foto
+   * se mezcla en "multiplicar", así el blanco de la foto toma el color del
+   * marco y el producto queda integrado en la web en vez de en un cuadro blanco.
+   */
+  blend?: boolean;
 };
 
 /**
@@ -32,10 +38,11 @@ export function ImagePlaceholder({
   sizes = "(min-width: 1024px) 33vw, 100vw",
   priority,
   parallax,
+  blend,
 }: Props) {
   return (
     <div
-      className={cn("relative overflow-hidden bg-placeholder", className)}
+      className={cn("relative overflow-hidden", blend && src ? "bg-arena" : "bg-placeholder", className)}
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {src ? (
@@ -46,7 +53,7 @@ export function ImagePlaceholder({
             fill
             sizes={sizes}
             priority={priority}
-            className="object-cover"
+            className={cn("object-cover", blend && "mix-blend-multiply")}
           />
         </div>
       ) : (

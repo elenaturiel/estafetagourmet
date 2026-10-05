@@ -37,6 +37,7 @@ export function ProductCard({
           src={product.image.src}
           alt={product.image.src ? product.image.alt : undefined}
           ratio="4 / 5"
+          blend
           sizes="(min-width: 1024px) 25vw, 50vw"
           className="transition-transform duration-700 ease-out group-hover/card:scale-[1.04]"
         />

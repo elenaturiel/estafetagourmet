@@ -10,6 +10,8 @@
   --color-papel: #fbf8f1;
   --color-crema-oscuro: #eadfc9;
   --color-placeholder: #e6dac4;
+  /* Fondo de las fotos de producto (se mezcla con el blanco de la foto) */
+  --color-arena: #ece2cd;
 
   /* Texto y líneas */
   --color-tinta: #2a1f1a;
