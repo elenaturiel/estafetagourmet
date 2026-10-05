@@ -41,6 +41,33 @@ const TAGS: Record<string, string[]> = {};
 /** "Combina con" en la ficha, por slug de producto. Si no se indica, se sugieren otros de la categoría. */
 const PAIRS_WITH: Record<string, string[]> = {};
 
+/**
+ * Qué lleva cada lote de la hoja (se muestra en su descripción), por slug.
+ * Hecho a partir de la foto de cada lote; hay que confirmarlo con el proveedor.
+ * Los lotes especiales (Amigos, Navidad…) ya traen su lista en data/lots.ts.
+ */
+const LOT_ITEMS: Record<string, string[]> = {
+  "navarrico-lote-fusion-blanco": [
+    "vino blanco J.F. Arriezu Verdejo (D.O. Rueda)",
+    "aceite de oliva virgen extra Artajo arbequina",
+    "espárragos Cojonudos de Navarra 8/10",
+    "piquillos de Lodosa enteros extra",
+    "alcachofas enteras aliñadas extra",
+    "mermelada de pimientos",
+  ],
+  "navarrico-lote-fusiontinto": [
+    "vino tinto Bagordi Crianza (Rioja)",
+    "aceite de oliva virgen extra Artajo arbequina",
+    "espárragos Cojonudos de Navarra 8/10",
+    "piquillos de Lodosa enteros extra",
+    "alcachofas enteras aliñadas extra",
+    "crema de queso",
+  ],
+};
+
+const lotDescription = (items: string[]) =>
+  `Lote de El Navarrico con ${items.length} productos. Contiene: ${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}.`;
+
 const featured = new Set(FEATURED.map(slugify));
 const bestsellerRank = new Map(BESTSELLERS.map((name, i) => [slugify(name), i + 1]));
 const taken = new Set<string>();
@@ -64,7 +91,7 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
     categorySlug,
     producerSlug,
     price,
-    description: DESCRIPTIONS[slug] ?? DESCRIPTION,
+    description: LOT_ITEMS[slug] ? lotDescription(LOT_ITEMS[slug]) : (DESCRIPTIONS[slug] ?? DESCRIPTION),
     image: { alt: name, placeholder: "Foto · producto", src: productImages[slug] },
     attributes: {},
     featured: featured.has(slug) || undefined,
