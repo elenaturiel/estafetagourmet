@@ -73,6 +73,11 @@ const PRICES: Record<string, number> = {
  */
 const PHOTOS: Record<string, string> = {
   "NAVARRA NEGRO 85%": "/images/productos-estafeta/navarra-negro-85.webp",
+  "NAVARRA NEGRO CAFÉ": "/images/productos-estafeta/navarra-negro-cafe.webp",
+  "NAVARRA NEGRO CEREZA Y MIEL": "/images/productos-estafeta/navarra-negro-cereza-y-miel.webp",
+  "NAVARRA NEGRO NARANJA": "/images/productos-estafeta/navarra-negro-naranja.webp",
+  "NAVARRA NEGRO PASAS AL RON": "/images/productos-estafeta/navarra-negro-pasas-al-ron.webp",
+  "NAVARRA NEGRO PATXARAN": "/images/productos-estafeta/navarra-negro-patxaran.webp",
   "NAVARRA Chocolate sabor nº1": "/images/productos-estafeta/chocolate-negro-72-vino-tinto.webp",
   "NAVARRA Chocolate sabor nº2": "/images/productos-estafeta/chocolate-negro-85-arandanos.webp",
   "NAVARRA Chocolate sabor nº3": "/images/productos-estafeta/chocolate-negro-62-puro.webp",
