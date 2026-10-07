@@ -41,11 +41,13 @@ const nextConfig: NextConfig = {
       { source: "/blog/:slug", destination: "/newsletter", permanent: false },
       // Los lotes de El Navarrico ya no se venden.
       { source: "/tienda/lotes/navarrico-lote-:lote", destination: "/tienda/lotes", permanent: true },
-      // "Chocolate sabor nº1…4" tienen ya nombre propio.
+      // "Chocolate sabor nº1…6" tienen ya nombre propio.
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-1", destination: "/tienda/dulces/chocolate-negro-72-vino-tinto", permanent: true },
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-2", destination: "/tienda/dulces/chocolate-negro-85-arandanos", permanent: true },
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-3", destination: "/tienda/dulces/chocolate-negro-62-puro-sin-azucar-anadido", permanent: true },
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-4", destination: "/tienda/dulces/chocolate-con-leche-cafe-bombon-sin-azucar-anadido", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-5", destination: "/tienda/dulces/chocolate-negro-72-piparras", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-6", destination: "/tienda/dulces/chocolate-con-leche-manzana-a-la-sidra", permanent: true },
       ...canonicalHostRedirects(),
     ];
   },
