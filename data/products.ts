@@ -110,6 +110,16 @@ function uniqueSlug(name: string): string {
   return slug;
 }
 
+/**
+ * Precios con IVA de productos que en la hoja salen sin precio, por título
+ * exacto. Si la hoja trae precio, manda el de la hoja.
+ */
+const PRICES: Record<string, number> = {
+  "CHIVITE Blanco COLECCION 125": 31.9,
+  "CHIVITE Tinto colección 125": 31,
+  "MONJARDIN Blanco chardonnay reserva": 26.3,
+};
+
 const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
   const slug = uniqueSlug(name);
   const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
@@ -119,7 +129,7 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
     name,
     categorySlug,
     producerSlug,
-    price,
+    price: price ?? PRICES[name] ?? null,
     description: LOT_ITEMS[slug] ? lotDescription(LOT_ITEMS[slug]) : (DESCRIPTIONS[slug] ?? DESCRIPTION),
     image: { alt: name, placeholder: "Foto · producto", src: productImages[slug] },
     gallery: lotGalleries[slug]?.map((im, i) => ({
