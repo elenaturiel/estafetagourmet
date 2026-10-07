@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Newsletter: boletines de producto navarro",
   description:
-    "Los boletines de Estafeta Gourmet: vinos D.O. Navarra, espárrago, piquillo de Lodosa, alcachofa de Tudela y quesos Idiazabal y Roncal. Origen, cocina y consejos de la tienda.",
+    "Los boletines de Estafeta Gourmet: vinos D.O. Navarra, espárrago, piquillo, alcachofa, quesos Idiazabal y Roncal, aceite, pacharán y txistorra. Origen, cocina y consejos de la tienda.",
   path: "/newsletter",
 });
 

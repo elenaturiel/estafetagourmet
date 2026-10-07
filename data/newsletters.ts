@@ -317,6 +317,148 @@ export const newsletters: Newsletter[] = [
       cta: { label: "Comprar quesos", href: "/tienda/quesos" },
     },
   },
+  {
+    slug: "aceite-de-navarra",
+    number: 6,
+    theme: "Aceite",
+    title: "Aceite de Navarra",
+    subtitle: "Arróniz, la variedad que da carácter",
+    excerpt: "Amargo, picante y muy equilibrado: así es el aceite de oliva virgen extra navarro.",
+    image: { src: "/images/categorias/aceites.webp", alt: "Aceite de oliva virgen extra navarro" },
+    lead: "En el sur de Navarra, entre sierras, cierzo y mucho sol, crece un olivar de carácter único. Su joya es la arróniz, una variedad autóctona con mucha personalidad.",
+    stats: [
+      { value: "2007", label: "año de la D.O.P. Aceite de Navarra" },
+      { value: "135", label: "municipios del sur de Navarra" },
+      { value: "< 0,3°", label: "de acidez exigida" },
+      { value: "3", label: "variedades: arróniz, empeltre y arbequina" },
+    ],
+    sections: [
+      {
+        title: "Solo virgen extra",
+        paragraphs: [
+          "La denominación protege exclusivamente aceite de oliva virgen extra. Exige una acidez inferior a 0,3°, un frutado mínimo de 4,5 y cero defectos. Los blends deben llevar al menos un 10 % de **arróniz**, la variedad autóctona.",
+        ],
+      },
+      {
+        title: "Cómo sabe",
+        paragraphs: [
+          "Frutado medio a intenso, con notas verdes y el **amargo y picante** característicos, muy equilibrados. La cosecha va de octubre a diciembre, cuando la aceituna está en su mejor momento.",
+        ],
+      },
+      {
+        title: "Cómo catarlo en casa",
+        list: [
+          "Sirve un poco en un vaso pequeño y caliéntalo con la mano.",
+          "Huele: busca hierba recién cortada, tomatera, alcachofa.",
+          "Prueba: el amargor en la lengua y el picor en la garganta son señal de un aceite fresco y rico en polifenoles.",
+        ],
+        tip: "Guarda el aceite bien cerrado, lejos de la luz y del calor (nunca junto a los fuegos). Así mantendrá sus aromas mucho más tiempo.",
+      },
+    ],
+    shop: {
+      title: "Aceites en nuestra tienda",
+      products: [
+        "HQ ANFORA ARRONIZ AOVE 250ml",
+        "HQ ABBAE AOVE 500ml",
+        "LA MAJA ACEITE ARRONIZ",
+        "MONJARDIN AOVE arbequina 500ml",
+      ],
+      cta: { label: "Comprar aceites", href: "/tienda/aceites" },
+    },
+  },
+  {
+    slug: "pacharan-navarro",
+    number: 7,
+    theme: "Licores",
+    title: "Pacharán Navarro",
+    subtitle: "Endrinas, anís y paciencia",
+    excerpt: "Del siglo XV a tu sobremesa: qué hace único al pacharán navarro y cómo servirlo.",
+    image: { src: "/images/categorias/bebidas.webp", alt: "Pacharán navarro" },
+    lead: "Ya en 1415 se servía en una boda noble de Navarra, y la reina Blanca lo tomaba como remedio en 1441. Seis siglos después, el pacharán sigue siendo el broche de cualquier comida navarra.",
+    stats: [
+      { value: "1988", label: "año de la Indicación Geográfica Pacharán Navarro" },
+      { value: "125–300 g", label: "de endrinas por litro" },
+      { value: "25–30°", label: "graduación del pacharán" },
+      { value: "1–8 meses", label: "de maceración lenta" },
+    ],
+    sections: [
+      {
+        title: "Cómo se elabora",
+        paragraphs: [
+          "Las endrinas, fruto del endrino (Prunus spinosa), deben ser 100 % navarras, sanas y brillantes. Se maceran lentamente en un aguardiente anisado entre uno y ocho meses; después se trasiega y se filtra. El resultado tiene un color de rojo a rojo intenso, según la receta de cada casa.",
+        ],
+      },
+      {
+        title: "Cómo es",
+        paragraphs: [
+          "Suave e intenso, dulce y ácido, seco y afrutado a la vez. Un licor joven y fresco, sin más aditivos que el azúcar.",
+        ],
+      },
+      {
+        title: "Cómo servirlo",
+        list: [
+          "**Muy frío**, entre 0 y 4 ºC.",
+          "En copa pequeña, solo o con un hielo grande.",
+          "Con chocolate negro, pastas o un queso de oveja curado.",
+        ],
+        tip: "Cada botella con IG lleva una contraetiqueta numerada del Consejo Regulador. Fíjate en ella para asegurarte de que es auténtico pacharán navarro.",
+      },
+    ],
+    shop: {
+      title: "Pacharanes en nuestra tienda",
+      products: [
+        "LN Patxarán ETXEKO",
+        "LN Patxarán LA NAVARRA",
+        "LN Patxarán BELASCO ORO",
+        "BAINES Patxarán BAINES etiqueta oro",
+        "LAXOA Patxarán",
+      ],
+      cta: { label: "Comprar pacharán", href: "/tienda/bebidas" },
+    },
+  },
+  {
+    slug: "txistorra-de-navarra",
+    number: 8,
+    theme: "Embutidos",
+    title: "Txistorra de Navarra",
+    subtitle: "La reina del almuerzo",
+    excerpt: "Ya tiene IGP europea: así es la txistorra navarra y así se cocina bien.",
+    image: { src: "/images/categorias/embutidos.webp", alt: "Chorizo, jamón y salchichón cortados en lonchas" },
+    lead: "Fina, roja y con ese chisporroteo inconfundible en la plancha. La txistorra forma parte de la cocina navarra desde, al menos, principios del siglo XIX, y desde 2024 tiene Indicación Geográfica Protegida.",
+    stats: [
+      { value: "2024", label: "inscrita como IGP en el registro europeo" },
+      { value: "17–25 mm", label: "de diámetro" },
+      { value: "4", label: "ingredientes base: cerdo, sal, pimentón y ajo" },
+      { value: "2 días", label: "de curación mínima" },
+    ],
+    sections: [
+      {
+        title: "Qué lleva",
+        paragraphs: [
+          "Carne y grasa de cerdo picadas y adobadas con **sal, pimentón y ajo**, embutidas en tripa natural de cordero o de colágeno. Al cortarla se distinguen bien la carne y la grasa, y su color rojizo viene del pimentón.",
+        ],
+      },
+      {
+        title: "Cómo cocinarla",
+        list: [
+          "**A la plancha o en sartén, sin aceite:** suelta su propia grasa.",
+          "Fuego medio, girándola, hasta que esté dorada y crujiente.",
+          "Con pan, con huevos fritos o envuelta en masa de hojaldre.",
+        ],
+        tip: "El almuerzo de Sanfermines por excelencia: txistorra recién hecha, pan y un rosado bien frío. Pruébalo también con un tinto joven de garnacha.",
+      },
+    ],
+    shop: {
+      title: "Txistorra en nuestra tienda",
+      products: [
+        "ARBIZU Txistorra individual",
+        "ARBIZU Txistorra individual picante",
+        "ARBIZU Txistorra individual eco",
+        "ARBIZU Txistorra 1 kg",
+      ],
+      cta: { label: "Comprar embutidos", href: "/tienda/embutidos" },
+    },
+  },
 ];
 
 export function getNewsletter(slug: string): Newsletter | undefined {
