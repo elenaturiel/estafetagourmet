@@ -17,7 +17,7 @@ export const es = {
     lots: "Lotes",
     producers: "Productores",
     pairings: "Maridajes",
-    blog: "Blog",
+    newsletter: "Newsletter",
     visit: "Visítanos",
   },
   header: {

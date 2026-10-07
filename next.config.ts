@@ -36,6 +36,9 @@ const nextConfig: NextConfig = {
       // Atún y bonito dejó de ser categoría: sus productos están en Conservas.
       { source: "/tienda/atun-y-bonito", destination: "/tienda/conservas", permanent: true },
       { source: "/tienda/atun-y-bonito/:producto", destination: "/tienda/conservas/:producto", permanent: true },
+      // El blog se sustituye por la newsletter (el código del blog sigue en app/(site)/blog).
+      { source: "/blog", destination: "/newsletter", permanent: false },
+      { source: "/blog/:slug", destination: "/newsletter", permanent: false },
       ...canonicalHostRedirects(),
     ];
   },

@@ -4,7 +4,7 @@ export const mainNav = [
   { href: "/tienda/lotes", key: "lots" },
   { href: "/productores", key: "producers" },
   { href: "/maridajes", key: "pairings" },
-  { href: "/blog", key: "blog" },
+  { href: "/newsletter", key: "newsletter" },
   { href: "/visitanos", key: "visit" },
 ] as const;
 
