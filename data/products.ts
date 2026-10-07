@@ -116,6 +116,7 @@ function uniqueSlug(name: string): string {
  */
 const PRICES: Record<string, number> = {
   "CHIVITE Blanco COLECCION 125": 31.9,
+  "CHIVITE Rosado COLECCION 125": 31.9,
   "CHIVITE Tinto colección 125": 31,
   "MONJARDIN Blanco chardonnay reserva": 26.3,
 };
