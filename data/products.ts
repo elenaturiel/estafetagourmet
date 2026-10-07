@@ -66,6 +66,15 @@ const PRICES: Record<string, number> = {
   "MONJARDIN Blanco chardonnay reserva": 26.3,
 };
 
+/**
+ * Fotos propias (diseños de Estafeta Gourmet), por título exacto de la hoja.
+ * Están en public/images/productos-estafeta/ y mandan sobre las de Drive
+ * (data/images.generated.ts), así que no se pierden al volver a importar las fotos.
+ */
+const PHOTOS: Record<string, string> = {
+  "NAVARRA NEGRO 85%": "/images/productos-estafeta/navarra-negro-85.webp",
+};
+
 const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
   const slug = uniqueSlug(name);
   const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
@@ -77,7 +86,7 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
     producerSlug,
     price: price ?? PRICES[name] ?? null,
     description: DESCRIPTIONS[slug] ?? DESCRIPTION,
-    image: { alt: name, placeholder: "Foto · producto", src: productImages[slug] },
+    image: { alt: name, placeholder: "Foto · producto", src: PHOTOS[name] ?? productImages[slug] },
     attributes: {} as Record<string, string>,
     featured: featured.has(slug) || undefined,
     bestseller: bestsellerRank.get(slug),
