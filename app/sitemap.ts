@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { newsletters } from "@/data/newsletters";
 import { SITE_URL } from "@/data/site";
-import { getAllProducts, getCategories, getPosts } from "@/lib/catalog";
+import { getAllProducts, getCategories } from "@/lib/catalog";
 import { productHref } from "@/lib/product-utils";
 
 const staticPaths = [
@@ -10,7 +10,6 @@ const staticPaths = [
   "/regalos",
   "/maridajes",
   "/productores",
-  "/blog",
   "/newsletter",
   "/visitanos",
   "/envios-y-devoluciones",
@@ -20,20 +19,15 @@ const staticPaths = [
   "/cookies",
 ];
 
-/** Incluye las entradas nuevas del blog sin volver a publicar la web. */
+/** Se regenera cada 5 minutos. */
 export const revalidate = 300;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categories, products, posts] = await Promise.all([
-    getCategories(),
-    getAllProducts(),
-    getPosts(),
-  ]);
+  const [categories, products] = await Promise.all([getCategories(), getAllProducts()]);
   const paths = [
     ...staticPaths,
     ...categories.filter((c) => !c.href).map((c) => `/tienda/${c.slug}`),
     ...products.map(productHref),
-    ...posts.map((p) => `/blog/${p.slug}`),
     ...newsletters.map((n) => `/newsletter/${n.slug}`),
   ];
   return paths.map((path) => ({

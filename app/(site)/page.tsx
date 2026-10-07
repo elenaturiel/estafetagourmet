@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { AboutSection } from "@/components/home/AboutSection";
-import { BlogSection } from "@/components/home/BlogSection";
 import { CategoriesSection } from "@/components/home/CategoriesSection";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { LotsBand } from "@/components/home/LotsBand";
 import { Hero } from "@/components/home/Hero";
+import { LatestNewslettersSection } from "@/components/home/LatestNewslettersSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { ProducersSection } from "@/components/home/ProducersSection";
 import { ProductMarquee } from "@/components/home/ProductMarquee";
@@ -43,7 +43,7 @@ export default async function Home() {
       <PromiseSection />
       <AboutSection />
       <ReviewsSection />
-      <BlogSection />
+      <LatestNewslettersSection />
       <NewsletterSection />
       <VisitSection />
     </>
