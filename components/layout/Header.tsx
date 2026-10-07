@@ -403,12 +403,6 @@ function GiftLinks() {
   );
 }
 
-/** "Navarrico lote detalle" en vez de "NAVARRICO LOTE DETALLE" (los títulos de la hoja vienen en mayúsculas). */
-const niceName = (name: string) => {
-  const lower = name.toLowerCase();
-  return lower.charAt(0).toUpperCase() + lower.slice(1);
-};
-
 /**
  * Panel del menú "Lotes": a la izquierda cada lote por separado; a la derecha
  * "¿Buscando un regalo?" con las ocasiones y destinatarios.
@@ -438,7 +432,7 @@ function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
                 </span>
                 <span className="min-w-0">
                   <span className="block font-serif text-[16px] leading-tight group-hover:text-vino">
-                    {niceName(lot.name)}
+                    {lot.name}
                   </span>
                   <span className="mt-0.5 block text-[13px] text-secundario">
                     {lot.price === null

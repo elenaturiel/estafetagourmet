@@ -19,8 +19,8 @@ import { TopBar } from "./TopBar";
 export async function SiteChrome({ children }: { children: ReactNode }) {
   const [categories, lots] = await Promise.all([getCategories(), getProducts({ category: "lotes" })]);
   const lot = lots[0];
-  // Los lotes de siempre; los de ocasión (Amigos, Navidad…) se encuentran en "¿Buscando un regalo?".
-  const classicLots = lots.filter((l) => l.attributes.ocasion === "navarrico");
+  // Los lotes de regalo del catálogo; los de ocasión (Amigos, Navidad…) se encuentran en "¿Buscando un regalo?".
+  const classicLots = lots.filter((l) => l.attributes.ocasion === "regalo");
   return (
     <>
       <a
