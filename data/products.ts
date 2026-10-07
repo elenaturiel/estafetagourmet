@@ -85,6 +85,7 @@ const PHOTOS: Record<string, string> = {
   "NAVARRA Chocolate sabor nº5": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
   "NAVARRA Chocolate sabor nº6": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
   "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
+  "NAVARRA Galletas de patxaran": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
 };
 
 /**
