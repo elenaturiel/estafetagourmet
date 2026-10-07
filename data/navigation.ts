@@ -16,6 +16,7 @@ export const footerNav = {
     { href: "/tienda/lotes", label: "Lotes" },
     { href: "/regalos", label: "Ideas de regalo" },
     { href: "/maridajes", label: "Maridajes" },
+    { href: "/newsletter", label: "Newsletter" },
   ],
   help: [
     { href: "/envios-y-devoluciones", label: "Envíos y devoluciones" },
