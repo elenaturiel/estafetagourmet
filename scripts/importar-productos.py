@@ -55,7 +55,7 @@ FAMILIAS = {
     "DULCES": "dulces",
     "BEBIDAS": "bebidas",
     "LOTES": "lotes",
-    "ATUN Y BONITO": "atun-y-bonito",
+    "ATUN Y BONITO": "conservas",  # ya no es categoría propia
     "SETAS Y HONGOS": "setas-y-hongos",
 }
 

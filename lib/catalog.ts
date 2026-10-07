@@ -91,6 +91,13 @@ export async function getProductsBySlugs(slugs: string[]): Promise<Product[]> {
     .filter((p): p is Product => Boolean(p));
 }
 
+/** Productos por su título exacto de la hoja, en ese orden (los que no existan se omiten). */
+export async function getProductsByNames(names: string[]): Promise<Product[]> {
+  return names
+    .map((name) => products.find((p) => p.name === name))
+    .filter((p): p is Product => Boolean(p));
+}
+
 /** Número de productos de cada productor, por slug. */
 export async function getProducerCounts(): Promise<Record<string, number>> {
   const out: Record<string, number> = {};

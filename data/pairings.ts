@@ -35,7 +35,7 @@ export const pairingGroups: PairingGroup[] = [
         n: 2, kicker: "Bonito · Espumoso", title: "Ventresca de bonito Olasagasti con piparras Ubidea",
         with: "Castillo de Monjardín Brut Chardonnay Millésime",
         text: "La burbuja fina y la acidez del espumoso limpian la grasa de la ventresca, y el picor suave de la piparra lo aviva. Un aperitivo de barra elegante.",
-        shop: [{ label: "Atún y bonito", href: "/tienda/atun-y-bonito" }, { label: "Vinos", href: "/tienda/vinos" }],
+        shop: [{ label: "Conservas", href: "/tienda/conservas" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
       {
         n: 3, kicker: "Piquillo · Rosado", title: "Pimientos del piquillo",

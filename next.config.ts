@@ -33,6 +33,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Atún y bonito dejó de ser categoría: sus productos están en Conservas.
+      { source: "/tienda/atun-y-bonito", destination: "/tienda/conservas", permanent: true },
+      { source: "/tienda/atun-y-bonito/:producto", destination: "/tienda/conservas/:producto", permanent: true },
       ...canonicalHostRedirects(),
     ];
   },
