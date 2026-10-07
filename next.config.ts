@@ -39,6 +39,8 @@ const nextConfig: NextConfig = {
       // El blog se sustituye por la newsletter (el código del blog sigue en app/(site)/blog).
       { source: "/blog", destination: "/newsletter", permanent: false },
       { source: "/blog/:slug", destination: "/newsletter", permanent: false },
+      // Los lotes de El Navarrico ya no se venden.
+      { source: "/tienda/lotes/navarrico-lote-:lote", destination: "/tienda/lotes", permanent: true },
       ...canonicalHostRedirects(),
     ];
   },

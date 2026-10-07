@@ -154,6 +154,9 @@ def main():
         titulo = limpiar_nombre(art)
         if titulo in DESCATALOGADOS:
             continue
+        # Los lotes de El Navarrico ya no se venden.
+        if cat == "lotes" and slugify(nombre_p) == "el-navarrico":
+            continue
         productos.append((cat, slugify(nombre_p), titulo, precio(pvp)))
 
     if desconocidas:
