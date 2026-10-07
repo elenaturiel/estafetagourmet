@@ -30,6 +30,14 @@ from collections import Counter
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+# Productos descatalogados: se ignoran aunque sigan en la hoja (título tal cual sale en la web).
+DESCATALOGADOS = {
+    "IRULAR Mermelada patxarán",
+    "ARBIZU Paté de morcilla",
+    "LVN CUÑA QUESO DE OVEJA INYECTADO CON ACEITE DE ROMERO 200 G",
+    "ECOPRO LOTE EXCLUSICVE 12 ACEITES",
+}
+
 # Familia de la hoja → slug de categoría (data/categories.ts)
 FAMILIAS = {
     "QUESOS": "quesos",
@@ -143,7 +151,10 @@ def main():
             continue
         nombre_p = nombre_proveedor(sub.upper())
         proveedores[slugify(nombre_p)] = nombre_p
-        productos.append((cat, slugify(nombre_p), limpiar_nombre(art), precio(pvp)))
+        titulo = limpiar_nombre(art)
+        if titulo in DESCATALOGADOS:
+            continue
+        productos.append((cat, slugify(nombre_p), titulo, precio(pvp)))
 
     if desconocidas:
         sys.exit(

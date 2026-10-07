@@ -117,7 +117,7 @@ Eso reescribe `data/products.generated.ts` (**no lo edites a mano**). Si la hoja
 
 ### Lotes, WhatsApp y mapa
 
-- **Lotes.** No hay cestas por ahora. "Lotes" es una categoría más (familia LOTES de la hoja): tiene su entrada en el menú, su banda en la portada con sus productos y su página en `/tienda/lotes`. La dirección antigua `/regalos` redirige ahí.
+- **Lotes.** No hay cestas por ahora. "Lotes" es una categoría más (familia LOTES de la hoja): tiene su entrada en el menú, su banda en la portada con sus productos y su página en `/tienda/lotes`. Las **ideas de regalo** están en `/regalos` (filtro por padres, amigos, parejas, eventos y empresas; lotes, parejas de productos y productos sueltos), editables en `data/gifts.ts`, y tienen su apartado en los menús de Tienda y de Lotes.
 - **Botón de WhatsApp.** Flotante abajo a la derecha en toda la web (`components/layout/WhatsAppButton.tsx`). Al pasar el ratón se despliega con el texto; en una ficha de producto el mensaje ya lleva el nombre del producto. El número y el mensaje inicial están en `data/site.ts` (`whatsappHref`, `whatsappMessage`).
 - **Mapa.** Google Maps interactivo en "Visítanos" (`components/home/GoogleMap.tsx`), sin clave de API. Como Google instala cookies, el mapa se carga cuando la persona pulsa "Ver mapa interactivo" y se recuerda su elección; mientras tanto se ve un plano con la dirección y un enlace directo a Google Maps. El botón "Cómo llegar" abre la ruta.
 

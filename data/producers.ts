@@ -1,3 +1,4 @@
+import { producerImages } from "./images.generated";
 import { categories } from "./categories";
 import { producerNames, productRows } from "./products.generated";
 import type { Producer } from "@/lib/types";
@@ -15,9 +16,6 @@ const FEATURED = ["la-catedral", "el-navarrico", "la-vasco-navarra", "inurrieta"
 
 /** Localidad de cada productor, por slug. TODO: rellenar (mientras tanto sale el marcador). */
 const LOCALITY: Record<string, string> = {};
-
-/** Productores con foto en public/images/productores/<slug>.webp. */
-const WITH_IMAGE = new Set(["aidin", "alconde", "anko", "baines", "unsi"]);
 
 /** Categoría donde más productos tiene cada productor. */
 function mainCategory(producerSlug: string) {
@@ -39,9 +37,7 @@ export const producers: Producer[] = Object.entries(producerNames)
       specialty: category.name,
       categorySlug: category.slug,
       featured: FEATURED.includes(slug) || undefined,
-      image: WITH_IMAGE.has(slug)
-        ? { alt: `Productos de ${name}`, src: `/images/productores/${slug}.webp`, placeholder: name }
-        : { alt: `Retrato de ${name}`, placeholder: "Retrato · productor/a" },
+      image: { alt: `Logotipo de ${name}`, placeholder: "Retrato · productor/a", src: producerImages[slug] },
     };
   })
   .sort((a, b) => {

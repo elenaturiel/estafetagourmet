@@ -193,6 +193,7 @@ function Browser({
                 <ProductCard
                   product={p}
                   producer={p.producerSlug ? producerMap[p.producerSlug] : undefined}
+                  lift={p.categorySlug === "lotes"}
                 />
               </li>
             ))}

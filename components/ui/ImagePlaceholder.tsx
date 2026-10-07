@@ -18,6 +18,12 @@ type Props = {
   parallax?: boolean;
   /** "contain" muestra la foto entera (fondo blanco) en vez de recortarla. */
   fit?: "cover" | "contain";
+  /**
+   * Foto de producto: el marco es del color arena de las fotos (el fondo ya
+   * viene teñido desde scripts/importar-fotos.py), de modo que si la imagen
+   * tarda en cargar o se recorta no asoma otro color.
+   */
+  blend?: boolean;
 };
 
 /**
@@ -35,14 +41,12 @@ export function ImagePlaceholder({
   priority,
   parallax,
   fit = "cover",
+  blend,
 }: Props) {
+  const bg = !src ? "bg-placeholder" : fit === "contain" ? "bg-white" : blend ? "bg-arena" : "bg-placeholder";
   return (
     <div
-      className={cn(
-        "relative overflow-hidden",
-        src && fit === "contain" ? "bg-white" : "bg-placeholder",
-        className,
-      )}
+      className={cn("relative overflow-hidden", bg, className)}
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {src ? (

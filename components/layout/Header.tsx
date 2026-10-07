@@ -2,22 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cartUi } from "@/components/cart/cart-ui";
 import { useCart } from "@/components/cart/useCart";
-import { MagnifyingDock } from "@/components/ui/MagnifyingDock";
+import { SiteNav } from "./SiteNav";
 import { Seek } from "@/components/ui/Search";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import {
   CartIcon,
-  ChevronDownIcon,
   CloseIcon,
   MenuIcon,
   SearchIcon,
 } from "@/components/ui/icons";
+import { RECIPIENTS, giftsHref } from "@/data/gifts";
 import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
+import { formatPrice } from "@/lib/format";
 import { t } from "@/lib/i18n";
 import { Logo } from "./Logo";
 
@@ -30,7 +31,12 @@ export type HeaderCategory = {
   href: string;
 };
 /** Lote que se destaca en el menú de la tienda. */
-export type HeaderLot = { name: string; href: string; price: number | null };
+export type HeaderLot = {
+  name: string;
+  href: string;
+  price: number | null;
+  src?: string;
+};
 
 function isActive(pathname: string, href: string) {
   // "Lotes" es una categoría de la tienda: dentro de ella solo se marca "Lotes", no "Tienda".
@@ -44,20 +50,19 @@ const iconButton =
 export function Header({
   categories,
   featuredLot,
+  lots,
 }: {
   categories: HeaderCategory[];
   featuredLot?: HeaderLot;
+  /** Los lotes de siempre (sin los de ocasión), para el menú "Lotes". */
+  lots: HeaderLot[];
 }) {
   const pathname = usePathname();
   const { count } = useCart();
   const menuRef = useRef<HTMLDialogElement>(null);
-  const megaRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
   const [compact, setCompact] = useState(false);
-  const closeTimer = useRef<number | undefined>(undefined);
 
   // Al navegar se cierra el menú móvil (el mega menú se cierra en cada enlace).
   useEffect(() => {
@@ -86,34 +91,6 @@ export function Header({
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Esc y clic fuera cierran el mega menú.
-  useEffect(() => {
-    if (!megaOpen) return;
-    const onKey = (e: KeyboardEvent) =>
-      e.key === "Escape" && setMegaOpen(false);
-    const onClick = (e: MouseEvent) => {
-      const t = e.target as Node;
-      if (!megaRef.current?.contains(t) && !panelRef.current?.contains(t))
-        setMegaOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onClick);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onClick);
-    };
-  }, [megaOpen]);
-
-  const hoverOpenedAt = useRef(0);
-  const hoverOpen = useCallback(() => {
-    window.clearTimeout(closeTimer.current);
-    if (!megaOpen) hoverOpenedAt.current = Date.now();
-    setMegaOpen(true);
-  }, [megaOpen]);
-  const hoverClose = useCallback(() => {
-    closeTimer.current = window.setTimeout(() => setMegaOpen(false), 150);
   }, []);
 
   const cartButton = (
@@ -191,93 +168,30 @@ export function Header({
         </div>
       </div>
 
-      {/* Fila de navegación (escritorio): dock con magnificación (Bencho). */}
-      <nav
-        aria-label={t.nav.label}
-        className="relative hidden border-t border-linea lg:block"
-      >
-        <div className="container-site flex justify-center py-2">
-          <MagnifyingDock
-            items={mainNav.map((item) => {
-              const active = isActive(pathname, item.href);
-              const linkClass = cn(
-                "inline-flex h-10 items-center px-3 text-[14px] font-semibold tracking-[0.06em] uppercase transition-colors hover:text-vino",
-                active && "text-vino",
-              );
-              if (item.key !== "shop") {
-                return {
-                  key: item.href,
-                  active,
-                  content: (
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={linkClass}
-                    >
-                      {t.nav[item.key]}
-                    </Link>
-                  ),
-                };
+      {/* Fila de navegación (escritorio): ver SiteNav.tsx */}
+      <SiteNav
+        label={t.nav.label}
+        items={mainNav.map((item) => ({
+          value: item.key,
+          label: t.nav[item.key],
+          href: item.href,
+          current: isActive(pathname, item.href),
+          ...(item.key === "lots"
+            ? {
+                panelLabel: "Ver ideas de regalo",
+                panel: <GiftsMenu lots={lots} />,
               }
-              return {
-                key: item.href,
-                active,
-                li: {
-                  ref: megaRef as React.Ref<HTMLLIElement>,
-                  onMouseEnter: hoverOpen,
-                  onMouseLeave: hoverClose,
-                },
-                content: (
-                  <span className="flex items-center">
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={linkClass}
-                    >
-                      {t.nav[item.key]}
-                    </Link>
-                    <button
-                      type="button"
-                      aria-expanded={megaOpen}
-                      aria-controls="mega-tienda"
-                      aria-label="Ver categorías de la tienda"
-                      onClick={() => {
-                        // Si el ratón acaba de abrirlo al pasar por encima, el clic no lo cierra.
-                        if (Date.now() - hoverOpenedAt.current < 400)
-                          return setMegaOpen(true);
-                        setMegaOpen((o) => !o);
-                      }}
-                      className="-ml-2 inline-flex h-10 w-8 items-center justify-center hover:text-vino"
-                    >
-                      <ChevronDownIcon
-                        size={14}
-                        className={cn(
-                          "transition-transform",
-                          megaOpen && "rotate-180",
-                        )}
-                      />
-                    </button>
-                  </span>
+            : {}),
+          ...(item.key === "shop"
+            ? {
+                panelLabel: "Ver categorías de la tienda",
+                panel: (
+                  <MegaMenu categories={categories} featuredLot={featuredLot} />
                 ),
-              };
-            })}
-          />
-        </div>
-        {/* Fuera del dock: el panel se coloca respecto a toda la fila, y lo
-            que está dentro de un elemento del dock crece y sube con él. */}
-        <div
-          ref={panelRef}
-          onMouseEnter={hoverOpen}
-          onMouseLeave={hoverClose}
-        >
-          <MegaMenu
-            open={megaOpen}
-            categories={categories}
-            featuredLot={featuredLot}
-            onNavigate={() => setMegaOpen(false)}
-          />
-        </div>
-      </nav>
+              }
+            : {}),
+        }))}
+      />
 
       {/* Menú móvil */}
       <dialog
@@ -321,6 +235,22 @@ export function Header({
               </li>
             ))}
           </ul>
+          <p className="eyebrow mt-6 mb-3 text-[12px] text-vino">
+            Ideas de regalo
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {RECIPIENTS.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={giftsHref(r.slug)}
+                  onClick={() => menuRef.current?.close()}
+                  className="inline-flex min-h-[44px] items-center rounded-full border border-tinta px-4 text-[14px] font-semibold"
+                >
+                  {r.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <ul className="mt-6 border-t border-linea">
             {mainNav.map((item) => {
               const active = isActive(pathname, item.href);
@@ -357,22 +287,14 @@ export function Header({
 }
 
 function MegaMenu({
-  open,
   categories,
   featuredLot,
-  onNavigate,
 }: {
-  open: boolean;
   categories: HeaderCategory[];
   featuredLot?: HeaderLot;
-  onNavigate: () => void;
 }) {
   return (
-    <div
-      id="mega-tienda"
-      hidden={!open}
-      className="absolute inset-x-0 top-full border-y border-linea bg-crema shadow-[0_24px_40px_-24px_rgba(42,31,26,0.25)]"
-    >
+    <div id="mega-tienda">
       <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 xl:gap-12 py-8">
         <div>
           <p className="eyebrow mb-4 text-[12px] text-vino">
@@ -388,7 +310,6 @@ function MegaMenu({
               <li key={c.slug}>
                 <Link
                   href={c.href}
-                  onClick={onNavigate}
                   className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06]"
                 >
                   <div className="arch overflow-hidden ring-vino ring-offset-2 ring-offset-crema transition-shadow duration-200 ease-out group-hover:ring-2 group-focus-visible:ring-2">
@@ -413,16 +334,20 @@ function MegaMenu({
           </ul>
         </div>
         <div className="flex flex-col gap-4">
+          <GiftLinks />
           {featuredLot ? (
             <Link
               href={featuredLot.href}
-              onClick={onNavigate}
               className="group relative block overflow-hidden bg-vino text-crema"
             >
               <div className="overflow-hidden">
                 <ImagePlaceholder
                   label="Foto · lote"
+                  src={featuredLot.src}
+                  alt={featuredLot.src ? featuredLot.name : undefined}
                   ratio="16 / 9"
+                  blend
+                  sizes="260px"
                   className="transition-transform duration-300 ease-out group-hover:scale-105"
                 />
               </div>
@@ -441,12 +366,120 @@ function MegaMenu({
           ) : null}
           <Link
             href="/tienda"
-            onClick={onNavigate}
             className="inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
           >
             Ver toda la tienda →
           </Link>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/** "Ideas de regalo": a quién se lo regalas, para filtrar la página /regalos. */
+function GiftLinks() {
+  return (
+    <div>
+      <p className="eyebrow mb-3 text-[12px] text-vino">Ideas de regalo</p>
+      <ul className="flex flex-wrap gap-2">
+        {RECIPIENTS.map((r) => (
+          <li key={r.slug}>
+            <Link
+              href={giftsHref(r.slug)}
+              className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
+            >
+              {r.short}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link
+        href={giftsHref()}
+        className="mt-2 inline-flex min-h-[36px] items-center text-[14px] font-semibold text-vino hover:underline"
+      >
+        Todas las ideas de regalo →
+      </Link>
+    </div>
+  );
+}
+
+/** "Navarrico lote detalle" en vez de "NAVARRICO LOTE DETALLE" (los títulos de la hoja vienen en mayúsculas). */
+const niceName = (name: string) => {
+  const lower = name.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+};
+
+/**
+ * Panel del menú "Lotes": a la izquierda cada lote por separado; a la derecha
+ * "¿Buscando un regalo?" con las ocasiones y destinatarios.
+ */
+function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
+  return (
+    <div className="container-site grid grid-cols-[minmax(0,1fr)_380px] gap-8 py-8 xl:gap-12">
+      <div>
+        <p className="eyebrow mb-4 text-[12px] text-vino">Nuestros lotes</p>
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-3 xl:grid-cols-3">
+          {lots.map((lot) => (
+            <li key={lot.href}>
+              <Link
+                href={lot.href}
+                className="group flex items-center gap-3 rounded-eg p-1.5 transition-colors hover:bg-crema-oscuro/60"
+              >
+                <span className="block w-16 shrink-0 overflow-hidden rounded-eg">
+                  <ImagePlaceholder
+                    label=""
+                    src={lot.src}
+                    alt=""
+                    ratio="1 / 1"
+                    blend
+                    sizes="64px"
+                    className="transition-transform duration-300 ease-out group-hover:scale-110"
+                  />
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-serif text-[16px] leading-tight group-hover:text-vino">
+                    {niceName(lot.name)}
+                  </span>
+                  <span className="mt-0.5 block text-[13px] text-secundario">
+                    {lot.price === null
+                      ? "Precio a consultar"
+                      : formatPrice(lot.price)}
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link
+          href="/tienda/lotes"
+          className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
+        >
+          Ver todos los lotes →
+        </Link>
+      </div>
+      <div className="self-start border border-linea bg-papel p-6">
+        <p className="font-serif text-[30px] leading-[1.1] tracking-[-0.02em] text-vino italic">
+          ¿Buscando un regalo?
+        </p>
+        <p className="mt-1 text-[13px] text-secundario">tenemos la solución</p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {RECIPIENTS.map((r) => (
+            <li key={r.slug}>
+              <Link
+                href={giftsHref(r.slug)}
+                className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
+              >
+                {r.short}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link
+          href={giftsHref()}
+          className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
+        >
+          Todas las ideas de regalo →
+        </Link>
       </div>
     </div>
   );

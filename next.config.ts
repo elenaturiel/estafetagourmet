@@ -33,8 +33,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // La antigua página de regalos y cestas ahora es la categoría Lotes.
-      { source: "/regalos", destination: "/tienda/lotes", permanent: true },
       // Atún y bonito dejó de ser categoría: sus productos están en Conservas.
       { source: "/tienda/atun-y-bonito", destination: "/tienda/conservas", permanent: true },
       { source: "/tienda/atun-y-bonito/:producto", destination: "/tienda/conservas/:producto", permanent: true },

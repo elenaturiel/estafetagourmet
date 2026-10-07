@@ -246,5 +246,23 @@ export const categories: Category[] = [
     "Lotes",
     "Lotes con lo mejor de la tienda, ya preparados para disfrutar o regalar.",
     "Lote con txistorra, espárragos, pimientos y vino",
+    {
+      filters: [
+        {
+          key: "ocasion",
+          label: "Ocasión",
+          options: [
+            { value: "regalo", label: "Lotes de regalo" },
+            { value: "navarrico", label: "Lotes El Navarrico" },
+            { value: "amigos", label: "Amigos" },
+            { value: "cumpleanos", label: "Cumpleaños" },
+            { value: "empresas", label: "Empresas" },
+            { value: "navidad", label: "Navidad" },
+            { value: "pareja", label: "Pareja" },
+            { value: "sanfermin", label: "San Fermín" },
+          ],
+        },
+      ],
+    },
   ),
 ];

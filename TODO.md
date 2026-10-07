@@ -31,7 +31,9 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 - [ ] **Productores:** nombre, localidad y retrato (`producers.ts`). Asignar cada producto a su productor real.
 - [ ] **Fotos de categorías en alta resolución:** las actuales (`public/images/categorias/`) salen de una captura de pantalla y miden unos 150 px; se ven bien en tamaño pequeño, pero conviene sustituirlas por los originales (mín. 600×600 px) con el mismo nombre de archivo.
 - [ ] **Textos de las categorías nuevas** (`data/categories.ts`): presentación y SEO son genéricos; revisarlos.
-- [ ] **Fotos:** portada, productos (incluidos los 7 lotes), productores, tienda, blog y la del popup. Van en `public/images/` y se enlazan con `image.src`.
+- [ ] **Fotos de productos y productores:** ya están puestas desde la carpeta de Drive (`scripts/importar-fotos.py`, sale `data/images.generated.ts`). Faltan unos 19 productos sin foto en Drive (se ven con el marcador) y hay que confirmar las que son aproximadas (formatos/tamaños distintos del mismo producto y los lotes de Navarrico). Ver README.
+- [ ] **Precios de los lotes especiales** (`PRICES` en `data/lots.ts`): los 12 lotes Amigos, Cumpleaños, Empresas, Navidad, Pareja y San Fermín (opciones A y B) están dados de alta como "Precio a consultar". Los 9 lotes de regalo del catálogo (Navarra en una caja, Sobremesa Navarra, Gourmet, Txupinazo, Brisa del Cantábrico, Dehesa, Huerta de la Ribera, Dulce tentación y Oro de Navarra) ya tienen precio (`data/gift-lots.ts`). Las opciones B no tienen foto de caja: se usa un montaje con sus productos.
+- [ ] **Fotos que siguen pendientes:** portada, tienda, blog y la del popup. Van en `public/images/` y se enlazan con `image.src`.
 
 ## Contenido
 
@@ -60,5 +62,5 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 
 ## Pendiente tras quitar las cestas
 
-- [ ] **Cestas y regalos:** se quitaron por ahora (sección, página `/regalos`, ocasiones). `/regalos` redirige a `/tienda/lotes`. Si vuelven, se recuperan del historial de Git (commit anterior a "Lotes en lugar de cestas").
+- [ ] **Ideas de regalo** (`/regalos`, `data/gifts.ts`): revisar a quién va cada lote/producto y las 10 parejas de productos (elegidas por mí; ajusta títulos, textos y filtros). Los lotes de Navarrico y sus fotos/contenidos salen de las fotos de las cajas: confirmar cuál es cuál.
 - [ ] **Mapa de Google:** si algún día quieres que cargue solo, sin pulsar, hay que añadir un consentimiento específico en el banner de cookies. Hoy se carga con un clic y se recuerda.
