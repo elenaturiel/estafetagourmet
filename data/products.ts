@@ -73,9 +73,39 @@ const PRICES: Record<string, number> = {
  */
 const PHOTOS: Record<string, string> = {
   "NAVARRA NEGRO 85%": "/images/productos-estafeta/navarra-negro-85.webp",
+  "NAVARRA Chocolate sabor nº1": "/images/productos-estafeta/chocolate-negro-72-vino-tinto.webp",
+  "NAVARRA Chocolate sabor nº2": "/images/productos-estafeta/chocolate-negro-85-arandanos.webp",
+  "NAVARRA Chocolate sabor nº3": "/images/productos-estafeta/chocolate-negro-62-puro.webp",
+  "NAVARRA Chocolate sabor nº4": "/images/productos-estafeta/chocolate-con-leche-cafe-bombon.webp",
 };
 
-const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
+/**
+ * Nombre y descripción en la web de productos que en la hoja no los tienen
+ * (los "Chocolate sabor nº…"), por título exacto de la hoja. La dirección de
+ * la ficha sale del nombre nuevo.
+ */
+const RENAMED: Record<string, { name: string; description: string }> = {
+  "NAVARRA Chocolate sabor nº1": {
+    name: "Chocolate negro 72 % vino tinto",
+    description: "Chocolate artesano negro 72 % cacao con vino tinto: notas de uva madura sobre un cacao intenso. Una tableta para la sobremesa, con una copa de tinto navarro.",
+  },
+  "NAVARRA Chocolate sabor nº2": {
+    name: "Chocolate negro 85 % arándanos",
+    description: "Chocolate artesano negro 85 % cacao con arándanos: el punto ácido de la fruta del bosque frente al amargor del cacao.",
+  },
+  "NAVARRA Chocolate sabor nº3": {
+    name: "Chocolate negro 62 % puro sin azúcar añadido",
+    description: "Chocolate artesano negro 62 % cacao, sin azúcar añadido: haba de cacao y vainilla, suave y redondo.",
+  },
+  "NAVARRA Chocolate sabor nº4": {
+    name: "Chocolate con leche café bombón sin azúcar añadido",
+    description: "Chocolate artesano con leche, sin azúcar añadido, con sabor a café bombón: café y leche condensada en una tableta cremosa.",
+  },
+};
+
+const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, sheetName, price]) => {
+  const renamed = RENAMED[sheetName];
+  const name = renamed?.name ?? sheetName;
   const slug = uniqueSlug(name);
   const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
   rankByCategory.set(categorySlug, rank);
@@ -84,9 +114,9 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
     name,
     categorySlug,
     producerSlug,
-    price: price ?? PRICES[name] ?? null,
-    description: DESCRIPTIONS[slug] ?? DESCRIPTION,
-    image: { alt: name, placeholder: "Foto · producto", src: PHOTOS[name] ?? productImages[slug] },
+    price: price ?? PRICES[sheetName] ?? null,
+    description: renamed?.description ?? DESCRIPTIONS[slug] ?? DESCRIPTION,
+    image: { alt: name, placeholder: "Foto · producto", src: PHOTOS[sheetName] ?? productImages[slug] },
     attributes: {} as Record<string, string>,
     featured: featured.has(slug) || undefined,
     bestseller: bestsellerRank.get(slug),
