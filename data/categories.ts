@@ -143,8 +143,7 @@ export const categories: Category[] = [
     "Setas y hongos",
     "Setas y hongos",
     "Hongos y setas en conserva, seleccionados en nuestra tienda.",
-    "Setas y hongos en aceite",
-    { image: { alt: "Setas y hongos en conserva", placeholder: "Foto · setas y hongos" } },
+    "Champiñones, rebozuelos y setas variadas en un plato",
   ),
   simple(
     "cremas",
