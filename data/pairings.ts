@@ -76,7 +76,7 @@ export const pairingGroups: PairingGroup[] = [
     subtitle: "Platos de siempre, vinos de aquí",
     items: [
       {
-        n: 7, kicker: "Pochas · Tinto reserva", title: "Pochas a la navarra de La Catedral de Navarra",
+        n: 7, kicker: "Pochas · Garnacha", title: "Pochas a la navarra de La Catedral de Navarra",
         with: "Irache 1891 Colección Privada Garnacha Clásica",
         text: "La pocha es suave y cremosa: pide un tinto de cuerpo medio, con la fruta de la garnacha y sin exceso de madera, que no la tape.",
         shop: [{ label: "Legumbres", href: "/tienda/legumbres" }, { label: "Vinos", href: "/tienda/vinos" }],
