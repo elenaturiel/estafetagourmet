@@ -82,6 +82,9 @@ const PHOTOS: Record<string, string> = {
   "NAVARRA Chocolate sabor nº2": "/images/productos-estafeta/chocolate-negro-85-arandanos.webp",
   "NAVARRA Chocolate sabor nº3": "/images/productos-estafeta/chocolate-negro-62-puro.webp",
   "NAVARRA Chocolate sabor nº4": "/images/productos-estafeta/chocolate-con-leche-cafe-bombon.webp",
+  "NAVARRA Chocolate sabor nº5": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
+  "NAVARRA Chocolate sabor nº6": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
+  "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
 };
 
 /**
@@ -105,6 +108,14 @@ const RENAMED: Record<string, { name: string; description: string }> = {
   "NAVARRA Chocolate sabor nº4": {
     name: "Chocolate con leche café bombón sin azúcar añadido",
     description: "Chocolate artesano con leche, sin azúcar añadido, con sabor a café bombón: café y leche condensada en una tableta cremosa.",
+  },
+  "NAVARRA Chocolate sabor nº5": {
+    name: "Chocolate negro 72 % piparras",
+    description: "Chocolate artesano negro 72 % cacao con piparras, la guindilla vasco-navarra: un toque verde y suavemente picante sobre el cacao. Una sorpresa para el aperitivo o la sobremesa.",
+  },
+  "NAVARRA Chocolate sabor nº6": {
+    name: "Chocolate con leche manzana a la sidra",
+    description: "Chocolate artesano con leche, con manzana a la sidra y canela: dulce, afrutado y con el aroma de la sidra.",
   },
 };
 
