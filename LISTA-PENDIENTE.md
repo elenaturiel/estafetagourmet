@@ -13,32 +13,34 @@ Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo qu
 - [ ] **Dirección web definitiva** (dominio) y dejar la rama de producción de Vercel en `main`.
 
 ## 2. Funcionamiento de la web 🟠
-- [ ] **Blog (aún no funciona):** comprobar que la entrada de prueba sale en `/blog` (variable `SANITY_REVALIDATE_SECRET` en Vercel + Redeploy + aviso automático en Sanity), invitar a la dueña como Editora y borrar las 3 entradas de ejemplo.
-- [ ] **Newsletter:** confirmar que el popup guarda el correo en Brevo, verificar el dominio como remitente, preparar el correo de confirmación y el de bienvenida, y decidir el incentivo ("10 % en tu primer pedido"…).
+- [ ] **Blog:** ahora mismo está sustituido por la **Newsletter** (`/blog` redirige a `/newsletter`) y el panel de escritura de entradas (Sanity, `/admin`) no se está usando. Decidir: o se deja así y se quita el panel, o se recupera el blog (hay que acabar la configuración de Sanity: variables, aviso automático al publicar e invitar a la dueña).
+- [ ] **Newsletter, parte de envío:** la web ya muestra el archivo con 8 boletines (`/newsletter`). Falta confirmar que el popup guarda el correo en Brevo, verificar el dominio como remitente, preparar el correo de confirmación y el de bienvenida, enviar cada boletín por correo y decidir el incentivo ("10 % en tu primer pedido"…).
 - [ ] **Formulario de contacto:** hoy solo simula el envío. Conectarlo a estafetagourmet@gmail.com y probarlo.
 - [ ] **Analítica:** elegir herramienta, dar de alta Google Search Console y enviar el mapa del sitio.
 
 ## 3. Catálogo 🟠
-- [ ] **Precios que faltan** ("Precio a consultar"): 8 vinos de Chivite, 7 de Monjardín, 2 estuches de Inurrieta, los 12 lotes especiales (Amigos, Cumpleaños, Empresas, Navidad, Pareja, San Fermín; A y B) y los 2 lotes de Katealde.
-- [ ] **Lotes de Navarrico:** confirmar qué caja es de cada lote (Gourmet y Capricho comparten foto) y qué llevan los 2 lotes de Katealde.
-- [ ] **Fotos de producto que faltan (19):** los 13 chocolates "sabor nº" y el 85 % de Navarra en Dulce, 2 latas de La Catedral, espárragos aliñados y a la brasa y piquillos en tiras de Navarrico, entre otros.
+- [ ] **Precios que faltan** ("Precio a consultar"): 5 vinos de Chivite (Las Fincas blanco y rosado, Gran Chivite Legardeta blanco y tinto, Moscatel Viejísimo), 6 de Monjardín, 2 estuches de Inurrieta, los 12 lotes especiales (Amigos, Cumpleaños, Empresas, Navidad, Pareja y San Fermín; A y B) y los 2 lotes de Katealde.
+- [ ] **Fotos de producto que faltan (12):** espárragos aliñados, espárragos a la brasa y piquillo en tiras de Navarrico; las 2 latas de pimiento artesano de La Catedral; los chocolates "sabor nº7" al "nº13" de Navarra en Dulce.
 - [ ] **Fotos mejores:** las de lotes, maridajes y algunas de producto salen de PDF o miden ~800 px; si hay originales, cambiarlas.
-- [ ] **Fotos de las categorías:** "Atún y bonito" y "Setas y hongos" usan ahora la foto de un producto en el menú; falta la foto de estilo como el resto. Las demás miden ~150 px: sustituir por originales (mín. 600 px).
+- [ ] **Fotos en los menús:**
+  - en el desplegable de **Lotes** las miniaturas son montajes con varios productos y a ese tamaño no se distinguen; mejor una foto clara por lote (la caja);
+  - el **lote destacado** de los menús sale recortado;
+  - las miniaturas de categoría miden ~150 px y se ven borrosas (sustituir por originales, mín. 600 px).
 - [ ] **Fichas de producto:** formato (peso o volumen) y localidad del productor, hoy `[peso o volumen]` y `[Localidad]`.
 - [ ] **Descripciones:** son un borrador (datos del producto y de 6 productores). Revisar ingredientes, alérgenos y denominaciones; escribir las de los productores.
 - [ ] **Portada:** elegir los favoritos y los más vendidos reales (hoy 4 de ejemplo) y los productores destacados.
 - [ ] **Etiquetas** ("Favorito", DOP…) y "combina con" propio de cada producto.
-- [ ] **7 categorías vacías** (Conservas, Verduras, Cremas, Salsas, Mermeladas, Chocolates, Espumosos): rellenar o quitar.
+- [ ] **Categorías vacías** (Conservas, Cremas, Salsas, Mermeladas, Chocolates, Espumosos…): rellenar o quitar.
 - [ ] **Ortografía de proveedores** ("Monjardin" → "Monjardín") y títulos más cuidados (vienen en mayúsculas de la hoja).
 
 ## 4. Contenido: lo que cuenta la tienda 🟠
-- [ ] **En la portada, un apartado "Quiénes somos" con la historia de la tienda** (quién la fundó, desde cuándo, por qué la calle Estafeta, cómo se elige cada producto), con foto del local y del equipo.
+- [ ] **"Quiénes somos" en la portada:** el apartado existe pero con un texto genérico y fotos de relleno. Escribir la historia real de la tienda (quién la fundó, desde cuándo, por qué la calle Estafeta, cómo se elige cada producto) y poner fotos del local y del equipo.
 - [ ] **Página "Nuestra historia"** completa (hoy el enlace va a Visítanos).
-- [ ] **Maridajes** (`/maridajes`, ya creada con 18 carteles):
+- [ ] **Maridajes** (`/maridajes`, ya hecha con 18 carteles):
   - revisar textos y fotos (salen del PDF y no son de máxima resolución);
-  - añadir más maridajes y enlazar cada uno con sus productos concretos (hoy enlaza a las categorías);
+  - añadir más maridajes y enlazar cada uno con sus productos concretos (hoy enlaza a categorías);
   - mostrar "combina con" en cada ficha de producto.
-- [ ] **Blog:** publicar las primeras entradas reales (temporada, maridajes, productores, recetas).
+- [ ] **Newsletter:** seguir escribiendo boletines (hay 8: vinos D.O., aceite, patxarán, txistorra…) y ponerles calendario.
 - [ ] **Reseñas reales de Google** (nombre y fecha) y la valoración. No se inventan.
 - [ ] **Horario:** días de apertura y festivos.
 - [ ] **Instagram:** comprobar que la URL de @estafetagourmet es correcta.
@@ -46,7 +48,7 @@ Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo qu
 ## 5. Imagen y marca 🟢
 - [ ] Imagen para compartir en redes (Open Graph, 1200×630).
 - [ ] Favicon con la marca.
-- [ ] Fotos de portada, de la tienda, del equipo, del blog y la del popup de la newsletter.
+- [ ] Fotos de portada, de la tienda, del equipo y la del popup de la newsletter.
 - [ ] Retratos de productores (hoy salen sus logos).
 - [ ] Traducción al inglés (hoy "EN" está desactivado).
 
