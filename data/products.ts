@@ -122,12 +122,13 @@ const RENAMED: Record<string, { name: string; description: string }> = {
 };
 
 /**
- * En la hoja los chocolates vienen en "Dulces": aquí pasan a su categoría
- * "Chocolates" (Leyre, Pedro Mayo y los chocolates de Navarra en Dulce; las
+ * En la hoja los chocolates y las mermeladas vienen en "Dulces": aquí pasan a sus
+ * categorías "Chocolates" y "Mermeladas" (Leyre, Pedro Mayo y los chocolates de Navarra en Dulce; las
  * pastas y las galletas se quedan en Dulces).
  */
 function categoryOf(sheetCategory: string, producerSlug: string, sheetName: string): string {
   if (sheetCategory !== "dulces") return sheetCategory;
+  if (/mermelada/i.test(sheetName)) return "mermeladas";
   if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
   if (producerSlug === "navarra-en-dulce" && /chocolate|^NAVARRA NEGRO/i.test(sheetName)) return "chocolates";
   return sheetCategory;
