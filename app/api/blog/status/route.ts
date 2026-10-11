@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "next-sanity";
+import { sanityFetch } from "@/lib/sanity/client";
 import { apiVersion, dataset, isSanityConfigured, projectId } from "@/sanity/env";
 
 /**
@@ -21,7 +22,20 @@ export async function GET() {
     }
   }
   const has = (n: string) => Boolean((process.env[n] ?? "").trim());
+  // La misma lectura que usa /blog (con la caché de Next), para ver si falla ahí.
+  let blogRead: string = "no probado";
+  if (isSanityConfigured) {
+    try {
+      const r = await sanityFetch<{ title: string }[]>(
+        `*[_type == "post" && defined(slug.current) && publishedAt <= now()]{title}`,
+      );
+      blogRead = r ? `ok (${r.length})` : "sin cliente";
+    } catch (e) {
+      blogRead = `error: ${e instanceof Error ? e.message.slice(0, 300) : "desconocido"}`;
+    }
+  }
   return NextResponse.json({
+    lectura_del_blog: blogRead,
     sanity_proyecto: isSanityConfigured,
     sanity_proyecto_id: projectId || null,
     sanity_dataset: dataset,
