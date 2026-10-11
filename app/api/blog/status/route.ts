@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getSanityPosts } from "@/lib/sanity/posts";
-import { isSanityConfigured } from "@/sanity/env";
+import { createClient } from "next-sanity";
+import { apiVersion, dataset, isSanityConfigured, projectId } from "@/sanity/env";
 
 /**
  * Diagnóstico del blog (sin datos privados): qué piezas de la configuración
@@ -9,10 +9,23 @@ import { isSanityConfigured } from "@/sanity/env";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const posts = isSanityConfigured ? await getSanityPosts() : null;
+  let posts: { title: string }[] | null = null;
+  let error: string | null = null;
+  if (isSanityConfigured) {
+    try {
+      posts = await createClient({ projectId, dataset, apiVersion, useCdn: false, perspective: "published" }).fetch(
+        `*[_type == "post" && defined(slug.current) && publishedAt <= now()]{title}`,
+      );
+    } catch (e) {
+      error = e instanceof Error ? e.message.slice(0, 300) : "error desconocido";
+    }
+  }
   const has = (n: string) => Boolean((process.env[n] ?? "").trim());
   return NextResponse.json({
     sanity_proyecto: isSanityConfigured,
+    sanity_proyecto_id: projectId || null,
+    sanity_dataset: dataset,
+    error_de_sanity: error,
     sanity_aviso_automatico: has("SANITY_REVALIDATE_SECRET"),
     sanity_clave_de_escritura: has("SANITY_WRITE_TOKEN"),
     brevo_clave: has("BREVO_API_KEY"),
