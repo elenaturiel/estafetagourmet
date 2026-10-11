@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { newsletters } from "@/data/newsletters";
+import { getNewsletters } from "@/lib/newsletters";
 import { SITE_URL } from "@/data/site";
 import { getAllProducts, getCategories } from "@/lib/catalog";
 import { productHref } from "@/lib/product-utils";
@@ -23,7 +23,7 @@ const staticPaths = [
 export const revalidate = 300;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categories, products] = await Promise.all([getCategories(), getAllProducts()]);
+  const [categories, products, newsletters] = await Promise.all([getCategories(), getAllProducts(), getNewsletters()]);
   const paths = [
     ...staticPaths,
     ...categories.filter((c) => !c.href).map((c) => `/tienda/${c.slug}`),

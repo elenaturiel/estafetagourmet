@@ -232,6 +232,8 @@ newsletter (Brevo), sin salir del panel.
 **Qué se puede enviar**
 - **Entrada del blog:** al final de la entrada hay un grupo «Correo a la newsletter». Se envía el título, la foto, el
   resumen y un botón «Leer la entrada completa».
+- **Boletín de la newsletter** (menú «Boletines de la newsletter»): un producto de Navarra contado con calma (origen, cifras,
+  secciones, consejo y productos de la tienda). Se publica en `/newsletter` y sale por correo con las secciones completas.
 - **Aviso por correo** (menú «Avisos por correo»): para lo importante que no es una entrada (apertura, lote nuevo,
   horario de fiestas…). Lleva asunto, resumen, foto, texto y un botón opcional. No se publica en la web.
 
@@ -247,10 +249,11 @@ que no se repita.
 3. En sanity.io/manage → API → Webhooks → Create webhook:
    - URL `https://tu-web/api/newsletter/send`
    - Trigger on: Create y Update
-   - Filter: `_type in ["post","announcement"] && newsletter in ["test","all"]`
+   - Filter: `_type in ["post","newsletterIssue","announcement"] && newsletter in ["test","all"]`
    - Projection: `{_id, _type}`
    - Secret: el mismo que `SANITY_REVALIDATE_SECRET`
-4. Además, el webhook de siempre (`/api/revalidate`) para que la entrada aparezca al momento en la web.
+4. Además, el webhook de siempre (`/api/revalidate`) para que la entrada o el boletín aparezcan al momento en la web.
+   Su Projection debe ser `{_type, slug}` y su Filter `_type in ["post","newsletterIssue"]`.
 
 **Diagnóstico:** abre `https://tu-web/api/blog/status`: dice qué piezas están configuradas y cuántas entradas hay
 publicadas.

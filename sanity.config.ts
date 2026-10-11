@@ -32,6 +32,10 @@ export default defineConfig({
               .schemaType("post")
               .child(S.documentTypeList("post").title("Entradas del blog")),
             S.listItem()
+              .title("Boletines de la newsletter")
+              .schemaType("newsletterIssue")
+              .child(S.documentTypeList("newsletterIssue").title("Boletines de la newsletter")),
+            S.listItem()
               .title("Avisos por correo")
               .schemaType("announcement")
               .child(S.documentTypeList("announcement").title("Avisos por correo")),

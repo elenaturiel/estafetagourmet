@@ -15,9 +15,9 @@ const builder = isSanityConfigured ? createImageUrlBuilder({ projectId, dataset 
  * cada 5 minutos, o al momento si Sanity avisa por el webhook
  * (app/api/revalidate).
  */
-export async function sanityFetch<T>(query: string, params: QueryParams = {}): Promise<T | null> {
+export async function sanityFetch<T>(query: string, params: QueryParams = {}, tag = "post"): Promise<T | null> {
   if (!client) return null;
-  return client.fetch<T>(query, params, { next: { revalidate: 300, tags: ["post"] } });
+  return client.fetch<T>(query, params, { next: { revalidate: 300, tags: [tag] } });
 }
 
 export function sanityImageUrl(source: unknown, width = 1600): string | undefined {

@@ -25,5 +25,11 @@ export async function POST(req: NextRequest) {
     revalidatePath("/sitemap.xml");
     if (body.slug?.current) revalidatePath(`/blog/${body.slug.current}`);
   }
+  if (body?._type === "newsletterIssue") {
+    revalidatePath("/");
+    revalidatePath("/newsletter");
+    revalidatePath("/sitemap.xml");
+    if (body.slug?.current) revalidatePath(`/newsletter/${body.slug.current}`);
+  }
   return NextResponse.json({ ok: true });
 }

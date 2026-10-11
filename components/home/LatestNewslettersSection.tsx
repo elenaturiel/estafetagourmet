@@ -1,11 +1,11 @@
 import { NewsletterCard } from "@/components/cards/NewsletterCard";
 import { ArrowLink } from "@/components/ui/Button";
 import { Section, SectionHeader } from "@/components/ui/Section";
-import { newsletters } from "@/data/newsletters";
+import { getNewsletters } from "@/lib/newsletters";
 
 /** Portada: los tres últimos boletines de la newsletter. */
-export function LatestNewslettersSection() {
-  const latest = [...newsletters].sort((a, b) => b.number - a.number).slice(0, 3);
+export async function LatestNewslettersSection() {
+  const latest = (await getNewsletters()).reverse().slice(0, 3);
   return (
     <Section tone="papel" aria-labelledby="boletines-title">
       <SectionHeader

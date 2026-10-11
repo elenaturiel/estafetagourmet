@@ -1,8 +1,8 @@
 import { NewsletterCard } from "@/components/cards/NewsletterCard";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { newsletters } from "@/data/newsletters";
 import { site } from "@/data/site";
+import { getNewsletters } from "@/lib/newsletters";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -12,8 +12,11 @@ export const metadata = pageMetadata({
   path: "/newsletter",
 });
 
-export default function NewsletterArchivePage() {
-  const issues = [...newsletters].sort((a, b) => b.number - a.number);
+/** Los boletines nuevos del panel aparecen en unos minutos. */
+export const revalidate = 300;
+
+export default async function NewsletterArchivePage() {
+  const issues = (await getNewsletters()).reverse();
   return (
     <>
       <PageHeader

@@ -7,19 +7,23 @@ import { RichText } from "@/components/newsletter/RichText";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
 import { ButtonLink } from "@/components/ui/Button";
-import { NEWSLETTER_SOURCE, getNewsletter, newsletters } from "@/data/newsletters";
+import { NEWSLETTER_SOURCE } from "@/data/newsletters";
 import { SITE_URL, site } from "@/data/site";
 import { getProducerMap, getProductsByNames } from "@/lib/catalog";
+import { getNewsletterBySlug, getNewsletters } from "@/lib/newsletters";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return newsletters.map((n) => ({ slug: n.slug }));
+// Los boletines nuevos del panel se generan al visitarlos y se refrescan cada 5 minutos.
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  return (await getNewsletters()).map((n) => ({ slug: n.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const issue = getNewsletter((await params).slug);
+  const issue = await getNewsletterBySlug((await params).slug);
   if (!issue) return {};
   return pageMetadata({
     title: `${issue.title}: ${issue.subtitle.toLowerCase()}`,
@@ -31,11 +35,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function NewsletterIssuePage({ params }: Params) {
-  const issue = getNewsletter((await params).slug);
+  const issue = await getNewsletterBySlug((await params).slug);
   if (!issue) notFound();
   const [products, producers] = await Promise.all([getProductsByNames(issue.shop.products), getProducerMap()]);
   const path = `/newsletter/${issue.slug}`;
-  const sorted = [...newsletters].sort((a, b) => a.number - b.number);
+  const sorted = await getNewsletters();
   const i = sorted.findIndex((n) => n.slug === issue.slug);
   const prev = sorted[i - 1];
   const next = sorted[i + 1];
