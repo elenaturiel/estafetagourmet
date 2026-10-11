@@ -3,8 +3,9 @@ import { createImageUrlBuilder } from "@sanity/image-url";
 import { createClient, type QueryParams } from "next-sanity";
 import { apiVersion, dataset, isSanityConfigured, projectId } from "@/sanity/env";
 
+// Sin CDN: la caché de Next (abajo) ya evita consultas repetidas y así una entrada nueva no tarda en verse.
 const client = isSanityConfigured
-  ? createClient({ projectId, dataset, apiVersion, useCdn: true, perspective: "published" })
+  ? createClient({ projectId, dataset, apiVersion, useCdn: false, perspective: "published" })
   : null;
 
 const builder = isSanityConfigured ? createImageUrlBuilder({ projectId, dataset }) : null;
