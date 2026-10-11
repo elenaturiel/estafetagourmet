@@ -78,7 +78,7 @@ export const categories: Category[] = [
     "Atún y bonito en conserva",
     "Bonito y atún en aceite y en escabeche, seleccionados en nuestra tienda.",
     "Conserva de bonito del norte",
-    { image: { alt: "Atún y bonito en conserva", placeholder: "Foto · atún y bonito" } },
+    { image: { src: "/images/productos/olasagasti-ventresca-en-aceite-190-g.webp", alt: "Ventresca de bonito Olasagasti", placeholder: "Foto · atún y bonito" } },
   ),
   simple(
     "legumbres",
@@ -152,7 +152,7 @@ export const categories: Category[] = [
     "Setas y hongos",
     "Hongos y setas en conserva, seleccionados en nuestra tienda.",
     "Setas y hongos en aceite",
-    { image: { alt: "Setas y hongos en conserva", placeholder: "Foto · setas y hongos" } },
+    { image: { src: "/images/productos/lc-hongos-en-aceite-360g-cilindrico.webp", alt: "Hongos en aceite de La Catedral", placeholder: "Foto · setas y hongos" } },
   ),
   simple(
     "cremas",
