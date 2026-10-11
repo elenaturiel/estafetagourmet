@@ -21,6 +21,7 @@ import {
 } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
+import { pairingsFor } from "@/lib/pairings";
 import { productJsonLd } from "@/lib/structured-data";
 
 type Params = { params: Promise<{ categoria: string; producto: string }> };
@@ -64,6 +65,7 @@ export default async function ProductPage({ params }: Params) {
   const pairs = product.pairsWith?.length
     ? await getProductsBySlugs(product.pairsWith)
     : (await getProducts({ category: product.categorySlug })).filter((p) => p.slug !== product.slug);
+  const pairings = pairingsFor(product, await getAllProducts()).slice(0, 2);
   const href = productHref(product);
   const byline = productByline(product, producer);
   const cartItem = {
@@ -231,6 +233,39 @@ export default async function ProductPage({ params }: Params) {
           </div>
         </div>
       </div>
+
+      {pairings.length ? (
+        <section aria-labelledby="maridaje-title" className="mt-20 border-t border-linea pt-14 lg:mt-28">
+          <p className="eyebrow text-vino">Maridaje</p>
+          <h2 id="maridaje-title" className="mt-3 text-[32px] leading-tight tracking-[-0.02em] lg:text-[44px]">
+            Con qué tomarlo
+          </h2>
+          <ul className="mt-8 grid gap-8">
+            {pairings.map(({ group, pairing, partners }) => (
+              <li key={pairing.n} className="grid gap-6 border border-linea bg-papel p-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:p-8">
+                <div>
+                  <p className="eyebrow text-[12px] text-secundario">{pairing.kicker}</p>
+                  <h3 className="mt-2 text-[24px] leading-snug tracking-[-0.015em]">{pairing.title}</h3>
+                  <p className="mt-1 font-serif text-[18px] text-vino italic">con {pairing.with}</p>
+                  <p className="mt-3 text-[15px] leading-[1.6] text-secundario">{pairing.text}</p>
+                  <a href={`/maridajes#${group}`} className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline">
+                    Ver todos los maridajes →
+                  </a>
+                </div>
+                {partners.length ? (
+                  <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    {partners.map((p) => (
+                      <li key={p.slug}>
+                        <ProductCard product={p} producer={p.producerSlug ? producers[p.producerSlug] : undefined} />
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {pairs.length ? (
         <section aria-labelledby="combina-title" className="mt-20 border-t border-linea pt-14 lg:mt-28">

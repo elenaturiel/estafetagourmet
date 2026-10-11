@@ -3,6 +3,9 @@
 Lista completa para la tienda, en lenguaje llano. Los detalles técnicos (qué archivo tocar) están en `TODO.md`.
 Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo que mejora la web.
 
+> Hecho el 11-oct: chocolates en su categoría, maridaje en cada ficha, textos legales redactados, ortografía de títulos,
+> párrafo de historia en la portada y envío de entradas/avisos por correo (falta configurar Sanity y Brevo; ver README).
+
 ## 1. Para poder vender 🔴
 - [ ] **Pago.** "Finalizar pedido" está desactivado y pide llamar. Decidir pasarela (Shopify u otra) y activar tarjeta y Bizum.
 - [ ] **Envío gratis:** importe mínimo (hoy sale `[importe]` en la barra superior, la cesta y las fichas).

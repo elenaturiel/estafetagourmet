@@ -4,6 +4,7 @@ import { DESCRIPTIONS } from "./descriptions";
 import { productImages } from "./images.generated";
 import { giftLots } from "./gift-lots";
 import { lots } from "./lots";
+import { fixSpelling } from "@/lib/spelling";
 import { productRows } from "./products.generated";
 
 /**
@@ -120,10 +121,24 @@ const RENAMED: Record<string, { name: string; description: string }> = {
   },
 };
 
-const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, sheetName, price]) => {
+/**
+ * En la hoja los chocolates vienen en "Dulces": aquí pasan a su categoría
+ * "Chocolates" (Leyre, Pedro Mayo y los chocolates de Navarra en Dulce; las
+ * pastas y las galletas se quedan en Dulces).
+ */
+function categoryOf(sheetCategory: string, producerSlug: string, sheetName: string): string {
+  if (sheetCategory !== "dulces") return sheetCategory;
+  if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
+  if (producerSlug === "navarra-en-dulce" && /chocolate|^NAVARRA NEGRO/i.test(sheetName)) return "chocolates";
+  return sheetCategory;
+}
+
+const sheetProducts: Product[] = productRows.map(([sheetCategory, producerSlug, sheetName, price]) => {
+  const categorySlug = categoryOf(sheetCategory, producerSlug, sheetName);
   const renamed = RENAMED[sheetName];
-  const name = renamed?.name ?? sheetName;
-  const slug = uniqueSlug(name);
+  const baseName = renamed?.name ?? sheetName;
+  const slug = uniqueSlug(baseName);
+  const name = fixSpelling(baseName);
   const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
   rankByCategory.set(categorySlug, rank);
   return {

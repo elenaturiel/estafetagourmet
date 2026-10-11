@@ -222,3 +222,37 @@ Hoy solo se publica el español, sin prefijo en la URL. El selector "ES · EN" m
 - JSON-LD: `LocalBusiness`/`Store` en todas las páginas, `Product` en cada ficha y `BreadcrumbList` en la tienda. La oferta con precio solo se publica cuando el precio es real.
 - Banner de cookies: "Rechazar" y "Aceptar" tienen el mismo peso. La analítica solo se cargaría tras aceptar (`Analytics` en `components/layout/CookieBanner.tsx`, hoy vacío). Se puede cambiar la elección desde el pie o desde `/cookies`.
 - El mapa es una imagen enlazada a Google Maps para no cargar cookies de terceros sin consentimiento.
+
+
+## Enviar entradas del blog y avisos por correo
+
+El blog (`/blog`) y los avisos se escriben en `/admin` (Sanity) y pueden salir también por correo a la lista de la
+newsletter (Brevo), sin salir del panel.
+
+**Qué se puede enviar**
+- **Entrada del blog:** al final de la entrada hay un grupo «Correo a la newsletter». Se envía el título, la foto, el
+  resumen y un botón «Leer la entrada completa».
+- **Aviso por correo** (menú «Avisos por correo»): para lo importante que no es una entrada (apertura, lote nuevo,
+  horario de fiestas…). Lleva asunto, resumen, foto, texto y un botón opcional. No se publica en la web.
+
+**Cómo se envía:** en «Enviar por correo a la newsletter» elige **Enviar una prueba** (llega solo a tu correo de prueba) o
+**Enviar a todos**, y pulsa **Publish**. Tras enviar a todos, el documento muestra la fecha y vuelve a «No enviar» para
+que no se repita.
+
+**Configuración (una vez)**
+1. Variables en Vercel (Production, Preview y Development; luego Redeploy): `SANITY_REVALIDATE_SECRET`,
+   `SANITY_WRITE_TOKEN`, `BREVO_API_KEY`, `BREVO_LIST_ID`, `BREVO_SENDER_EMAIL` (un remitente verificado en Brevo) y,
+   si quieres, `BREVO_SENDER_NAME`.
+2. `SANITY_WRITE_TOKEN`: sanity.io/manage → tu proyecto → API → Tokens → Add API token, permiso **Editor**.
+3. En sanity.io/manage → API → Webhooks → Create webhook:
+   - URL `https://tu-web/api/newsletter/send`
+   - Trigger on: Create y Update
+   - Filter: `_type in ["post","announcement"] && newsletter in ["test","all"]`
+   - Projection: `{_id, _type}`
+   - Secret: el mismo que `SANITY_REVALIDATE_SECRET`
+4. Además, el webhook de siempre (`/api/revalidate`) para que la entrada aparezca al momento en la web.
+
+**Diagnóstico:** abre `https://tu-web/api/blog/status`: dice qué piezas están configuradas y cuántas entradas hay
+publicadas.
+
+El correo de confirmación de la suscripción y el de bienvenida se crean en Brevo (plantillas y automatizaciones).

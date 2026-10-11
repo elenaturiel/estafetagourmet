@@ -18,6 +18,7 @@ export const es = {
     producers: "Productores",
     pairings: "Maridajes",
     newsletter: "Newsletter",
+    blog: "Blog",
     visit: "Visítanos",
   },
   header: {

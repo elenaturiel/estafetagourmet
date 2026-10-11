@@ -4,7 +4,7 @@ export const mainNav = [
   { href: "/tienda/lotes", key: "lots" },
   { href: "/productores", key: "producers" },
   { href: "/maridajes", key: "pairings" },
-  { href: "/newsletter", key: "newsletter" },
+  { href: "/blog", key: "blog" },
   { href: "/visitanos", key: "visit" },
 ] as const;
 
@@ -16,6 +16,7 @@ export const footerNav = {
     { href: "/tienda/lotes", label: "Lotes" },
     { href: "/regalos", label: "Ideas de regalo" },
     { href: "/maridajes", label: "Maridajes" },
+    { href: "/blog", label: "Blog" },
     { href: "/newsletter", label: "Newsletter" },
   ],
   help: [

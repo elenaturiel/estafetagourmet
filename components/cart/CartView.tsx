@@ -116,6 +116,16 @@ export function CartView() {
           Envío gratis desde {site.shipping.freeShippingFrom} €. Envío en {site.shipping.leadTime} a toda la
           península.
         </p>
+        {lines.some((l) => /^\/tienda\/(vinos|espumosos|bebidas|lotes)\//.test(l.href)) ? (
+          <p className="mt-4 border border-linea bg-crema p-3 text-[13px] leading-snug text-secundario">
+            <strong className="text-tinta">Bebidas alcohólicas (+18).</strong> Solo las entregamos a mayores de 18 años:
+            el transportista puede pedir el DNI y, al recoger en tienda, también. Al pagar tendrás que confirmar que eres
+            mayor de edad.{" "}
+            <Link href="/condiciones-de-venta" className="font-semibold text-vino underline underline-offset-2">
+              Más información
+            </Link>
+          </p>
+        ) : null}
         {/*
           TODO: pago. Al conectar Shopify, este botón redirige a cart.checkoutUrl
           (checkout alojado por Shopify). Ver README.md → "Conectar Shopify".

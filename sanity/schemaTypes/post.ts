@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { newsletterFields } from "./newsletterFields";
 
 /** Categorías del blog (se muestran como etiqueta sobre cada entrada). */
 export const POST_CATEGORIES = ["Maridajes", "Temporada", "Productores", "Recetas", "Novedades"];
@@ -8,6 +9,7 @@ export const post = defineType({
   name: "post",
   title: "Entrada del blog",
   type: "document",
+  groups: [{ name: "correo", title: "Correo a la newsletter" }],
   fields: [
     defineField({
       name: "title",
@@ -86,6 +88,7 @@ export const post = defineType({
         }),
       ],
     }),
+    ...newsletterFields,
   ],
   orderings: [
     {

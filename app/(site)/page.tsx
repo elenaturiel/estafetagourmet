@@ -4,6 +4,7 @@ import { CategoriesSection } from "@/components/home/CategoriesSection";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { LotsBand } from "@/components/home/LotsBand";
 import { Hero } from "@/components/home/Hero";
+import { HistoryTeaser } from "@/components/home/HistoryTeaser";
 import { LatestNewslettersSection } from "@/components/home/LatestNewslettersSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { ProducersSection } from "@/components/home/ProducersSection";
@@ -35,6 +36,7 @@ export default async function Home() {
   return (
     <>
       <Hero featuredLot={featuredLot} />
+      <HistoryTeaser />
       <ProductMarquee />
       <CategoriesSection />
       <FeaturedProducts />
