@@ -22,5 +22,12 @@ export async function sanityFetch<T>(query: string, params: QueryParams = {}): P
 
 export function sanityImageUrl(source: unknown, width = 1600): string | undefined {
   if (!builder || !source) return undefined;
-  return builder.image(source as Parameters<typeof builder.image>[0]).width(width).auto("format").url();
+  // Una foto sin archivo (solo con la descripción rellena) no tiene dirección: se ignora en vez de romper el blog.
+  const asset = (source as { asset?: unknown }).asset;
+  if (!asset) return undefined;
+  try {
+    return builder.image(source as Parameters<typeof builder.image>[0]).width(width).auto("format").url();
+  } catch {
+    return undefined;
+  }
 }
