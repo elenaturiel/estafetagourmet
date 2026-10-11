@@ -73,14 +73,6 @@ export const categories: Category[] = [
     "Lata de conserva de pescado con un tenedor",
   ),
   simple(
-    "atun-y-bonito",
-    "Atún y bonito",
-    "Atún y bonito en conserva",
-    "Bonito y atún en aceite y en escabeche, seleccionados en nuestra tienda.",
-    "Conserva de bonito del norte",
-    { image: { src: "/images/productos/olasagasti-ventresca-en-aceite-190-g.webp", alt: "Ventresca de bonito Olasagasti", placeholder: "Foto · atún y bonito" } },
-  ),
-  simple(
     "legumbres",
     "Legumbres",
     "Legumbres",
@@ -151,8 +143,7 @@ export const categories: Category[] = [
     "Setas y hongos",
     "Setas y hongos",
     "Hongos y setas en conserva, seleccionados en nuestra tienda.",
-    "Setas y hongos en aceite",
-    { image: { src: "/images/productos/lc-hongos-en-aceite-360g-cilindrico.webp", alt: "Hongos en aceite de La Catedral", placeholder: "Foto · setas y hongos" } },
+    "Champiñones, rebozuelos y setas variadas en un plato",
   ),
   simple(
     "cremas",
@@ -261,7 +252,6 @@ export const categories: Category[] = [
           label: "Ocasión",
           options: [
             { value: "regalo", label: "Lotes de regalo" },
-            { value: "navarrico", label: "Lotes El Navarrico" },
             { value: "amigos", label: "Amigos" },
             { value: "cumpleanos", label: "Cumpleaños" },
             { value: "empresas", label: "Empresas" },

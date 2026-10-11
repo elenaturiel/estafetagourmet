@@ -15,7 +15,7 @@ export const en: DeepPartial<Dictionary> = {
     lots: "Gift sets",
     producers: "Producers",
     pairings: "Pairings",
-    blog: "Blog",
+    newsletter: "Newsletter",
     visit: "Visit us",
   },
 };

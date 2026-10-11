@@ -48,13 +48,6 @@ export const LOT_RECIPIENTS: Record<string, RecipientSlug[]> = {
   "lote-pareja-opcion-b": ["pareja"],
   "lote-san-fermin-opcion-a": ["sanfermin", "amigos"],
   "lote-san-fermin-opcion-b": ["sanfermin", "amigos"],
-  "navarrico-lote-detalle": ["padres", "amigos"],
-  "navarrico-lote-navarro": ["padres", "amigos"],
-  "navarrico-lote-fusion-blanco": ["pareja", "padres"],
-  "navarrico-lote-fusiontinto": ["pareja", "padres"],
-  "navarrico-lote-imprescindible": ["padres", "navidad", "eventos"],
-  "navarrico-lote-gourmet": ["padres", "navidad", "empresas"],
-  "navarrico-lote-capricho": ["padres", "navidad", "empresas", "eventos"],
 };
 
 /** Productos sueltos que dan buen regalo (título de la hoja → a quién). */

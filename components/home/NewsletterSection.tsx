@@ -1,4 +1,5 @@
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
+import { ArrowLink } from "@/components/ui/Button";
 import { Stamp } from "@/components/ui/Stamp";
 import { site } from "@/data/site";
 
@@ -22,6 +23,9 @@ export function NewsletterSection() {
           <strong className="font-semibold text-tinta">{site.newsletterIncentive}</strong>.
         </p>
         <NewsletterForm />
+        <ArrowLink href="/newsletter" className="mt-6">
+          Lee los boletines publicados
+        </ArrowLink>
       </div>
     </section>
   );

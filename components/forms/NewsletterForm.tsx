@@ -7,7 +7,7 @@ import { buttonClasses } from "@/components/ui/Button";
 import { submitNewsletter } from "@/lib/forms";
 import { markSubscribed } from "@/components/newsletter/popup-store";
 
-export function NewsletterForm() {
+export function NewsletterForm({ source = "portada" }: { source?: "portada" | "web" } = {}) {
   const id = useId();
   const inputId = `${id}-email`;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,7 +25,7 @@ export function NewsletterForm() {
     setError(undefined);
     setStatus("sending");
     try {
-      await submitNewsletter(email, "portada");
+      await submitNewsletter(email, source);
       markSubscribed();
       setStatus("done");
     } catch (err) {

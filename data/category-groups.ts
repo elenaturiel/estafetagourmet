@@ -28,7 +28,6 @@ export const categoryGroups: CategoryGroupConfig[] = [
           "verduras",
           "legumbres",
           "setas-y-hongos",
-          "atun-y-bonito",
           "conservas",
           "encurtidos",
         ],

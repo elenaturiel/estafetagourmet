@@ -55,7 +55,7 @@ FAMILIAS = {
     "DULCES": "dulces",
     "BEBIDAS": "bebidas",
     "LOTES": "lotes",
-    "ATUN Y BONITO": "atun-y-bonito",
+    "ATUN Y BONITO": "conservas",  # ya no es categoría propia
     "SETAS Y HONGOS": "setas-y-hongos",
 }
 
@@ -153,6 +153,9 @@ def main():
         proveedores[slugify(nombre_p)] = nombre_p
         titulo = limpiar_nombre(art)
         if titulo in DESCATALOGADOS:
+            continue
+        # Los lotes de El Navarrico ya no se venden.
+        if cat == "lotes" and slugify(nombre_p) == "el-navarrico":
             continue
         productos.append((cat, slugify(nombre_p), titulo, precio(pvp)))
 

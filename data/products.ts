@@ -2,7 +2,6 @@ import { slugify } from "@/lib/slug";
 import type { Product } from "@/lib/types";
 import { DESCRIPTIONS } from "./descriptions";
 import { productImages } from "./images.generated";
-import { lotGalleries } from "./lot-galleries.generated";
 import { giftLots } from "./gift-lots";
 import { lots } from "./lots";
 import { productRows } from "./products.generated";
@@ -43,60 +42,6 @@ const TAGS: Record<string, string[]> = {};
 /** "Combina con" en la ficha, por slug de producto. Si no se indica, se sugieren otros de la categoría. */
 const PAIRS_WITH: Record<string, string[]> = {};
 
-/**
- * Qué lleva cada lote de la hoja (se muestra en su descripción), por slug.
- * Hecho a partir de la foto de cada lote; hay que confirmarlo con el proveedor.
- * Los lotes especiales (Amigos, Navidad…) ya traen su lista en data/lots.ts.
- */
-const LOT_ITEMS: Record<string, { items: string[]; total?: number }> = {
-  "navarrico-lote-detalle": {
-    items: ["guindillas en vinagre extra", "piquillos de Lodosa enteros extra", "pochas frescas al natural", "cardo al natural"],
-  },
-  "navarrico-lote-navarro": {
-    items: [
-      "hummus de garbanzos", "salsa alioli", "mermelada de cebolla", "fritada de verduras",
-      "piquillos de Lodosa enteros extra", "espárragos Cojonudos de Navarra 6/8", "menestra de verduras", "cardo al natural",
-    ],
-  },
-  "navarrico-lote-imprescindible": {
-    items: [
-      "pochas frescas al natural", "fumet de pescado", "mermelada de frambuesa", "salsa alioli",
-      "menestra de verduras", "crema de queso", "espárragos Cojonudos de Navarra 6/8", "piquillos de Lodosa enteros extra",
-    ],
-  },
-  "navarrico-lote-fusion-blanco": {
-    items: [
-      "vino blanco J.F. Arriezu Verdejo (D.O. Rueda)", "aceite de oliva virgen extra Artajo arbequina",
-      "espárragos Cojonudos de Navarra 8/10", "piquillos de Lodosa enteros extra",
-      "alcachofas enteras aliñadas extra", "mermelada de pimientos",
-    ],
-  },
-  "navarrico-lote-fusiontinto": {
-    items: [
-      "vino tinto Bagordi Crianza (Rioja)", "aceite de oliva virgen extra Artajo arbequina",
-      "espárragos Cojonudos de Navarra 8/10", "piquillos de Lodosa enteros extra",
-      "alcachofas enteras aliñadas extra", "crema de queso",
-    ],
-  },
-  "navarrico-lote-gourmet": {
-    total: 9,
-    items: [
-      "pimientos del piquillo enteros extra", "hongos", "espárragos cortos blancos extra", "puerros enteros extra extrafinos",
-      "menestra de verduras", "corazones de alcachofa", "caldo de cocido",
-    ],
-  },
-  "navarrico-lote-capricho": {
-    total: 9,
-    items: [
-      "pimientos del piquillo enteros extra", "hongos", "espárragos cortos blancos extra", "puerros enteros extra extrafinos",
-      "menestra de verduras", "corazones de alcachofa", "caldo de cocido",
-    ],
-  },
-};
-
-const lotDescription = ({ items, total }: { items: string[]; total?: number }) =>
-  `Lote de El Navarrico con ${total ?? items.length} productos${total ? ", entre ellos" : ""}: ${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}.`;
-
 const featured = new Set(FEATURED.map(slugify));
 const bestsellerRank = new Map(BESTSELLERS.map((name, i) => [slugify(name), i + 1]));
 const taken = new Set<string>();
@@ -110,7 +55,74 @@ function uniqueSlug(name: string): string {
   return slug;
 }
 
-const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, name, price]) => {
+/**
+ * Precios con IVA de productos que en la hoja salen sin precio, por título
+ * exacto. Si la hoja trae precio, manda el de la hoja.
+ */
+const PRICES: Record<string, number> = {
+  "CHIVITE Blanco COLECCION 125": 31.9,
+  "CHIVITE Rosado COLECCION 125": 31.9,
+  "CHIVITE Tinto colección 125": 31,
+  "MONJARDIN Blanco chardonnay reserva": 26.3,
+};
+
+/**
+ * Fotos propias (diseños de Estafeta Gourmet), por título exacto de la hoja.
+ * Están en public/images/productos-estafeta/ y mandan sobre las de Drive
+ * (data/images.generated.ts), así que no se pierden al volver a importar las fotos.
+ */
+const PHOTOS: Record<string, string> = {
+  "NAVARRA NEGRO 85%": "/images/productos-estafeta/navarra-negro-85.webp",
+  "NAVARRA NEGRO CAFÉ": "/images/productos-estafeta/navarra-negro-cafe.webp",
+  "NAVARRA NEGRO CEREZA Y MIEL": "/images/productos-estafeta/navarra-negro-cereza-y-miel.webp",
+  "NAVARRA NEGRO NARANJA": "/images/productos-estafeta/navarra-negro-naranja.webp",
+  "NAVARRA NEGRO PASAS AL RON": "/images/productos-estafeta/navarra-negro-pasas-al-ron.webp",
+  "NAVARRA NEGRO PATXARAN": "/images/productos-estafeta/navarra-negro-patxaran.webp",
+  "NAVARRA Chocolate sabor nº1": "/images/productos-estafeta/chocolate-negro-72-vino-tinto.webp",
+  "NAVARRA Chocolate sabor nº2": "/images/productos-estafeta/chocolate-negro-85-arandanos.webp",
+  "NAVARRA Chocolate sabor nº3": "/images/productos-estafeta/chocolate-negro-62-puro.webp",
+  "NAVARRA Chocolate sabor nº4": "/images/productos-estafeta/chocolate-con-leche-cafe-bombon.webp",
+  "NAVARRA Chocolate sabor nº5": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
+  "NAVARRA Chocolate sabor nº6": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
+  "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
+  "NAVARRA Galletas de patxaran": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
+};
+
+/**
+ * Nombre y descripción en la web de productos que en la hoja no los tienen
+ * (los "Chocolate sabor nº…"), por título exacto de la hoja. La dirección de
+ * la ficha sale del nombre nuevo.
+ */
+const RENAMED: Record<string, { name: string; description: string }> = {
+  "NAVARRA Chocolate sabor nº1": {
+    name: "Chocolate negro 72 % vino tinto",
+    description: "Chocolate artesano negro 72 % cacao con vino tinto: notas de uva madura sobre un cacao intenso. Una tableta para la sobremesa, con una copa de tinto navarro.",
+  },
+  "NAVARRA Chocolate sabor nº2": {
+    name: "Chocolate negro 85 % arándanos",
+    description: "Chocolate artesano negro 85 % cacao con arándanos: el punto ácido de la fruta del bosque frente al amargor del cacao.",
+  },
+  "NAVARRA Chocolate sabor nº3": {
+    name: "Chocolate negro 62 % puro sin azúcar añadido",
+    description: "Chocolate artesano negro 62 % cacao, sin azúcar añadido: haba de cacao y vainilla, suave y redondo.",
+  },
+  "NAVARRA Chocolate sabor nº4": {
+    name: "Chocolate con leche café bombón sin azúcar añadido",
+    description: "Chocolate artesano con leche, sin azúcar añadido, con sabor a café bombón: café y leche condensada en una tableta cremosa.",
+  },
+  "NAVARRA Chocolate sabor nº5": {
+    name: "Chocolate negro 72 % piparras",
+    description: "Chocolate artesano negro 72 % cacao con piparras, la guindilla vasco-navarra: un toque verde y suavemente picante sobre el cacao. Una sorpresa para el aperitivo o la sobremesa.",
+  },
+  "NAVARRA Chocolate sabor nº6": {
+    name: "Chocolate con leche manzana a la sidra",
+    description: "Chocolate artesano con leche, con manzana a la sidra y canela: dulce, afrutado y con el aroma de la sidra.",
+  },
+};
+
+const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, sheetName, price]) => {
+  const renamed = RENAMED[sheetName];
+  const name = renamed?.name ?? sheetName;
   const slug = uniqueSlug(name);
   const rank = (rankByCategory.get(categorySlug) ?? 0) + 1;
   rankByCategory.set(categorySlug, rank);
@@ -119,15 +131,10 @@ const sheetProducts: Product[] = productRows.map(([categorySlug, producerSlug, n
     name,
     categorySlug,
     producerSlug,
-    price,
-    description: LOT_ITEMS[slug] ? lotDescription(LOT_ITEMS[slug]) : (DESCRIPTIONS[slug] ?? DESCRIPTION),
-    image: { alt: name, placeholder: "Foto · producto", src: productImages[slug] },
-    gallery: lotGalleries[slug]?.map((im, i) => ({
-      src: im.src,
-      alt: i === 0 ? name : im.alt,
-      placeholder: "Foto · lote",
-    })),
-    attributes: (categorySlug === "lotes" ? { ocasion: "navarrico" } : {}) as Record<string, string>,
+    price: price ?? PRICES[sheetName] ?? null,
+    description: renamed?.description ?? DESCRIPTIONS[slug] ?? DESCRIPTION,
+    image: { alt: name, placeholder: "Foto · producto", src: PHOTOS[sheetName] ?? productImages[slug] },
+    attributes: {} as Record<string, string>,
     featured: featured.has(slug) || undefined,
     bestseller: bestsellerRank.get(slug),
     tags: TAGS[slug],

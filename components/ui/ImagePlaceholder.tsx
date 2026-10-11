@@ -16,6 +16,8 @@ type Props = {
   priority?: boolean;
   /** La foto se desliza dentro del marco al hacer scroll (ver .parallax-media). */
   parallax?: boolean;
+  /** "contain" muestra la foto entera (fondo blanco) en vez de recortarla. */
+  fit?: "cover" | "contain";
   /**
    * Foto de producto: el marco es del color arena de las fotos (el fondo ya
    * viene teñido desde scripts/importar-fotos.py), de modo que si la imagen
@@ -38,11 +40,13 @@ export function ImagePlaceholder({
   sizes = "(min-width: 1024px) 33vw, 100vw",
   priority,
   parallax,
+  fit = "cover",
   blend,
 }: Props) {
+  const bg = !src ? "bg-placeholder" : fit === "contain" ? "bg-white" : blend ? "bg-arena" : "bg-placeholder";
   return (
     <div
-      className={cn("relative overflow-hidden", blend && src ? "bg-arena" : "bg-placeholder", className)}
+      className={cn("relative overflow-hidden", bg, className)}
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {src ? (
@@ -53,7 +57,7 @@ export function ImagePlaceholder({
             fill
             sizes={sizes}
             priority={priority}
-            className="object-cover"
+            className={fit === "contain" ? "object-contain" : "object-cover"}
           />
         </div>
       ) : (
