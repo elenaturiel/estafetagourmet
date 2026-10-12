@@ -298,6 +298,28 @@ def tile(src, dst, size=(960, 1200), margin=0.06, trim=False, tint=False):
     canvas.save(dst, "WEBP", quality=93, method=6)
 
 
+# Embutidos de Arbizu cuya foto viene tumbada y torcida: se enderezan y se ponen de pie (texto hacia arriba).
+VERTICAL = {
+    "arbizu-chorizo-individual-oreado", "arbizu-chorizo-sarta-dulce", "arbizu-chorizo-sarta-picante",
+    "arbizu-txistorra-individual", "arbizu-txistorra-individual-eco",
+}
+
+
+def stand_up(src):
+    """Endereza el paquete (ángulo que da el recuadro más pequeño) y lo gira 90° a la izquierda."""
+    from PIL import ImageChops
+    im = Image.open(src).convert("RGB")
+
+    def area(a):
+        r = im.rotate(a, expand=True, fillcolor="white")
+        d = ImageChops.difference(r, Image.new("RGB", r.size, "white")).convert("L").point(lambda v: 255 if v > 20 else 0)
+        b = d.getbbox()
+        return (b[2] - b[0]) * (b[3] - b[1])
+
+    best = min(range(-30, 31), key=lambda a: area(a / 2)) / 2
+    return im.rotate(best, expand=True, fillcolor="white").rotate(90, expand=True, fillcolor="white")
+
+
 OUT_P.mkdir(parents=True, exist_ok=True)
 OUT_M.mkdir(parents=True, exist_ok=True)
 
@@ -317,6 +339,11 @@ for cat, prod, name, price in ([] if ONLY_BRANDS else rows):
     if not src:
         missing.append(f"{prod} | {name}" + (f"  (regla '{key}' sin archivo)" if key else ""))
         continue
+    if slug in VERTICAL:
+        import tempfile
+        tmp = Path(tempfile.mkdtemp()) / "vertical.png"
+        stand_up(src).save(tmp)
+        src = tmp
     tile(src, OUT_P / f"{slug}.webp", margin=0.06, trim=True, tint=True)
     mapping[slug] = f"/images/productos/{slug}.webp"
 
