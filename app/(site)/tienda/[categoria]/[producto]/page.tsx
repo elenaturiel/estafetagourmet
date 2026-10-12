@@ -180,14 +180,59 @@ export default async function ProductPage({ params }: Params) {
                     <dd>{producer.locality}, Navarra</dd>
                   </>
                 ) : null}
-                {product.details ? null : (
+                {product.specs?.weight ? (
                   <>
-                    <dt className="text-secundario">Formato</dt>
-                    <dd>[peso o volumen]</dd>
+                    <dt className="text-secundario">Peso o volumen</dt>
+                    <dd>{product.specs.weight}</dd>
                   </>
-                )}
+                ) : null}
+                {product.specs?.packaging ? (
+                  <>
+                    <dt className="text-secundario">Envase</dt>
+                    <dd>{product.specs.packaging}</dd>
+                  </>
+                ) : null}
+                {product.specs?.other ? (
+                  <>
+                    <dt className="text-secundario">Más datos</dt>
+                    <dd>{product.specs.other}</dd>
+                  </>
+                ) : null}
+                {product.specs?.reference ? (
+                  <>
+                    <dt className="text-secundario">Peso de referencia</dt>
+                    <dd>{product.specs.reference.replace(/^Ref\.:?\s*/, "")}</dd>
+                  </>
+                ) : null}
               </dl>
             </details>
+            {product.specs?.ingredients || product.specs?.allergens ? (
+              <details className="group border-b border-linea">
+                <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[20px] [&::-webkit-details-marker]:hidden">
+                  Ingredientes y alérgenos
+                  <span aria-hidden="true" className="text-vino transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <div className="space-y-4 pb-5 text-[15px] leading-[1.6]">
+                  {product.specs.ingredients ? (
+                    <div>
+                      <p className="eyebrow mb-1 text-[12px] text-vino">Ingredientes</p>
+                      <p className="text-secundario">{product.specs.ingredients}</p>
+                    </div>
+                  ) : null}
+                  {product.specs.allergens ? (
+                    <div>
+                      <p className="eyebrow mb-1 text-[12px] text-vino">Alérgenos</p>
+                      <p className="text-secundario">{product.specs.allergens}</p>
+                    </div>
+                  ) : null}
+                  <p className="text-[13px] text-secundario">
+                    {product.specs.exact
+                      ? "Consulta siempre la etiqueta del envase: es la información que manda."
+                      : "Información de referencia del productor para este producto o su misma gama; puede variar según el formato. Consulta siempre la etiqueta del envase."}
+                  </p>
+                </div>
+              </details>
+            ) : null}
             <details className="group border-b border-linea" open={Boolean(product.details)}>
               <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-serif text-[20px] [&::-webkit-details-marker]:hidden">
                 Conservación y maridaje

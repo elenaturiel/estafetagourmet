@@ -6,6 +6,7 @@ import { giftLots } from "./gift-lots";
 import { lots } from "./lots";
 import { fixSpelling } from "@/lib/spelling";
 import { productRows } from "./products.generated";
+import { specRows } from "./specs.generated";
 
 /**
  * Catálogo.
@@ -65,6 +66,21 @@ const PRICES: Record<string, number> = {
   "CHIVITE Rosado COLECCION 125": 31.9,
   "CHIVITE Tinto colección 125": 31,
   "MONJARDIN Blanco chardonnay reserva": 26.3,
+  // Resto de las tarifas de Chivite y Monjardin: precio de la lista × 1,13 (el mismo coeficiente de los anteriores).
+  "CHIVITE Blanco las fincas": 9.85,
+  "GRAN CHIVITE LEGARDETA Blanco 2024": 13.58,
+  "GRAN CHIVITE LEGARDETA Tinto 2023": 13.28,
+  "CHIVITE MOSCATEL viejisimo 2025": 8.85,
+  "CHIVITE Rosado Las Fincas": 11.45,
+  "MONJARDIN Blanco chardonnay gran reserva": 38.14,
+  "MONJARDIN Tinto Deyo merlot sin fondo": 14.16,
+  "MONJARDIN Tinto pinot noir sin fondo": 26.27,
+  "MONJARDIN BRUT CHARDONNAY MILLESIME": 20.34,
+  "MONJARDIN BRUT CHARDONNAY ROSE": 26.27,
+  "MONJARDIN BRUT GRAN RESERVA": 61.02,
+  // Inurrieta: precio de la lista × 1,089 (el coeficiente del resto de sus vinos en la hoja).
+  "INURRIETA ESTUCHE Orchidea Mediodia Cuatrocientos": 8.58,
+  "INURRIETA ESTUCHE MADERA Orchidea CuveeLaderas Puro Vicio": 29.17,
 };
 
 /**
@@ -85,9 +101,18 @@ const PHOTOS: Record<string, string> = {
   "NAVARRA Chocolate sabor nº4": "/images/productos-estafeta/chocolate-con-leche-cafe-bombon.webp",
   "NAVARRA Chocolate sabor nº5": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
   "NAVARRA Chocolate sabor nº6": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
+  "NAVARRICO PIQUILLO TIRAS FRASCO 250ml": "/images/productos-estafeta/navarrico-piquillo-tiras-primera.webp",
+  "NAVARRICO ESPÁRRAGOS BRASA": "/images/productos-estafeta/navarrico-esparragos-braseados.webp",
   "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
   "NAVARRA Galletas de patxaran": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
 };
+
+/** Ficha técnica del Excel de ingredientes y alérgenos (data/specs.generated.ts), por título de la hoja. */
+function specsOf(sheetName: string): Product["specs"] {
+  const r = specRows[slugify(sheetName)];
+  if (!r) return undefined;
+  return { weight: r.w, reference: r.ref, ingredients: r.i, allergens: r.a, packaging: r.p, other: r.o, exact: r.exact };
+}
 
 /**
  * Nombre y descripción en la web de productos que en la hoja no los tienen
@@ -150,6 +175,7 @@ const sheetProducts: Product[] = productRows.map(([sheetCategory, producerSlug, 
     price: price ?? PRICES[sheetName] ?? null,
     description: renamed?.description ?? DESCRIPTIONS[slug] ?? DESCRIPTION,
     image: { alt: name, placeholder: "Foto · producto", src: PHOTOS[sheetName] ?? productImages[slug] },
+    specs: specsOf(sheetName),
     attributes: {} as Record<string, string>,
     featured: featured.has(slug) || undefined,
     bestseller: bestsellerRank.get(slug),

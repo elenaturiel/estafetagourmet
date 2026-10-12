@@ -57,6 +57,22 @@ export type ProductDetails = {
   storage: string;
 };
 
+/** Ficha técnica del producto (peso, ingredientes y alérgenos), del Excel de la tienda. */
+export type ProductSpecs = {
+  /** Peso o volumen del formato que se vende. */
+  weight?: string;
+  /** Peso de referencia de otro formato de la misma gama. */
+  reference?: string;
+  ingredients?: string;
+  allergens?: string;
+  /** Envase: lata, tarro, estuche… */
+  packaging?: string;
+  /** Variedad, grado u otros datos. */
+  other?: string;
+  /** Dato del mismo producto y formato (si no, es información de referencia de la gama). */
+  exact: boolean;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -69,6 +85,8 @@ export type Product = {
   image: Image;
   /** Ficha de un lote de regalo: qué lleva y cómo disfrutarlo. */
   details?: ProductDetails;
+  /** Peso, ingredientes y alérgenos, si se conocen. */
+  specs?: ProductSpecs;
   /** Más fotos (la principal va primero): en los lotes, el conjunto y cada producto. */
   gallery?: Image[];
   /** Valores de los filtros de la categoría: { denominacion: "dop-roncal" }. */

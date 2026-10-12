@@ -22,14 +22,15 @@ Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo qu
 - [ ] **Analítica:** elegir herramienta, dar de alta Google Search Console y enviar el mapa del sitio.
 
 ## 3. Catálogo 🟠
-- [ ] **Precios que faltan** ("Precio a consultar"): 5 vinos de Chivite (Las Fincas blanco y rosado, Gran Chivite Legardeta blanco y tinto, Moscatel Viejísimo), 6 de Monjardín, 2 estuches de Inurrieta, los 12 lotes especiales (Amigos, Cumpleaños, Empresas, Navidad, Pareja y San Fermín; A y B) y los 2 lotes de Katealde.
+- [ ] **Confirmar precios calculados** de Chivite (Las Fincas, Legardeta, Moscatel), Monjardín (vinos y brut) y los 2 estuches de Inurrieta: se han puesto con precio de la lista × 1,13 (Chivite y Monjardín) o × 1,089 (Inurrieta). El estuche Orchidea Mediodía sale igual que el blanco Orchidea (7,88 €): revisar.
+- [ ] **Precios que faltan** ("Precio a consultar"): los 12 lotes especiales (Amigos, Cumpleaños, Empresas, Navidad, Pareja y San Fermín; A y B) y los 2 lotes de Katealde.
 - [ ] **Fotos de producto que faltan (12):** espárragos aliñados, espárragos a la brasa y piquillo en tiras de Navarrico; las 2 latas de pimiento artesano de La Catedral; los chocolates "sabor nº7" al "nº13" de Navarra en Dulce.
 - [ ] **Fotos mejores:** las de lotes, maridajes y algunas de producto salen de PDF o miden ~800 px; si hay originales, cambiarlas.
 - [ ] **Fotos en los menús:**
   - en el desplegable de **Lotes** las miniaturas son montajes con varios productos y a ese tamaño no se distinguen; mejor una foto clara por lote (la caja);
   - el **lote destacado** de los menús sale recortado;
   - las miniaturas de categoría miden ~150 px y se ven borrosas (sustituir por originales, mín. 600 px).
-- [ ] **Fichas de producto:** formato (peso o volumen) y localidad del productor, hoy `[peso o volumen]` y `[Localidad]`.
+- [ ] **Fichas de producto:** localidad del productor (hoy `[Localidad]`). Peso, ingredientes y alérgenos ya salen del Excel (`python3 scripts/importar-fichas.py <excel>`); para unos 130 productos "No publicado": pedir la ficha técnica al proveedor. Los datos que no son del mismo formato se muestran como "información de referencia".
 - [ ] **Descripciones:** son un borrador (datos del producto y de 6 productores). Revisar ingredientes, alérgenos y denominaciones; escribir las de los productores.
 - [ ] **Portada:** elegir los favoritos y los más vendidos reales (hoy 4 de ejemplo) y los productores destacados.
 - [ ] **Etiquetas** ("Favorito", DOP…) y "combina con" propio de cada producto.
