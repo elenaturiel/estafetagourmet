@@ -22,7 +22,6 @@ Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo qu
 - [ ] **Analítica:** elegir herramienta, dar de alta Google Search Console y enviar el mapa del sitio.
 
 ## 3. Catálogo 🟠
-- [ ] **Confirmar precios calculados** de Chivite (Las Fincas, Legardeta, Moscatel), Monjardín (vinos y brut) y los 2 estuches de Inurrieta: se han puesto con precio de la lista × 1,13 (Chivite y Monjardín) o × 1,089 (Inurrieta). El estuche Orchidea Mediodía sale igual que el blanco Orchidea (7,88 €): revisar.
 - [ ] **Precios que faltan** ("Precio a consultar"): los 12 lotes especiales (Amigos, Cumpleaños, Empresas, Navidad, Pareja y San Fermín; A y B) y los 2 lotes de Katealde.
 - [ ] **Fotos de producto que faltan (12):** espárragos aliñados, espárragos a la brasa y piquillo en tiras de Navarrico; las 2 latas de pimiento artesano de La Catedral; los chocolates "sabor nº7" al "nº13" de Navarra en Dulce.
 - [ ] **Fotos mejores:** las de lotes, maridajes y algunas de producto salen de PDF o miden ~800 px; si hay originales, cambiarlas.
