@@ -58,6 +58,10 @@ const nextConfig: NextConfig = {
         destination: `/tienda/${categoria}/${nuevo}`,
         permanent: true,
       })),
+      // Entradas de ejemplo del blog que ya no existen.
+      ...["que-vino-elegir-para-cada-queso-navarro", "que-comprar-en-cada-epoca-del-ano-en-navarra", "el-productor-del-mes"].map(
+        (slug) => ({ source: `/blog/${slug}`, destination: "/blog", permanent: true }),
+      ),
       ...canonicalHostRedirects(),
     ];
   },
