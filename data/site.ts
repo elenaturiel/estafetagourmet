@@ -34,17 +34,18 @@ export const site = {
     country: "ES",
   },
 
-  /** Horario tal y como se muestra. Los días concretos están por definir. */
+  /** Horario tal y como se muestra: «De martes a sábado · 10:00–14:00 y 17:00–20:00». */
   hours: {
     label: "10:00–14:00 y 17:00–20:00",
     /** Días de apertura, si se quieren indicar (vacío = no se muestra). */
-    daysLabel: "",
+    daysLabel: "De martes a sábado",
     /**
-     * Horario para los datos estructurados (schema.org). Se deja vacío
-     * hasta confirmar los días de apertura; ver TODO.md.
-     * Ejemplo: [{ days: ["Monday", "Tuesday"], opens: "10:00", closes: "14:00" }]
+     * Horario para los datos estructurados (schema.org, lo que lee Google).
      */
-    structured: [] as { days: string[]; opens: string; closes: string }[],
+    structured: [
+      { days: ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "10:00", closes: "14:00" },
+      { days: ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "17:00", closes: "20:00" },
+    ] as { days: string[]; opens: string; closes: string }[],
   },
 
   phone: {
