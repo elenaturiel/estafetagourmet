@@ -5,6 +5,7 @@ import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { LotsBand } from "@/components/home/LotsBand";
 import { Hero } from "@/components/home/Hero";
 import { HistoryTeaser } from "@/components/home/HistoryTeaser";
+import { BlogSection } from "@/components/home/BlogSection";
 import { LatestNewslettersSection } from "@/components/home/LatestNewslettersSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { ProducersSection } from "@/components/home/ProducersSection";
@@ -46,6 +47,7 @@ export default async function Home() {
       <AboutSection />
       <ReviewsSection />
       <LatestNewslettersSection />
+      <BlogSection />
       <NewsletterSection />
       <VisitSection />
     </>
