@@ -20,6 +20,7 @@ import {
   productHref,
 } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
+import { shippingArea, shippingSummary } from "@/lib/shipping";
 import { pageMetadata } from "@/lib/seo";
 import { pairingsFor } from "@/lib/pairings";
 import { productJsonLd } from "@/lib/structured-data";
@@ -137,7 +138,8 @@ export default async function ProductPage({ params }: Params) {
 
           <ul className="mt-6 grid gap-3 text-[15px]">
             <li className="flex items-center gap-3">
-              <TruckIcon className="shrink-0 text-vino" /> Envío a toda la península en {site.shipping.leadTime}
+              <TruckIcon className="shrink-0 text-vino" /> Envío {formatPrice(site.shipping.cost)} a toda la península en{" "}
+              {site.shipping.leadTime} (no a {site.shipping.noDelivery})
             </li>
             <li className="flex items-center gap-3">
               <PinIcon className="shrink-0 text-vino" /> Recogida en tienda: {site.address.street}, Pamplona
@@ -267,8 +269,7 @@ export default async function ProductPage({ params }: Params) {
                 <span aria-hidden="true" className="text-vino transition-transform group-open:rotate-45">+</span>
               </summary>
               <p className="pb-5 text-[15px] text-secundario">
-                Envío a toda la península en {site.shipping.leadTime}. Envío gratis desde{" "}
-                {site.shipping.freeShippingFrom} €. Consulta las{" "}
+                {shippingArea} Envío {shippingSummary} Consulta las{" "}
                 <a href="/envios-y-devoluciones" className="text-vino underline underline-offset-2">
                   condiciones de envío y devolución
                 </a>

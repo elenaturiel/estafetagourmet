@@ -10,6 +10,7 @@ import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
 import { cartUi } from "./cart-ui";
 import { FreeShippingMeter } from "./FreeShippingMeter";
+import { shippingSummary } from "@/lib/shipping";
 import { useCart } from "./useCart";
 
 /** Cajón lateral de la cesta. Se abre al añadir un producto o al pulsar "Cesta". */
@@ -123,7 +124,7 @@ export function CartDrawer() {
               <span className="text-[15px]">Subtotal</span>
               <span className="text-[20px] font-semibold tabular-nums">{formatPrice(subtotal)}</span>
             </div>
-            <p className="mt-1 text-[13px] text-secundario">Envío e impuestos calculados al pagar.</p>
+            <p className="mt-1 text-[13px] text-secundario">IVA incluido. Envío {shippingSummary}</p>
             <div className="mt-4 grid gap-2">
               <Link href="/cesta" className={buttonClasses("primary", "md")}>
                 Ver la cesta y pagar

@@ -7,10 +7,12 @@ import { MinusIcon, PlusIcon } from "@/components/ui/icons";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
+import { shippingArea, shippingCost } from "@/lib/shipping";
 import { useCart } from "./useCart";
 
 export function CartView() {
   const { lines, count, subtotal, setQuantity, remove } = useCart();
+  const shipping = subtotal === null ? null : shippingCost(subtotal);
 
   if (!lines.length) {
     return (
@@ -107,14 +109,21 @@ export function CartView() {
             <dt>Subtotal</dt>
             <dd className="font-semibold tabular-nums">{formatPrice(subtotal)}</dd>
           </div>
-          <div className="flex justify-between text-secundario">
+          <div className="flex justify-between">
             <dt>Envío</dt>
-            <dd>Se calcula al pagar</dd>
+            <dd className="tabular-nums">{shipping === null ? "A confirmar" : shipping === 0 ? "Gratis" : formatPrice(shipping)}</dd>
+          </div>
+          <div className="flex justify-between border-t border-linea pt-2 text-[17px]">
+            <dt className="font-semibold">Total</dt>
+            <dd className="font-semibold tabular-nums">
+              {subtotal === null || shipping === null ? "A confirmar" : formatPrice(subtotal + shipping)}
+            </dd>
           </div>
         </dl>
         <p className="mt-4 text-[13px] text-secundario">
-          Envío gratis desde {site.shipping.freeShippingFrom} €. Envío en {site.shipping.leadTime} a toda la
-          península.
+          IVA incluido. Envío {formatPrice(site.shipping.cost)} para pedidos de hasta {site.shipping.maxWeightKg} kg y gratis
+          desde {site.shipping.freeShippingFrom} €; por encima de {site.shipping.maxWeightKg} kg te confirmamos el precio
+          del envío antes de cobrarlo. {shippingArea}
         </p>
         {lines.some((l) => /^\/tienda\/(vinos|espumosos|bebidas|lotes)\//.test(l.href)) ? (
           <p className="mt-4 border border-linea bg-crema p-3 text-[13px] leading-snug text-secundario">

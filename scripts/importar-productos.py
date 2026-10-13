@@ -102,6 +102,14 @@ FAMILIAS = {
     "SETAS Y HONGOS": "setas-y-hongos",
 }
 
+# Títulos equivocados en la hoja → título correcto. En la plantilla de oct. 2026
+# los tamaños de La Maja Alfar Arbequina están cambiados (el de 11,20 € es el
+# de 1000 ml y el de 5,30 €, el de 250 ml). Quitar cuando se corrija la hoja.
+CORREGIR_TITULO = {
+    "LA MAJA AOVE ALFAR ARBEQUINA 250": "LA MAJA AOVE ALFAR ARBEQUINA 1000",
+    "LA MAJA AOVE ALFAR ARBEQUINA 1000": "LA MAJA AOVE ALFAR ARBEQUINA 250",
+}
+
 # Proveedores escritos de dos formas en la hoja → forma única
 ALIAS_PROVEEDOR = {"NAVARRA ENDULCE": "NAVARRA EN DULCE"}
 
@@ -234,6 +242,7 @@ def main():
         nombre_p = nombre_proveedor(sub.upper())
         proveedores[slugify(nombre_p)] = nombre_p
         titulo = limpiar_nombre(art)
+        titulo = CORREGIR_TITULO.get(titulo, titulo)
         if titulo in DESCATALOGADOS:
             continue
         # Los lotes de El Navarrico ya no se venden.
