@@ -75,12 +75,18 @@ export const site = {
 
   shipping: {
     leadTime: "24–48 h",
-    freeShippingFrom: "[importe]",
+    freeShippingFrom: "70",
     /**
      * Mismo importe como número (euros) para la barra de progreso de la cesta
-     * ("Te faltan X € para el envío gratis"). Null mientras no esté definido.
+     * ("Te faltan X € para el envío gratis") y el cálculo del envío.
      */
-    freeShippingThreshold: null as number | null,
+    freeShippingThreshold: 70 as number | null,
+    /** Precio del envío (IVA incluido) para pedidos de hasta `maxWeightKg`. */
+    cost: 5.95,
+    /** Por encima de este peso el precio del envío es a consultar. */
+    maxWeightKg: 5,
+    /** Destinos a los que no se envía. */
+    noDelivery: "Canarias ni Baleares",
   },
 
   googleRating: {

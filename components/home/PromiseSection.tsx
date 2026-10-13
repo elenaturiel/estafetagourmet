@@ -10,7 +10,7 @@ const promises = [
   {
     Icon: TruckIcon,
     title: `En tu casa en ${site.shipping.leadTime}`,
-    text: `Envíos a toda la península. Envío gratis desde ${site.shipping.freeShippingFrom} €.`,
+    text: `Envíos a toda la península (no a ${site.shipping.noDelivery}). Envío gratis desde ${site.shipping.freeShippingFrom} €.`,
   },
   {
     Icon: PinIcon,

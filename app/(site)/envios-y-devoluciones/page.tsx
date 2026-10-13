@@ -1,12 +1,13 @@
 import { LegalPage } from "@/components/ui/LegalPage";
 import { legalEntity as e } from "@/data/legal";
 import { site } from "@/data/site";
+import { formatPrice } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Envíos y devoluciones",
   description:
-    "Envíos a toda la península en 24–48 h, recogida en la tienda de la calle Estafeta de Pamplona y cómo hacer una devolución.",
+    "Envíos a toda la península en 24–48 h: 5,95 € hasta 5 kg y gratis desde 70 €. No enviamos a Canarias ni Baleares. Recogida en la calle Estafeta de Pamplona y devoluciones.",
   path: "/envios-y-devoluciones",
 });
 
@@ -20,12 +21,20 @@ export default function Page() {
           pagado.
         </li>
         <li>
-          <strong>Gastos de envío:</strong> se calculan según el peso y el destino y se muestran antes de pagar. El envío
-          es gratis a partir de {site.shipping.freeShippingFrom} € de compra.
+          <strong>Gastos de envío:</strong> {formatPrice(site.shipping.cost)} para pedidos de hasta{" "}
+          {site.shipping.maxWeightKg} kg. El envío es <strong>gratis a partir de {site.shipping.freeShippingFrom} €</strong>{" "}
+          de compra.
         </li>
         <li>
-          <strong>Baleares, Canarias, Ceuta, Melilla y extranjero:</strong> escríbenos o llámanos antes de comprar y te
-          decimos plazo y coste, porque dependen del destino y de la aduana.
+          <strong>Pedidos de más de {site.shipping.maxWeightKg} kg:</strong> el precio del envío es a consultar. Te lo
+          confirmamos antes de cobrarlo; si lo prefieres, escríbenos o llámanos antes de comprar.
+        </li>
+        <li>
+          <strong>Canarias y Baleares:</strong> no hacemos envíos.
+        </li>
+        <li>
+          <strong>Ceuta, Melilla y extranjero:</strong> escríbenos o llámanos antes de comprar y te decimos plazo y coste,
+          porque dependen del destino y de la aduana.
         </li>
         <li>
           <strong>Seguimiento:</strong> te enviamos un correo con el enlace de seguimiento cuando sale el paquete.
