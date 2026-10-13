@@ -66,17 +66,25 @@ export async function getProducerMap(): Promise<Record<string, Producer>> {
 }
 
 /**
- * Entradas del blog. Si Sanity está configurado se leen del panel /admin
- * (lo que escribe la dueña de la tienda); si no, de data/posts.ts.
+ * Entradas del blog: las del panel /admin (Sanity, lo que escribe la dueña de
+ * la tienda) más las escritas en data/posts.ts.
  */
 export async function getPosts(limit?: number): Promise<Post[]> {
-  const list = (await getSanityPosts()) ?? posts;
+  const list = await allPosts();
   return typeof limit === "number" ? list.slice(0, limit) : list;
 }
 
 export async function getPost(slug: string): Promise<Post | undefined> {
-  const list = (await getSanityPosts()) ?? posts;
-  return list.find((p) => p.slug === slug);
+  return (await allPosts()).find((p) => p.slug === slug);
+}
+
+/** Las del panel y las de data/posts.ts juntas (si un slug se repite, gana el panel), de la más reciente a la más antigua. */
+async function allPosts(): Promise<Post[]> {
+  const fromPanel = (await getSanityPosts()) ?? [];
+  const taken = new Set(fromPanel.map((p) => p.slug));
+  return [...fromPanel, ...posts.filter((p) => !taken.has(p.slug))].sort((a, b) =>
+    (b.date ?? "").localeCompare(a.date ?? ""),
+  );
 }
 
 export async function getReviews(): Promise<Review[]> {
