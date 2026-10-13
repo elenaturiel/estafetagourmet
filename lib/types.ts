@@ -115,6 +115,10 @@ export type Post = {
   image: Image;
   /** Cuerpo en Portable Text (Sanity). Vacío en las entradas de ejemplo. */
   body?: PortableBlock[];
+  /** Foto de la cabecera de la entrada, entera y en su proporción (si no, `image` en 16:9). */
+  cover?: { src: string; alt: string; width: number; height: number };
+  /** Título con la letra de rótulo (Cinzel, en mayúsculas). */
+  titleStyle?: "rotulo";
 };
 
 /** Bloque de texto enriquecido de Sanity (Portable Text), sin tipar en detalle. */

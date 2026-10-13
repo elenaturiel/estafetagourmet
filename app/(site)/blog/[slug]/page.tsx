@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Cinzel } from "next/font/google";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "next-sanity";
@@ -13,6 +14,9 @@ import { sanityImageUrl } from "@/lib/sanity/client";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
+
+/** Letra de rótulo para los títulos con `titleStyle: "rotulo"`. */
+const cinzel = Cinzel({ subsets: ["latin"], weight: ["500"], display: "swap" });
 
 /** Las entradas nuevas del panel aparecen sin volver a publicar la web. */
 export const revalidate = 300;
@@ -109,33 +113,54 @@ export default async function PostPage({ params }: Params) {
         />
         <div className="mx-auto mt-10 max-w-3xl text-center">
           <p className="eyebrow text-vino">{post.category}</p>
-          <h1 className="mt-4 text-[38px] leading-[1.04] tracking-[-0.02em] lg:text-[60px]">{post.title}</h1>
+          <h1
+            className={
+              post.titleStyle === "rotulo"
+                ? `${cinzel.className} mt-4 text-[40px] leading-[1.05] tracking-[0.12em] uppercase lg:text-[64px]`
+                : "mt-4 text-[38px] leading-[1.04] tracking-[-0.02em] lg:text-[60px]"
+            }
+          >
+            {post.title}
+          </h1>
           {post.date ? (
             <p className="mt-4 text-[14px] text-secundario">
               <time dateTime={post.date}>{dateFormat.format(new Date(post.date))}</time>
             </p>
           ) : null}
         </div>
-        <div className="mx-auto mt-10 max-w-5xl">
-          <ImagePlaceholder
-            label={post.image.placeholder}
-            src={post.image.src}
-            alt={post.image.alt}
-            ratio="16 / 9"
-            sizes="(min-width: 1024px) 1024px, 100vw"
-            priority
-            className="rounded-eg"
-          />
-        </div>
+        {post.cover ? (
+          <div className="mx-auto mt-10 max-w-[360px]">
+            <Image
+              src={post.cover.src}
+              alt={post.cover.alt}
+              width={post.cover.width}
+              height={post.cover.height}
+              sizes="360px"
+              priority
+              className="h-auto w-full rounded-eg"
+            />
+          </div>
+        ) : (
+          <div className="mx-auto mt-10 max-w-5xl">
+            <ImagePlaceholder
+              label={post.image.placeholder}
+              src={post.image.src}
+              alt={post.image.alt}
+              ratio="16 / 9"
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              priority
+              className="rounded-eg"
+            />
+          </div>
+        )}
       </header>
 
       <div className="container-site">
         <div className="mx-auto mt-12 max-w-[680px] text-[18px] leading-[1.7] text-tinta">
-          <p className="font-serif text-[22px] leading-snug text-secundario">{post.excerpt}</p>
           {post.body?.length ? (
             <PortableText value={post.body} components={components} />
           ) : (
-            <p className="mt-5 text-secundario">[Texto del artículo]</p>
+            <p className="mt-5">{post.excerpt}</p>
           )}
           <ArrowLink href="/blog" className="mt-10">
             Volver al blog
