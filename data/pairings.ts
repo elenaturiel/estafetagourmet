@@ -1,7 +1,7 @@
 /**
  * Maridajes (página /maridajes): los carteles "carteles-maridaje.pdf", en 6
  * secciones de 3. La foto de cada tarjeta (producto + vino) es
- * /images/maridajes/pareja-<n>.webp, hecha con `python3 scripts/importar-maridajes.py`,
+ * /images/maridajes/maridaje-<n>.webp, hecha con `python3 scripts/importar-maridajes.py`,
  * y `n` sigue el orden de este archivo.
  */
 

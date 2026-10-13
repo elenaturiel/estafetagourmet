@@ -7,7 +7,7 @@ Uso:
 De cada tarjeta del cartel de maridaje saca la foto del producto y la de la
 bebida, las junta (sin el «+» del cartel y con poca separación) y las pone
 sobre el fondo arena de la web, en un marco 4:3:
-    public/images/maridajes/pareja-<n>.webp  (n = 1..18, en el orden del PDF)
+    public/images/maridajes/maridaje-<n>.webp  (n = 1..18, en el orden del PDF)
 De cada ficha de lote (9) recorta cada foto suelta (1..5.webp, en marco 4:5) y
 hace la principal juntándolas (0.webp):
     public/images/lotes/<slug>/
@@ -53,6 +53,23 @@ def trim_white(im):
     diff = ImageChops.difference(im, Image.new("RGB", im.size, "white")).convert("L").point(lambda v: 255 if v > 14 else 0)
     box = diff.getbbox()
     return im.crop(box) if box else im
+
+
+def trim_bg(im, color=ARENA):
+    """Recorta el fondo (arena) que rodea a una foto de producto de la tienda."""
+    diff = ImageChops.difference(im, Image.new("RGB", im.size, color)).convert("L").point(lambda v: 255 if v > 18 else 0)
+    box = diff.getbbox()
+    return im.crop(box) if box else im
+
+
+# Maridajes cuya foto de producto se toma de la tienda en vez del cartel (n → fotos
+# en public/, y su altura respecto a la de la bebida). La bebida sigue saliendo del cartel.
+FOTOS_TIENDA = {
+    13: (["images/productos/pedro-mayo-s-azucar-almendra.webp", "images/productos/leyre-85-125-grs.webp"], 1.0),
+    14: (["images/productos-estafeta/navarra-negro-patxaran.webp"], 0.85),
+    15: (["images/productos/navarra-negro-naranja-sin-azucar.webp"], 0.85),
+    16: (["images/productos/leyre-cafe-125-grs.webp"], 0.85),
+}
 
 
 def pair(ims, size=(1200, 900), gap=0.05, box=0.86):
@@ -104,7 +121,14 @@ for page in doc:
         n += 1
         # cada foto por separado (el «+» del cartel queda fuera) y juntas después
         ims = [trim_white(clip_image(page, pymupdf.Rect(*i["bbox"]))) for i in sorted(cell, key=lambda i: i["bbox"][0])]
-        pair(ims).save(out / f"pareja-{n}.webp", "WEBP", quality=90, method=6)
+        if n in FOTOS_TIENDA:
+            fotos, alto = FOTOS_TIENDA[n]
+            bebida = ims[-1]
+            h = round(bebida.height * alto)
+            prods = [trim_bg(Image.open(ROOT / "public" / f).convert("RGB")) for f in fotos]
+            prods = [im.resize((round(im.width * h / im.height), h), Image.LANCZOS) for im in prods]
+            ims = prods + [bebida]
+        pair(ims).save(out / f"maridaje-{n}.webp", "WEBP", quality=90, method=6)
 print(n, "tarjetas de maridaje")
 
 if len(sys.argv) < 3:
