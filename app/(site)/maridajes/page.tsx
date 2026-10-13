@@ -48,7 +48,7 @@ export default function PairingsPage() {
                     <div className="overflow-hidden">
                       <ImagePlaceholder
                         label="Foto · maridaje"
-                        src={`/images/maridajes/pareja-${p.n}.webp`}
+                        src={`/images/maridajes/maridaje-${p.n}.webp`}
                         alt={`${p.title}, con ${p.with}`}
                         ratio="4 / 3"
                         sizes="(min-width: 768px) 33vw, 100vw"
