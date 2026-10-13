@@ -18,9 +18,6 @@ export function AboutSection() {
             className="rounded-eg"
           />
           </div>
-          <div className="arch absolute -right-3 -bottom-10 hidden w-[180px] overflow-hidden border-[6px] border-papel sm:block lg:-right-10">
-            <ImagePlaceholder label="Detalle · estantería" ratio="3 / 4" />
-          </div>
           <Stamp
             text="Calle Estafeta, 70 · Casco viejo · Iruña · "
             className="absolute -top-8 -left-4 w-[110px] lg:w-[130px]"

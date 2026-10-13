@@ -4,7 +4,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 
 ## Datos de la tienda (`data/site.ts`)
 
-> Ya puestos: correo (estafetagourmet@gmail.com), teléfono y WhatsApp (+34 624 64 27 42), dirección y mapa de Google Maps.
+> Ya puestos: correo (info@estafetagourmet.com), teléfono y WhatsApp (+34 624 64 27 42), dirección y mapa de Google Maps.
 
 - [ ] **Dirección web definitiva.** Variable `NEXT_PUBLIC_SITE_URL`; ver README → "Dirección web". Hasta entonces el pie muestra `[dirección web]`.
 - [ ] **Importe para envío gratis** (`shipping.freeShippingFrom`). Aparece en la barra superior, la cesta y la página de envíos. Escribe también el número en `shipping.freeShippingThreshold`: activa la barra "Te faltan X € para el envío gratis" del cajón de la cesta.

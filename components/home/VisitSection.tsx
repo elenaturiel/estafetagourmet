@@ -39,7 +39,7 @@ export function VisitSection({
               </address>
             </InfoBlock>
             <InfoBlock title="Horario">
-              {site.hours.label} · {site.hours.daysLabel}
+              {[site.hours.label, site.hours.daysLabel].filter(Boolean).join(" · ")}
             </InfoBlock>
             <InfoBlock title="Teléfono y correo">
               <a

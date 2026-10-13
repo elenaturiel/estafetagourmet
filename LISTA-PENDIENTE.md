@@ -18,7 +18,7 @@ Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo qu
 ## 2. Funcionamiento de la web 🟠
 - [ ] **Blog:** ahora mismo está sustituido por la **Newsletter** (`/blog` redirige a `/newsletter`) y el panel de escritura de entradas (Sanity, `/admin`) no se está usando. Decidir: o se deja así y se quita el panel, o se recupera el blog (hay que acabar la configuración de Sanity: variables, aviso automático al publicar e invitar a la dueña).
 - [ ] **Newsletter, parte de envío:** la web ya muestra el archivo con 8 boletines (`/newsletter`). Falta confirmar que el popup guarda el correo en Brevo, verificar el dominio como remitente, preparar el correo de confirmación y el de bienvenida, enviar cada boletín por correo y decidir el incentivo ("10 % en tu primer pedido"…).
-- [ ] **Formulario de contacto:** hoy solo simula el envío. Conectarlo a estafetagourmet@gmail.com y probarlo.
+- [ ] **Formulario de contacto:** hoy solo simula el envío. Conectarlo a info@estafetagourmet.com y probarlo.
 - [ ] **Analítica:** elegir herramienta, dar de alta Google Search Console y enviar el mapa del sitio.
 
 ## 3. Catálogo 🟠
