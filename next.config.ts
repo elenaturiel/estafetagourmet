@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { removedProducts } from "./data/removed-products";
 
 /**
  * Dominio canónico.
@@ -45,6 +46,12 @@ const nextConfig: NextConfig = {
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-4", destination: "/tienda/dulces/chocolate-con-leche-cafe-bombon-sin-azucar-anadido", permanent: true },
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-5", destination: "/tienda/dulces/chocolate-negro-72-piparras", permanent: true },
       { source: "/tienda/dulces/navarra-chocolate-sabor-n-6", destination: "/tienda/dulces/chocolate-con-leche-manzana-a-la-sidra", permanent: true },
+      // Productos retirados: su ficha lleva a la categoría.
+      ...removedProducts.map(([categoria, slug]) => ({
+        source: `/tienda/${categoria}/${slug}`,
+        destination: `/tienda/${categoria}`,
+        permanent: true,
+      })),
       ...canonicalHostRedirects(),
     ];
   },

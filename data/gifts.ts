@@ -57,18 +57,16 @@ const SINGLES: [string, RecipientSlug[]][] = [
   ["LN Patxarán ETXEKO", ["sanfermin", "padres", "amigos"]],
   ["PCIRSUS Tinto SELECCIÓN DE FAMILIA", ["navidad", "padres", "empresas"]],
   ["LVN QUESO RESERVA 1/2 PIEZAS 350 G.", ["padres"]],
-  ["ARBIZU Txistorra 1 kg", ["sanfermin", "amigos", "eventos"]],
+  ["ARBIZU Txistorra individual", ["sanfermin", "amigos", "eventos"]],
   ["OCHOA Labrit rosado", ["amigos", "cumpleanos"]],
-  ["KATEALDE Foie gras tarro", ["navidad", "pareja", "padres"]],
+  ["KATEALDE Foie gras barqueta micuit", ["navidad", "pareja", "padres"]],
   ["NAVARRA NEGRO PATXARAN", ["pareja"]],
   ["OCHOA Moscatel Vendimia Tardía", ["pareja"]],
   ["INURRIETA BLANCO orchidea cuvee", ["pareja", "eventos"]],
   ["HQ ANFORA TRUFA BLANCA AOVE 250 ml", ["navidad", "pareja", "empresas", "padres"]],
   ["PCIRSUS Tinto CUVEE ESPECIAL", ["cumpleanos", "eventos", "empresas"]],
-  ["DANTZA Espárrago DO Navarra Lata Fiesta", ["sanfermin", "eventos"]],
   ["KATEALDE Bloc de foie pato con champagne", ["navidad", "eventos", "pareja"]],
   ["ECOPRO ESTUCHE OLIVE LOVERS", ["empresas", "padres"]],
-  ["LEYRE TABLETON NEGRO ALMENDRAS 800 GRS.", ["cumpleanos", "amigos", "eventos"]],
   ["SALAMANCA Jamón ibérico cebo 50%", ["cumpleanos", "eventos", "amigos"]],
   ["UNSI DULCE GARNACHA TINTA", ["pareja", "padres"]],
 ];
@@ -79,8 +77,8 @@ export const GIFT_PRODUCTS: { slug: string; para: RecipientSlug[] }[] = SINGLES.
 
 /** Parejas de productos que suenan bien juntos (se compran con un solo botón). */
 const PAIRS: { name: string; blurb: string; titles: [string, string]; para: RecipientSlug[] }[] = [
-  { name: "Queso y vino", blurb: "Un queso curado de oveja y un tinto navarro con carácter.", titles: ["LVN QUESO CURADO 1/2 PIEZAS 400 G.", "INURRIETA TINTO altos de inurrieta"], para: ["padres", "amigos", "pareja"] },
-  { name: "Txistorra y patxarán", blurb: "La fiesta navarra en dos productos: la txistorra de siempre y un buen patxarán para el final.", titles: ["ARBIZU Txistorra 1 kg", "LN Patxarán LA NAVARRA"], para: ["sanfermin", "amigos", "eventos", "padres"] },
+  { name: "Queso y vino", blurb: "Un queso curado de oveja y un tinto navarro con carácter.", titles: ["LVN QUESO RESERVA 1/2 PIEZAS 350 G.", "INURRIETA TINTO altos de inurrieta"], para: ["padres", "amigos", "pareja"] },
+  { name: "Txistorra y patxarán", blurb: "La fiesta navarra en dos productos: la txistorra de siempre y un buen patxarán para el final.", titles: ["ARBIZU Txistorra individual", "LN Patxarán LA NAVARRA"], para: ["sanfermin", "amigos", "eventos", "padres"] },
   { name: "Jamón y tinto", blurb: "Jamón ibérico de bellota y un tinto joven para abrir sin pensar.", titles: ["SALAMANCA Jamón ibérico bellota 100%", "PCIRSUS VENDIMIA SELECCIONADA"], para: ["navidad", "padres", "pareja"] },
   { name: "Foie y mermelada", blurb: "Foie gras de pato con mermelada de higo: el aperitivo que luce en cualquier mesa.", titles: ["KATEALDE Foie gras barqueta micuit", "IRULAR Mermelada higo"], para: ["navidad", "pareja", "eventos"] },
   { name: "Espárragos y blanco", blurb: "Espárragos blancos de Navarra y un blanco fresco para acompañarlos.", titles: ["LC ESPÁRRAGOS 6", "INURRIETA BLANCO orchidea"], para: ["cumpleanos", "amigos", "pareja", "eventos"] },
