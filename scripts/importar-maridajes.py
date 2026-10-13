@@ -4,9 +4,10 @@
 Uso:
     python3 scripts/importar-maridajes.py carteles-maridaje.pdf fichas-lotes-regalo.pdf
 
-De cada tarjeta del cartel de maridaje (producto + vino) recorta la foto, quita
-el blanco sobrante y la pone sobre el fondo arena de la web:
-    public/images/maridajes/<n>.webp         (n = 1..18, en el orden del PDF)
+De cada tarjeta del cartel de maridaje saca la foto del producto y la de la
+bebida, las junta (sin el «+» del cartel y con poca separación) y las pone
+sobre el fondo arena de la web, en un marco 4:3:
+    public/images/maridajes/pareja-<n>.webp  (n = 1..18, en el orden del PDF)
 De cada ficha de lote (9) recorta cada foto suelta (1..5.webp, en marco 4:5) y
 hace la principal juntándolas (0.webp):
     public/images/lotes/<slug>/
@@ -20,7 +21,7 @@ from PIL import Image, ImageChops
 
 ROOT = Path(__file__).resolve().parent.parent
 ARENA = (236, 226, 205)
-if len(sys.argv) < 3:
+if len(sys.argv) < 2:
     sys.exit(__doc__)
 
 
@@ -48,6 +49,33 @@ def to_arena(im, dst, margin=0.04, max_w=1400):
     canvas.save(dst, "WEBP", quality=92, method=6)
 
 
+def trim_white(im):
+    diff = ImageChops.difference(im, Image.new("RGB", im.size, "white")).convert("L").point(lambda v: 255 if v > 14 else 0)
+    box = diff.getbbox()
+    return im.crop(box) if box else im
+
+
+def pair(ims, size=(1200, 900), gap=0.05, box=0.86):
+    """Las fotos de una tarjeta, una junto a otra y centradas en un marco 4:3 sobre arena."""
+    from PIL import ImageDraw, ImageFilter
+    h = max(im.height for im in ims)
+    g = round(h * gap)
+    row = Image.new("RGB", (sum(im.width for im in ims) + g * (len(ims) - 1), h), "white")
+    x = 0
+    for im in ims:
+        row.paste(im, (x, (h - im.height) // 2))
+        x += im.width + g
+    W, H = size
+    k = min(W * box / row.width, H * box / row.height, 2.5)
+    row = row.resize((round(row.width * k), round(row.height * k)), Image.LANCZOS)
+    canvas = Image.new("RGB", size, "white")
+    canvas.paste(row, ((W - row.width) // 2, (H - row.height) // 2))
+    mask = canvas.convert("L").point(lambda v: 255 if v >= 232 else 0)
+    ImageDraw.floodfill(mask, (0, 0), 128)
+    bgm = mask.point(lambda v: 255 if v == 128 else 0).filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(3))
+    return Image.composite(ImageChops.multiply(canvas, Image.new("RGB", size, ARENA)), canvas, bgm)
+
+
 def rows(infos, tol=40):
     out = []
     for im in sorted(infos, key=lambda i: i["bbox"][1]):
@@ -73,13 +101,14 @@ for page in doc:
         cell = [i for i in infos if lo <= (i["bbox"][1] + i["bbox"][3]) / 2 < hi]
         if not cell:
             continue
-        x0 = min(i["bbox"][0] for i in cell) - 4
-        y0 = min(i["bbox"][1] for i in cell) - 4
-        x1 = max(i["bbox"][2] for i in cell) + 4
-        y1 = max(i["bbox"][3] for i in cell) + 4
         n += 1
-        to_arena(clip_image(page, pymupdf.Rect(x0, y0, x1, y1)), out / f"{n}.webp")
+        # cada foto por separado (el «+» del cartel queda fuera) y juntas después
+        ims = [trim_white(clip_image(page, pymupdf.Rect(*i["bbox"]))) for i in sorted(cell, key=lambda i: i["bbox"][0])]
+        pair(ims).save(out / f"pareja-{n}.webp", "WEBP", quality=90, method=6)
 print(n, "tarjetas de maridaje")
+
+if len(sys.argv) < 3:
+    sys.exit(0)
 
 # ---- fichas de lote de regalo ----
 def framed(im, size=(960, 1200), box=(0.9, 0.9), upscale=2.0):

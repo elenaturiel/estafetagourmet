@@ -37,7 +37,8 @@ export const site = {
   /** Horario tal y como se muestra. Los días concretos están por definir. */
   hours: {
     label: "10:00–14:00 y 17:00–20:00",
-    daysLabel: "[indicar días y festivos]",
+    /** Días de apertura, si se quieren indicar (vacío = no se muestra). */
+    daysLabel: "",
     /**
      * Horario para los datos estructurados (schema.org). Se deja vacío
      * hasta confirmar los días de apertura; ver TODO.md.
@@ -56,7 +57,7 @@ export const site = {
   whatsappHref: "https://wa.me/34624642742",
   whatsappMessage: "Hola, os escribo desde la web de Estafeta Gourmet.",
 
-  email: "estafetagourmet@gmail.com",
+  email: "info@estafetagourmet.com",
 
   instagram: {
     handle: "@estafetagourmet",

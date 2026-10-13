@@ -11,7 +11,6 @@ import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { ProducersSection } from "@/components/home/ProducersSection";
 import { ProductMarquee } from "@/components/home/ProductMarquee";
 import { PromiseSection } from "@/components/home/PromiseSection";
-import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { VisitSection } from "@/components/home/VisitSection";
 import { site } from "@/data/site";
 import { getProducts } from "@/lib/catalog";
@@ -45,7 +44,6 @@ export default async function Home() {
       <ProducersSection />
       <PromiseSection />
       <AboutSection />
-      <ReviewsSection />
       <LatestNewslettersSection />
       <BlogSection />
       <NewsletterSection />
