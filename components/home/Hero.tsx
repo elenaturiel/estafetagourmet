@@ -59,12 +59,11 @@ export function Hero({ featuredLot }: { featuredLot?: Product }) {
           <div className="arch overflow-hidden">
             <ImagePlaceholder
               label="Foto de portada · tabla de quesos, embutidos y vino navarro"
-              src="/images/portada/portada.webp"
-              alt="Botella de Chivite Las Fincas rosado y una copa, con queso, piquillos, txistorra y alcachofas sobre una mesa de madera"
+              src="/images/portada/portada-chivite-pizarra.webp"
+              alt="Botella de Chivite Las Fincas rosado y una copa, con espárragos, queso, piquillos, alcachofas, tomates cherry y txistorra sobre una pizarra"
               ratio="4 / 5"
               sizes="(min-width: 1024px) 45vw, 100vw"
               priority
-              parallax
             />
           </div>
           <Stamp className="drift-down absolute -top-4 -left-4 w-[112px] sm:w-[136px] lg:-left-12 lg:w-[150px]" />
