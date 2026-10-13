@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getNewsletters } from "@/lib/newsletters";
 import { SITE_URL } from "@/data/site";
-import { getAllProducts, getCategories } from "@/lib/catalog";
+import { getAllProducts, getCategories, getPosts } from "@/lib/catalog";
 import { productHref } from "@/lib/product-utils";
 
 const staticPaths = [
@@ -11,6 +11,7 @@ const staticPaths = [
   "/maridajes",
   "/productores",
   "/newsletter",
+  "/blog",
   "/visitanos",
   "/envios-y-devoluciones",
   "/condiciones-de-venta",
@@ -23,12 +24,18 @@ const staticPaths = [
 export const revalidate = 300;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categories, products, newsletters] = await Promise.all([getCategories(), getAllProducts(), getNewsletters()]);
+  const [categories, products, newsletters, posts] = await Promise.all([
+    getCategories(),
+    getAllProducts(),
+    getNewsletters(),
+    getPosts(),
+  ]);
   const paths = [
     ...staticPaths,
     ...categories.filter((c) => !c.href).map((c) => `/tienda/${c.slug}`),
     ...products.map(productHref),
     ...newsletters.map((n) => `/newsletter/${n.slug}`),
+    ...posts.map((p) => `/blog/${p.slug}`),
   ];
   return paths.map((path) => ({
     url: `${SITE_URL}${path === "/" ? "" : path}`,

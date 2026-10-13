@@ -11,7 +11,7 @@ export async function LatestNewslettersSection() {
       <SectionHeader
         id="boletines-title"
         eyebrow="Newsletter"
-        title="De la huerta a la despensa"
+        title="Producto navarro, a fondo"
         subtitle="Cada boletín cuenta un producto de Navarra: de dónde viene, cómo reconocerlo y cómo disfrutarlo."
         action={<ArrowLink href="/newsletter">Ver todos los boletines</ArrowLink>}
       />
