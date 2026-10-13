@@ -59,46 +59,10 @@ function uniqueSlug(name: string): string {
 
 /**
  * Precios de venta (IVA incluido) que mandan sobre los de la hoja de cálculo,
- * por título exacto de la hoja. Vienen de las tablas de precios de la tienda.
+ * por título exacto de la hoja. Vacío: los precios salen de la columna
+ * «PVP final» de la plantilla de artículos (PLANTILLA_ARTÍCULOS.xlsx).
  */
-const PRICES: Record<string, number> = {
-  "CHIVITE Blanco COLECCION 125": 28.22,
-  "CHIVITE Blanco las fincas": 8.72,
-  "GRAN CHIVITE LEGARDETA Blanco 2024": 12.02,
-  "GRAN CHIVITE LEGARDETA Tinto 2023": 11.75,
-  "CHIVITE MOSCATEL viejisimo 2025": 7.83,
-  "CHIVITE Rosado COLECCION 125": 28.22,
-  "CHIVITE Rosado Las Fincas": 10.13,
-  "CHIVITE Tinto colección 125": 27.48,
-  "MONJARDIN AOVE arbequina 500ml": 8.63,
-  "MONJARDIN AOVE arbequina 750ml": 11.53,
-  "MONJARDIN Blanco chardonnay gran reserva": 33.75,
-  "MONJARDIN Blanco chardonnay reserva": 23.25,
-  "MONJARDIN Tinto Deyo merlot sin fondo": 12.53,
-  "MONJARDIN Tinto pinot noir sin fondo": 23.25,
-  "MONJARDIN BRUT CHARDONNAY MILLESIME": 18,
-  "MONJARDIN BRUT CHARDONNAY ROSE": 23.25,
-  "MONJARDIN BRUT GRAN RESERVA": 54,
-  "INURRIETA MIMAO tinto ficha": 13.14,
-  "INURRIETA MIMAO puro vicio tinto": 26.79,
-  "INURRIETA MIMAO laderas tinto": 36,
-  "INURRIETA BLANCO orchidea cuvee": 12.89,
-  "INURRIETA TINTO altos de inurrieta": 16.14,
-  "INURRIETA BLANCO MIMAO": 10.2,
-  "INURRIETA BLANCO orchidea": 7.88,
-  "INURRIETA ESTUCHE Orchidea Mediodia Cuatrocientos": 7.88,
-  "INURRIETA ESTUCHE Orchidea Altos Cuatrocientos": 43.95,
-  "INURRIETA ESTUCHE MADERA Orchidea CuveeLaderas Puro Vicio": 26.79,
-  "INURRIETA ROSADO mediodia": 6.36,
-  "KATEALDE Foie gras barqueta micuit": 28.25,
-  "KATEALDE Bloc de foie pato con trufa": 11.57,
-  "KATEALDE Bloc de foie pato con champagne": 9.44,
-  "KATEALDE Paté de foie al oporto": 4.22,
-  "KATEALDE Paté de montaña": 3.19,
-  "KATEALDE Confit de pato muslos 2": 20.88,
-  "KATEALDE Confit de pato alas": 18.84,
-  "KATEALDE Jamón de pato": 8.58,
-};
+const PRICES: Record<string, number> = {};
 
 /**
  * Fotos propias (diseños de Estafeta Gourmet), por título exacto de la hoja.
@@ -112,14 +76,14 @@ const PHOTOS: Record<string, string> = {
   "NAVARRA NEGRO NARANJA": "/images/productos-estafeta/navarra-negro-naranja.webp",
   "NAVARRA NEGRO PASAS AL RON": "/images/productos-estafeta/navarra-negro-pasas-al-ron.webp",
   "NAVARRA NEGRO PATXARAN": "/images/productos-estafeta/navarra-negro-patxaran.webp",
-  "NAVARRA Chocolate sabor nº1": "/images/productos-estafeta/chocolate-negro-72-vino-tinto.webp",
-  "NAVARRA Chocolate sabor nº2": "/images/productos-estafeta/chocolate-negro-85-arandanos.webp",
-  "NAVARRA Chocolate sabor nº3": "/images/productos-estafeta/chocolate-negro-62-puro.webp",
-  "NAVARRA Chocolate sabor nº4": "/images/productos-estafeta/chocolate-con-leche-cafe-bombon.webp",
-  "NAVARRA Chocolate sabor nº5": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
-  "NAVARRA Chocolate sabor nº6": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
+  "NAVARRA NEGRO VINO TINTO": "/images/productos-estafeta/chocolate-negro-72-vino-tinto.webp",
+  "NAVARRA NEGRO 85% ARANDANOS": "/images/productos-estafeta/chocolate-negro-85-arandanos.webp",
+  "NAVARRA NEGRO 62% S/AZUC": "/images/productos-estafeta/chocolate-negro-62-puro.webp",
+  "NAVARRA CAFE BOMBON S/AZUC": "/images/productos-estafeta/chocolate-con-leche-cafe-bombon.webp",
+  "NAVARRA NEGRO PIPARAS": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
+  "NAVARRA CON LECHE SIDRA Y MANZANA": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
   "NAVARRICO PIQUILLO TIRAS FRASCO 250ml": "/images/productos-estafeta/navarrico-piquillo-tiras-primera.webp",
-  "NAVARRICO ESPÁRRAGOS BRASA": "/images/productos-estafeta/navarrico-esparragos-braseados.webp",
+  "NAVARRICO ESPÁRRAGOS BRASA ALIÑADOS": "/images/productos-estafeta/navarrico-esparragos-braseados.webp",
   "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
 };
 
@@ -136,27 +100,27 @@ function specsOf(sheetName: string): Product["specs"] {
  * la ficha sale del nombre nuevo.
  */
 const RENAMED: Record<string, { name: string; description: string }> = {
-  "NAVARRA Chocolate sabor nº1": {
+  "NAVARRA NEGRO VINO TINTO": {
     name: "Chocolate negro 72 % vino tinto",
     description: "Chocolate artesano negro 72 % cacao con vino tinto: notas de uva madura sobre un cacao intenso. Una tableta para la sobremesa, con una copa de tinto navarro.",
   },
-  "NAVARRA Chocolate sabor nº2": {
+  "NAVARRA NEGRO 85% ARANDANOS": {
     name: "Chocolate negro 85 % arándanos",
     description: "Chocolate artesano negro 85 % cacao con arándanos: el punto ácido de la fruta del bosque frente al amargor del cacao.",
   },
-  "NAVARRA Chocolate sabor nº3": {
+  "NAVARRA NEGRO 62% S/AZUC": {
     name: "Chocolate negro 62 % puro sin azúcar añadido",
     description: "Chocolate artesano negro 62 % cacao, sin azúcar añadido: haba de cacao y vainilla, suave y redondo.",
   },
-  "NAVARRA Chocolate sabor nº4": {
+  "NAVARRA CAFE BOMBON S/AZUC": {
     name: "Chocolate con leche café bombón sin azúcar añadido",
     description: "Chocolate artesano con leche, sin azúcar añadido, con sabor a café bombón: café y leche condensada en una tableta cremosa.",
   },
-  "NAVARRA Chocolate sabor nº5": {
+  "NAVARRA NEGRO PIPARAS": {
     name: "Chocolate negro 72 % piparras",
     description: "Chocolate artesano negro 72 % cacao con piparras, la guindilla vasco-navarra: un toque verde y suavemente picante sobre el cacao. Una sorpresa para el aperitivo o la sobremesa.",
   },
-  "NAVARRA Chocolate sabor nº6": {
+  "NAVARRA CON LECHE SIDRA Y MANZANA": {
     name: "Chocolate con leche manzana a la sidra",
     description: "Chocolate artesano con leche, con manzana a la sidra y canela: dulce, afrutado y con el aroma de la sidra.",
   },
@@ -171,7 +135,7 @@ function categoryOf(sheetCategory: string, producerSlug: string, sheetName: stri
   if (sheetCategory !== "dulces") return sheetCategory;
   if (/mermelada/i.test(sheetName)) return "mermeladas";
   if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
-  if (producerSlug === "navarra-en-dulce" && /chocolate|^NAVARRA NEGRO/i.test(sheetName)) return "chocolates";
+  if (producerSlug === "navarra-en-dulce" && !/pastas|galletas/i.test(sheetName)) return "chocolates";
   return sheetCategory;
 }
 

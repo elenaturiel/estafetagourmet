@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Importa el catálogo desde la hoja de cálculo de productos (.ods) y genera
-data/products.generated.ts, que es lo que lee la web.
+Importa el catálogo desde la hoja de cálculo de productos (.xlsx u .ods) y
+genera data/products.generated.ts, que es lo que lee la web.
 
 Uso:
-    python3 scripts/importar-productos.py ruta/a/productos.ods
+    python3 scripts/importar-productos.py ruta/a/PLANTILLA_ARTÍCULOS.xlsx
 
-La hoja debe tener estas columnas (con cabecera en la primera fila):
-    FAMILIA | SUBFAMILIA | ARTICULO | PVP final
+Se lee la primera hoja (en la plantilla, «Plantilla (2)»). Las tres primeras
+columnas deben ser FAMILIA | SUBFAMILIA | ARTICULO (con cabecera en la primera
+fila); el precio sale de la columna cuya cabecera es «PVP final» (en la
+plantilla, la H) o, si no la hay, de la cuarta.
 
 - FAMILIA     → categoría de la tienda (ver FAMILIAS más abajo)
 - SUBFAMILIA  → proveedor / productor (filtro "Productor")
@@ -32,8 +34,6 @@ from xml.etree import ElementTree as ET
 
 # Productos descatalogados: se ignoran aunque sigan en la hoja (título tal cual sale en la web).
 DESCATALOGADOS = {
-    "IRULAR Mermelada patxarán",
-    "ARBIZU Paté de morcilla",
     "LVN CUÑA QUESO DE OVEJA INYECTADO CON ACEITE DE ROMERO 200 G",
     "ECOPRO LOTE EXCLUSICVE 12 ACEITES",
     # Fuera de la plantilla de artículos (PLANTILLA_ARTÍCULOS.xlsx, oct. 2026):
@@ -158,6 +158,43 @@ def precio(txt: str):
     return v if v > 0 else None
 
 
+def leer_xlsx(path: Path):
+    """Filas de la primera hoja de un .xlsx, con cada celda en su columna."""
+    m = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+    r = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
+    z = zipfile.ZipFile(path)
+    textos = []
+    if "xl/sharedStrings.xml" in z.namelist():
+        for si in ET.fromstring(z.read("xl/sharedStrings.xml")).iter(m + "si"):
+            textos.append("".join(t.text or "" for t in si.iter(m + "t")))
+    primera = ET.fromstring(z.read("xl/workbook.xml")).find(f"{m}sheets/{m}sheet")
+    rels = ET.fromstring(z.read("xl/_rels/workbook.xml.rels"))
+    destino = next(x.get("Target") for x in rels if x.get("Id") == primera.get(r + "id"))
+    hoja = ET.fromstring(z.read("xl/" + destino.lstrip("/").removeprefix("xl/")))
+
+    def col(ref: str) -> int:
+        n = 0
+        for ch in re.match(r"[A-Z]+", ref).group():
+            n = n * 26 + ord(ch) - 64
+        return n - 1
+
+    filas = []
+    for fila in hoja.iter(m + "row"):
+        celdas = {}
+        for c in fila.iter(m + "c"):
+            v, t = c.find(m + "v"), c.get("t")
+            if t == "s" and v is not None:
+                txt = textos[int(v.text)]
+            elif t == "inlineStr":
+                txt = "".join(x.text or "" for x in c.iter(m + "t"))
+            else:
+                txt = v.text if v is not None else ""
+            celdas[col(c.get("r"))] = (txt or "").strip()
+        if any(celdas.values()):
+            filas.append([celdas.get(i, "") for i in range(max(celdas) + 1)])
+    return filas
+
+
 def leer_ods(path: Path):
     root = ET.fromstring(zipfile.ZipFile(path).read("content.xml"))
     filas = []
@@ -177,15 +214,17 @@ def leer_ods(path: Path):
 def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
-    filas = leer_ods(Path(sys.argv[1]))
+    ruta = Path(sys.argv[1])
+    filas = leer_xlsx(ruta) if ruta.suffix.lower() == ".xlsx" else leer_ods(ruta)
     cab = [c.upper() for c in filas[0]]
+    col_pvp = next((i for i, c in enumerate(cab) if c.strip() == "PVP FINAL"), 3)
     if not (cab[0].startswith("FAMILIA") and cab[1].startswith("SUBFAMILIA")):
         sys.exit(f"Cabecera inesperada: {filas[0][:4]}")
 
     productos, desconocidas, proveedores = [], Counter(), {}
     for f in filas[1:]:
         familia, sub, art = (f + ["", "", "", ""])[:3]
-        pvp = (f + ["", "", "", ""])[3]
+        pvp = f[col_pvp] if col_pvp < len(f) else ""
         if not (familia and sub and art):
             continue
         cat = FAMILIAS.get(familia.upper())
@@ -214,7 +253,7 @@ def main():
     out = [
         "/**",
         " * GENERADO por scripts/importar-productos.py — no editar a mano.",
-        " * Para actualizar precios o productos: python3 scripts/importar-productos.py <hoja.ods>",
+        " * Para actualizar precios o productos: python3 scripts/importar-productos.py <PLANTILLA_ARTÍCULOS.xlsx>",
         " */",
         "",
         "/** [categoría, proveedor, título del artículo, precio con IVA (null = a consultar)] */",

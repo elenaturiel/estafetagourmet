@@ -53,7 +53,7 @@ export const LOT_RECIPIENTS: Record<string, RecipientSlug[]> = {
 /** Productos sueltos que dan buen regalo (título de la hoja → a quién). */
 const SINGLES: [string, RecipientSlug[]][] = [
   ["INURRIETA TINTO altos de inurrieta", ["padres", "amigos"]],
-  ["SALAMANCA Jamón ibérico bellota 100%", ["padres", "navidad", "empresas"]],
+  ["SALAMANCA Jamón ibérico bellota 50%", ["padres", "navidad", "empresas"]],
   ["LN Patxarán ETXEKO", ["sanfermin", "padres", "amigos"]],
   ["PCIRSUS Tinto SELECCIÓN DE FAMILIA", ["navidad", "padres", "empresas"]],
   ["LVN QUESO RESERVA 1/2 PIEZAS 350 G.", ["padres"]],
@@ -79,7 +79,7 @@ export const GIFT_PRODUCTS: { slug: string; para: RecipientSlug[] }[] = SINGLES.
 const PAIRS: { name: string; blurb: string; titles: [string, string]; para: RecipientSlug[] }[] = [
   { name: "Queso y vino", blurb: "Un queso curado de oveja y un tinto navarro con carácter.", titles: ["LVN QUESO RESERVA 1/2 PIEZAS 350 G.", "INURRIETA TINTO altos de inurrieta"], para: ["padres", "amigos", "pareja"] },
   { name: "Txistorra y patxarán", blurb: "La fiesta navarra en dos productos: la txistorra de siempre y un buen patxarán para el final.", titles: ["ARBIZU Txistorra individual", "LN Patxarán LA NAVARRA"], para: ["sanfermin", "amigos", "eventos", "padres"] },
-  { name: "Jamón y tinto", blurb: "Jamón ibérico de bellota y un tinto joven para abrir sin pensar.", titles: ["SALAMANCA Jamón ibérico bellota 100%", "PCIRSUS VENDIMIA SELECCIONADA"], para: ["navidad", "padres", "pareja"] },
+  { name: "Jamón y tinto", blurb: "Jamón ibérico de bellota y un tinto joven para abrir sin pensar.", titles: ["SALAMANCA Jamón ibérico bellota 50%", "PCIRSUS VENDIMIA SELECCIONADA"], para: ["navidad", "padres", "pareja"] },
   { name: "Foie y mermelada", blurb: "Foie gras de pato con mermelada de higo: el aperitivo que luce en cualquier mesa.", titles: ["KATEALDE Foie gras barqueta micuit", "IRULAR Mermelada higo"], para: ["navidad", "pareja", "eventos"] },
   { name: "Espárragos y blanco", blurb: "Espárragos blancos de Navarra y un blanco fresco para acompañarlos.", titles: ["LC ESPÁRRAGOS 6", "INURRIETA BLANCO orchidea"], para: ["cumpleanos", "amigos", "pareja", "eventos"] },
   { name: "Chocolate y moscatel", blurb: "Chocolate negro 85 % y un moscatel de vendimia tardía: el postre perfecto.", titles: ["LEYRE 85 % 125 GRS.", "OCHOA Moscatel Vendimia Tardía"], para: ["cumpleanos", "pareja", "padres"] },

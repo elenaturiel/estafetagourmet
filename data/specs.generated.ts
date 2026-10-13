@@ -336,7 +336,7 @@ export const specRows: Record<string, SpecRow> = {
     "i": "Aceite de oliva virgen extra (Arbequina)",
     "exact": false
   },
-  "la-maja-aove-alfar-arbequina": {
+  "la-maja-aove-alfar-arbequina-250": {
     "w": "250 ml",
     "i": "Aceite de oliva virgen extra (Arbequina)",
     "p": "Botella de vidrio",
@@ -622,7 +622,7 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Contiene sulfitos",
     "exact": false
   },
-  "irache-tinto-1891-col-priv-chardonnay-sobre-lias": {
+  "irache-blanco-1891-col-priv-chardonnay-sobre-lias": {
     "i": "Uva: Chardonnay",
     "a": "Contiene sulfitos",
     "exact": false
@@ -697,13 +697,13 @@ export const specRows: Record<string, SpecRow> = {
     "o": "Añada 2025. 13 % vol.",
     "exact": true
   },
-  "gran-chivite-legardeta-blanco-2024": {
+  "gran-chivite-legardeta-blanco": {
     "i": "Uva: Chardonnay",
     "a": "Contiene sulfitos",
     "o": "Ficha actual: añada 2025, 13,5 % vol. (tu hoja: 2024)",
     "exact": true
   },
-  "gran-chivite-legardeta-tinto-2023": {
+  "gran-chivite-legardeta-tinto": {
     "i": "Uva: Syrah, Garnacha, Tempranillo",
     "a": "Contiene sulfitos",
     "o": "Ficha actual: añada 2024, 14 % vol. (tu hoja: 2023)",
@@ -1147,7 +1147,7 @@ export const specRows: Record<string, SpecRow> = {
     "o": "EAN 8436534950610 (6 alas)",
     "exact": true
   },
-  "katealde-jamon-de-pato": {
+  "katealde-jamon-de-pato-loncheado-100g": {
     "w": "Fileteado 100 g",
     "i": "Pechuga de pato, sal, especias naturales, conservador: nitrato potásico.",
     "a": "Ninguno en la lista de ingredientes",
