@@ -78,13 +78,19 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   return (await allPosts()).find((p) => p.slug === slug);
 }
 
-/** Entradas de prueba escritas en el panel que no deben salir en la web (título exacto). Mejor borrarlas en /admin. */
-const HIDDEN_POST_TITLES = new Set(["novedades prueba 1"]);
+/**
+ * Entradas de prueba escritas en el panel que no deben salir en la web, como
+ * "categoría título" o solo "título" (sin distinguir mayúsculas). Mejor borrarlas en /admin.
+ */
+const HIDDEN_POSTS = new Set(["novedades prueba 1", "prueba 1"]);
+const isHidden = (p: Post) =>
+  HIDDEN_POSTS.has(p.title.trim().toLowerCase()) ||
+  HIDDEN_POSTS.has(`${p.category} ${p.title}`.trim().toLowerCase());
 
 /** Las del panel y las de data/posts.ts juntas (si un slug se repite, gana el panel), de la más reciente a la más antigua. */
 async function allPosts(): Promise<Post[]> {
   const fromPanel = ((await getSanityPosts()) ?? []).filter(
-    (p) => !HIDDEN_POST_TITLES.has(p.title.trim().toLowerCase()),
+    (p) => !isHidden(p),
   );
   const taken = new Set(fromPanel.map((p) => p.slug));
   return [...fromPanel, ...posts.filter((p) => !taken.has(p.slug))].sort((a, b) =>
