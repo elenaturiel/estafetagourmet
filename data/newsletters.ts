@@ -311,7 +311,7 @@ export const newsletters: Newsletter[] = [
       products: [
         "LVN CUÑA DE QUESO D.O. IDIAZABAL NAT. 250 G.",
         "LVN CUÑA DE QUESO D.O. IDIAZABAL AHUM. 250 G.",
-        "LVN QUESO OVEJA 1/2 PIEZAS 400 G.",
+        "LVN CUÑA DE QUESO OVEJA V NAVARRA NAT. 250 G.",
         "IRULAR Mermelada higo",
       ],
       cta: { label: "Comprar quesos", href: "/tienda/quesos" },
@@ -454,7 +454,6 @@ export const newsletters: Newsletter[] = [
         "ARBIZU Txistorra individual",
         "ARBIZU Txistorra individual picante",
         "ARBIZU Txistorra individual eco",
-        "ARBIZU Txistorra 1 kg",
       ],
       cta: { label: "Comprar embutidos", href: "/tienda/embutidos" },
     },

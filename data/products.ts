@@ -26,8 +26,8 @@ const DESCRIPTION = "[Descripción del producto: origen, elaboración, conservac
  */
 const FEATURED = [
   "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
-  "LVN QUESO CURADO 1/2 PIEZAS 400 G.",
-  "ARBIZU Txistorra 1 kg",
+  "LVN QUESO RESERVA 1/2 PIEZAS 350 G.",
+  "ARBIZU Txistorra individual",
   "INURRIETA TINTO altos de inurrieta",
 ];
 
@@ -72,7 +72,6 @@ const PRICES: Record<string, number> = {
   "CHIVITE Tinto colección 125": 27.48,
   "MONJARDIN AOVE arbequina 500ml": 8.63,
   "MONJARDIN AOVE arbequina 750ml": 11.53,
-  "MONJARDIN AOVE arbequina 3000ml": 39.15,
   "MONJARDIN Blanco chardonnay gran reserva": 33.75,
   "MONJARDIN Blanco chardonnay reserva": 23.25,
   "MONJARDIN Tinto Deyo merlot sin fondo": 12.53,
@@ -122,7 +121,6 @@ const PHOTOS: Record<string, string> = {
   "NAVARRICO PIQUILLO TIRAS FRASCO 250ml": "/images/productos-estafeta/navarrico-piquillo-tiras-primera.webp",
   "NAVARRICO ESPÁRRAGOS BRASA": "/images/productos-estafeta/navarrico-esparragos-braseados.webp",
   "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
-  "NAVARRA Galletas de patxaran": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
 };
 
 /** Ficha técnica del Excel de ingredientes y alérgenos (data/specs.generated.ts), por título de la hoja. */
