@@ -69,7 +69,7 @@ export default function Page() {
         <li><strong>Vercel</strong>: alojamiento de la web.</li>
         <li><strong>Sanity</strong>: gestión del contenido del blog (no almacena datos de clientes).</li>
         <li><strong>Plataforma de comercio electrónico, pasarela de pago y empresa de transporte</strong>: para cobrar y entregar tu pedido (se concretarán al activar la venta online).</li>
-        <li><strong>Google Maps</strong>: solo si pulsas «Ver mapa interactivo».</li>
+        <li><strong>Google Maps</strong>: el mapa de la sección «Visítanos».</li>
         <li>Administraciones públicas, cuando una ley lo exija.</li>
       </ul>
       <p>
