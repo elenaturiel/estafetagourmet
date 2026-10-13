@@ -108,6 +108,10 @@ FAMILIAS = {
 CORREGIR_TITULO = {
     "LA MAJA AOVE ALFAR ARBEQUINA 250": "LA MAJA AOVE ALFAR ARBEQUINA 1000",
     "LA MAJA AOVE ALFAR ARBEQUINA 1000": "LA MAJA AOVE ALFAR ARBEQUINA 250",
+    # La añada cambia cada año: en la web va sin ella para no cambiar de ficha.
+    "GRAN CHIVITE LEGARDETA Blanco 2024": "GRAN CHIVITE LEGARDETA Blanco",
+    "GRAN CHIVITE LEGARDETA Tinto 2023": "GRAN CHIVITE LEGARDETA Tinto",
+    "CHIVITE COL. 125 VENDIMIA TARDIA. MOSCATEL": "CHIVITE Vendimia Tardía COLECCION 125",
 }
 
 # Proveedores escritos de dos formas en la hoja → forma única

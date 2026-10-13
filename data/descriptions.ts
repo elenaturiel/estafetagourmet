@@ -127,6 +127,7 @@ export const DESCRIPTIONS: Record<string, string> = {
   "gran-chivite-legardeta-blanco": "Vino blanco: fresco y aromático, con buena acidez. Con pescados, mariscos, verduras, arroces y quesos suaves.",
   "gran-chivite-legardeta-tinto": "Vino tinto de Navarra de la bodega: fruta, estructura y sabor con personalidad. Para carnes, guisos y quesos curados.",
   "chivite-moscatel-viejisimo-2025": "Vino dulce de uva moscatel: aromático, goloso y equilibrado por la acidez. Perfecto con postres, quesos azules y foie.",
+  "chivite-vendimia-tardia-coleccion-125": "Vino dulce de vendimia tardía de Chivite Colección 125, de moscatel de grano menudo: uva recogida tarde, ya sobremadura, que da un vino goloso, aromático y fresco a la vez. Para postres, quesos azules, foie y chocolate.",
   "chivite-rosado-coleccion-125": "Vino rosado fresco y afrutado, para aperitivos, ensaladas, arroces y platos ligeros.",
   "chivite-rosado-las-fincas": "Vino rosado fresco y afrutado, para aperitivos, ensaladas, arroces y platos ligeros.",
   "chivite-tinto-coleccion-125": "Vino tinto de Navarra de la bodega: fruta, estructura y sabor con personalidad. Para carnes, guisos y quesos curados.",
