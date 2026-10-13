@@ -36,14 +36,16 @@ export default function Page() {
           mostrártela de nuevo.
         </li>
       </ul>
-      <h3>Opcionales (solo con tu permiso)</h3>
+      <h3>De terceros</h3>
       <ul>
         <li>
-          <strong>Mapa de Google Maps</strong> (Google LLC): el mapa de la sección «Visítanos» no se carga hasta que
-          pulsas «Ver mapa interactivo». Al cargarlo, Google puede instalar sus propias cookies y recibe datos como tu
-          dirección IP. Tu elección se recuerda en este navegador. Más información en la{" "}
-          <a href="https://policies.google.com/technologies/cookies" rel="noopener">política de cookies de Google</a>.
+          <strong>Mapa de Google Maps</strong> (Google LLC): la sección «Visítanos» muestra un mapa de Google Maps. Al
+          cargarlo, Google puede instalar sus propias cookies y recibe datos como tu dirección IP. Más información en
+          la <a href="https://policies.google.com/technologies/cookies" rel="noopener">política de cookies de Google</a>.
         </li>
+      </ul>
+      <h3>Opcionales (solo con tu permiso)</h3>
+      <ul>
         <li>
           <strong>Analítica de uso</strong>: mide qué páginas se visitan para mejorar la web, de forma agregada. Solo se
           activa si pulsas «Aceptar analítica» y no se carga si la rechazas. [Herramienta por definir: se indicará aquí
