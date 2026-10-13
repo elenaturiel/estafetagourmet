@@ -10,12 +10,12 @@ export function AboutSection() {
         <div className="relative">
           <div data-reveal="clip">
           <ImagePlaceholder
-            label="Foto de la tienda · interior, calle Estafeta 70"
-            alt="Interior de la tienda Estafeta Gourmet en la calle Estafeta, 70"
+            label="Foto de la tienda · fachada, calle Estafeta 70"
+            src="/images/tienda/fachada.webp"
+            alt="Fachada de la tienda Estafeta Gourmet en la calle Estafeta, 70, con el escaparate iluminado"
             ratio="640 / 440"
             sizes="(min-width: 1024px) 640px, 100vw"
             className="rounded-eg"
-            parallax
           />
           </div>
           <div className="arch absolute -right-3 -bottom-10 hidden w-[180px] overflow-hidden border-[6px] border-papel sm:block lg:-right-10">
