@@ -63,7 +63,7 @@ export default function Page() {
       <h2>Recogida en tienda</h2>
       <p>
         Puedes recoger tu pedido en {site.address.street}, {site.address.cityShort}, en horario de tienda (
-        {[site.hours.label, site.hours.daysLabel].filter(Boolean).join(" · ")}). Te avisamos cuando esté listo; trae el correo de confirmación y
+        {[site.hours.daysLabel.toLowerCase(), site.hours.label].filter(Boolean).join(", ")}). Te avisamos cuando esté listo; trae el correo de confirmación y
         tu DNI si el pedido incluye alcohol.
       </p>
 
