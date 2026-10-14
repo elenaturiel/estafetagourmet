@@ -2,6 +2,7 @@
  * Filtrado y orden de productos en la tienda.
  * Funciones puras: se usan en cliente y se pueden testear aisladas.
  */
+import type { Locale } from "@/lib/i18n/config";
 import type { Product } from "@/lib/types";
 
 export type SortKey =
@@ -15,14 +16,15 @@ export type SortKey =
 
 export const DEFAULT_SORT: SortKey = "relevancia";
 
-export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
-  { value: "relevancia", label: "Relevancia" },
-  { value: "mas-vendidos", label: "Más vendidos" },
-  { value: "precio-desc", label: "Precio: de mayor a menor" },
-  { value: "precio-asc", label: "Precio: de menor a mayor" },
-  { value: "nombre", label: "Nombre (A–Z)" },
-  { value: "nombre-desc", label: "Nombre (Z–A)" },
-  { value: "productor", label: "Productor (A–Z)" },
+/** Los textos de cada orden están en lib/i18n/messages/shop.ts (browser.sort). */
+export const SORT_OPTIONS: { value: SortKey }[] = [
+  { value: "relevancia" },
+  { value: "mas-vendidos" },
+  { value: "precio-desc" },
+  { value: "precio-asc" },
+  { value: "nombre" },
+  { value: "nombre-desc" },
+  { value: "productor" },
 ];
 
 /** Valida el orden que llega en la URL (?orden=); si no es válido, el de por defecto. */
@@ -84,7 +86,7 @@ export function filterProducts(products: Product[], state: FilterState): Product
   });
 }
 
-export function sortProducts(products: Product[], sort: SortKey): Product[] {
+export function sortProducts(products: Product[], sort: SortKey, locale: Locale = "es"): Product[] {
   const list = [...products];
   // Los productos sin precio van siempre al final al ordenar por precio.
   const priceOf = (p: Product, fallback: number) => p.price ?? fallback;
@@ -108,9 +110,9 @@ export function sortProducts(products: Product[], sort: SortKey): Product[] {
           (a.bestseller ?? Number.MAX_SAFE_INTEGER) - (b.bestseller ?? Number.MAX_SAFE_INTEGER) || relevance(b) - relevance(a),
       );
     case "nombre":
-      return list.sort((a, b) => a.name.localeCompare(b.name, "es"));
+      return list.sort((a, b) => a.name.localeCompare(b.name, locale));
     case "nombre-desc":
-      return list.sort((a, b) => b.name.localeCompare(a.name, "es"));
+      return list.sort((a, b) => b.name.localeCompare(a.name, locale));
     default:
       // Relevancia: a igual puntuación se respeta el orden de la tienda (sort es estable).
       return list.sort((a, b) => relevance(b) - relevance(a));

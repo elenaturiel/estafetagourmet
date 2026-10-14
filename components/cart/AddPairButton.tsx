@@ -3,12 +3,15 @@
 import { useEffect, useState } from "react";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import { fmt } from "@/lib/i18n/config";
+import { useT } from "@/lib/i18n/client";
 import type { CartItemInput } from "./cart-store";
 import { cartUi } from "./cart-ui";
 import { useCart } from "./useCart";
 
 /** Añade a la cesta los dos productos de una pareja con un solo botón. */
 export function AddPairButton({ items, name, className }: { items: CartItemInput[]; name: string; className?: string }) {
+  const t = useT().cart;
   const { add } = useCart();
   const [justAdded, setJustAdded] = useState(false);
 
@@ -29,11 +32,11 @@ export function AddPairButton({ items, name, className }: { items: CartItemInput
         }}
         className={cn(buttonClasses("primary", "sm"), "w-full", className)}
       >
-        {justAdded ? "Añadidos" : "Añadir los dos"}
+        {justAdded ? t.addedPair : t.addPair}
         <span className="sr-only"> ({name})</span>
       </button>
       <span className="sr-only" role="status" aria-live="polite">
-        {justAdded ? `${name}: añadidos los dos productos a la cesta` : ""}
+        {justAdded ? fmt(t.addedPairLive, { name }) : ""}
       </span>
     </>
   );

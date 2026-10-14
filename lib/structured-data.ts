@@ -1,16 +1,17 @@
 import { SITE_URL, isPlaceholder, site } from "@/data/site";
 import type { Product, Producer } from "@/lib/types";
 import { absoluteUrl } from "@/lib/seo";
+import { localePath, type Locale } from "@/lib/i18n/config";
 
 /** Datos estructurados de la tienda física (schema.org LocalBusiness). */
-export function localBusinessJsonLd() {
+export function localBusinessJsonLd(description: string = site.description, locale: Locale = "es") {
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": ["Store", "LocalBusiness"],
     "@id": `${SITE_URL}/#tienda`,
     name: site.name,
-    description: site.description,
-    url: SITE_URL,
+    description,
+    url: absoluteUrl(localePath(locale, "/")),
     telephone: site.phone.international,
     address: {
       "@type": "PostalAddress",
@@ -36,7 +37,8 @@ export function localBusinessJsonLd() {
 }
 
 /** Datos estructurados de una ficha de producto (schema.org Product). */
-export function productJsonLd(product: Product, path: string, producer?: Producer) {
+export function productJsonLd(product: Product, path: string, producer?: Producer, locale: Locale = "es") {
+  path = localePath(locale, path);
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -63,7 +65,7 @@ export function productJsonLd(product: Product, path: string, producer?: Produce
   return data;
 }
 
-export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+export function breadcrumbJsonLd(items: { name: string; path: string }[], locale: Locale = "es") {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -71,7 +73,7 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      item: absoluteUrl(localePath(locale, item.path)),
     })),
   };
 }

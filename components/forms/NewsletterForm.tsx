@@ -1,13 +1,16 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { useId, useRef, useState, type FormEvent } from "react";
 import { EMAIL_RE, inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
-import { submitNewsletter } from "@/lib/forms";
+import { SubscribeError, submitNewsletter } from "@/lib/forms";
+import { useLocale, useT } from "@/lib/i18n/client";
 import { markSubscribed } from "@/components/newsletter/popup-store";
 
 export function NewsletterForm({ source = "portada" }: { source?: "portada" | "web" } = {}) {
+  const t = useT().forms;
+  const locale = useLocale();
   const id = useId();
   const inputId = `${id}-email`;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -18,18 +21,20 @@ export function NewsletterForm({ source = "portada" }: { source?: "portada" | "w
     e.preventDefault();
     const email = new FormData(e.currentTarget).get("email")?.toString().trim() ?? "";
     if (!EMAIL_RE.test(email)) {
-      setError("Escribe un correo electrónico válido, por ejemplo nombre@correo.com.");
+      setError(t.emailInvalid);
       inputRef.current?.focus();
       return;
     }
     setError(undefined);
     setStatus("sending");
     try {
-      await submitNewsletter(email, source);
+      await submitNewsletter(email, source, "", locale);
       markSubscribed();
       setStatus("done");
     } catch (err) {
-      setError((err as Error).message);
+      const kind = err instanceof SubscribeError ? err.kind : "failed";
+      const code = err instanceof SubscribeError && err.code ? ` (${err.code})` : "";
+      setError(kind === "invalid" ? t.emailInvalid : kind === "unavailable" ? t.unavailable : t.subscribeFailed + code);
       setStatus("idle");
     }
   }
@@ -37,7 +42,7 @@ export function NewsletterForm({ source = "portada" }: { source?: "portada" | "w
   if (status === "done") {
     return (
       <p role="status" className="mx-auto mt-8 max-w-md text-[16px] font-medium">
-        ¡Gracias! Te hemos apuntado. Te escribiremos con las novedades de temporada.
+        {t.thanks}
       </p>
     );
   }
@@ -45,7 +50,7 @@ export function NewsletterForm({ source = "portada" }: { source?: "portada" | "w
   return (
     <form onSubmit={onSubmit} noValidate className="mx-auto mt-8 max-w-[560px] text-left">
       <label htmlFor={inputId} className="mb-2 block text-[14px] font-medium">
-        Tu correo electrónico
+        {t.emailLabel}
       </label>
       <div className="flex flex-col gap-3 sm:flex-row">
         <input
@@ -56,7 +61,7 @@ export function NewsletterForm({ source = "portada" }: { source?: "portada" | "w
           autoComplete="email"
           inputMode="email"
           required
-          placeholder="nombre@correo.com"
+          placeholder={t.emailPlaceholder}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${inputId}-error` : undefined}
           className={`${inputClasses} min-h-[52px] flex-1`}
@@ -66,7 +71,7 @@ export function NewsletterForm({ source = "portada" }: { source?: "portada" | "w
           disabled={status === "sending"}
           className={buttonClasses("primary", "md") + " lg:min-h-[52px]"}
         >
-          {status === "sending" ? "Enviando…" : "Suscribirme"}
+          {status === "sending" ? t.sending : t.subscribe}
         </button>
       </div>
       {error ? (
@@ -75,11 +80,11 @@ export function NewsletterForm({ source = "portada" }: { source?: "portada" | "w
         </p>
       ) : null}
       <p className="mt-4 text-center text-[13px] text-secundario">
-        Al suscribirte aceptas la{" "}
+        {t.legalPre}{" "}
         <Link href="/privacidad" className="underline underline-offset-2 hover:text-vino">
-          política de privacidad
+          {t.privacy}
         </Link>
-        . Puedes darte de baja cuando quieras.
+        {t.legalPost}
       </p>
     </form>
   );

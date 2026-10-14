@@ -25,7 +25,7 @@ export function Section({
   "aria-labelledby"?: string;
 }) {
   return (
-    <section className={cn(tones[tone], "py-16 lg:py-24", className)} {...props}>
+    <section className={cn(tones[tone], "py-10 lg:py-24", className)} {...props}>
       <div className={cn("container-site", innerClassName)}>{children}</div>
     </section>
   );
@@ -57,21 +57,21 @@ export function SectionHeader({
     <div
       data-reveal
       className={cn(
-        "mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between lg:mb-10",
+        "mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between lg:mb-10 lg:gap-3",
         className,
       )}
     >
       <div>
         {eyebrow ? (
-          <p className={cn("eyebrow mb-3", tone === "dark" ? "text-dorado" : "text-vino")}>{eyebrow}</p>
+          <p className={cn("eyebrow mb-2 lg:mb-3", tone === "dark" ? "text-dorado" : "text-vino")}>{eyebrow}</p>
         ) : null}
-        <h2 id={id} className="text-[34px] leading-[1.05] tracking-[-0.02em] lg:text-[48px]">
+        <h2 id={id} className="text-[28px] leading-[1.08] tracking-[-0.02em] sm:text-[34px] lg:text-[48px]">
           {title}
         </h2>
         {subtitle ? (
           <p
             className={cn(
-              "mt-3 max-w-xl text-[16px] lg:text-[17px]",
+              "mt-2 max-w-xl text-[15px] lg:mt-3 lg:text-[17px]",
               tone === "dark" ? "text-crema-sobre-vino" : "text-secundario",
             )}
           >

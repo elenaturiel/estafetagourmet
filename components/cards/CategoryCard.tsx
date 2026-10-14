@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { cn } from "@/lib/cn";
 import { categoryHref } from "@/lib/product-utils";
@@ -21,15 +21,15 @@ export function CategoryCard({
           src={category.image.src}
           alt={category.image.src ? category.image.alt : undefined}
           ratio="1 / 1"
-          sizes={size === "sm" ? "(min-width: 1024px) 140px, 38vw" : "(min-width: 1024px) 16vw, 45vw"}
+          sizes={size === "sm" ? "(min-width: 1024px) 140px, 30vw" : "(min-width: 1024px) 16vw, 45vw"}
           className="transition-transform duration-700 ease-out group-hover:scale-[1.08]"
           parallax
         />
       </div>
       <h3
         className={cn(
-          "mt-3 leading-tight group-hover:text-vino",
-          size === "sm" ? "text-[16px] xl:text-[15px]" : "text-[19px] lg:text-[22px]",
+          "mt-2 leading-tight group-hover:text-vino lg:mt-3",
+          size === "sm" ? "text-[14px] sm:text-[16px] xl:text-[15px]" : "text-[19px] lg:text-[22px]",
         )}
       >
         {category.name}

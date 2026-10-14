@@ -1,26 +1,31 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { ButtonLink, buttonClasses } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { MinusIcon, PlusIcon } from "@/components/ui/icons";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
+import { fmt } from "@/lib/i18n/config";
+import { useLocale, useT } from "@/lib/i18n/client";
 import { shippingArea, shippingCost } from "@/lib/shipping";
 import { useCart } from "./useCart";
 
 export function CartView() {
+  const t = useT();
+  const c = t.cart;
+  const locale = useLocale();
   const { lines, count, subtotal, setQuantity, remove } = useCart();
   const shipping = subtotal === null ? null : shippingCost(subtotal);
 
   if (!lines.length) {
     return (
       <div className="border border-linea bg-papel p-8 lg:p-12">
-        <p className="font-serif text-[24px]">Tu cesta está vacía</p>
-        <p className="mt-2 text-secundario">Date una vuelta por la tienda: seguro que algo te tienta.</p>
+        <p className="font-serif text-[24px]">{c.empty}</p>
+        <p className="mt-2 text-secundario">{c.emptyPage}</p>
         <ButtonLink href="/tienda" className="mt-6">
-          Ir a la tienda
+          {c.goShop}
         </ButtonLink>
       </div>
     );
@@ -30,7 +35,7 @@ export function CartView() {
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16">
       <section aria-labelledby="cart-lines">
         <h2 id="cart-lines" className="sr-only">
-          Productos en la cesta
+          {c.products}
         </h2>
         <ul className="border-t border-linea">
           {lines.map((line) => (
@@ -43,19 +48,19 @@ export function CartView() {
                   </Link>
                 </h3>
                 {line.byline ? <p className="text-[13px] text-secundario">{line.byline}</p> : null}
-                <p className="mt-1 text-[15px] font-semibold">{formatPrice(line.price)}</p>
+                <p className="mt-1 text-[15px] font-semibold">{formatPrice(line.price, locale)}</p>
                 <div className="mt-3 flex items-center gap-4">
-                  <div className="inline-flex items-center rounded-eg border border-borde-input" role="group" aria-label={`Cantidad de ${line.name}`}>
+                  <div className="inline-flex items-center rounded-eg border border-borde-input" role="group" aria-label={fmt(c.quantityOf, { name: line.name })}>
                     <button
                       type="button"
                       onClick={() => setQuantity(line.id, line.quantity - 1)}
-                      aria-label={`Quitar una unidad de ${line.name}`}
+                      aria-label={fmt(c.removeOne, { name: line.name })}
                       className="inline-flex h-11 w-11 items-center justify-center hover:text-vino"
                     >
                       <MinusIcon size={16} />
                     </button>
                     <label htmlFor={`qty-${line.id}`} className="sr-only">
-                      Cantidad
+                      {c.quantity}
                     </label>
                     <input
                       id={`qty-${line.id}`}
@@ -73,7 +78,7 @@ export function CartView() {
                     <button
                       type="button"
                       onClick={() => setQuantity(line.id, line.quantity + 1)}
-                      aria-label={`Añadir una unidad de ${line.name}`}
+                      aria-label={fmt(c.addOne, { name: line.name })}
                       className="inline-flex h-11 w-11 items-center justify-center hover:text-vino"
                     >
                       <PlusIcon size={16} />
@@ -84,12 +89,12 @@ export function CartView() {
                     onClick={() => remove(line.id)}
                     className="min-h-[44px] text-[14px] text-secundario underline underline-offset-4 hover:text-vino"
                   >
-                    Quitar<span className="sr-only"> {line.name}</span>
+                    {c.remove}<span className="sr-only"> {line.name}</span>
                   </button>
                 </div>
               </div>
               <p className="hidden text-right text-[16px] font-semibold sm:block">
-                {line.price === null ? "[precio] €" : formatPrice(line.price * line.quantity)}
+                {line.price === null ? c.pricePlaceholder : formatPrice(line.price * line.quantity, locale)}
               </p>
             </li>
           ))}
@@ -98,40 +103,41 @@ export function CartView() {
 
       <aside aria-labelledby="cart-summary" className="h-fit border border-linea bg-papel p-6 lg:p-8">
         <h2 id="cart-summary" className="font-serif text-[24px]">
-          Resumen
+          {c.summary}
         </h2>
         <dl className="mt-5 space-y-2 text-[15px]">
           <div className="flex justify-between">
-            <dt>Productos</dt>
+            <dt>{c.items}</dt>
             <dd className="tabular-nums">{count}</dd>
           </div>
           <div className="flex justify-between">
-            <dt>Subtotal</dt>
-            <dd className="font-semibold tabular-nums">{formatPrice(subtotal)}</dd>
+            <dt>{c.subtotal}</dt>
+            <dd className="font-semibold tabular-nums">{formatPrice(subtotal, locale)}</dd>
           </div>
           <div className="flex justify-between">
-            <dt>Envío</dt>
-            <dd className="tabular-nums">{shipping === null ? "A confirmar" : shipping === 0 ? "Gratis" : formatPrice(shipping)}</dd>
+            <dt>{c.shipping}</dt>
+            <dd className="tabular-nums">{shipping === null ? c.toConfirm : shipping === 0 ? c.free : formatPrice(shipping, locale)}</dd>
           </div>
           <div className="flex justify-between border-t border-linea pt-2 text-[17px]">
-            <dt className="font-semibold">Total</dt>
+            <dt className="font-semibold">{c.total}</dt>
             <dd className="font-semibold tabular-nums">
-              {subtotal === null || shipping === null ? "A confirmar" : formatPrice(subtotal + shipping)}
+              {subtotal === null || shipping === null ? c.toConfirm : formatPrice(subtotal + shipping, locale)}
             </dd>
           </div>
         </dl>
         <p className="mt-4 text-[13px] text-secundario">
-          IVA incluido. Envío {formatPrice(site.shipping.cost)} para pedidos de hasta {site.shipping.maxWeightKg} kg y gratis
-          desde {site.shipping.freeShippingFrom} €; por encima de {site.shipping.maxWeightKg} kg te confirmamos el precio
-          del envío antes de cobrarlo. {shippingArea}
+          {fmt(c.shippingNote, {
+            cost: formatPrice(site.shipping.cost, locale),
+            kg: site.shipping.maxWeightKg,
+            from: site.shipping.freeShippingFrom,
+            area: shippingArea(c, t.common.site.noDelivery),
+          })}
         </p>
         {lines.some((l) => /^\/tienda\/(vinos|espumosos|bebidas|lotes)\//.test(l.href)) ? (
           <p className="mt-4 border border-linea bg-crema p-3 text-[13px] leading-snug text-secundario">
-            <strong className="text-tinta">Bebidas alcohólicas (+18).</strong> Solo las entregamos a mayores de 18 años:
-            el transportista puede pedir el DNI y, al recoger en tienda, también. Al pagar tendrás que confirmar que eres
-            mayor de edad.{" "}
+            <strong className="text-tinta">{c.alcoholTitle}</strong> {c.alcoholText}{" "}
             <Link href="/condiciones-de-venta" className="font-semibold text-vino underline underline-offset-2">
-              Más información
+              {c.moreInfo}
             </Link>
           </p>
         ) : null}
@@ -145,14 +151,14 @@ export function CartView() {
           aria-describedby="checkout-note"
           className={cn(buttonClasses("primary", "md"), "mt-6 w-full")}
         >
-          Finalizar pedido
+          {c.checkout}
         </button>
         <p id="checkout-note" className="mt-3 text-[13px] text-secundario">
-          El pago online estará disponible muy pronto. Mientras tanto, llámanos al{" "}
+          {c.checkoutNote.split("{phone}")[0]}
           <a href={site.phone.href} className="font-semibold text-vino underline underline-offset-2">
             {site.phone.display}
-          </a>{" "}
-          o pasa por la tienda.
+          </a>
+          {c.checkoutNote.split("{phone}")[1]}
         </p>
       </aside>
     </div>

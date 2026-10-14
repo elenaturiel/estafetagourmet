@@ -1,15 +1,17 @@
 import { site } from "@/data/site";
-import { t } from "@/lib/i18n";
+import { fmt } from "@/lib/i18n/config";
+import { getT } from "@/lib/i18n/server";
 
-export function TopBar() {
+export async function TopBar() {
+  const t = await getT();
   const items = [
-    t.topBar.shipping,
-    t.topBar.pickup,
-    t.topBar.freeShipping(site.shipping.freeShippingFrom),
+    t.common.topBar.shipping,
+    t.common.topBar.pickup,
+    fmt(t.common.topBar.freeShipping, { amount: site.shipping.freeShippingFrom }),
   ];
   return (
-    <aside aria-label="Información de envíos" className="on-dark bg-tinta text-crema">
-      <div className="container-site flex min-h-10 items-center justify-center py-2 text-[13px] leading-tight sm:text-[14px]">
+    <aside aria-label={t.common.topBar.label} className="on-dark bg-tinta text-crema">
+      <div className="container-site flex min-h-9 items-center justify-center py-1.5 text-[12px] leading-tight sm:text-[14px] lg:min-h-10 lg:py-2">
         {/* En móvil solo cabe un mensaje; en escritorio se muestran los tres. */}
         <p className="text-center md:hidden">{items[0]}</p>
         <ul className="hidden items-center gap-12 md:flex">

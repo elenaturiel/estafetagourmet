@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@/components/ui/Link";
 import { useEffect, useRef, useState } from "react";
 import { cartUi } from "@/components/cart/cart-ui";
 import { useCart } from "@/components/cart/useCart";
@@ -19,7 +18,8 @@ import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
-import { t } from "@/lib/i18n";
+import { fmt, localePath, locales, localeNames, type Locale } from "@/lib/i18n/config";
+import { useLocale, usePath, useT } from "@/lib/i18n/client";
 import { Logo } from "./Logo";
 
 export type HeaderCategory = {
@@ -57,7 +57,9 @@ export function Header({
   /** Los lotes de siempre (sin los de ocasión), para el menú "Lotes". */
   lots: HeaderLot[];
 }) {
-  const pathname = usePathname();
+  const pathname = usePath();
+  const t = useT();
+  const locale = useLocale();
   const { count } = useCart();
   const menuRef = useRef<HTMLDialogElement>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -97,12 +99,12 @@ export function Header({
     <button
       type="button"
       onClick={() => cartUi.setOpen(true)}
-      aria-label={t.header.cartAria(count)}
+      aria-label={count === 1 ? t.common.header.cartOne : fmt(t.common.header.cartMany, { n: count })}
       aria-haspopup="dialog"
       className="relative inline-flex h-11 items-center gap-2 rounded-eg px-2 text-[15px] font-medium hover:text-vino lg:border lg:border-tinta lg:px-4 lg:hover:border-vino"
     >
       <CartIcon size={22} />
-      <span className="hidden lg:inline">{t.header.cart(count)}</span>
+      <span className="hidden lg:inline">{fmt(t.common.header.cart, { n: count })}</span>
       {count > 0 ? (
         <span
           aria-hidden="true"
@@ -130,7 +132,7 @@ export function Header({
           <button
             type="button"
             className={cn(iconButton, "-ml-2.5 lg:hidden")}
-            aria-label={t.header.openMenu}
+            aria-label={t.common.header.openMenu}
             aria-haspopup="dialog"
             aria-expanded={menuOpen}
             onClick={() => {
@@ -147,8 +149,9 @@ export function Header({
               width={300}
               frameX={8}
               frameY={8}
-              placeholder={t.header.searchPlaceholder}
-              label={t.header.search}
+              placeholder={t.common.header.searchPlaceholder}
+              action={localePath(locale, "/buscar")}
+              label={t.common.header.search}
             />
           </div>
         </div>
@@ -160,7 +163,7 @@ export function Header({
           <Link
             href="/buscar"
             className={cn(iconButton, "lg:hidden")}
-            aria-label={t.header.search}
+            aria-label={t.common.header.search}
           >
             <SearchIcon size={22} />
           </Link>
@@ -170,21 +173,21 @@ export function Header({
 
       {/* Fila de navegación (escritorio): ver SiteNav.tsx */}
       <SiteNav
-        label={t.nav.label}
+        label={t.common.nav.label}
         items={mainNav.map((item) => ({
           value: item.key,
-          label: t.nav[item.key],
+          label: t.common.nav[item.key],
           href: item.href,
           current: isActive(pathname, item.href),
           ...(item.key === "lots"
             ? {
-                panelLabel: "Ver ideas de regalo",
+                panelLabel: t.common.header.lotsPanel,
                 panel: <GiftsMenu lots={lots} />,
               }
             : {}),
           ...(item.key === "shop"
             ? {
-                panelLabel: "Ver categorías de la tienda",
+                panelLabel: t.common.header.shopPanel,
                 panel: (
                   <MegaMenu categories={categories} featuredLot={featuredLot} />
                 ),
@@ -193,93 +196,105 @@ export function Header({
         }))}
       />
 
-      {/* Menú móvil */}
+      {/* Menú móvil: solo texto (sin fotos), a pantalla completa */}
       <dialog
         ref={menuRef}
-        aria-label={t.nav.label}
+        aria-label={t.common.nav.label}
         onClose={() => setMenuOpen(false)}
-        className="m-0 h-dvh max-h-none w-full max-w-sm bg-crema text-tinta backdrop:bg-tinta/50"
+        className="m-0 h-dvh max-h-none w-full max-w-none bg-crema text-tinta backdrop:bg-tinta/50"
       >
-        <div className="flex h-[72px] items-center justify-between border-b border-linea px-6">
-          <span className="font-serif text-[22px]">{site.name}</span>
+        <div className="flex h-[60px] items-center justify-between border-b border-linea px-4">
+          <span className="font-serif text-[20px]">{site.name}</span>
           <button
             type="button"
-            className={cn(iconButton, "-mr-2.5")}
-            aria-label={t.header.closeMenu}
+            className={cn(iconButton, "-mr-2")}
+            aria-label={t.common.header.closeMenu}
             onClick={() => menuRef.current?.close()}
           >
             <CloseIcon size={24} />
           </button>
         </div>
-        <nav aria-label={t.nav.label} className="px-6 pt-2 pb-8">
-          <p className="eyebrow mt-4 mb-3 text-[12px] text-vino">
-            Compra por categoría
-          </p>
-          <ul className="grid grid-cols-4 gap-x-3 gap-y-4">
-            {categories.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={c.href}
-                  onClick={() => menuRef.current?.close()}
-                  className="block text-center text-[12px] leading-tight font-medium"
-                >
-                  <ImagePlaceholder
-                    label=""
-                    src={c.src}
-                    ratio="1 / 1"
-                    sizes="80px"
-                    className="arch mb-1.5"
-                  />
-                  {c.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <p className="eyebrow mt-6 mb-3 text-[12px] text-vino">
-            Ideas de regalo
-          </p>
-          <ul className="flex flex-wrap gap-2">
-            {RECIPIENTS.map((r) => (
-              <li key={r.slug}>
-                <Link
-                  href={giftsHref(r.slug)}
-                  onClick={() => menuRef.current?.close()}
-                  className="inline-flex min-h-[44px] items-center rounded-full border border-tinta px-4 text-[14px] font-semibold"
-                >
-                  {r.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul className="mt-6 border-t border-linea">
+        <nav aria-label={t.common.nav.label} className="flex h-[calc(100dvh-60px)] flex-col overflow-y-auto px-4 pb-8">
+          <ul>
             {mainNav.map((item) => {
               const active = isActive(pathname, item.href);
+              const link = cn(
+                "flex min-h-[54px] items-center justify-between font-serif text-[21px]",
+                active && "text-vino",
+              );
+              if (item.key === "shop") {
+                return (
+                  <li key={item.href} className="border-b border-linea">
+                    <details className="group">
+                      <summary className={cn(link, "cursor-pointer list-none [&::-webkit-details-marker]:hidden")}>
+                        {t.common.nav[item.key]}
+                        <span aria-hidden="true" className="text-vino transition-transform group-open:rotate-45">
+                          +
+                        </span>
+                      </summary>
+                      <ul className="grid grid-cols-2 gap-x-4 pb-4">
+                        <li className="col-span-2">
+                          <Link
+                            href="/tienda"
+                            onClick={() => menuRef.current?.close()}
+                            className="inline-flex min-h-[44px] items-center text-[16px] font-semibold text-vino"
+                          >
+                            {t.common.header.allProducts} →
+                          </Link>
+                        </li>
+                        {categories.map((c) => (
+                          <li key={c.slug}>
+                            <Link
+                              href={c.href}
+                              onClick={() => menuRef.current?.close()}
+                              className="flex min-h-[44px] items-center text-[16px]"
+                            >
+                              {c.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  </li>
+                );
+              }
               return (
                 <li key={item.href} className="border-b border-linea">
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     onClick={() => menuRef.current?.close()}
-                    className={cn(
-                      "flex min-h-[56px] items-center font-serif text-[22px]",
-                      active && "text-vino",
-                    )}
+                    className={link}
                   >
-                    {t.nav[item.key]}
+                    {t.common.nav[item.key]}
                   </Link>
                 </li>
               );
             })}
           </ul>
-          <div className="mt-8 space-y-1 text-[14px] text-secundario">
-            <p>
+          <p className="eyebrow mt-6 mb-2 text-[12px] text-vino">{t.common.header.giftIdeas}</p>
+          <ul className="flex flex-wrap gap-2">
+            {RECIPIENTS.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={giftsHref(r.slug)}
+                  onClick={() => menuRef.current?.close()}
+                  className="inline-flex min-h-[40px] items-center rounded-full border border-tinta px-3.5 text-[14px] font-semibold"
+                >
+                  {t.gifts.recipients[r.slug].short}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-auto pt-8">
+            <p className="text-[14px] text-secundario">
               <a href={site.phone.href} className="font-semibold text-vino">
                 {site.phone.display}
               </a>{" "}
               · {site.address.street}
             </p>
+            <LanguageSwitcher className="mt-4 flex" />
           </div>
-          <LanguageSwitcher className="mt-6 flex" />
         </nav>
       </dialog>
     </header>
@@ -293,12 +308,13 @@ function MegaMenu({
   categories: HeaderCategory[];
   featuredLot?: HeaderLot;
 }) {
+  const t = useT();
   return (
     <div id="mega-tienda">
       <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 xl:gap-12 py-8">
         <div>
           <p className="eyebrow mb-4 text-[12px] text-vino">
-            Compra por categoría
+            {t.common.header.byCategory}
           </p>
           {/*
             Al pasar el ratón (o con el foco del teclado) la categoría crece y
@@ -342,7 +358,7 @@ function MegaMenu({
             >
               <div className="overflow-hidden">
                 <ImagePlaceholder
-                  label="Foto · lote"
+                  label={t.common.header.lotPhoto}
                   src={featuredLot.src}
                   alt={featuredLot.src ? featuredLot.name : undefined}
                   ratio="16 / 9"
@@ -353,13 +369,13 @@ function MegaMenu({
               </div>
               <div className="p-5">
                 <p className="eyebrow text-[11px] text-dorado">
-                  Lote destacado
+                  {t.common.header.featuredLot}
                 </p>
                 <p className="mt-1 font-serif text-[20px] leading-tight">
                   {featuredLot.name}
                 </p>
                 <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
-                  Descúbrelo →
+                  {t.common.header.discover}
                 </p>
               </div>
             </Link>
@@ -368,7 +384,7 @@ function MegaMenu({
             href="/tienda"
             className="inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
           >
-            Ver toda la tienda →
+            {t.common.header.seeShop}
           </Link>
         </div>
       </div>
@@ -378,9 +394,10 @@ function MegaMenu({
 
 /** "Ideas de regalo": a quién se lo regalas, para filtrar la página /regalos. */
 function GiftLinks() {
+  const t = useT();
   return (
     <div>
-      <p className="eyebrow mb-3 text-[12px] text-vino">Ideas de regalo</p>
+      <p className="eyebrow mb-3 text-[12px] text-vino">{t.common.header.giftIdeas}</p>
       <ul className="flex flex-wrap gap-2">
         {RECIPIENTS.map((r) => (
           <li key={r.slug}>
@@ -388,7 +405,7 @@ function GiftLinks() {
               href={giftsHref(r.slug)}
               className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
             >
-              {r.short}
+              {t.gifts.recipients[r.slug].short}
             </Link>
           </li>
         ))}
@@ -397,7 +414,7 @@ function GiftLinks() {
         href={giftsHref()}
         className="mt-2 inline-flex min-h-[36px] items-center text-[14px] font-semibold text-vino hover:underline"
       >
-        Todas las ideas de regalo →
+        {t.common.header.allGiftIdeas}
       </Link>
     </div>
   );
@@ -408,10 +425,11 @@ function GiftLinks() {
  * "¿Buscando un regalo?" con las ocasiones y destinatarios.
  */
 function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
+  const t = useT();
   return (
     <div className="container-site grid grid-cols-[minmax(0,1fr)_380px] gap-8 py-8 xl:gap-12">
       <div>
-        <p className="eyebrow mb-4 text-[12px] text-vino">Nuestros lotes</p>
+        <p className="eyebrow mb-4 text-[12px] text-vino">{t.common.header.ourLots}</p>
         <ul className="grid grid-cols-2 gap-x-6 gap-y-3 xl:grid-cols-3">
           {lots.map((lot) => (
             <li key={lot.href}>
@@ -436,7 +454,7 @@ function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
                   </span>
                   <span className="mt-0.5 block text-[13px] text-secundario">
                     {lot.price === null
-                      ? "Precio a consultar"
+                      ? t.common.header.priceOnRequest
                       : formatPrice(lot.price)}
                   </span>
                 </span>
@@ -448,14 +466,14 @@ function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
           href="/tienda/lotes"
           className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
         >
-          Ver todos los lotes →
+          {t.common.header.seeAllLots}
         </Link>
       </div>
       <div className="self-start border border-linea bg-papel p-6">
         <p className="font-serif text-[30px] leading-[1.1] tracking-[-0.02em] text-vino italic">
-          ¿Buscando un regalo?
+          {t.common.header.lookingForGift}
         </p>
-        <p className="mt-1 text-[13px] text-secundario">tenemos la solución</p>
+        <p className="mt-1 text-[13px] text-secundario">{t.common.header.haveSolution}</p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {RECIPIENTS.map((r) => (
             <li key={r.slug}>
@@ -463,7 +481,7 @@ function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
                 href={giftsHref(r.slug)}
                 className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
               >
-                {r.short}
+                {t.gifts.recipients[r.slug].short}
               </Link>
             </li>
           ))}
@@ -472,41 +490,49 @@ function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
           href={giftsHref()}
           className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
         >
-          Todas las ideas de regalo →
+          {t.common.header.allGiftIdeas}
         </Link>
       </div>
     </div>
   );
 }
 
-/**
- * Selector de idioma. De momento solo está publicado el español; "EN" se
- * muestra desactivado hasta activar la versión inglesa (ver lib/i18n).
- */
+/** Selector de idioma: ES · EN · FR. Lleva a la misma página en el otro idioma. */
 function LanguageSwitcher({ className }: { className?: string }) {
+  const t = useT();
+  const current = useLocale();
+  const path = usePath();
   return (
     <div
       role="group"
-      aria-label={t.header.languageLabel}
-      className={cn(
-        "items-center gap-1 text-[13px] font-semibold tracking-[0.04em]",
-        className,
-      )}
+      aria-label={t.common.header.languageLabel}
+      className={cn("items-center gap-1 text-[13px] font-semibold tracking-[0.04em]", className)}
     >
-      <span aria-current="true" lang="es" className="text-vino">
-        ES
-      </span>
-      <span aria-hidden="true" className="text-secundario">
-        ·
-      </span>
-      <span
-        lang="en"
-        aria-disabled="true"
-        title={t.header.languageSoon}
-        className="cursor-not-allowed text-secundario"
-      >
-        EN<span className="sr-only"> ({t.header.languageSoon})</span>
-      </span>
+      {locales.map((l: Locale, i) => (
+        <span key={l} className="inline-flex items-center gap-1">
+          {i > 0 ? (
+            <span aria-hidden="true" className="text-secundario">
+              ·
+            </span>
+          ) : null}
+          {l === current ? (
+            <span aria-current="true" lang={l} className="inline-flex min-h-[40px] items-center px-1.5 text-vino lg:min-h-0 lg:px-0">
+              {l.toUpperCase()}
+            </span>
+          ) : (
+            <a
+              href={localePath(l, path)}
+              lang={l}
+              hrefLang={l}
+              aria-label={t.common.languageSwitch[l]}
+              title={localeNames[l]}
+              className="inline-flex min-h-[40px] items-center px-1.5 text-secundario hover:text-vino lg:min-h-0 lg:px-0"
+            >
+              {l.toUpperCase()}
+            </a>
+          )}
+        </span>
+      ))}
     </div>
   );
 }

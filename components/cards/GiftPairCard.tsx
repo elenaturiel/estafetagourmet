@@ -1,13 +1,14 @@
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { AddPairButton } from "@/components/cart/AddPairButton";
 import { ButtonLink } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { formatPrice } from "@/lib/format";
+import { getLocale, getT } from "@/lib/i18n/server";
 import { productByline, productHref } from "@/lib/product-utils";
 import type { Producer, Product } from "@/lib/types";
 
 /** Pareja de productos que se regalan juntos: dos fotos, el motivo y un botón que añade los dos. */
-export function GiftPairCard({
+export async function GiftPairCard({
   name,
   blurb,
   products,
@@ -18,6 +19,8 @@ export function GiftPairCard({
   products: [Product, Product];
   producers: Record<string, Producer>;
 }) {
+  const [t, locale] = await Promise.all([getT(), getLocale()]);
+  const g = t.pages.gifts;
   const prices = products.map((p) => p.price);
   const total = prices.every((p): p is number => p !== null) ? prices.reduce((a, b) => a + b, 0) : null;
   const byline = (p: Product) => productByline(p, p.producerSlug ? producers[p.producerSlug] : undefined);
@@ -31,7 +34,7 @@ export function GiftPairCard({
           </Link>
         ))}
       </div>
-      <h3 className="mt-4 text-[22px] leading-snug tracking-[-0.015em]">{name}</h3>
+      <h3 className="mt-3 text-[20px] leading-snug tracking-[-0.015em] lg:mt-4 lg:text-[22px]">{name}</h3>
       <p className="mt-1 text-[15px] leading-[1.5] text-secundario">{blurb}</p>
       <ul className="mt-3 space-y-1 text-[14px]">
         {products.map((p) => (
@@ -43,18 +46,18 @@ export function GiftPairCard({
           </li>
         ))}
       </ul>
-      <div className="mt-auto flex flex-col gap-3 pt-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-auto flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between lg:pt-5">
         {total === null ? (
-          <p className="text-[15px] font-semibold text-secundario">Precio a consultar</p>
+          <p className="text-[15px] font-semibold text-secundario">{g.priceOnRequest}</p>
         ) : (
           <p className="text-[18px] font-semibold tabular-nums">
-            {formatPrice(total)} <span className="text-[13px] font-normal text-secundario">los dos</span>
+            {formatPrice(total, locale)} <span className="text-[13px] font-normal text-secundario">{g.both}</span>
           </p>
         )}
         <div className="sm:w-auto">
           {total === null ? (
             <ButtonLink href="/visitanos#contacto" variant="secondary" size="sm" className="w-full sm:w-auto sm:px-5">
-              Consultar
+              {g.consult}
             </ButtonLink>
           ) : (
             <AddPairButton

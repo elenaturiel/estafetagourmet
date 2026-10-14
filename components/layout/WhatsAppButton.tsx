@@ -1,9 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
+import { fmt } from "@/lib/i18n/config";
+import { usePath, useT } from "@/lib/i18n/client";
 
 /** Ficha de producto: /tienda/<categoria>/<producto>. */
 const PRODUCT_PAGE = /^\/tienda\/[^/]+\/[^/]+\/?$/;
@@ -23,21 +24,20 @@ function chatUrl(message: string) {
  * - Aro que "late" cada pocos segundos.
  */
 export function WhatsAppButton() {
-  const pathname = usePathname();
+  const pathname = usePath();
+  const t = useT().common.whatsapp;
   const onProduct = PRODUCT_PAGE.test(pathname);
 
   const open = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Con el nombre del producto en el mensaje si estamos en su ficha.
     const title = onProduct ? document.querySelector("main h1")?.textContent?.trim() : "";
-    const message = title
-      ? `Hola, os escribo desde la web de Estafeta Gourmet. Me interesa: ${title}`
-      : site.whatsappMessage;
+    const message = title ? fmt(t.productMessage, { product: title }) : t.message;
     e.currentTarget.href = chatUrl(message);
   };
 
   return (
     <aside
-      aria-label="Contacto por WhatsApp"
+      aria-label={t.label}
       className={cn(
         "fixed right-4 z-40 transition-[bottom] duration-300 ease-out",
         "bottom-[calc(var(--cookie-h,0px)+16px)] lg:right-6 lg:bottom-[calc(var(--cookie-h,0px)+24px)]",
@@ -51,12 +51,12 @@ export function WhatsAppButton() {
         className="pointer-events-none absolute inset-0 rounded-full bg-vino animate-[wa-pulse_3.6s_var(--ease-out)_infinite]"
       />
       <a
-        href={chatUrl(site.whatsappMessage)}
+        href={chatUrl(t.message)}
         onClick={open}
         onAuxClick={open}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Escribir por WhatsApp (se abre en otra pestaña)"
+        aria-label={t.aria}
         className="group relative flex h-14 items-center overflow-hidden rounded-full bg-vino text-crema shadow-[0_10px_30px_-8px_rgba(42,31,26,0.55)] transition-[background-color,transform] duration-200 ease-out hover:bg-vino-oscuro focus-visible:bg-vino-oscuro active:scale-95"
       >
         {/* Texto: oculto hasta pasar el ratón / foco (solo con ratón; en móvil, solo el icono) */}
@@ -64,7 +64,7 @@ export function WhatsAppButton() {
           aria-hidden="true"
           className="max-w-0 overflow-hidden pl-0 text-[15px] font-semibold whitespace-nowrap opacity-0 transition-[max-width,opacity,padding] duration-300 ease-out group-focus-visible:max-w-[220px] group-focus-visible:pl-5 group-focus-visible:opacity-100 [@media(hover:hover)]:group-hover:max-w-[220px] [@media(hover:hover)]:group-hover:pl-5 [@media(hover:hover)]:group-hover:opacity-100"
         >
-          Escríbenos por WhatsApp
+          {t.text}
         </span>
         <span className="flex h-14 w-14 shrink-0 items-center justify-center">
           <WhatsAppIcon size={28} />

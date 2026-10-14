@@ -2,8 +2,9 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDownIcon, CloseIcon } from "@/components/ui/icons";
-import type { CategoryGroup } from "@/lib/category-tree";
+import type { CategoryGroup } from "@/lib/category-tree-utils";
 import { cn } from "@/lib/cn";
+import { useT } from "@/lib/i18n/client";
 import { CategoryColumns, CategoryLinks } from "./CategoryLinks";
 
 /**
@@ -21,6 +22,7 @@ export function CategoryMenu({
   current?: string;
   currentName?: string;
 }) {
+  const t = useT().shop.menu;
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -49,17 +51,17 @@ export function CategoryMenu({
   const rest = tree.filter((g) => g.slug !== "comida");
 
   return (
-    <div ref={rootRef} className="relative inline-block">
+    <div ref={rootRef} className="relative block sm:inline-block">
       <button
         ref={buttonRef}
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex min-h-[52px] items-center gap-3 rounded-eg border border-tinta px-5 text-[15px] font-semibold transition-colors hover:bg-tinta hover:text-crema lg:min-h-[48px]"
+        className="inline-flex min-h-[48px] w-full items-center justify-between gap-3 rounded-eg border border-tinta px-4 text-[15px] font-semibold transition-colors hover:bg-tinta hover:text-crema sm:w-auto sm:justify-start lg:px-5"
       >
-        <span className="font-normal opacity-70">Categoría:</span>
-        {currentName ?? "Todas"}
+        <span className="font-normal opacity-70">{t.label}</span>
+        {currentName ?? t.all}
         <ChevronDownIcon size={16} className={cn("transition-transform duration-200", open && "rotate-180")} />
       </button>
 
@@ -69,7 +71,7 @@ export function CategoryMenu({
           <div aria-hidden="true" className="fixed inset-0 z-40 bg-tinta/50 lg:hidden" onClick={() => setOpen(false)} />
           <nav
             id={panelId}
-            aria-label="Categorías de la tienda"
+            aria-label={t.aria}
             className={cn(
               "z-50 bg-crema text-tinta animate-rise",
               // Móvil: hoja inferior. Escritorio: desplegable bajo el botón.
@@ -78,10 +80,10 @@ export function CategoryMenu({
             )}
           >
             <div className="mb-3 flex items-center justify-between lg:hidden">
-              <p className="font-serif text-[22px]">Categorías</p>
+              <p className="font-serif text-[22px]">{t.title}</p>
               <button
                 type="button"
-                aria-label="Cerrar"
+                aria-label={t.close}
                 onClick={() => setOpen(false)}
                 className="-mr-2.5 inline-flex h-11 w-11 items-center justify-center"
               >

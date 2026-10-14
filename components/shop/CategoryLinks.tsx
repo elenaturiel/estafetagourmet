@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import type { CSSProperties } from "react";
 import { cn } from "@/lib/cn";
-import { balanceSections, type CategoryGroup, type CategorySection } from "@/lib/category-tree";
+import { useT } from "@/lib/i18n/client";
+import { balanceSections, type CategoryGroup, type CategorySection } from "@/lib/category-tree-utils";
 
 type LinkOpts = { current?: string; onNavigate?: () => void; showCounts?: boolean };
 
@@ -13,6 +14,7 @@ function SectionBlock({
   showCounts,
   style,
 }: { section: CategorySection; style?: CSSProperties } & LinkOpts) {
+  const t = useT().shop.menu;
   return (
     <div style={style}>
       {section.name ? (
@@ -37,7 +39,7 @@ function SectionBlock({
                 {item.name}
                 {showCounts ? (
                   <span className="text-[12px] font-normal text-secundario">
-                    {item.count > 0 ? `(${item.count})` : "· pronto"}
+                    {item.count > 0 ? `(${item.count})` : t.soon}
                   </span>
                 ) : null}
               </Link>

@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@/components/ui/Link";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { buttonClasses } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CloseIcon, MinusIcon, PlusIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
+import { fmt } from "@/lib/i18n/config";
+import { useLocale, usePath, useT } from "@/lib/i18n/client";
 import { cartUi } from "./cart-ui";
 import { FreeShippingMeter } from "./FreeShippingMeter";
 import { shippingSummary } from "@/lib/shipping";
@@ -17,7 +18,9 @@ import { useCart } from "./useCart";
 export function CartDrawer() {
   const open = useSyncExternalStore(cartUi.subscribe, cartUi.isOpen, cartUi.isOpenServer);
   const ref = useRef<HTMLDialogElement>(null);
-  const pathname = usePathname();
+  const pathname = usePath();
+  const t = useT().cart;
+  const locale = useLocale();
   const { lines, count, subtotal, setQuantity, remove } = useCart();
 
   useEffect(() => {
@@ -43,11 +46,11 @@ export function CartDrawer() {
       <div className="flex h-full flex-col">
         <div className="flex items-center justify-between border-b border-linea px-6 py-4">
           <h2 id="drawer-cart-title" className="font-serif text-[24px]">
-            Tu cesta <span className="text-secundario">({count})</span>
+            {t.title} <span className="text-secundario">({count})</span>
           </h2>
           <button
             type="button"
-            aria-label="Cerrar la cesta"
+            aria-label={t.close}
             onClick={() => cartUi.setOpen(false)}
             className="-mr-2.5 inline-flex h-11 w-11 items-center justify-center hover:text-vino"
           >
@@ -70,7 +73,7 @@ export function CartDrawer() {
                       {line.name}
                     </Link>
                     <p className="shrink-0 text-[15px] font-semibold">
-                      {line.price === null ? "[precio] €" : formatPrice(line.price * line.quantity)}
+                      {line.price === null ? t.pricePlaceholder : formatPrice(line.price * line.quantity, locale)}
                     </p>
                   </div>
                   {line.byline ? <p className="text-[13px] text-secundario">{line.byline}</p> : null}
@@ -79,18 +82,18 @@ export function CartDrawer() {
                       <button
                         type="button"
                         onClick={() => setQuantity(line.id, line.quantity - 1)}
-                        aria-label={`Quitar una unidad de ${line.name}`}
+                        aria-label={fmt(t.removeOne, { name: line.name })}
                         className="inline-flex h-11 w-10 items-center justify-center hover:text-vino"
                       >
                         <MinusIcon size={14} />
                       </button>
-                      <span className="w-6 text-center text-[14px] tabular-nums" aria-label={`Cantidad: ${line.quantity}`}>
+                      <span className="w-6 text-center text-[14px] tabular-nums" aria-label={fmt(t.quantityValue, { n: line.quantity })}>
                         {line.quantity}
                       </span>
                       <button
                         type="button"
                         onClick={() => setQuantity(line.id, line.quantity + 1)}
-                        aria-label={`Añadir una unidad de ${line.name}`}
+                        aria-label={fmt(t.addOne, { name: line.name })}
                         className="inline-flex h-11 w-10 items-center justify-center hover:text-vino"
                       >
                         <PlusIcon size={14} />
@@ -101,7 +104,7 @@ export function CartDrawer() {
                       onClick={() => remove(line.id)}
                       className="min-h-[44px] text-[13px] text-secundario underline underline-offset-4 hover:text-vino"
                     >
-                      Quitar<span className="sr-only"> {line.name}</span>
+                      {t.remove}<span className="sr-only"> {line.name}</span>
                     </button>
                   </div>
                 </div>
@@ -110,10 +113,10 @@ export function CartDrawer() {
           </ul>
         ) : (
           <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-            <p className="font-serif text-[24px]">Tu cesta está vacía</p>
-            <p className="mt-2 text-secundario">Empieza por nuestros favoritos de la casa.</p>
+            <p className="font-serif text-[24px]">{t.empty}</p>
+            <p className="mt-2 text-secundario">{t.emptyDrawer}</p>
             <Link href="/tienda" className={cn(buttonClasses("primary", "md"), "mt-6")}>
-              Ir a la tienda
+              {t.goShop}
             </Link>
           </div>
         )}
@@ -121,20 +124,20 @@ export function CartDrawer() {
         {lines.length ? (
           <div className="border-t border-linea px-6 py-5">
             <div className="flex items-baseline justify-between">
-              <span className="text-[15px]">Subtotal</span>
-              <span className="text-[20px] font-semibold tabular-nums">{formatPrice(subtotal)}</span>
+              <span className="text-[15px]">{t.subtotal}</span>
+              <span className="text-[20px] font-semibold tabular-nums">{formatPrice(subtotal, locale)}</span>
             </div>
-            <p className="mt-1 text-[13px] text-secundario">IVA incluido. Envío {shippingSummary}</p>
+            <p className="mt-1 text-[13px] text-secundario">{fmt(t.vatShipping, { summary: shippingSummary(t, locale) })}</p>
             <div className="mt-4 grid gap-2">
               <Link href="/cesta" className={buttonClasses("primary", "md")}>
-                Ver la cesta y pagar
+                {t.viewCart}
               </Link>
               <button
                 type="button"
                 onClick={() => cartUi.setOpen(false)}
                 className={buttonClasses("secondary", "md")}
               >
-                Seguir comprando
+                {t.keepShopping}
               </button>
             </div>
           </div>

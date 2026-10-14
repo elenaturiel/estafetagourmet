@@ -1,14 +1,17 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { cn } from "@/lib/cn";
-import { t } from "@/lib/i18n";
+import { useT } from "@/lib/i18n/client";
 
 /** Sello circular de la marca, centrado en la cabecera. Se reduce al hacer scroll. */
 export function Logo({ className, compact }: { className?: string; compact?: boolean }) {
+  const t = useT();
   return (
     <Link
       href="/"
-      aria-label={t.header.homeLink}
+      aria-label={t.common.header.homeLink}
       className={cn("inline-flex min-h-[44px] items-center justify-center", className)}
     >
       <Image

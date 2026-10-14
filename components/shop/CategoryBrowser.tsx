@@ -7,6 +7,8 @@ import { inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
 import { ChevronDownIcon, CloseIcon, FilterIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
+import { fmt } from "@/lib/i18n/config";
+import { useLocale, useT } from "@/lib/i18n/client";
 import {
   DEFAULT_SORT,
   SORT_OPTIONS,
@@ -80,6 +82,8 @@ function Browser({
   initial,
   initialSort,
 }: Props & { initial: FilterState; initialSort: SortKey }) {
+  const t = useT().shop.browser;
+  const locale = useLocale();
   const [state, setStateRaw] = useState<FilterState>(initial);
   const [sort, setSortRaw] = useState<SortKey>(initialSort);
   const [limit, setLimit] = useState(PAGE_SIZE);
@@ -105,12 +109,12 @@ function Browser({
     [producers],
   );
   const visible = useMemo(
-    () => sortProducts(filterProducts(products, state), sort),
-    [products, state, sort],
+    () => sortProducts(filterProducts(products, state), sort, locale),
+    [products, state, sort, locale],
   );
   const shown = visible.slice(0, limit);
   const active = countActiveFilters(state);
-  const countLabel = `${visible.length} ${visible.length === 1 ? "producto" : "productos"}`;
+  const countLabel = visible.length === 1 ? t.productOne : fmt(t.productMany, { n: visible.length });
 
   const panel = (idPrefix: string) => (
     <FilterPanel
@@ -127,7 +131,7 @@ function Browser({
   return (
     <div className="grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
       {/* Filtros: barra lateral en escritorio */}
-      <aside aria-label="Filtros" className="hidden lg:block">
+      <aside aria-label={t.filters} className="hidden lg:block">
         {panel("f-desktop")}
         {active > 0 ? (
           <button
@@ -135,13 +139,13 @@ function Browser({
             onClick={() => setState(emptyFilters)}
             className="mt-6 min-h-[44px] text-[14px] font-semibold text-vino underline underline-offset-4"
           >
-            Borrar filtros
+            {t.clear}
           </button>
         ) : null}
       </aside>
 
       <div>
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-2 lg:mb-6 lg:gap-3">
           <p className="text-[14px] text-secundario" role="status" aria-live="polite">
             {countLabel}
           </p>
@@ -150,29 +154,29 @@ function Browser({
               type="button"
               onClick={() => drawerRef.current?.showModal()}
               aria-haspopup="dialog"
-              className={cn(buttonClasses("secondary", "sm"), "flex-1 lg:hidden")}
+              className={cn(buttonClasses("secondary", "sm"), "min-h-[46px] flex-1 lg:hidden")}
             >
               <FilterIcon size={18} />
-              Filtros{active > 0 ? ` (${active})` : ""}
+              {t.filters}{active > 0 ? ` (${active})` : ""}
             </button>
             <div className="flex flex-1 items-center gap-3 sm:flex-none">
               <label htmlFor={sortId} className="hidden text-[14px] whitespace-nowrap sm:block">
-                Ordenar por
+                {t.sortBy}
               </label>
               <div className="relative w-full sm:w-[220px]">
                 <select
                   id={sortId}
                   value={sort}
                   onChange={(e) => setSort(e.target.value as SortKey)}
-                  aria-label="Ordenar por"
+                  aria-label={t.sortBy}
                   className={cn(
                     inputClasses,
-                    "min-h-[52px] appearance-none pr-10 text-[14px] lg:min-h-[44px]",
+                    "min-h-[46px] appearance-none pr-10 text-[14px] lg:min-h-[44px]",
                   )}
                 >
                   {SORT_OPTIONS.map((o) => (
                     <option key={o.value} value={o.value}>
-                      {o.label}
+                      {t.sort[o.value]}
                     </option>
                   ))}
                 </select>
@@ -185,9 +189,9 @@ function Browser({
           </div>
         </div>
 
-        <h2 className="sr-only">Productos</h2>
+        <h2 className="sr-only">{t.products}</h2>
         {visible.length ? (
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-3 lg:gap-x-5">
+          <ul className="grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 lg:gap-x-5 lg:gap-y-10">
             {shown.map((p) => (
               <li key={p.slug}>
                 <ProductCard
@@ -202,26 +206,26 @@ function Browser({
         {visible.length > shown.length ? (
           <div className="mt-12 text-center">
             <p className="text-[14px] text-secundario" aria-live="polite">
-              Mostrando {shown.length} de {visible.length} productos
+              {fmt(t.showing, { shown: shown.length, total: visible.length })}
             </p>
             <button
               type="button"
               onClick={() => setLimit((l) => l + PAGE_SIZE)}
               className={cn(buttonClasses("secondary", "md"), "mt-4")}
             >
-              Ver más productos
+              {t.loadMore}
             </button>
           </div>
         ) : null}
         {visible.length === 0 ? (
           <div className="border border-linea bg-papel p-8 text-center">
-            <p className="font-serif text-[22px]">Ningún producto coincide con estos filtros</p>
+            <p className="font-serif text-[22px]">{t.none}</p>
             <button
               type="button"
               onClick={() => setState(emptyFilters)}
               className={cn(buttonClasses("secondary", "sm"), "mt-5")}
             >
-              Borrar filtros
+              {t.clear}
             </button>
           </div>
         ) : null}
@@ -236,11 +240,11 @@ function Browser({
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-linea px-6 py-3">
             <h2 id="drawer-title" className="font-serif text-[22px]">
-              Filtros
+              {t.filters}
             </h2>
             <button
               type="button"
-              aria-label="Cerrar los filtros"
+              aria-label={t.closeFilters}
               onClick={() => drawerRef.current?.close()}
               className="-mr-2.5 inline-flex h-11 w-11 items-center justify-center"
             >
@@ -254,14 +258,14 @@ function Browser({
               onClick={() => setState(emptyFilters)}
               className={cn(buttonClasses("secondary", "md"), "px-3")}
             >
-              Borrar
+              {t.clearShort}
             </button>
             <button
               type="button"
               onClick={() => drawerRef.current?.close()}
               className={cn(buttonClasses("primary", "md"), "px-3 whitespace-nowrap")}
             >
-              Ver {countLabel}
+              {fmt(t.seeCount, { count: countLabel })}
             </button>
           </div>
         </div>
@@ -352,6 +356,8 @@ function FilterPanel({
   products: Product[];
   categoryGroups?: CategoryFilterGroup[];
 }) {
+  const t = useT().shop.browser;
+  const locale = useLocale();
   const prices = products.map((p) => p.price).filter((p): p is number => p !== null);
   const hasPrices = prices.length > 0;
   const perCategory = useMemo(() => countBy(products, (p) => p.categorySlug), [products]);
@@ -360,7 +366,7 @@ function FilterPanel({
   return (
     <div>
       {categoryGroups?.length ? (
-        <FilterGroup legend="Categoría" scroll>
+        <FilterGroup legend={t.category} scroll>
           {categoryGroups.map((g) => {
             const items = g.items.filter((c) => perCategory[c.slug]);
             if (!items.length) return null;
@@ -388,8 +394,8 @@ function FilterPanel({
       ) : null}
 
       {producers.length > 1 ? (
-        <FilterGroup legend="Productor" scroll>
-          {[...producers].sort((a, b) => a.name.localeCompare(b.name, "es")).map((p) => (
+        <FilterGroup legend={t.producer} scroll>
+          {[...producers].sort((a, b) => a.name.localeCompare(b.name, locale)).map((p) => (
             <Checkbox
               key={p.slug}
               id={`${idPrefix}-producer-${p.slug}`}
@@ -426,19 +432,19 @@ function FilterPanel({
         </FilterGroup>
       ))}
 
-      <FilterGroup legend="Precio">
+      <FilterGroup legend={t.price}>
         {hasPrices ? (
           <div className="grid grid-cols-2 gap-3">
             <PriceInput
               id={`${idPrefix}-min`}
-              label="Desde (€)"
+              label={t.from}
               placeholder={String(Math.floor(Math.min(...prices)))}
               value={state.minPrice}
               onChange={(v) => onChange({ ...state, minPrice: v })}
             />
             <PriceInput
               id={`${idPrefix}-max`}
-              label="Hasta (€)"
+              label={t.to}
               placeholder={String(Math.ceil(Math.max(...prices)))}
               value={state.maxPrice}
               onChange={(v) => onChange({ ...state, maxPrice: v })}
@@ -446,7 +452,7 @@ function FilterPanel({
           </div>
         ) : (
           // Sin precios definidos todavía, el filtro muestra el marcador.
-          <p className="text-[14px] text-secundario">[mín.] € – [máx.] €</p>
+          <p className="text-[14px] text-secundario">{t.priceNone}</p>
         )}
       </FilterGroup>
     </div>

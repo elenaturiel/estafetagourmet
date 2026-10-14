@@ -14,15 +14,35 @@ import { posts } from "@/data/posts";
 import { producers } from "@/data/producers";
 import { products } from "@/data/products";
 import { reviews } from "@/data/reviews";
+import { localizeCategory } from "@/data/i18n/categories";
+import { localizeProducer } from "@/data/i18n/producers";
+import { localizeProduct } from "@/data/i18n/products";
+import type { Locale } from "@/lib/i18n/config";
+import { getLocale } from "@/lib/i18n/server";
 import { getSanityPosts } from "@/lib/sanity/posts";
 import type { Category, Post, Producer, Product, Review } from "@/lib/types";
 
+/**
+ * Idioma de la página que se está generando. Fuera de una página (sitemap,
+ * generateStaticParams…) no hay idioma y se usa el español.
+ */
+async function currentLocale(): Promise<Locale> {
+  try {
+    return await getLocale();
+  } catch {
+    return "es";
+  }
+}
+
 export async function getCategories(): Promise<Category[]> {
-  return categories;
+  const locale = await currentLocale();
+  return categories.map((c) => localizeCategory(c, locale));
 }
 
 export async function getCategory(slug: string): Promise<Category | undefined> {
-  return categories.find((c) => c.slug === slug);
+  const locale = await currentLocale();
+  const c = categories.find((c) => c.slug === slug);
+  return c ? localizeCategory(c, locale) : undefined;
 }
 
 export async function getProducts(options: {
@@ -30,39 +50,59 @@ export async function getProducts(options: {
   featured?: boolean;
   producer?: string;
 } = {}): Promise<Product[]> {
+  const locale = await currentLocale();
   return products
     .filter((p) => (options.category ? p.categorySlug === options.category : true))
     .filter((p) => (options.featured ? p.featured : true))
     .filter((p) => (options.producer ? p.producerSlug === options.producer : true))
-    .sort((a, b) => a.rank - b.rank);
+    .sort((a, b) => a.rank - b.rank)
+    .map((p) => localizeProduct(p, locale));
 }
 
 /** Productos destacados en el orden de las categorías. */
 export async function getFeaturedProducts(limit = 4): Promise<Product[]> {
+  const locale = await currentLocale();
   const order = categories.map((c) => c.slug);
   return products
     .filter((p) => p.featured)
     .sort((a, b) => order.indexOf(a.categorySlug) - order.indexOf(b.categorySlug))
-    .slice(0, limit);
+    .slice(0, limit)
+    .map((p) => localizeProduct(p, locale));
 }
 
 export async function getProduct(
   categorySlug: string,
   productSlug: string,
 ): Promise<Product | undefined> {
-  return products.find((p) => p.categorySlug === categorySlug && p.slug === productSlug);
+  const locale = await currentLocale();
+  const p = products.find((p) => p.categorySlug === categorySlug && p.slug === productSlug);
+  return p ? localizeProduct(p, locale) : undefined;
 }
 
+/** Todos los productos en el idioma de la página. */
 export async function getAllProducts(): Promise<Product[]> {
+  const locale = await currentLocale();
+  return products.map((p) => localizeProduct(p, locale));
+}
+
+/** Todos los productos tal como vienen de la hoja (en español): para emparejar por nombre y para el buscador. */
+export async function getAllProductsRaw(): Promise<Product[]> {
   return products;
 }
 
+/** Un producto de la hoja traducido (para los que se obtienen en bruto). */
+export async function localize(product: Product): Promise<Product> {
+  return localizeProduct(product, await currentLocale());
+}
+
 export async function getProducers(options: { featured?: boolean } = {}): Promise<Producer[]> {
-  return producers.filter((p) => (options.featured ? p.featured : true));
+  const locale = await currentLocale();
+  return producers.filter((p) => (options.featured ? p.featured : true)).map((p) => localizeProducer(p, locale));
 }
 
 export async function getProducerMap(): Promise<Record<string, Producer>> {
-  return Object.fromEntries(producers.map((p) => [p.slug, p]));
+  const locale = await currentLocale();
+  return Object.fromEntries(producers.map((p) => [p.slug, localizeProducer(p, locale)]));
 }
 
 /**
@@ -105,16 +145,20 @@ export async function getReviews(): Promise<Review[]> {
 export { productByline, productHref } from "@/lib/product-utils";
 
 export async function getProductsBySlugs(slugs: string[]): Promise<Product[]> {
+  const locale = await currentLocale();
   return slugs
     .map((slug) => products.find((p) => p.slug === slug))
-    .filter((p): p is Product => Boolean(p));
+    .filter((p): p is Product => Boolean(p))
+    .map((p) => localizeProduct(p, locale));
 }
 
 /** Productos por su título exacto de la hoja, en ese orden (los que no existan se omiten). */
 export async function getProductsByNames(names: string[]): Promise<Product[]> {
+  const locale = await currentLocale();
   return names
     .map((name) => products.find((p) => p.name === name))
-    .filter((p): p is Product => Boolean(p));
+    .filter((p): p is Product => Boolean(p))
+    .map((p) => localizeProduct(p, locale));
 }
 
 /** Número de productos de cada productor, por slug. */

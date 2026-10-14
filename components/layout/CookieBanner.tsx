@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
-import { t } from "@/lib/i18n";
+import { useT } from "@/lib/i18n/client";
 import { consentStore } from "./consent";
 
 function useConsent() {
@@ -36,6 +36,7 @@ export function CookieBanner() {
  * el popup de la newsletter, que se coloca justo encima usando --cookie-h).
  */
 function CookieBar() {
+  const t = useT().common;
   const ref = useRef<HTMLElement>(null);
 
   // Publica la altura de la barra para que otras capas no la tapen.
@@ -94,6 +95,7 @@ function CookieBar() {
 
 /** Enlace del pie para volver a abrir el banner y cambiar la elección. */
 export function CookieSettingsButton({ className }: { className?: string }) {
+  const t = useT().common;
   return (
     <button
       type="button"

@@ -11,23 +11,23 @@ export const mainNav = [
 
 export const footerNav = {
   shop: [
-    { href: "/tienda/quesos", label: "Quesos" },
-    { href: "/tienda/embutidos", label: "Embutidos" },
-    { href: "/tienda/vinos", label: "Vinos" },
-    { href: "/tienda/lotes", label: "Lotes" },
-    { href: "/regalos", label: "Ideas de regalo" },
-    { href: "/maridajes", label: "Maridajes" },
-    { href: "/blog", label: "Blog" },
-    { href: "/newsletter", label: "Newsletter" },
+    { href: "/tienda/quesos", key: "cheeses" },
+    { href: "/tienda/embutidos", key: "cured" },
+    { href: "/tienda/vinos", key: "wines" },
+    { href: "/tienda/lotes", key: "lots" },
+    { href: "/regalos", key: "gifts" },
+    { href: "/maridajes", key: "pairings" },
+    { href: "/blog", key: "blog" },
+    { href: "/newsletter", key: "newsletter" },
   ],
   help: [
-    { href: "/envios-y-devoluciones", label: "Envíos y devoluciones" },
-    { href: "/condiciones-de-venta", label: "Condiciones de venta" },
-    { href: "/visitanos#contacto", label: "Contacto" },
+    { href: "/envios-y-devoluciones", key: "shipping" },
+    { href: "/condiciones-de-venta", key: "terms" },
+    { href: "/visitanos#contacto", key: "contact" },
   ],
   legal: [
-    { href: "/aviso-legal", label: "Aviso legal" },
-    { href: "/privacidad", label: "Privacidad" },
-    { href: "/cookies", label: "Cookies" },
+    { href: "/aviso-legal", key: "legalNotice" },
+    { href: "/privacidad", key: "privacy" },
+    { href: "/cookies", key: "cookies" },
   ],
-};
+} as const;

@@ -3,6 +3,8 @@
 import { useState, type ReactNode } from "react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { cn } from "@/lib/cn";
+import { fmt } from "@/lib/i18n/config";
+import { useT } from "@/lib/i18n/client";
 import type { Image } from "@/lib/types";
 
 /**
@@ -11,6 +13,7 @@ import type { Image } from "@/lib/types";
  * ve igual que antes (sin miniaturas).
  */
 export function ProductGallery({ images, children }: { images: Image[]; children?: ReactNode }) {
+  const t = useT().shop.product;
   const [current, setCurrent] = useState(0);
   const main = images[Math.min(current, images.length - 1)];
 
@@ -31,13 +34,13 @@ export function ProductGallery({ images, children }: { images: Image[]; children
         {children}
       </div>
       {images.length > 1 ? (
-        <ul className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-7" aria-label="Fotos del producto">
+        <ul className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-7" aria-label={t.photos}>
           {images.map((img, i) => (
             <li key={img.src ?? i}>
               <button
                 type="button"
                 onClick={() => setCurrent(i)}
-                aria-label={i === 0 ? "Ver el conjunto" : `Ver ${img.alt}`}
+                aria-label={i === 0 ? t.viewAll : fmt(t.view, { name: img.alt })}
                 aria-current={i === current ? "true" : undefined}
                 className={cn(
                   "block w-full overflow-hidden rounded-eg ring-offset-2 ring-offset-crema transition-shadow",

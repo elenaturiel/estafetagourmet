@@ -5,7 +5,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Alta en la newsletter. Recibe { email, source, website } (website = trampa para bots). */
 export async function POST(req: NextRequest) {
-  let data: { email?: unknown; source?: unknown; website?: unknown };
+  let data: { email?: unknown; source?: unknown; website?: unknown; lang?: unknown };
   try {
     data = await req.json();
   } catch {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const source = typeof data.source === "string" ? data.source.slice(0, 40) : "web";
 
   try {
-    const { doubleOptIn } = await subscribe(email, source, req.nextUrl.origin);
+    const { doubleOptIn } = await subscribe(email, source, req.nextUrl.origin, data.lang === "en" || data.lang === "fr" ? data.lang : "es");
     return NextResponse.json({ ok: true, doubleOptIn });
   } catch (err) {
     if (err instanceof NewsletterNotConfiguredError) {

@@ -2,29 +2,31 @@ import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { ArrowLink } from "@/components/ui/Button";
 import { Stamp } from "@/components/ui/Stamp";
 import { site } from "@/data/site";
+import { fmt } from "@/lib/i18n/config";
+import { getT } from "@/lib/i18n/server";
 
-export function NewsletterSection() {
+export async function NewsletterSection() {
+  const t = (await getT()).home.newsletter;
+  const [before, after] = fmt(t.text, { incentive: "\u0000" }).split("\u0000");
   return (
-    <section aria-labelledby="newsletter-title" className="relative overflow-hidden bg-crema-oscuro py-16 lg:py-24">
-      <Stamp
-        text="Novedades de temporada · Estafeta Gourmet · "
-        className="absolute -top-10 -right-10 hidden w-[180px] opacity-90 lg:block"
-      />
+    <section aria-labelledby="newsletter-title" className="relative overflow-hidden bg-crema-oscuro py-10 lg:py-24">
+      <Stamp text={t.stamp} className="absolute -top-10 -right-10 hidden w-[180px] opacity-90 lg:block" />
       <div data-reveal className="container-site relative text-center">
-        <p className="eyebrow text-vino">Newsletter</p>
+        <p className="eyebrow text-vino">{t.eyebrow}</p>
         <h2
           id="newsletter-title"
-          className="mx-auto mt-4 max-w-3xl text-[36px] leading-[1.05] tracking-[-0.02em] lg:text-[56px]"
+          className="mx-auto mt-2 max-w-3xl text-[30px] leading-[1.06] tracking-[-0.02em] lg:mt-4 lg:text-[56px] lg:leading-[1.05]"
         >
-          Recibe las novedades <em className="font-normal text-vino italic">de temporada</em>
+          {t.title} <em className="font-normal text-vino italic">{t.em}</em>
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-[17px] text-secundario">
-          Productos nuevos, maridajes y{" "}
-          <strong className="font-semibold text-tinta">{site.newsletterIncentive}</strong>.
+        <p className="mx-auto mt-3 max-w-xl text-[16px] text-secundario lg:mt-4 lg:text-[17px]">
+          {before}
+          <strong className="font-semibold text-tinta">{site.newsletterIncentive}</strong>
+          {after}
         </p>
         <NewsletterForm />
-        <ArrowLink href="/newsletter" className="mt-6">
-          Lee los boletines publicados
+        <ArrowLink href="/newsletter" className="mt-4 lg:mt-6">
+          {t.link}
         </ArrowLink>
       </div>
     </section>

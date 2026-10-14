@@ -1,14 +1,17 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/components/ui/Link";
 import { useRef, useState, type FormEvent } from "react";
 import { EMAIL_RE, Field, inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
 import { submitContact } from "@/lib/forms";
+import { useT } from "@/lib/i18n/client";
 
 type Errors = Partial<Record<"name" | "email" | "message" | "privacy", string>>;
 
 export function ContactForm() {
+  const t = useT().forms;
+  const c = t.contact;
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
@@ -22,10 +25,10 @@ export function ContactForm() {
     const privacy = data.get("privacy") === "on";
 
     const next: Errors = {};
-    if (!name) next.name = "Escribe tu nombre.";
-    if (!EMAIL_RE.test(email)) next.email = "Escribe un correo electrónico válido.";
-    if (message.length < 10) next.message = "Cuéntanos un poco más (mínimo 10 caracteres).";
-    if (!privacy) next.privacy = "Tienes que aceptar la política de privacidad para enviar el mensaje.";
+    if (!name) next.name = c.nameError;
+    if (!EMAIL_RE.test(email)) next.email = c.emailError;
+    if (message.length < 10) next.message = c.messageError;
+    if (!privacy) next.privacy = c.privacyError;
     setErrors(next);
 
     const firstInvalid = (["name", "email", "message", "privacy"] as const).find((k) => next[k]);
@@ -42,9 +45,9 @@ export function ContactForm() {
   if (status === "done") {
     return (
       <div role="status" className="border border-linea bg-papel p-6">
-        <p className="font-serif text-[22px]">¡Mensaje enviado!</p>
+        <p className="font-serif text-[22px]">{c.sentTitle}</p>
         <p className="mt-2 text-[15px] text-secundario">
-          Gracias por escribirnos. Te responderemos lo antes posible.
+          {c.sentText}
         </p>
       </div>
     );
@@ -53,9 +56,9 @@ export function ContactForm() {
   const describedBy = (key: keyof Errors) => (errors[key] ? `contact-${key}-error` : undefined);
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate aria-label="Formulario de contacto">
+    <form ref={formRef} onSubmit={onSubmit} noValidate aria-label={c.aria}>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field id="contact-name" label="Nombre" error={errors.name}>
+        <Field id="contact-name" label={c.name} error={errors.name}>
           <input
             id="contact-name"
             name="name"
@@ -66,7 +69,7 @@ export function ContactForm() {
             className={`${inputClasses} min-h-[48px]`}
           />
         </Field>
-        <Field id="contact-email" label="Correo electrónico" error={errors.email}>
+        <Field id="contact-email" label={c.email} error={errors.email}>
           <input
             id="contact-email"
             name="email"
@@ -79,7 +82,7 @@ export function ContactForm() {
           />
         </Field>
       </div>
-      <Field id="contact-message" label="Mensaje" error={errors.message} className="mt-4">
+      <Field id="contact-message" label={c.message} error={errors.message} className="mt-4">
         <textarea
           id="contact-message"
           name="message"
@@ -102,9 +105,9 @@ export function ContactForm() {
             className="mt-0.5 h-5 w-5 shrink-0 accent-vino"
           />
           <label htmlFor="contact-privacy" className="text-[14px]">
-            He leído y acepto la{" "}
+            {c.accept}{" "}
             <Link href="/privacidad" className="underline underline-offset-2 hover:text-vino">
-              política de privacidad
+              {t.privacy}
             </Link>
           </label>
         </div>
@@ -119,10 +122,10 @@ export function ContactForm() {
         disabled={status === "sending"}
         className={buttonClasses("primary", "md") + " mt-6 w-full sm:w-auto"}
       >
-        {status === "sending" ? "Enviando…" : "Enviar mensaje"}
+        {status === "sending" ? t.sending : c.send}
       </button>
       <p className="sr-only" role="status" aria-live="polite">
-        {Object.keys(errors).length ? "Revisa los campos marcados." : ""}
+        {Object.keys(errors).length ? c.review : ""}
       </p>
     </form>
   );

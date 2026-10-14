@@ -78,6 +78,7 @@ export async function subscribe(
   email: string,
   source: string,
   origin: string,
+  lang: "es" | "en" | "fr" = "es",
 ): Promise<{ doubleOptIn: boolean }> {
   const cfg = config();
   if (!cfg) {
@@ -96,7 +97,7 @@ export async function subscribe(
           email,
           includeListIds: [cfg.listId],
           templateId: cfg.doiTemplateId,
-          redirectionUrl: `${siteUrl.replace(/\/+$/, "")}/?suscrito=1`,
+          redirectionUrl: `${siteUrl.replace(/\/+$/, "")}${lang === "es" ? "/" : `/${lang}`}?suscrito=1`,
           attributes: { ORIGEN: source },
         },
       ]

@@ -4,7 +4,7 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getCategories, getProducts } from "@/lib/catalog";
 import { categoryHref, productHref } from "@/lib/product-utils";
-import { t } from "@/lib/i18n";
+import { getLocale, getT } from "@/lib/i18n/server";
 import { isNewsletterEnabled } from "@/lib/newsletter";
 import { localBusinessJsonLd } from "@/lib/structured-data";
 import { Analytics, CookieBanner } from "./CookieBanner";
@@ -17,6 +17,7 @@ import { TopBar } from "./TopBar";
 
 /** Estructura común de la web pública: barra superior, cabecera, pie y capas. */
 export async function SiteChrome({ children }: { children: ReactNode }) {
+  const [t, locale] = await Promise.all([getT(), getLocale()]);
   const [categories, lots] = await Promise.all([getCategories(), getProducts({ category: "lotes" })]);
   const lot = lots[0];
   // Los lotes de regalo del catálogo; los de ocasión (Amigos, Navidad…) se encuentran en "¿Buscando un regalo?".
@@ -27,7 +28,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
         href="#contenido"
         className="sr-only z-[60] rounded-eg bg-vino px-4 py-3 font-semibold text-crema focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
-        {t.skipToContent}
+        {t.common.skip}
       </a>
       <TopBar />
       <Header
@@ -52,7 +53,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       <CookieBanner />
       {isNewsletterEnabled() ? <NewsletterPopup /> : null}
       <Analytics />
-      <JsonLd data={localBusinessJsonLd()} />
+      <JsonLd data={localBusinessJsonLd(t.common.site.description, locale)} />
     </>
   );
 }

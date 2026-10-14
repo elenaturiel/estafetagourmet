@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { buttonClasses, type ButtonVariant } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import { t } from "@/lib/i18n";
+import { fmt } from "@/lib/i18n/config";
+import { useT } from "@/lib/i18n/client";
 import type { CartItemInput } from "./cart-store";
 import { cartUi } from "./cart-ui";
 import { useCart } from "./useCart";
@@ -25,6 +26,7 @@ export function AddToCartButton({
   /** Abre el cajón de la cesta tras añadir. */
   openDrawer?: boolean;
 }) {
+  const t = useT().cart;
   const { add } = useCart();
   const [justAdded, setJustAdded] = useState(false);
 
@@ -45,11 +47,11 @@ export function AddToCartButton({
         }}
         className={cn(buttonClasses(variant, size), "w-full", className)}
       >
-        {justAdded ? t.cart.added : (label ?? t.cart.add)}
+        {justAdded ? t.added : (label ?? t.add)}
         <span className="sr-only"> {item.name}</span>
       </button>
       <span className="sr-only" role="status" aria-live="polite">
-        {justAdded ? t.cart.addedLive(item.name) : ""}
+        {justAdded ? fmt(t.addedLive, { name: item.name }) : ""}
       </span>
     </>
   );

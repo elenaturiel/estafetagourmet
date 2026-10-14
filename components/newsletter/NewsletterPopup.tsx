@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@/components/ui/Link";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { EMAIL_RE, inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
@@ -9,19 +8,15 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CheckCircleIcon, CloseIcon } from "@/components/ui/icons";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
-import { submitNewsletter } from "@/lib/forms";
+import { SubscribeError, submitNewsletter } from "@/lib/forms";
+import { useLocale, usePath, useT } from "@/lib/i18n/client";
 import { markDismissed, markSubscribed, shouldShowPopup } from "./popup-store";
 
 /** Pequeña espera para que la página se pinte antes de que entre el popup. */
 const DELAY_MS = 800;
+const MOBILE_DELAY_MS = 12000;
 /** Páginas donde no molestamos: comprando o buscando. */
 const EXCLUDED = ["/cesta", "/buscar"];
-
-const perks = [
-  "Lanzamientos y ediciones limitadas, antes que nadie",
-  "Lotes y productos de temporada, como los de Navidad",
-  "Maridajes y recetas con producto navarro",
-];
 
 /**
  * Popup de bienvenida para captar suscriptores.
@@ -34,7 +29,10 @@ const perks = [
  * - En móvil es una hoja inferior. Esc o el fondo oscuro lo cierran.
  */
 export function NewsletterPopup() {
-  const pathname = usePathname();
+  const pathname = usePath();
+  const t = useT().forms;
+  const p = t.popup;
+  const locale = useLocale();
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
@@ -63,9 +61,11 @@ export function NewsletterPopup() {
     }
     if (EXCLUDED.some((p) => pathname.startsWith(p))) return;
     if (!shouldShowPopup()) return;
+    // En el móvil el aviso tarda más: no tapa la página nada más entrar.
+    const mobile = window.matchMedia("(max-width: 1023px)").matches;
     const id = window.setTimeout(() => {
       if (shouldShowPopup()) setOpen(true);
-    }, DELAY_MS);
+    }, mobile ? MOBILE_DELAY_MS : DELAY_MS);
     return () => window.clearTimeout(id);
   }, [pathname]);
 
@@ -104,19 +104,21 @@ export function NewsletterPopup() {
     const data = new FormData(e.currentTarget);
     const email = data.get("email")?.toString().trim() ?? "";
     if (!EMAIL_RE.test(email)) {
-      setError("Escribe un correo electrónico válido, por ejemplo nombre@correo.com.");
+      setError(t.emailInvalid);
       inputRef.current?.focus();
       return;
     }
     setError(undefined);
     setStatus("sending");
     try {
-      const res = await submitNewsletter(email, "popup", data.get("website")?.toString() ?? "");
+      const res = await submitNewsletter(email, "popup", data.get("website")?.toString() ?? "", locale);
       markSubscribed();
       setDoubleOptIn(res.doubleOptIn);
       setStatus("done");
     } catch (err) {
-      setError((err as Error).message);
+      const kind = err instanceof SubscribeError ? err.kind : "failed";
+      const code = err instanceof SubscribeError && err.code ? ` (${err.code})` : "";
+      setError(kind === "invalid" ? t.emailInvalid : kind === "unavailable" ? t.unavailable : t.subscribeFailed + code);
       setStatus("idle");
     }
   }
@@ -146,7 +148,7 @@ export function NewsletterPopup() {
         {/* Imagen: solo en pantallas medianas y grandes */}
         <div className="relative hidden bg-vino p-6 sm:block">
           <div className="arch h-full overflow-hidden">
-            <ImagePlaceholder label="Foto · novedades de temporada" className="h-full min-h-[380px]" />
+            <ImagePlaceholder label={p.photoLabel} className="h-full min-h-[380px]" />
           </div>
         </div>
 
@@ -154,7 +156,7 @@ export function NewsletterPopup() {
           <button
             type="button"
             onClick={close}
-            aria-label="Cerrar"
+            aria-label={p.close}
             className="absolute top-2 right-2 inline-flex h-11 w-11 items-center justify-center hover:text-vino"
           >
             <CloseIcon />
@@ -164,35 +166,31 @@ export function NewsletterPopup() {
             <div role="status" className="py-6 text-center sm:text-left">
               <CheckCircleIcon size={40} className="mx-auto text-vino sm:mx-0" />
               <h2 id="popup-title" className="mt-4 text-[30px] leading-tight tracking-[-0.02em]">
-                {status === "confirmed" ? "¡Suscripción confirmada!" : "¡Ya casi estás dentro!"}
+                {status === "confirmed" ? p.confirmedTitle : p.almostTitle}
               </h2>
               <p className="mt-3 text-[16px] text-secundario">
-                {status === "confirmed"
-                  ? "Gracias. Serás de los primeros en enterarte de todo lo nuevo."
-                  : doubleOptIn
-                    ? "Te hemos enviado un correo: pulsa el enlace para confirmar (mira también en spam)."
-                    : "Gracias. Serás de los primeros en enterarte de todo lo nuevo."}
+                {status === "confirmed" ? p.confirmedText : doubleOptIn ? p.checkEmail : p.confirmedText}
               </p>
               <button type="button" onClick={() => setOpen(false)} className={cn(buttonClasses("primary", "md"), "mt-6")}>
-                Seguir mirando
+                {p.keepLooking}
               </button>
             </div>
           ) : (
             <>
-              <p className="eyebrow text-vino">Club Estafeta</p>
+              <p className="eyebrow text-vino">{p.eyebrow}</p>
               <h2
                 id="popup-title"
                 className="mt-3 text-[30px] leading-[1.05] tracking-[-0.02em] sm:text-[38px]"
               >
-                Sé de los primeros en <em className="font-normal text-vino italic">probar lo nuevo</em>
+                {p.title} <em className="font-normal text-vino italic">{p.em}</em>
               </h2>
               <p className="mt-3 text-[16px] text-secundario">
-                Apúntate y te avisamos antes que a nadie<span className="sm:hidden"> de lanzamientos, lotes de temporada y recetas.</span>
+                {p.lead}<span className="sm:hidden">{p.leadShort}</span>
                 <span className="hidden sm:inline">:</span>
               </p>
               {/* En móvil se omite la lista para que la hoja no tape la página. */}
               <ul className="mt-4 hidden space-y-2 text-[15px] sm:block">
-                {perks.map((perk) => (
+                {p.perks.map((perk) => (
                   <li key={perk} className="flex items-start gap-2.5">
                     <CheckCircleIcon size={18} className="mt-0.5 shrink-0 text-vino" />
                     {perk}
@@ -201,14 +199,14 @@ export function NewsletterPopup() {
               </ul>
               {site.newsletterIncentive ? (
                 <p className="mt-4">
-                  <span className="sticker bg-dorado text-tinta">Regalo de bienvenida</span>{" "}
+                  <span className="sticker bg-dorado text-tinta">{p.welcomeGift}</span>{" "}
                   <span className="text-[14px] font-medium">{site.newsletterIncentive}</span>
                 </p>
               ) : null}
 
               <form onSubmit={onSubmit} noValidate className="mt-6">
                 <label htmlFor="popup-email" className="mb-2 block text-[14px] font-medium">
-                  Tu correo electrónico
+                  {t.emailLabel}
                 </label>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <input
@@ -219,7 +217,7 @@ export function NewsletterPopup() {
                     autoComplete="email"
                     inputMode="email"
                     required
-                    placeholder="nombre@correo.com"
+                    placeholder={t.emailPlaceholder}
                     aria-invalid={error ? true : undefined}
                     aria-describedby={error ? "popup-email-error" : "popup-legal"}
                     className={cn(inputClasses, "min-h-[52px] flex-1")}
@@ -238,7 +236,7 @@ export function NewsletterPopup() {
                     disabled={status === "sending"}
                     className={cn(buttonClasses("primary", "md"), "lg:min-h-[52px]")}
                   >
-                    {status === "sending" ? "Enviando…" : "Quiero saber más"}
+                    {status === "sending" ? t.sending : p.submit}
                   </button>
                 </div>
                 {error ? (
@@ -247,11 +245,11 @@ export function NewsletterPopup() {
                   </p>
                 ) : null}
                 <p id="popup-legal" className="mt-3 text-[12px] leading-relaxed text-secundario">
-                  Al suscribirte aceptas recibir nuestros correos y la{" "}
+                  {p.legalPre}{" "}
                   <Link href="/privacidad" className="underline underline-offset-2 hover:text-vino">
-                    política de privacidad
+                    {t.privacy}
                   </Link>
-                  . Puedes darte de baja cuando quieras desde cualquier correo.
+                  {p.legalPost}
                 </p>
               </form>
               <button
@@ -259,7 +257,7 @@ export function NewsletterPopup() {
                 onClick={close}
                 className="mt-4 min-h-[44px] text-[14px] text-secundario underline underline-offset-4 hover:text-vino"
               >
-                No, gracias
+                {p.noThanks}
               </button>
             </>
           )}
