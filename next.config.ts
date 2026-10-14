@@ -33,7 +33,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
   async redirects() {
+    // Las redirecciones de la tienda valen también con /en y /fr por delante.
+    const inAllLanguages = <T extends { source: string; destination: string }>(list: T[]) =>
+      list.flatMap((r) => [r, ...(["en", "fr"] as const).map((l) => ({ ...r, source: `/${l}${r.source}`, destination: `/${l}${r.destination}` }))]);
     return [
+      ...inAllLanguages([
       // Atún y bonito dejó de ser categoría: sus productos están en Conservas.
       { source: "/tienda/atun-y-bonito", destination: "/tienda/conservas", permanent: true },
       { source: "/tienda/atun-y-bonito/:producto", destination: "/tienda/conservas/:producto", permanent: true },
@@ -62,6 +66,7 @@ const nextConfig: NextConfig = {
       ...["que-vino-elegir-para-cada-queso-navarro", "que-comprar-en-cada-epoca-del-ano-en-navarra", "el-productor-del-mes"].map(
         (slug) => ({ source: `/blog/${slug}`, destination: "/blog", permanent: true }),
       ),
+      ]),
       ...canonicalHostRedirects(),
     ];
   },

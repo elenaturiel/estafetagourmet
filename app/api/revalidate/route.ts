@@ -1,6 +1,14 @@
 import { revalidatePath } from "next/cache";
 import { parseBody } from "next-sanity/webhook";
 import { NextResponse, type NextRequest } from "next/server";
+import { locales } from "@/lib/i18n/config";
+
+/** Una página en los tres idiomas (el español se sirve por dentro desde /es). */
+function refresh(path: string) {
+  const tail = path === "/" ? "" : path;
+  for (const l of locales) revalidatePath(`/${l}${tail}`);
+  revalidatePath(path);
+}
 
 /**
  * Webhook de Sanity: cuando la dueña publica o cambia una entrada, Sanity
@@ -20,16 +28,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Firma no válida" }, { status: 401 });
   }
   if (body?._type === "post") {
-    revalidatePath("/");
-    revalidatePath("/blog");
+    refresh("/");
+    refresh("/blog");
     revalidatePath("/sitemap.xml");
-    if (body.slug?.current) revalidatePath(`/blog/${body.slug.current}`);
+    if (body.slug?.current) refresh(`/blog/${body.slug.current}`);
   }
   if (body?._type === "newsletterIssue") {
-    revalidatePath("/");
-    revalidatePath("/newsletter");
+    refresh("/");
+    refresh("/newsletter");
     revalidatePath("/sitemap.xml");
-    if (body.slug?.current) revalidatePath(`/newsletter/${body.slug.current}`);
+    if (body.slug?.current) refresh(`/newsletter/${body.slug.current}`);
   }
   return NextResponse.json({ ok: true });
 }
