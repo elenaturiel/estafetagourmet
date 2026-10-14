@@ -45,6 +45,19 @@ def tidy(v):
     return clean(NOTAS.sub("", v))
 
 
+def other_data(v):
+    """Variedad, añada y grado. Se descartan las notas internas del Excel (p. ej. cuando las tiendas no coinciden)."""
+    v = tidy(v)
+    if re.search(r"no coinciden", v):
+        return None
+    return re.sub(r"^Ficha actual: añada", "Añada", v)
+
+
+def ingredients_text(v):
+    """Lista de ingredientes sin las notas internas del Excel ("según el nombre", "la tienda menciona…")."""
+    return re.sub(r"\s*\((?:según el nombre|la tienda menciona[^)]*)\)", "", clean(v))
+
+
 def weight(v):
     if empty(v):
         return None, False
@@ -79,10 +92,10 @@ def main(path):
         spec = {
             "w": None if approx else w,
             "ref": w if approx else None,
-            "i": None if empty(ingredients) else clean(ingredients),
+            "i": None if empty(ingredients) else ingredients_text(ingredients),
             "a": allergens(alerg),
             "p": None if empty(pack) else tidy(pack),
-            "o": clean(other) if other and level == "Exacto" and not empty(other) else None,
+            "o": other_data(other) if other and level == "Exacto" and not empty(other) else None,
             "exact": level == "Exacto",
         }
         spec = {k: v for k, v in spec.items() if v not in (None, False) or k == "exact"}

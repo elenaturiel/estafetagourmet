@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Product } from "@/lib/types";
 import { PRODUCT_DESCRIPTIONS } from "./product-descriptions";
 import { PRODUCT_NAMES } from "./product-names";
-import { PRODUCT_SPECS } from "./product-specs";
+import { SPEC_TEXT } from "./product-specs";
 import { localizeLot } from "./lots";
 
 const PLACEHOLDER_DESCRIPTION: Record<"en" | "fr", string> = {
@@ -20,16 +20,16 @@ export function localizeProduct(p: Product, locale: Locale): Product {
   const i = locale === "en" ? 0 : 1;
   const name = PRODUCT_NAMES[p.slug]?.[i] ?? p.name;
   const description = PRODUCT_DESCRIPTIONS[p.slug]?.[i] ?? (/^\[Descripción/.test(p.description) ? PLACEHOLDER_DESCRIPTION[locale] : p.description);
-  const spec = PRODUCT_SPECS[p.slug]?.[i];
+  const st = (key: keyof typeof SPEC_TEXT, v: string | undefined) => (v ? (SPEC_TEXT[key][v]?.[i] ?? v) : v);
   const specs = p.specs
     ? {
         ...p.specs,
-        weight: spec?.w ?? p.specs.weight,
-        reference: spec?.ref ?? p.specs.reference,
-        ingredients: spec?.i ?? p.specs.ingredients,
-        allergens: spec?.a ?? p.specs.allergens,
-        packaging: spec?.p ?? p.specs.packaging,
-        other: spec?.o ?? p.specs.other,
+        weight: st("w", p.specs.weight),
+        reference: st("ref", p.specs.reference),
+        ingredients: st("i", p.specs.ingredients),
+        allergens: st("a", p.specs.allergens),
+        packaging: st("p", p.specs.packaging),
+        other: st("o", p.specs.other),
       }
     : undefined;
   const base: Product = {

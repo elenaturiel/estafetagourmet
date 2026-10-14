@@ -102,7 +102,7 @@ export default async function ProductPage({ params }: Params) {
   const spec = product.specs;
 
   return (
-    <div className="container-site pt-5 pb-28 lg:pt-10 lg:pb-24">
+    <div className="container-site pt-5 pb-0 lg:pt-10 lg:pb-24">
       <JsonLd data={productJsonLd(product, href, producer, locale)} />
       <Breadcrumbs
         items={[
@@ -348,8 +348,8 @@ export default async function ProductPage({ params }: Params) {
         </section>
       ) : null}
 
-      {/* Barra fija de compra en móvil */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-3 border-t border-linea bg-crema/95 px-4 py-2.5 backdrop-blur lg:hidden">
+      {/* Barra de compra en móvil: se queda abajo mientras se ve la ficha y deja libre el pie */}
+      <div className="sticky bottom-0 z-30 -mx-4 mt-10 flex items-center gap-3 border-t border-linea bg-crema/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6 lg:hidden">
         <div className="min-w-0 flex-1">
           <p className="truncate font-serif text-[15px] leading-tight">{product.name}</p>
           <p className="text-[15px] font-semibold">

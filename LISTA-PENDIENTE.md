@@ -53,7 +53,7 @@ Marcado con 🔴 lo que impide vender o publicar, 🟠 lo importante, 🟢 lo qu
 - [ ] Favicon con la marca.
 - [ ] Fotos de portada, de la tienda, del equipo y la del popup de la newsletter.
 - [ ] Retratos de productores (hoy salen sus logos).
-- [ ] Traducción al inglés (hoy "EN" está desactivado).
+- [ ] Revisar las traducciones al inglés y al francés (los textos legales, con un profesional). Los productos nuevos se traducen en `data/i18n/`.
 
 ## 6. Revisar lo que he creado yo 🟢
 - [ ] **Ideas de regalo** (`/regalos`): a quién va cada lote y producto, y las 10 parejas de productos (elegidas por mí).

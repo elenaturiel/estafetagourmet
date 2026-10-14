@@ -72,7 +72,7 @@ export async function Hero({ featuredLot }: { featuredLot?: Product }) {
           {featuredLot ? (
             <Link
               href={productHref(featuredLot)}
-              className="drift-up group absolute right-3 bottom-0 flex w-[230px] items-center gap-3 rounded-eg border border-linea bg-papel p-2.5 shadow-[0_20px_40px_-20px_rgba(42,31,26,0.35)] sm:-right-4 sm:w-[250px] sm:p-3 lg:-right-8 lg:bottom-12"
+              className="drift-up group absolute right-3 bottom-0 hidden w-[230px] sm:flex items-center gap-3 rounded-eg border border-linea bg-papel p-2.5 shadow-[0_20px_40px_-20px_rgba(42,31,26,0.35)] sm:-right-4 sm:w-[250px] sm:p-3 lg:-right-8 lg:bottom-12"
             >
               <ImagePlaceholder label="" src={featuredLot.image.src} ratio="1 / 1" blend className="w-14 shrink-0 rounded-eg sm:w-16" />
               <span className="min-w-0">

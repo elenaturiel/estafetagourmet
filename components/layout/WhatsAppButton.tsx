@@ -39,10 +39,10 @@ export function WhatsAppButton() {
     <aside
       aria-label={t.label}
       className={cn(
-        "fixed right-4 z-40 transition-[bottom] duration-300 ease-out",
-        "bottom-[calc(var(--cookie-h,0px)+16px)] lg:right-6 lg:bottom-[calc(var(--cookie-h,0px)+24px)]",
+        "fixed right-3 z-40 transition-[bottom] duration-300 ease-out",
+        "bottom-[calc(var(--cookie-h,0px)+12px)] lg:right-6 lg:bottom-[calc(var(--cookie-h,0px)+24px)]",
         // En móvil, las fichas de producto tienen una barra fija de compra (≈72 px).
-        onProduct && "max-lg:bottom-[calc(var(--cookie-h,0px)+88px)]",
+        onProduct && "max-lg:bottom-[calc(var(--cookie-h,0px)+84px)]",
       )}
     >
       {/* Aro que late: llama la atención sin ser pesado (fuera del botón, para que no se recorte) */}
@@ -57,7 +57,7 @@ export function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t.aria}
-        className="group relative flex h-14 items-center overflow-hidden rounded-full bg-vino text-crema shadow-[0_10px_30px_-8px_rgba(42,31,26,0.55)] transition-[background-color,transform] duration-200 ease-out hover:bg-vino-oscuro focus-visible:bg-vino-oscuro active:scale-95"
+        className="group relative flex h-12 items-center lg:h-14 overflow-hidden rounded-full bg-vino text-crema shadow-[0_10px_30px_-8px_rgba(42,31,26,0.55)] transition-[background-color,transform] duration-200 ease-out hover:bg-vino-oscuro focus-visible:bg-vino-oscuro active:scale-95"
       >
         {/* Texto: oculto hasta pasar el ratón / foco (solo con ratón; en móvil, solo el icono) */}
         <span
@@ -66,7 +66,7 @@ export function WhatsAppButton() {
         >
           {t.text}
         </span>
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center lg:h-14 lg:w-14">
           <WhatsAppIcon size={28} />
         </span>
       </a>

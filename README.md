@@ -52,7 +52,7 @@ data/                   ⟵ TODO el contenido editable
 lib/
   catalog.ts            Capa de acceso a datos (la única que lee /data)
   filters.ts            Filtros y orden de la categoría
-  i18n/                 Textos de interfaz (es / en)
+  i18n/                 Textos de la interfaz (es / en / fr)
   seo.ts, structured-data.ts
 ```
 
@@ -208,11 +208,15 @@ Después de cambiar una variable en Vercel hay que volver a publicar (Redeploy).
 
 ## Idiomas
 
-Hoy solo se publica el español, sin prefijo en la URL. El selector "ES · EN" muestra EN desactivado. Para activar el inglés:
+La web está en **español** (sin prefijo, `/tienda`), **inglés** (`/en/tienda`) y **francés** (`/fr/tienda`). Las direcciones de las páginas y de los productos son las mismas en los tres idiomas; el selector ES · EN · FR de la cabecera (y del menú móvil) lleva a la misma página en el otro idioma.
 
-1. Completa `lib/i18n/en.ts` (mismas claves que `es.ts`) y añade `"en"` a `enabledLocales` en `lib/i18n/index.ts`.
-2. Mueve las rutas bajo `app/[lang]/` y usa `getDictionary(lang)` en cada página.
-3. Añade `alternates.languages` (hreflang) en `lib/seo.ts` y las URL en inglés al sitemap.
+- **Cómo funciona:** `proxy.ts` sirve el español desde `/es` por dentro y redirige `/es/...` a la versión sin prefijo. Todas las páginas están en `app/[lang]/`. El panel `/admin` y la API no cambian.
+- **Textos de la interfaz:** `lib/i18n/messages/*.ts`, un archivo por zona (cabecera, portada, tienda, cesta, formularios, páginas, legales) con los tres idiomas juntos. Para cambiar o añadir un texto, escríbelo en `es`, `en` y `fr` (el editor avisa si falta alguno). En servidor se usa `const t = await getT()` y en componentes de cliente `useT()`.
+- **Enlaces:** usa siempre `Link` de `components/ui/Link.tsx` (añade el prefijo del idioma solo).
+- **Contenidos del catálogo:** `data/i18n/` — categorías, nombres y descripciones de productos (por dirección del producto), fichas técnicas (por el texto original en español), lotes, maridajes e ideas de regalo. Si un producto nuevo no tiene traducción, se muestra en español hasta que se añada aquí.
+- **Textos legales:** `components/legal/` (versión en español, inglesa y francesa de cada página). En inglés y francés se indica que es una traducción de cortesía y que prevalece la española.
+- **Blog y newsletter:** se escriben en español (panel `/admin`); en inglés y francés la interfaz está traducida y se avisa de que el texto está en español.
+- **Buscadores:** cada página declara sus idiomas alternativos (hreflang) y el `sitemap.xml` incluye los tres.
 
 ## Accesibilidad, SEO y legal
 

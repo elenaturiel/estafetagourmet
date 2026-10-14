@@ -42,7 +42,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 - [ ] **Página "Nuestra historia".** Hoy "Conoce nuestra historia" enlaza a `/visitanos`.
 - [ ] **Imagen para compartir en redes (Open Graph).** Añadir `app/opengraph-image.jpg` (1200×630).
 - [ ] **Favicon** con la marca (`app/favicon.ico` e `app/icon.png`).
-- [ ] **Traducción al inglés** (`lib/i18n/en.ts`); ver README → "Idiomas".
+- [ ] Revisar las traducciones al inglés y al francés (sobre todo los textos legales, con un profesional); ver README → "Idiomas".
 
 ## Legal: revisar con un profesional
 

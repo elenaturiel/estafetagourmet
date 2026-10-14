@@ -336,7 +336,7 @@ export const specRows: Record<string, SpecRow> = {
     "i": "Aceite de oliva virgen extra (Arbequina)",
     "exact": false
   },
-  "la-maja-aove-alfar-arbequina-250": {
+  "la-maja-aove-alfar-arbequina": {
     "w": "250 ml",
     "i": "Aceite de oliva virgen extra (Arbequina)",
     "p": "Botella de vidrio",
@@ -375,17 +375,17 @@ export const specRows: Record<string, SpecRow> = {
   },
   "monjardin-aove-arbequina-500ml": {
     "w": "500 ml",
-    "i": "Aceite de oliva virgen extra Arbequina (según el nombre)",
+    "i": "Aceite de oliva virgen extra Arbequina",
     "exact": false
   },
   "monjardin-aove-arbequina-750ml": {
     "w": "750 ml",
-    "i": "Aceite de oliva virgen extra Arbequina (según el nombre)",
+    "i": "Aceite de oliva virgen extra Arbequina",
     "exact": false
   },
   "monjardin-aove-arbequina-3000ml": {
     "w": "3000 ml",
-    "i": "Aceite de oliva virgen extra Arbequina (según el nombre)",
+    "i": "Aceite de oliva virgen extra Arbequina",
     "exact": false
   },
   "hq-anfora-arroniz-aove-250ml": {
@@ -416,21 +416,18 @@ export const specRows: Record<string, SpecRow> = {
     "w": "500 ml",
     "i": "Aceite de oliva virgen extra ecológico",
     "p": "Lata",
-    "o": "Variedad: las tiendas no coinciden (Coupage según Oliva Oliva; Arbequina según Origen Oliva)",
     "exact": true
   },
   "hq-alhema-aove-1000ml": {
     "w": "1000 ml",
     "i": "Aceite de oliva virgen extra ecológico",
     "p": "Lata",
-    "o": "Variedad: las tiendas no coinciden (Coupage según Oliva Oliva; Arbequina según Origen Oliva)",
     "exact": true
   },
   "hq-alhema-aove-3000ml": {
     "w": "3000 ml (peso 3000 g)",
     "i": "Aceite de oliva virgen extra ecológico",
     "p": "Lata",
-    "o": "Variedad: las tiendas no coinciden (Coupage según Oliva Oliva; Arbequina según Origen Oliva)",
     "exact": true
   },
   "navarrico-pimientos-rellenos-de-bacalao": {
@@ -622,7 +619,7 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Contiene sulfitos",
     "exact": false
   },
-  "irache-blanco-1891-col-priv-chardonnay-sobre-lias": {
+  "irache-tinto-1891-col-priv-chardonnay-sobre-lias": {
     "i": "Uva: Chardonnay",
     "a": "Contiene sulfitos",
     "exact": false
@@ -697,16 +694,16 @@ export const specRows: Record<string, SpecRow> = {
     "o": "Añada 2025. 13 % vol.",
     "exact": true
   },
-  "gran-chivite-legardeta-blanco": {
+  "gran-chivite-legardeta-blanco-2024": {
     "i": "Uva: Chardonnay",
     "a": "Contiene sulfitos",
-    "o": "Ficha actual: añada 2025, 13,5 % vol. (tu hoja: 2024)",
+    "o": "Añada 2025, 13,5 % vol.",
     "exact": true
   },
-  "gran-chivite-legardeta-tinto": {
+  "gran-chivite-legardeta-tinto-2023": {
     "i": "Uva: Syrah, Garnacha, Tempranillo",
     "a": "Contiene sulfitos",
-    "o": "Ficha actual: añada 2024, 14 % vol. (tu hoja: 2023)",
+    "o": "Añada 2024, 14 % vol.",
     "exact": true
   },
   "chivite-moscatel-viejisimo-2025": {
@@ -1062,7 +1059,7 @@ export const specRows: Record<string, SpecRow> = {
   },
   "ln-patxaran-la-navarra": {
     "w": "1 l",
-    "i": "Aguardiente, endrinas (Prunus spinosa) y anís estrellado (la tienda menciona 'otros ingredientes secretos')",
+    "i": "Aguardiente, endrinas (Prunus spinosa) y anís estrellado",
     "exact": false
   },
   "katealde-foie-gras-tarro": {
@@ -1147,7 +1144,7 @@ export const specRows: Record<string, SpecRow> = {
     "o": "EAN 8436534950610 (6 alas)",
     "exact": true
   },
-  "katealde-jamon-de-pato-loncheado-100g": {
+  "katealde-jamon-de-pato": {
     "w": "Fileteado 100 g",
     "i": "Pechuga de pato, sal, especias naturales, conservador: nitrato potásico.",
     "a": "Ninguno en la lista de ingredientes",
