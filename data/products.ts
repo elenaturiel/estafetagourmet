@@ -62,10 +62,7 @@ function uniqueSlug(name: string): string {
  * por título exacto de la hoja. Vacío: los precios salen de la columna
  * «PVP final» de la plantilla de artículos (PLANTILLA_ARTÍCULOS.xlsx).
  */
-const PRICES: Record<string, number> = {
-  "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G": 5.75,
-  "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G": 5.2,
-};
+const PRICES: Record<string, number> = {};
 
 /**
  * Fotos propias (diseños de Estafeta Gourmet), por título exacto de la hoja.

@@ -55,6 +55,7 @@ export const removedProducts: [categoria: string, slug: string][] = [
 
 /** Productos con nombre nuevo en la plantilla: su ficha antigua lleva a la nueva. */
 export const renamedProducts: [categoria: string, slugViejo: string, slugNuevo: string][] = [
+  ["embutidos", "ibericomio-chorizo-iberico-galocha-2", "ibericomio-salchichon-iberico-galocha"],
   ["quesos", "lvn-cuna-queso-de-oveja-inyectado-con-trufa-200-g", "lvn-cuna-queso-de-oveja-inyectado-con-trufa-150-g"],
   ["quesos", "lvn-cuna-queso-de-oveja-inyectado-con-ajo-negro-200-g", "lvn-cuna-queso-de-oveja-inyectado-con-ajo-negro-150-g"],
   ["esparragos", "navarrico-esparragos-brasa", "navarrico-esparragos-brasa-alinados"],

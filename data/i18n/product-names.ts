@@ -101,7 +101,7 @@ export const PRODUCT_NAMES: Record<string, [en: string, fr: string]> = {
   "arbizu-txistorra-individual-eco": ["ARBIZU Txistorra, single pack, organic", "ARBIZU Txistorra, portion individuelle, bio"],
   "arbizu-txistorra-individual-picante": ["ARBIZU Txistorra, single pack, spicy", "ARBIZU Txistorra, portion individuelle, piquante"],
   "ibericomio-chorizo-iberico-galocha": ["IBERICOMIO Iberian chorizo Galocha", "IBERICOMIO Chorizo ibérique Galocha"],
-  "ibericomio-chorizo-iberico-galocha-2": ["IBERICOMIO Iberian chorizo Galocha", "IBERICOMIO Chorizo ibérique Galocha"],
+  "ibericomio-salchichon-iberico-galocha": ["IBERICOMIO Iberian salchichón Galocha", "IBERICOMIO Saucisson ibérique Galocha"],
   "ibericomio-jamon-de-bellota-100-iberica": ["IBERICOMIO 100% Iberian acorn-fed ham", "IBERICOMIO Jambon ibérique 100 % de bellota"],
   "ibericomio-jamon-de-bellota-100-iberico": ["IBERICOMIO 100% Iberian acorn-fed ham", "IBERICOMIO Jambon ibérique 100 % de bellota"],
   "ibericomio-lomo-de-bellota-100-iberico-loncheado": ["IBERICOMIO 100% Iberian acorn-fed loin, sliced", "IBERICOMIO Longe ibérique 100 % de bellota, tranchée"],
