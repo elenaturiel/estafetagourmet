@@ -127,7 +127,11 @@ CORREGIR_TITULO = {
 # Productos que se venden en la web aunque aún no estén en la hoja
 # (categoría, proveedor tal cual en la hoja, título, PVP con IVA). Si la hoja ya
 # trae el título, manda la hoja.
-EXTRA_PRODUCTOS = []
+EXTRA_PRODUCTOS = [
+    ("quesos", "EKIA", "EKIA cuña de queso", 9.1),
+    ("quesos", "EKIA", "EKIA gaztahazarra", 11.1),
+    ("bebidas", "EKIA", "EKIA Patxarán ISABA", 23.8),
+]
 
 # Títulos que la hoja repite con el mismo nombre para formatos distintos: se
 # distinguen por el precio (precio → título en la web); las filas con otro

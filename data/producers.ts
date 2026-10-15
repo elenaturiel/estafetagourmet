@@ -20,6 +20,7 @@ const IMAGES: Record<string, string> = {
   larrasoana: "/images/productores/larrasoana.webp",
   larraldea: "/images/productores/larraldea.webp",
   breska: "/images/productores/breska.webp",
+  ekia: "/images/productores/ekia.webp",
 };
 
 /** Localidad de cada productor, por slug. TODO: rellenar (mientras tanto sale el marcador). */

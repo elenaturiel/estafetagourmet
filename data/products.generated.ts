@@ -19,6 +19,7 @@ export const producerNames: Record<string, string> = {
   "d-oro": "D'Oro",
   "dantza": "Dantza",
   "ecoprolive": "Ecoprolive",
+  "ekia": "Ekia",
   "el-navarrico": "El Navarrico",
   "grupo-la-navarra": "Grupo La Navarra",
   "hacienda-queiles": "Hacienda Queiles",
@@ -350,4 +351,7 @@ export const productRows: ProductRow[] = [
   ["embutidos", "salamanca-iberica", "SALAMANCA Salchichón ibérico bellota 100%", 8.5],
   ["embutidos", "larrasoana", "LARRASOAÑA txistorra dulce 220g", 3.5],
   ["embutidos", "larrasoana", "LARRASOAÑA txistorra picante 220g", 3.5],
+  ["quesos", "ekia", "EKIA cuña de queso", 9.1],
+  ["quesos", "ekia", "EKIA gaztahazarra", 11.1],
+  ["bebidas", "ekia", "EKIA Patxarán ISABA", 23.8],
 ];
