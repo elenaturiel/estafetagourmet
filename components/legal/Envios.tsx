@@ -2,6 +2,7 @@
 import { Link } from "@/components/ui/Link";
 import { formatPrice } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
+import { hoursLabel } from "@/lib/site-text";
 import { legalContext } from "./shared";
 
 export function Envios({ locale }: { locale: Locale }) {
@@ -10,7 +11,7 @@ export function Envios({ locale }: { locale: Locale }) {
   const ship = site.shipping;
   const cost = formatPrice(ship.cost, locale);
   const days = { es: site.hours.daysLabel.toLowerCase(), en: "tuesday to saturday", fr: "du mardi au samedi" }[locale];
-  const hours = [{ es: days, en: "Tuesday to Saturday", fr: "du mardi au samedi" }[locale], site.hours.label].join(", ");
+  const hours = [{ es: days, en: "Tuesday to Saturday", fr: "du mardi au samedi" }[locale], hoursLabel(locale)].join(", ");
 
   if (locale === "en")
     return (

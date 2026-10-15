@@ -68,7 +68,7 @@ export async function Hero({ featuredLot }: { featuredLot?: Product }) {
               priority
             />
           </div>
-          <Stamp className="drift-down absolute -top-3 -left-2 hidden w-[96px] sm:-left-4 sm:block sm:w-[136px] lg:-left-12 lg:w-[150px]" />
+          <Stamp text={h.stamp} className="drift-down absolute -top-3 -left-2 hidden w-[96px] sm:-left-4 sm:block sm:w-[136px] lg:-left-12 lg:w-[150px]" />
           {featuredLot ? (
             <Link
               href={productHref(featuredLot)}

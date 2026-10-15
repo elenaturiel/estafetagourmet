@@ -10,6 +10,7 @@ import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { SubscribeError, submitNewsletter } from "@/lib/forms";
 import { useLocale, usePath, useT } from "@/lib/i18n/client";
+import { newsletterIncentive } from "@/lib/site-text";
 import { markDismissed, markSubscribed, shouldShowPopup } from "./popup-store";
 
 /** Pequeña espera para que la página se pinte antes de que entre el popup. */
@@ -200,7 +201,7 @@ export function NewsletterPopup() {
               {site.newsletterIncentive ? (
                 <p className="mt-4">
                   <span className="sticker bg-dorado text-tinta">{p.welcomeGift}</span>{" "}
-                  <span className="text-[14px] font-medium">{site.newsletterIncentive}</span>
+                  <span className="text-[14px] font-medium">{newsletterIncentive(locale)}</span>
                 </p>
               ) : null}
 

@@ -3,7 +3,8 @@ import { DirectionsButton, GoogleMap } from "@/components/home/GoogleMap";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow, Section } from "@/components/ui/Section";
 import { isPlaceholder, site } from "@/data/site";
-import { getT } from "@/lib/i18n/server";
+import { getLocale, getT } from "@/lib/i18n/server";
+import { hoursLabel } from "@/lib/site-text";
 
 function InfoBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -20,7 +21,7 @@ export async function VisitSection({
   /** En /visitanos el título de la sección es el H1 de la página. */
   headingLevel?: "h1" | "h2";
 }) {
-  const t = await getT();
+  const [t, locale] = await Promise.all([getT(), getLocale()]);
   const v = t.home.visit;
   const Heading = headingLevel;
   const SubHeading = headingLevel === "h1" ? "h2" : "h3";
@@ -42,7 +43,7 @@ export async function VisitSection({
               </address>
             </InfoBlock>
             <InfoBlock title={v.hours}>
-              {[t.common.site.hoursDays, site.hours.label].filter(Boolean).join(" · ")}
+              {[t.common.site.hoursDays, hoursLabel(locale)].filter(Boolean).join(" · ")}
             </InfoBlock>
             <InfoBlock title={v.phoneEmail}>
               <a href={site.phone.href} className="font-semibold text-vino underline-offset-4 hover:underline">

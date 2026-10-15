@@ -3,8 +3,8 @@ import { getLocale, getT } from "@/lib/i18n/server";
 import { NewsletterCard } from "@/components/cards/NewsletterCard";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { site } from "@/data/site";
 import { fmt } from "@/lib/i18n/config";
+import { newsletterIncentive } from "@/lib/site-text";
 import { getNewsletters } from "@/lib/newsletters";
 import { pageMetadata } from "@/lib/seo";
 
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export const revalidate = 300;
 
 export default async function NewsletterArchivePage() {
-  const [list, t] = await Promise.all([getNewsletters(), getT()]);
+  const [list, t, locale] = await Promise.all([getNewsletters(), getT(), getLocale()]);
   const issues = list.reverse();
   const n = t.pages.newsletter;
   const [before, after] = fmt(n.text, { incentive: "\u0000" }).split("\u0000");
@@ -47,7 +47,7 @@ export default async function NewsletterArchivePage() {
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[17px] text-secundario">
             {before}
-            <strong className="font-semibold text-tinta">{site.newsletterIncentive}</strong>
+            <strong className="font-semibold text-tinta">{newsletterIncentive(locale)}</strong>
             {after}
           </p>
           <NewsletterForm source="web" />

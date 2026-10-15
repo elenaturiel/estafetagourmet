@@ -16,6 +16,7 @@ import { products } from "@/data/products";
 import { reviews } from "@/data/reviews";
 import { localizeCategory } from "@/data/i18n/categories";
 import { localizeProducer } from "@/data/i18n/producers";
+import { localizePost } from "@/data/i18n/posts";
 import { localizeProduct } from "@/data/i18n/products";
 import type { Locale } from "@/lib/i18n/config";
 import { getLocale } from "@/lib/i18n/server";
@@ -110,12 +111,15 @@ export async function getProducerMap(): Promise<Record<string, Producer>> {
  * la tienda) más las escritas en data/posts.ts.
  */
 export async function getPosts(limit?: number): Promise<Post[]> {
-  const list = await allPosts();
+  const locale = await currentLocale();
+  const list = (await allPosts()).map((p) => localizePost(p, locale));
   return typeof limit === "number" ? list.slice(0, limit) : list;
 }
 
 export async function getPost(slug: string): Promise<Post | undefined> {
-  return (await allPosts()).find((p) => p.slug === slug);
+  const locale = await currentLocale();
+  const post = (await allPosts()).find((p) => p.slug === slug);
+  return post ? localizePost(post, locale) : undefined;
 }
 
 /**

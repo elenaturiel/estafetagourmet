@@ -8,6 +8,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
 import { ButtonLink } from "@/components/ui/Button";
 import { NEWSLETTER_SOURCE } from "@/data/newsletters";
+import { NEWSLETTER_SOURCE_TEXT } from "@/data/i18n/newsletters";
+import { newsletterIncentive } from "@/lib/site-text";
 import { SITE_URL, site } from "@/data/site";
 import { getProducerMap, getProductsByNames } from "@/lib/catalog";
 import { getNewsletterBySlug, getNewsletters } from "@/lib/newsletters";
@@ -141,7 +143,7 @@ export default async function NewsletterIssuePage({ params }: Params) {
           </section>
         ) : null}
 
-        <p className="mx-auto mt-12 max-w-3xl text-center text-[13px] text-secundario">{NEWSLETTER_SOURCE}</p>
+        <p className="mx-auto mt-12 max-w-3xl text-center text-[13px] text-secundario">{locale === "es" ? NEWSLETTER_SOURCE : NEWSLETTER_SOURCE_TEXT[locale]}</p>
 
         <nav aria-label={n.others} className="mx-auto mt-12 flex max-w-5xl flex-wrap justify-between gap-4 border-t border-linea pt-8">
           {prev ? (
@@ -170,7 +172,7 @@ export default async function NewsletterIssuePage({ params }: Params) {
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[17px] text-secundario">
             {before}
-            <strong className="font-semibold text-tinta">{site.newsletterIncentive}</strong>
+            <strong className="font-semibold text-tinta">{newsletterIncentive(locale)}</strong>
             {after}
           </p>
           <NewsletterForm source="web" />

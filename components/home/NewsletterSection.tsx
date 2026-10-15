@@ -1,9 +1,9 @@
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { ArrowLink } from "@/components/ui/Button";
 import { Stamp } from "@/components/ui/Stamp";
-import { site } from "@/data/site";
 import { fmt } from "@/lib/i18n/config";
-import { getT } from "@/lib/i18n/server";
+import { getLocale, getT } from "@/lib/i18n/server";
+import { newsletterIncentive } from "@/lib/site-text";
 
 export async function NewsletterSection() {
   const t = (await getT()).home.newsletter;
@@ -21,7 +21,7 @@ export async function NewsletterSection() {
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-[16px] text-secundario lg:mt-4 lg:text-[17px]">
           {before}
-          <strong className="font-semibold text-tinta">{site.newsletterIncentive}</strong>
+          <strong className="font-semibold text-tinta">{newsletterIncentive(await getLocale())}</strong>
           {after}
         </p>
         <NewsletterForm />

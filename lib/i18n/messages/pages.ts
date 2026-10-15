@@ -143,7 +143,7 @@ export const pages = defineMessages({
       articles: "Articles",
       back: "Back to the blog",
       more: "Keep reading",
-      spanishOnly: "Our blog posts are written in Spanish.",
+      spanishOnly: "",
     },
     newsletter: {
       eyebrow: "Newsletter",
@@ -154,7 +154,7 @@ export const pages = defineMessages({
       intro:
         "Each issue tells the story of one product from Navarre: where it comes from, how to recognise it and how to enjoy it, with our selection from Calle Estafeta.",
       all: "All issues",
-      spanishOnly: "Our newsletters are written in Spanish.",
+      spanishOnly: "",
       subscribe: "Subscribe",
       next: "Get the next one",
       inbox: "in your inbox",
@@ -226,7 +226,7 @@ export const pages = defineMessages({
       articles: "Articles",
       back: "Retour au blog",
       more: "Continuer la lecture",
-      spanishOnly: "Nos articles sont rédigés en espagnol.",
+      spanishOnly: "",
     },
     newsletter: {
       eyebrow: "Newsletter",
@@ -237,7 +237,7 @@ export const pages = defineMessages({
       intro:
         "Chaque numéro raconte un produit de Navarre : d'où il vient, comment le reconnaître et comment le savourer, avec notre sélection de la Calle Estafeta.",
       all: "Tous les numéros",
-      spanishOnly: "Nos newsletters sont rédigées en espagnol.",
+      spanishOnly: "",
       subscribe: "Abonnez-vous",
       next: "Recevez le prochain",
       inbox: "dans votre boîte mail",

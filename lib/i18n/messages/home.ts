@@ -9,6 +9,7 @@ export const home = defineMessages({
     },
     hero: {
       eyebrow: "Pamplona · Calle Estafeta",
+      stamp: "Desde la calle Estafeta · Pamplona · Navarra · ",
       title1: "La mejor gastronomía navarra,",
       em: "directa",
       title2: "a tu mesa",
@@ -135,6 +136,7 @@ export const home = defineMessages({
     },
     hero: {
       eyebrow: "Pamplona · Calle Estafeta",
+      stamp: "From Calle Estafeta · Pamplona · Navarra · ",
       title1: "The finest Navarrese food,",
       em: "straight",
       title2: "to your table",
@@ -261,6 +263,7 @@ export const home = defineMessages({
     },
     hero: {
       eyebrow: "Pampelune · Calle Estafeta",
+      stamp: "Depuis la calle Estafeta · Pampelune · Navarre · ",
       title1: "La meilleure gastronomie navarraise,",
       em: "directement",
       title2: "à votre table",
