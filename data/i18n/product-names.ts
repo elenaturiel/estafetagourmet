@@ -151,7 +151,6 @@ export const PRODUCT_NAMES: Record<string, [en: string, fr: string]> = {
   "aidin-mermelada-de-higos-nueces-y-brandy": ["AIDIN fig, walnut and brandy jam", "AIDIN confiture de figue, noix et brandy"],
   "aidin-mermelada-de-melocoton-de-tudela": ["AIDIN Tudela peach jam", "AIDIN confiture de pêche de Tudela"],
   "aidin-mermelada-de-naranja-con-chocolate": ["AIDIN orange and chocolate jam", "AIDIN confiture d'orange au chocolat"],
-  "aidin-mermelada-de-otono": ["AIDIN autumn jam", "AIDIN confiture d'automne"],
   "aidin-mermelada-de-pera-con-vino-de-otazu": ["AIDIN pear and Otazu wine jam", "AIDIN confiture de poire au vin d'Otazu"],
   "aidin-mermelada-de-tomate-con-vainilla": ["AIDIN tomato and vanilla jam", "AIDIN confiture de tomate à la vanille"],
   "aidin-mermelada-el-peregrino": ["AIDIN El Peregrino jam", "AIDIN confiture El Peregrino"],

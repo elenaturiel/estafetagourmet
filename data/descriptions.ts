@@ -277,7 +277,6 @@ export const DESCRIPTIONS: Record<string, string> = {
   "ecopro-cornicabra-500-ml": "Aceite de oliva virgen extra de cornicabra, ecológico, de Ecoprolive: frutado intenso, con amargo y picante marcados. Botella de 500 ml.",
   "ecopro-cornicabra-250-ml": "Aceite de oliva virgen extra de cornicabra, ecológico, de Ecoprolive: frutado intenso, con amargo y picante marcados. Botella de 250 ml.",
   "aidin-mermelada-de-cascabillo-de-roncal": "Mermelada artesana de cascabillo, el fruto silvestre del valle de Roncal. Un sabor de monte para quesos y tostadas.",
-  "aidin-mermelada-de-otono": "Mermelada artesana de otoño, con frutas de temporada. Para tostadas, quesos y postres.",
   "aidin-mermelada-de-aceite": "Mermelada artesana de aceite de oliva: curiosa y delicada, para sorprender con quesos frescos, foie o postres.",
   "aidin-mermelada-de-cebolla-confitada-con-vino": "Cebolla confitada con vino, dulce y melosa. Perfecta con foie, quesos, carnes y hamburguesas.",
   "aidin-mermelada-de-fresa-de-mendigorria": "Mermelada artesana de fresa de Mendigorría, en Navarra: fruta de la tierra, dulce y aromática.",

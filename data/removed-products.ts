@@ -50,6 +50,7 @@ export const removedProducts: [categoria: string, slug: string][] = [
   ["quesos", "lvn-crema-al-queso-de-cabra-125-gr"],
   ["esparragos", "lc-esparrago-04-06-frasco"],
   ["legumbres", "lc-pencas-acelga-natural"],
+  ["mermeladas", "aidin-mermelada-de-otono"],
 ];
 
 /** Productos con nombre nuevo en la plantilla: su ficha antigua lleva a la nueva. */
