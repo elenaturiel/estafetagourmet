@@ -517,7 +517,8 @@ function LanguageSwitcher({ className }: { className?: string }) {
           ) : null}
           {l === current ? (
             <span aria-current="true" lang={l} className="inline-flex min-h-[40px] items-center px-1.5 text-vino lg:min-h-0 lg:px-0">
-              {l.toUpperCase()}
+              <span className="lg:hidden">{l.toUpperCase()}</span>
+              <span className="hidden lg:inline">{localeNames[l]}</span>
             </span>
           ) : (
             <a
@@ -527,8 +528,12 @@ function LanguageSwitcher({ className }: { className?: string }) {
               aria-label={t.common.languageSwitch[l]}
               title={localeNames[l]}
               className="inline-flex min-h-[40px] items-center px-1.5 text-secundario hover:text-vino lg:min-h-0 lg:px-0"
+              onClick={() => {
+                document.cookie = `NEXT_LOCALE=${l}; path=/; max-age=31536000; samesite=lax`;
+              }}
             >
-              {l.toUpperCase()}
+              <span className="lg:hidden">{l.toUpperCase()}</span>
+              <span className="hidden lg:inline">{localeNames[l]}</span>
             </a>
           )}
         </span>
