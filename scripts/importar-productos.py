@@ -129,9 +129,13 @@ CORREGIR_TITULO = {
 # trae el título, manda la hoja.
 EXTRA_PRODUCTOS = []
 
-# Títulos que la hoja repite a propósito (mismo nombre, distinto formato y
-# precio). Cualquier otro título repetido es un duplicado: manda la primera fila.
-VARIOS_FORMATOS = {'LC Guindillas "PIPARRAS"'}
+# Títulos que la hoja repite con el mismo nombre para formatos distintos: se
+# distinguen por el precio (precio → título en la web); las filas con otro
+# precio sobran. Cualquier otro título repetido es un duplicado: manda la
+# primera fila (así lo pidió la tienda para los de La Catedral, oct. 2026).
+FORMATOS_POR_PRECIO = {
+    'LC Guindillas "PIPARRAS"': {7.9: 'LC Guindillas "PIPARRAS" 360 ml', 23.5: 'LC Guindillas "PIPARRAS" 630 ml'},
+}
 
 # Proveedores escritos de dos formas en la hoja → forma única
 ALIAS_PROVEEDOR = {"NAVARRA ENDULCE": "NAVARRA EN DULCE"}
@@ -269,7 +273,11 @@ def main():
         titulo = CORREGIR_TITULO.get(titulo, titulo)
         if titulo in DESCATALOGADOS:
             continue
-        if titulo in vistos and titulo not in VARIOS_FORMATOS:
+        if titulo in FORMATOS_POR_PRECIO:
+            titulo = FORMATOS_POR_PRECIO[titulo].get(precio(pvp))
+            if not titulo:
+                continue
+        if titulo in vistos:
             duplicados.append(titulo)
             continue
         vistos.add(titulo)
