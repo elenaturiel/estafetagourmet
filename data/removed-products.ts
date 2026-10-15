@@ -45,6 +45,11 @@ export const removedProducts: [categoria: string, slug: string][] = [
   ["embutidos", "arbizu-txistorra-1-kg"],
   ["embutidos", "arbizu-chorizo-individual-oreado"],
   ["embutidos", "ibericomio-jamon-de-cebo-50-iberico-loncheado"],
+  ["quesos", "lvn-crema-al-queso-anejo-intenso-125-gr"],
+  ["quesos", "lvn-crema-al-queso-de-oveja-125-gr"],
+  ["quesos", "lvn-crema-al-queso-de-cabra-125-gr"],
+  ["esparragos", "lc-esparrago-04-06-frasco"],
+  ["legumbres", "lc-pencas-acelga-natural"],
 ];
 
 /** Productos con nombre nuevo en la plantilla: su ficha antigua lleva a la nueva. */

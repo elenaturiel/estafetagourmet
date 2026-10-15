@@ -159,7 +159,7 @@ export const newsletters: Newsletter[] = [
       products: [
         "DANTZA Espárrago DO Navarra Frasco R 370 (6-8)",
         "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
-        "LC ESPÁRRAGO 04-06 FRASCO",
+        "LC ESPÁRRAGO 06-08 FRASCO",
       ],
       cta: { label: "Comprar espárragos", href: "/tienda/esparragos" },
     },
