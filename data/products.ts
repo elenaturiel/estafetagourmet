@@ -78,6 +78,8 @@ const PHOTOS: Record<string, string> = {
   "AIDIN mermelada de aceite": "/images/productos-estafeta/aidin-mermelada-de-aceite.webp",
   "LARRASOAÑA txistorra dulce 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
   "LARRASOAÑA txistorra picante 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
+  "LARRALDEA sidra navarra": "/images/productos-estafeta/larraldea-sidra-navarra.webp",
+  "LARRALDEA sidra ecologica navarra": "/images/productos-estafeta/larraldea-sidra-ecologica-navarra.webp",
   "AIDIN mermelada de cascabillo de roncal": "/images/productos-estafeta/aidin-mermelada-de-cascabillo-de-roncal.webp",
   "CHIVITE Vendimia Tardía COLECCION 125": "/images/productos-estafeta/chivite-vendimia-tardia-coleccion-125.webp",
   "NAVARRA NEGRO CAFÉ": "/images/productos-estafeta/navarra-negro-cafe.webp",

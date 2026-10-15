@@ -126,6 +126,8 @@ CORREGIR_TITULO = {
 EXTRA_PRODUCTOS = [
     ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra dulce 220g", 3.5),
     ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra picante 220g", 3.5),
+    ("bebidas", "LARRALDEA", "LARRALDEA sidra navarra", 3.8),
+    ("bebidas", "LARRALDEA", "LARRALDEA sidra ecologica navarra", 5.0),
 ]
 
 # Proveedores escritos de dos formas en la hoja → forma única
