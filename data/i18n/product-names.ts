@@ -39,6 +39,8 @@ export const PRODUCT_NAMES: Record<string, [en: string, fr: string]> = {
   "laxoa-patxaran": ["LAXOA Patxaran", "LAXOA Patxaran"],
   "ln-blanca-villa-crema-de-naranja-con-patxaran": ["LN BIANCA VILLA Orange cream with patxaran", "LN BIANCA VILLA Crème d'orange au patxaran"],
   "ln-blanca-villa-licor-de-cafe": ["LN BIANCA VILLA Coffee liqueur", "LN BIANCA VILLA Liqueur de café"],
+  "larraldea-sidra-navarra": ["LARRALDEA Navarrese cider", "LARRALDEA cidre de Navarre"],
+  "larraldea-sidra-ecologica-navarra": ["LARRALDEA organic Navarrese cider", "LARRALDEA cidre biologique de Navarre"],
   "ln-blanca-villa-licor-de-hierbas": ["LN BIANCA VILLA Herbal liqueur", "LN BIANCA VILLA Liqueur d'herbes"],
   "ln-blanca-villa-licor-de-orujo": ["LN BIANCA VILLA Orujo liqueur", "LN BIANCA VILLA Liqueur d'orujo"],
   "ln-patxaran-belasco-oro": ["LN Patxaran BELASCO ORO", "LN Patxaran BELASCO ORO"],
