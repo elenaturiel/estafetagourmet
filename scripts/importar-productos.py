@@ -120,6 +120,14 @@ CORREGIR_TITULO = {
     "CHIVITE COL. 125 VENDIMIA TARDIA. MOSCATEL": "CHIVITE Vendimia Tardía COLECCION 125",
 }
 
+# Productos que se venden en la web aunque aún no estén en la hoja
+# (categoría, proveedor tal cual en la hoja, título, PVP con IVA). Si la hoja ya
+# trae el título, manda la hoja.
+EXTRA_PRODUCTOS = [
+    ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra dulce 220g", 3.5),
+    ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra picante 220g", 3.5),
+]
+
 # Proveedores escritos de dos formas en la hoja → forma única
 ALIAS_PROVEEDOR = {"NAVARRA ENDULCE": "NAVARRA EN DULCE"}
 
@@ -259,6 +267,13 @@ def main():
         if cat == "lotes" and slugify(nombre_p) == "el-navarrico":
             continue
         productos.append((cat, slugify(nombre_p), titulo, precio(pvp)))
+
+    titulos = {p[2] for p in productos}
+    for cat, sub, titulo, pvp in EXTRA_PRODUCTOS:
+        if titulo not in titulos:
+            nombre_p = nombre_proveedor(sub.upper())
+            proveedores[slugify(nombre_p)] = nombre_p
+            productos.append((cat, slugify(nombre_p), titulo, pvp))
 
     if desconocidas:
         sys.exit(

@@ -85,6 +85,8 @@ export const PRODUCT_NAMES: Record<string, [en: string, fr: string]> = {
   "arbizu-chorizo-a-la-sidra": ["ARBIZU Chorizo in cider", "ARBIZU Chorizo au cidre"],
   "arbizu-chorizo-sarta-dulce": ["ARBIZU Chorizo string, mild", "ARBIZU Chorizo en chapelet, doux"],
   "arbizu-chorizo-sarta-picante": ["ARBIZU Chorizo string, spicy", "ARBIZU Chorizo en chapelet, piquant"],
+  "larrasoana-txistorra-dulce-220g": ["LARRASOAÑA mild txistorra 220 g", "LARRASOAÑA txistorra douce 220 g"],
+  "larrasoana-txistorra-picante-220g": ["LARRASOAÑA spicy txistorra 220 g", "LARRASOAÑA txistorra piquante 220 g"],
   "arbizu-txistorra-individual": ["ARBIZU Txistorra, single pack", "ARBIZU Txistorra, portion individuelle"],
   "arbizu-txistorra-individual-eco": ["ARBIZU Txistorra, single pack, organic", "ARBIZU Txistorra, portion individuelle, bio"],
   "arbizu-txistorra-individual-picante": ["ARBIZU Txistorra, single pack, spicy", "ARBIZU Txistorra, portion individuelle, piquante"],
