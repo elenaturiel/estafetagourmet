@@ -240,6 +240,8 @@ export const DESCRIPTIONS: Record<string, string> = {
   "ln-blanca-villa-crema-de-naranja-con-patxaran": "Crema de naranja con patxarán: dulce, cítrica y suave, para tomar fría o con hielo.",
   "ln-blanca-villa-licor-de-cafe": "Licor de café de Blanca Villa, aromático y goloso. Para tomar solo, con hielo o sobre helado.",
   "ln-blanca-villa-licor-de-orujo": "Licor de orujo: fuerte y con carácter, para el final de la comida.",
+  "larra-gaztazarra-crema-oveja-200-g": "Gaztazarra de Larra: crema de queso de oveja al patxarán, receta tradicional del valle de Roncal. Intensa y untuosa, para tostas, pan o galletas y para acompañar un buen vino. Tarro de 200 g.",
+  "larra-cuna-350g-caja-carton": "Cuña de 350 g de queso Roncal artesano de Larra, de leche cruda de oveja del valle de Roncal: pasta firme, sabor intenso y ligeramente picante. Presentada en caja de cartón, lista para regalar.",
   "larraldea-sidra-navarra": "Sidra natural de Larraldea, del valle de Baztan: elaborada con manzana del valle, sin gas añadido, fresca y con su punto ácido. Se escancia o se sirve en vaso ancho; con txistorra, quesos o una tortilla de bacalao.",
   "larraldea-sidra-ecologica-navarra": "Sidra natural ecológica de Larraldea, del valle de Baztan, de manzana de cultivo ecológico certificado: fresca, ácida y afrutada, sin gas añadido. Para escanciar y acompañar quesos, embutidos y pescados.",
   "ln-blanca-villa-licor-de-hierbas": "Licor de hierbas aromático y digestivo, para el final de la comida.",

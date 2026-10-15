@@ -39,6 +39,8 @@ export const PRODUCT_NAMES: Record<string, [en: string, fr: string]> = {
   "laxoa-patxaran": ["LAXOA Patxaran", "LAXOA Patxaran"],
   "ln-blanca-villa-crema-de-naranja-con-patxaran": ["LN BIANCA VILLA Orange cream with patxaran", "LN BIANCA VILLA Crème d'orange au patxaran"],
   "ln-blanca-villa-licor-de-cafe": ["LN BIANCA VILLA Coffee liqueur", "LN BIANCA VILLA Liqueur de café"],
+  "larra-gaztazarra-crema-oveja-200-g": ["LARRA GAZTAZARRA sheep's cheese spread 200 g", "LARRA GAZTAZARRA crème de fromage de brebis 200 g"],
+  "larra-cuna-350g-caja-carton": ["LARRA Roncal cheese wedge 350 g, gift box", "LARRA pointe de fromage Roncal 350 g, coffret carton"],
   "larraldea-sidra-navarra": ["LARRALDEA Navarrese cider", "LARRALDEA cidre de Navarre"],
   "larraldea-sidra-ecologica-navarra": ["LARRALDEA organic Navarrese cider", "LARRALDEA cidre biologique de Navarre"],
   "ln-blanca-villa-licor-de-hierbas": ["LN BIANCA VILLA Herbal liqueur", "LN BIANCA VILLA Liqueur d'herbes"],

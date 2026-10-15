@@ -128,6 +128,8 @@ EXTRA_PRODUCTOS = [
     ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra picante 220g", 3.5),
     ("bebidas", "LARRALDEA", "LARRALDEA sidra navarra", 3.8),
     ("bebidas", "LARRALDEA", "LARRALDEA sidra ecologica navarra", 5.0),
+    ("quesos", "LARRA", "LARRA GAZTAZARRA Crema oveja 200 g", 3.5),
+    ("quesos", "LARRA", "LARRA cuña 350g caja carton", 12.9),
 ]
 
 # Proveedores escritos de dos formas en la hoja → forma única
