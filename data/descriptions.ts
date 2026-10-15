@@ -257,6 +257,8 @@ export const DESCRIPTIONS: Record<string, string> = {
   "arbizu-pate-de-campana": "Paté de campaña de sabor tradicional, suave y fácil de untar. Para tostas, bocadillos y aperitivos.",
   "arbizu-pate-de-campana-hongos": "Paté de campaña con hongos: aroma de monte y textura suave.",
   "arbizu-pate-de-campana-brandy": "Paté de campaña con un toque de brandy, aromático y redondo.",
+  "larrasoana-txistorra-dulce-220g": "Txistorra de Navarra de Embutidos Larrasoaña, dulce, en paquete de 220 g: fina, jugosa y sin conservantes ni colorantes. A la plancha o en sartén sin aceite, con pan o con huevos fritos.",
+  "larrasoana-txistorra-picante-220g": "Txistorra de Navarra de Embutidos Larrasoaña, picante, en paquete de 220 g: fina, jugosa y con su punto de picor. A la plancha o en sartén sin aceite, con pan o con huevos fritos.",
   "arbizu-txistorra-individual": "Txistorra de Navarra en formato individual: fina, jugosa y sabrosa. A la sartén, en bocadillo o con huevos fritos.",
   "arbizu-txistorra-individual-picante": "Txistorra de Navarra en formato individual: fina, jugosa y sabrosa. A la sartén, en bocadillo o con huevos fritos. Con un punto picante.",
   "arbizu-txistorra-individual-eco": "Txistorra de Navarra en formato individual: fina, jugosa y sabrosa. A la sartén, en bocadillo o con huevos fritos. Versión ecológica.",

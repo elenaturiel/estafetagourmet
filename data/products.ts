@@ -76,6 +76,8 @@ const PHOTOS: Record<string, string> = {
   "AIDIN mermelada de fresa de mendigorria": "/images/productos-estafeta/aidin-mermelada-de-fresa-de-mendigorria.webp",
   "AIDIN mermelada de higos nueces y brandy": "/images/productos-estafeta/aidin-mermelada-de-higos-nueces-y-brandy.webp",
   "AIDIN mermelada de aceite": "/images/productos-estafeta/aidin-mermelada-de-aceite.webp",
+  "LARRASOAÑA txistorra dulce 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
+  "LARRASOAÑA txistorra picante 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
   "AIDIN mermelada de cascabillo de roncal": "/images/productos-estafeta/aidin-mermelada-de-cascabillo-de-roncal.webp",
   "CHIVITE Vendimia Tardía COLECCION 125": "/images/productos-estafeta/chivite-vendimia-tardia-coleccion-125.webp",
   "NAVARRA NEGRO CAFÉ": "/images/productos-estafeta/navarra-negro-cafe.webp",
