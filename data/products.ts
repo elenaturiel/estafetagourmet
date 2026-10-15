@@ -91,6 +91,8 @@ const PHOTOS: Record<string, string> = {
   "ECOPRO Edición Limitada 500 ml": "/images/productos-estafeta/ecopro-edicion-limitada-500-ml.webp",
   "ECOPRO Edición Limitada 250 ml": "/images/productos-estafeta/ecopro-edicion-limitada-250-ml.webp",
   "ECOPRO Sin filtrar 500 ml": "/images/productos-estafeta/ecopro-sin-filtrar-500-ml.webp",
+  "ECOPRO Cornicabra 250 ml": "/images/productos-estafeta/ecopro-cornicabra-500-ml.webp",
+  "ECOPRO Coupage 250 ml": "/images/productos-estafeta/ecopro-coupage-500-ml.webp",
   "LVN QUESO RESERVA 1/2 PIEZAS 350 G.": "/images/productos-estafeta/lvn-queso-reserva-1-2-piezas-350-g.webp",
   "LVN CUÑA DE QUESO D.O. IDIAZABAL AHUM. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-ahum-250-g.webp",
   "LVN CUÑA DE QUESO D.O. IDIAZABAL NAT. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-nat-250-g.webp",
