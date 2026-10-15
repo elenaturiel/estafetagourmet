@@ -63,8 +63,8 @@ function uniqueSlug(name: string): string {
  * «PVP final» de la plantilla de artículos (PLANTILLA_ARTÍCULOS.xlsx).
  */
 const PRICES: Record<string, number> = {
-  "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 200 G.": 5.75,
-  "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 200 G": 5.2,
+  "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G": 5.75,
+  "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G": 5.2,
 };
 
 /**
@@ -85,8 +85,8 @@ const PHOTOS: Record<string, string> = {
   "LARRALDEA sidra ecologica navarra": "/images/productos-estafeta/larraldea-sidra-ecologica-navarra.webp",
   "LARRA GAZTAZARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
   "LARRA cuña 350g caja carton": "/images/productos-estafeta/larra-cuna-350g-caja-carton.webp",
-  "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 200 G.": "/images/productos-estafeta/lvn-cuna-queso-oveja-trufa.webp",
-  "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 200 G": "/images/productos-estafeta/lvn-cuna-queso-oveja-ajo-negro.webp",
+  "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G": "/images/productos-estafeta/lvn-cuna-queso-oveja-trufa.webp",
+  "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G": "/images/productos-estafeta/lvn-cuna-queso-oveja-ajo-negro.webp",
   "BRESKA Miel milflores 500g": "/images/productos-estafeta/breska-miel-milflores-500g.webp",
   "BRESKA Miel milflores 1000g": "/images/productos-estafeta/breska-miel-milflores-1000g.webp",
   "BRESKA Romero 500g": "/images/productos-estafeta/breska-romero-500g.webp",

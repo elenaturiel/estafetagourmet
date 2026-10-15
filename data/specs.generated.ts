@@ -84,8 +84,8 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Leche",
     "exact": false
   },
-  "lvn-cuna-queso-de-oveja-inyectado-con-trufa-200-g": {
-    "w": "200 g",
+  "lvn-cuna-queso-de-oveja-inyectado-con-trufa-150-g": {
+    "w": "150 g",
     "a": "Leche",
     "exact": false
   },
