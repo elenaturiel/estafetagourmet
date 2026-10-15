@@ -130,6 +130,12 @@ EXTRA_PRODUCTOS = [
     ("bebidas", "LARRALDEA", "LARRALDEA sidra ecologica navarra", 5.0),
     ("quesos", "LARRA", "LARRA GAZTAZARRA Crema oveja 200 g", 3.5),
     ("quesos", "LARRA", "LARRA cuña 350g caja carton", 12.9),
+    ("dulces", "BRESKA", "BRESKA Miel milflores 500g", 8.5),
+    ("dulces", "BRESKA", "BRESKA Miel milflores 1000g", 15.3),
+    ("dulces", "BRESKA", "BRESKA Romero 500g", 10.5),
+    ("dulces", "BRESKA", "BRESKA Romero 1000g", 18.5),
+    ("dulces", "BRESKA", "BRESKA Encina 500g", 10.5),
+    ("dulces", "BRESKA", "BRESKA Encina 1000g", 18.5),
 ]
 
 # Proveedores escritos de dos formas en la hoja → forma única
