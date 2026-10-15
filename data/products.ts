@@ -84,6 +84,7 @@ const PHOTOS: Record<string, string> = {
   "LARRA cuña 350g caja carton": "/images/productos-estafeta/larra-cuna-350g-caja-carton.webp",
   "LC Guindillas \"PIPARRAS\" 360 ml": "/images/productos/lc-guindillas-piparras.webp",
   "LC Guindillas \"PIPARRAS\" 630 ml": "/images/productos/lc-guindillas-piparras.webp",
+  "IBERICOMIO Salchichón ibérico Galocha": "/images/productos-estafeta/ibericomio-salchichon-iberico-galocha.webp",
   "LVN QUESO RESERVA 1/2 PIEZAS 350 G.": "/images/productos-estafeta/lvn-queso-reserva-1-2-piezas-350-g.webp",
   "LVN CUÑA DE QUESO D.O. IDIAZABAL AHUM. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-ahum-250-g.webp",
   "LVN CUÑA DE QUESO D.O. IDIAZABAL NAT. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-nat-250-g.webp",
