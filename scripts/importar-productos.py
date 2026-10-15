@@ -121,25 +121,17 @@ CORREGIR_TITULO = {
     # La hoja dice 200 g, pero la cuña es de 150 g.
     "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 200 G.": "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G",
     "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 200 G": "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G",
+    "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G.": "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G",
 }
 
 # Productos que se venden en la web aunque aún no estén en la hoja
 # (categoría, proveedor tal cual en la hoja, título, PVP con IVA). Si la hoja ya
 # trae el título, manda la hoja.
-EXTRA_PRODUCTOS = [
-    ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra dulce 220g", 3.5),
-    ("embutidos", "LARRASOAÑA", "LARRASOAÑA txistorra picante 220g", 3.5),
-    ("bebidas", "LARRALDEA", "LARRALDEA sidra navarra", 3.8),
-    ("bebidas", "LARRALDEA", "LARRALDEA sidra ecologica navarra", 5.0),
-    ("quesos", "LARRA", "LARRA GAZTAZARRA Crema oveja 200 g", 3.5),
-    ("quesos", "LARRA", "LARRA cuña 350g caja carton", 12.9),
-    ("dulces", "BRESKA", "BRESKA Miel milflores 500g", 8.5),
-    ("dulces", "BRESKA", "BRESKA Miel milflores 1000g", 15.3),
-    ("dulces", "BRESKA", "BRESKA Romero 500g", 10.5),
-    ("dulces", "BRESKA", "BRESKA Romero 1000g", 18.5),
-    ("dulces", "BRESKA", "BRESKA Encina 500g", 10.5),
-    ("dulces", "BRESKA", "BRESKA Encina 1000g", 18.5),
-]
+EXTRA_PRODUCTOS = []
+
+# Títulos que la hoja repite a propósito (mismo nombre, distinto formato y
+# precio). Cualquier otro título repetido es un duplicado: manda la primera fila.
+VARIOS_FORMATOS = {'LC Guindillas "PIPARRAS"'}
 
 # Proveedores escritos de dos formas en la hoja → forma única
 ALIAS_PROVEEDOR = {"NAVARRA ENDULCE": "NAVARRA EN DULCE"}
@@ -261,6 +253,7 @@ def main():
         sys.exit(f"Cabecera inesperada: {filas[0][:4]}")
 
     productos, desconocidas, proveedores = [], Counter(), {}
+    vistos, duplicados = set(), []
     for f in filas[1:]:
         familia, sub, art = (f + ["", "", "", ""])[:3]
         pvp = f[col_pvp] if col_pvp < len(f) else ""
@@ -276,6 +269,10 @@ def main():
         titulo = CORREGIR_TITULO.get(titulo, titulo)
         if titulo in DESCATALOGADOS:
             continue
+        if titulo in vistos and titulo not in VARIOS_FORMATOS:
+            duplicados.append(titulo)
+            continue
+        vistos.add(titulo)
         # Los lotes de El Navarrico ya no se venden.
         if cat == "lotes" and slugify(nombre_p) == "el-navarrico":
             continue
@@ -287,6 +284,9 @@ def main():
             nombre_p = nombre_proveedor(sub.upper())
             proveedores[slugify(nombre_p)] = nombre_p
             productos.append((cat, slugify(nombre_p), titulo, pvp))
+
+    if duplicados:
+        print("Filas repetidas en la hoja (se usa la primera): " + "; ".join(duplicados))
 
     if desconocidas:
         sys.exit(

@@ -277,7 +277,7 @@ export const DESCRIPTIONS: Record<string, string> = {
   "arbizu-chorizo-a-la-sidra": "Chorizo cocinado a la sidra, listo para calentar: jugoso, con un toque ácido y aromático. Un clásico de la mesa de tapas.",
   "ibericomio-jamon-de-bellota-100-iberica": "Jamón ibérico de bellota 100 %: loncha jugosa, aroma intenso y grasa infiltrada que se funde en boca. Se disfruta mejor a temperatura ambiente.",
   "ibericomio-chorizo-iberico-galocha": "Chorizo ibérico de calidad: sabor profundo y aroma a pimentón. Para tabla, aperitivo y bocadillo.",
-  "ibericomio-chorizo-iberico-galocha-2": "Chorizo ibérico de calidad: sabor profundo y aroma a pimentón. Para tabla, aperitivo y bocadillo.",
+  "ibericomio-salchichon-iberico-galocha": "Salchichón ibérico de Embutidos Galocha, loncheado: curado lentamente, con pimienta y un sabor intenso y redondo. Para tabla, aperitivo o bocadillo.",
   "ibericomio-jamon-de-bellota-100-iberico": "Jamón ibérico de bellota 100 %: loncha jugosa, aroma intenso y grasa infiltrada que se funde en boca. Se disfruta mejor a temperatura ambiente.",
   "salamanca-jamon-iberico-cebo-50": "Jamón ibérico de cebo, en lonchas. Un jamón sabroso y accesible para el día a día.",
   "salamanca-jamon-iberico-bellota-50": "Jamón ibérico de bellota 50 % raza ibérica: loncha jugosa, aroma intenso y grasa infiltrada que se funde en boca. Se disfruta mejor a temperatura ambiente.",
