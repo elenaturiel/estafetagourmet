@@ -80,7 +80,7 @@ const PHOTOS: Record<string, string> = {
   "LARRASOAÑA txistorra picante 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
   "LARRALDEA sidra navarra": "/images/productos-estafeta/larraldea-sidra-navarra.webp",
   "LARRALDEA sidra ecologica navarra": "/images/productos-estafeta/larraldea-sidra-ecologica-navarra.webp",
-  "LARRA GAZTAZARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
+  "LARRA GAZTAZHARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
   "LARRA cuña 350g caja carton": "/images/productos-estafeta/larra-cuna-350g-caja-carton.webp",
   "LC Guindillas \"PIPARRAS\" 360 ml": "/images/productos/lc-guindillas-piparras.webp",
   "LC Guindillas \"PIPARRAS\" 630 ml": "/images/productos/lc-guindillas-piparras.webp",

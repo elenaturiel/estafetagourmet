@@ -56,7 +56,7 @@ export const productRows: ProductRow[] = [
   ["quesos", "la-vasco-navarra", "LVN QUESO OVEJA V. NAVARRA CUÑA 250 G. EST. METALICO", 7.5],
   ["quesos", "la-vasco-navarra", "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G", 5.75],
   ["quesos", "la-vasco-navarra", "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G", 5.2],
-  ["quesos", "larra", "LARRA GAZTAZARRA Crema oveja 200 g", 3.5],
+  ["quesos", "larra", "LARRA GAZTAZHARRA Crema oveja 200 g", 3.5],
   ["quesos", "larra", "LARRA cuña 350g caja carton", 12.9],
   ["esparragos", "el-navarrico", "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O", 16.5],
   ["esparragos", "el-navarrico", "NAVARRICO ESPÁRRAGOS LATA 425 ml 6/8 FR D.O", 10.5],
@@ -352,6 +352,6 @@ export const productRows: ProductRow[] = [
   ["embutidos", "larrasoana", "LARRASOAÑA txistorra dulce 220g", 3.5],
   ["embutidos", "larrasoana", "LARRASOAÑA txistorra picante 220g", 3.5],
   ["quesos", "ekia", "EKIA cuña de queso", 9.1],
-  ["quesos", "ekia", "EKIA gaztahazarra", 11.1],
+  ["quesos", "ekia", "EKIA Gaztazharra", 11.1],
   ["bebidas", "ekia", "EKIA Patxarán ISABA", 23.8],
 ];
