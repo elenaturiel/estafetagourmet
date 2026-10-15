@@ -55,6 +55,8 @@ export const removedProducts: [categoria: string, slug: string][] = [
 
 /** Productos con nombre nuevo en la plantilla: su ficha antigua lleva a la nueva. */
 export const renamedProducts: [categoria: string, slugViejo: string, slugNuevo: string][] = [
+  ["quesos", "larra-gaztazarra-crema-oveja-200-g", "larra-gaztazharra-crema-oveja-200-g"],
+  ["quesos", "ekia-gaztahazarra", "ekia-gaztazharra"],
   ["encurtidos", "lc-guindillas-piparras", "lc-guindillas-piparras-360-ml"],
   ["encurtidos", "lc-guindillas-piparras-2", "lc-guindillas-piparras-360-ml"],
   ["encurtidos", "lc-guindillas-piparras-3", "lc-guindillas-piparras-630-ml"],

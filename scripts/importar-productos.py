@@ -122,6 +122,9 @@ CORREGIR_TITULO = {
     "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 200 G.": "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G",
     "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 200 G": "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G",
     "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G.": "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G",
+    # Se escribe Gaztazharra.
+    "LARRA GAZTAZARRA Crema oveja 200 g": "LARRA GAZTAZHARRA Crema oveja 200 g",
+    "EKIA gaztahazarra": "EKIA Gaztazharra",
 }
 
 # Productos que se venden en la web aunque aún no estén en la hoja
@@ -129,7 +132,7 @@ CORREGIR_TITULO = {
 # trae el título, manda la hoja.
 EXTRA_PRODUCTOS = [
     ("quesos", "EKIA", "EKIA cuña de queso", 9.1),
-    ("quesos", "EKIA", "EKIA gaztahazarra", 11.1),
+    ("quesos", "EKIA", "EKIA Gaztazharra", 11.1),
     ("bebidas", "EKIA", "EKIA Patxarán ISABA", 23.8),
 ]
 
