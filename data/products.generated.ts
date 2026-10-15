@@ -259,7 +259,6 @@ export const productRows: ProductRow[] = [
   ["dulces", "navarra-en-dulce", "NAVARRA PASTAS SAN FERMIN AL PATXARAN", 7.9],
   ["dulces", "aidin", "AIDIN mermelada de cascabillo de roncal", 5.02],
   ["dulces", "aidin", "AIDIN mermelada de albaricoque con almendra", 5.02],
-  ["dulces", "aidin", "AIDIN mermelada de otoño", 5.02],
   ["dulces", "aidin", "AIDIN mermelada de aceite", 7.24],
   ["dulces", "aidin", "AIDIN mermelada de cebolla confitada con vino", 5.68],
   ["dulces", "aidin", "AIDIN mermelada de fresa de mendigorria", 4.92],
