@@ -45,31 +45,10 @@ function simple(
 
 export const categories: Category[] = [
   simple(
-    "esparragos",
-    "Espárragos",
-    "Espárragos de Navarra",
-    "Espárragos de la huerta navarra, seleccionados en nuestra tienda.",
-    "Espárragos blancos con aceite y perejil",
-  ),
-  simple(
-    "alcachofas",
-    "Alcachofas",
-    "Alcachofas",
-    "Alcachofas en conserva de la huerta, seleccionadas en nuestra tienda.",
-    "Corazones de alcachofa con perejil",
-  ),
-  simple(
-    "pimientos",
-    "Pimientos",
-    "Pimientos",
-    "Pimientos del piquillo y otras variedades, seleccionados en nuestra tienda.",
-    "Pimientos del piquillo asados con ajo laminado",
-  ),
-  simple(
     "conservas",
     "Conservas",
     "Conservas",
-    "Conservas seleccionadas en nuestra tienda de la calle Estafeta.",
+    "Bonito, ventresca, piparras y otras conservas seleccionadas en nuestra tienda de la calle Estafeta.",
     "Lata de conserva de pescado con un tenedor",
   ),
   simple(
@@ -82,8 +61,8 @@ export const categories: Category[] = [
   simple(
     "verduras",
     "Verduras",
-    "Verduras",
-    "Verduras en conserva de la huerta, seleccionadas en nuestra tienda.",
+    "Verduras de Navarra",
+    "Espárragos, pimientos del piquillo, alcachofas, setas y otras verduras en conserva de la huerta navarra, seleccionadas en nuestra tienda.",
     "Menestra de verduras, borraja y cardo",
   ),
   {
@@ -139,39 +118,11 @@ export const categories: Category[] = [
     filters: [],
   },
   simple(
-    "setas-y-hongos",
-    "Setas y hongos",
-    "Setas y hongos",
-    "Hongos y setas en conserva, seleccionados en nuestra tienda.",
-    "Champiñones, rebozuelos y setas variadas en un plato",
-  ),
-  simple(
-    "cremas",
-    "Cremas",
-    "Cremas",
-    "Cremas de verduras listas para calentar y servir.",
-    "Dos cuencos de crema de verduras",
-  ),
-  simple(
-    "salsas",
-    "Salsas",
-    "Salsas",
-    "Salsas para acompañar carnes, pescados y verduras.",
-    "Tarro de salsa con una cuchara",
-  ),
-  simple(
     "pates",
     "Patés",
     "Patés",
     "Patés para untar, ideales para el aperitivo.",
     "Paté en terrina y sobre una tostada",
-  ),
-  simple(
-    "encurtidos",
-    "Encurtidos",
-    "Encurtidos",
-    "Guindillas y encurtidos para el aperitivo.",
-    "Cuenco de guindillas encurtidas",
   ),
   simple(
     "condimentos",
@@ -188,57 +139,29 @@ export const categories: Category[] = [
     "Cazuela de alubias guisadas",
   ),
   simple(
-    "mermeladas",
-    "Mermeladas",
-    "Mermeladas",
-    "Mermeladas y confituras para desayunos y tablas de quesos.",
-    "Tarro de mermelada con una cuchara",
-  ),
-  simple(
-    "chocolates",
-    "Chocolates",
-    "Chocolates",
-    "Chocolates seleccionados en nuestra tienda de la calle Estafeta.",
-    "Tableta de chocolate negro en onzas",
-  ),
-  simple(
     "dulces",
     "Dulces",
     "Dulces",
-    "Pastas, dulces tradicionales y caprichos para el café.",
+    "Chocolates, mermeladas, miel, pastas y otros dulces para el café y la sobremesa.",
     "Pastas y dulces tradicionales",
   ),
   {
     slug: "vinos",
-    name: "Vinos D.O. Navarra",
-    title: "Vinos D.O. Navarra",
-    intro: "Tintos, rosados y blancos de bodegas pequeñas de Navarra.",
+    name: "Vinos y licores",
+    title: "Vinos y licores de Navarra",
+    intro: "Tintos, rosados y blancos de bodegas pequeñas de Navarra, patxarán, licores y sidras.",
     image: { src: img("vinos"), alt: "Copas de vino tinto, rosado y blanco", placeholder: "Foto · vinos" },
     seo: {
-      title: "Vinos D.O. Navarra: tintos, rosados y blancos",
+      title: "Vinos D.O. Navarra, patxarán y licores",
       description:
-        "Vinos de la D.O. Navarra de bodegas pequeñas: tintos, rosados y blancos seleccionados en nuestra tienda de Pamplona. Envío a toda la península en 24–48 h.",
-      heading: "Vinos de Navarra, online y en Pamplona",
+        "Vinos de la D.O. Navarra de bodegas pequeñas, patxarán, licores y sidras seleccionados en nuestra tienda de Pamplona. Envío a toda la península en 24–48 h.",
+      heading: "Vinos y licores de Navarra, online y en Pamplona",
       text: [
         "Vinos de bodegas pequeñas de la D.O. Navarra, catados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
       ],
     },
     filters: [],
   },
-  simple(
-    "espumosos",
-    "Espumosos",
-    "Espumosos",
-    "Vinos espumosos para brindar y celebrar.",
-    "Copa de vino espumoso",
-  ),
-  simple(
-    "bebidas",
-    "Bebidas",
-    "Bebidas y licores",
-    "Patxarán, licores y otras bebidas.",
-    "Copas de patxarán y licor",
-  ),
   simple(
     "lotes",
     "Lotes",

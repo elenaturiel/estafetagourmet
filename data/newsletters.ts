@@ -161,7 +161,7 @@ export const newsletters: Newsletter[] = [
         "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
         "LC ESPÁRRAGO 06-08 FRASCO",
       ],
-      cta: { label: "Comprar espárragos", href: "/tienda/esparragos" },
+      cta: { label: "Comprar espárragos", href: "/tienda/verduras" },
     },
   },
   {
@@ -216,7 +216,7 @@ export const newsletters: Newsletter[] = [
         "LC PIMIENTO CONFITADO",
         "ANKO pimiento piquillo entero extra",
       ],
-      cta: { label: "Comprar pimientos", href: "/tienda/pimientos" },
+      cta: { label: "Comprar pimientos", href: "/tienda/verduras" },
     },
   },
   {
@@ -264,7 +264,7 @@ export const newsletters: Newsletter[] = [
     shop: {
       title: "Alcachofas en conserva en nuestra tienda",
       products: ["LC CORAZON ALCACHOFA 10-12", "LC MITAD ALCACHOFA NATURAL", "D'ORO SAL ESCAMAS"],
-      cta: { label: "Comprar alcachofas", href: "/tienda/alcachofas" },
+      cta: { label: "Comprar alcachofas", href: "/tienda/verduras" },
     },
   },
   {
@@ -413,7 +413,7 @@ export const newsletters: Newsletter[] = [
         "BAINES Patxarán BAINES etiqueta oro",
         "LAXOA Patxarán",
       ],
-      cta: { label: "Comprar pacharán", href: "/tienda/bebidas" },
+      cta: { label: "Comprar pacharán", href: "/tienda/vinos" },
     },
   },
   {

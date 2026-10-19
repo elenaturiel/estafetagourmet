@@ -48,15 +48,23 @@ export const removedProducts: [categoria: string, slug: string][] = [
   ["quesos", "lvn-crema-al-queso-anejo-intenso-125-gr"],
   ["quesos", "lvn-crema-al-queso-de-oveja-125-gr"],
   ["quesos", "lvn-crema-al-queso-de-cabra-125-gr"],
-  ["esparragos", "lc-esparrago-04-06-frasco"],
-  ["legumbres", "lc-pencas-acelga-natural"],
   ["mermeladas", "aidin-mermelada-de-otono"],
 ];
 
 /** Productos con nombre nuevo en la plantilla: su ficha antigua lleva a la nueva. */
 export const renamedProducts: [categoria: string, slugViejo: string, slugNuevo: string][] = [
-  ["quesos", "larra-gaztazarra-crema-oveja-200-g", "larra-gaztazharra-crema-oveja-200-g"],
-  ["quesos", "ekia-gaztahazarra", "ekia-gaztazharra"],
+  ["quesos", "lvn-queso-reserva-1-2-piezas-350-g", "lvn-queso-reserva-1-2-piezas-250-g"],
+  ["quesos", "larra-gaztazharra-crema-oveja-200-g", "larra-gaztazarra-crema-oveja-200-g"],
+  ["quesos", "ekia-gaztazharra", "ekia-gaztazarra"],
+  ["verduras", "lc-esparragos-5", "lc-esparragos-5-fr"],
+  ["verduras", "lc-esparragos-6", "lc-esparragos-6-fr"],
+  ["verduras", "lc-esparragos-8", "lc-esparragos-8-fr"],
+  ["verduras", "lc-esparragos-10", "lc-esparragos-10-fr"],
+  ["verduras", "lc-esparrago-5", "lc-esparrago-5-lata"],
+  ["verduras", "lc-esparrago-6", "lc-esparrago-6-lata"],
+  ["verduras", "lc-esparrago-6-8", "lc-esparrago-6-8-lata"],
+  ["verduras", "lc-esparrago-8-12", "lc-esparrago-8-12-lata"],
+  ["quesos", "ekia-gaztahazarra", "ekia-gaztazarra"],
   ["encurtidos", "lc-guindillas-piparras", "lc-guindillas-piparras-360-ml"],
   ["encurtidos", "lc-guindillas-piparras-2", "lc-guindillas-piparras-360-ml"],
   ["encurtidos", "lc-guindillas-piparras-3", "lc-guindillas-piparras-630-ml"],
@@ -79,3 +87,18 @@ export const renamedProducts: [categoria: string, slugViejo: string, slugNuevo: 
   ["embutidos", "ibericomio-jamon-de-bellota-100-ib-montecillo", "ibericomio-jamon-de-bellota-100-iberico"],
   ["embutidos", "salamanca-jamon-iberico-bellota-100", "salamanca-jamon-iberico-bellota-50"],
 ];
+
+/** Categorías que dejaron de existir → categoría en la que están ahora sus productos. */
+export const MERGED_CATEGORIES: Record<string, string> = {
+  esparragos: "verduras",
+  alcachofas: "verduras",
+  pimientos: "verduras",
+  "setas-y-hongos": "verduras",
+  encurtidos: "conservas",
+  bebidas: "vinos",
+  espumosos: "vinos",
+  mermeladas: "dulces",
+  chocolates: "dulces",
+  cremas: "preparados",
+  salsas: "preparados",
+};

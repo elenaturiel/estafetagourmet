@@ -26,7 +26,7 @@ const DESCRIPTION = "[Descripción del producto: origen, elaboración, conservac
  */
 const FEATURED = [
   "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
-  "LVN QUESO RESERVA 1/2 PIEZAS 350 G.",
+  "LVN QUESO RESERVA 1/2 PIEZAS 250 G.",
   "ARBIZU Txistorra individual",
   "INURRIETA TINTO altos de inurrieta",
 ];
@@ -80,7 +80,7 @@ const PHOTOS: Record<string, string> = {
   "LARRASOAÑA txistorra picante 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
   "LARRALDEA sidra navarra": "/images/productos-estafeta/larraldea-sidra-navarra.webp",
   "LARRALDEA sidra ecologica navarra": "/images/productos-estafeta/larraldea-sidra-ecologica-navarra.webp",
-  "LARRA GAZTAZHARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
+  "LARRA GAZTAZARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
   "LARRA cuña 350g caja carton": "/images/productos-estafeta/larra-cuna-350g-caja-carton.webp",
   "LC Guindillas \"PIPARRAS\" 360 ml": "/images/productos/lc-guindillas-piparras.webp",
   "LC Guindillas \"PIPARRAS\" 630 ml": "/images/productos/lc-guindillas-piparras.webp",
@@ -93,7 +93,7 @@ const PHOTOS: Record<string, string> = {
   "ECOPRO Sin filtrar 500 ml": "/images/productos-estafeta/ecopro-sin-filtrar-500-ml.webp",
   "ECOPRO Cornicabra 250 ml": "/images/productos-estafeta/ecopro-cornicabra-500-ml.webp",
   "ECOPRO Coupage 250 ml": "/images/productos-estafeta/ecopro-coupage-500-ml.webp",
-  "LVN QUESO RESERVA 1/2 PIEZAS 350 G.": "/images/productos-estafeta/lvn-queso-reserva-1-2-piezas-350-g.webp",
+  "LVN QUESO RESERVA 1/2 PIEZAS 250 G.": "/images/productos-estafeta/lvn-queso-reserva-1-2-piezas-350-g.webp",
   "LVN CUÑA DE QUESO D.O. IDIAZABAL AHUM. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-ahum-250-g.webp",
   "LVN CUÑA DE QUESO D.O. IDIAZABAL NAT. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-nat-250-g.webp",
   "LVN CUÑA DE QUESO OVEJA V NAVARRA AHUM. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-oveja-v-navarra-ahum-250-g.webp",
@@ -164,21 +164,9 @@ const RENAMED: Record<string, { name: string; description: string }> = {
   },
 };
 
-/**
- * En la hoja los chocolates y las mermeladas vienen en "Dulces": aquí pasan a sus
- * categorías "Chocolates" y "Mermeladas" (Leyre, Pedro Mayo y los chocolates de Navarra en Dulce; las
- * pastas y las galletas se quedan en Dulces).
- */
-function categoryOf(sheetCategory: string, producerSlug: string, sheetName: string): string {
-  if (sheetCategory !== "dulces") return sheetCategory;
-  if (/mermelada/i.test(sheetName)) return "mermeladas";
-  if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
-  if (producerSlug === "navarra-en-dulce" && !/pastas|galletas/i.test(sheetName)) return "chocolates";
-  return sheetCategory;
-}
 
 const sheetProducts: Product[] = productRows.map(([sheetCategory, producerSlug, sheetName, price]) => {
-  const categorySlug = categoryOf(sheetCategory, producerSlug, sheetName);
+  const categorySlug = sheetCategory;
   const renamed = RENAMED[sheetName];
   const baseName = renamed?.name ?? sheetName;
   const slug = uniqueSlug(baseName);

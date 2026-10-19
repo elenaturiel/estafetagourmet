@@ -8,9 +8,9 @@
 export type PairingRule = { cat?: string; producer?: string; name?: RegExp };
 
 export const PAIRING_PRODUCTS: Record<number, { a: PairingRule[]; b: PairingRule[] }> = {
-  1: { a: [{ cat: "esparragos" }], b: [{ name: /MONJARDIN Blanco chardonnay reserva/i }] },
+  1: { a: [{ cat: "verduras", name: /esparrag/i }], b: [{ name: /MONJARDIN Blanco chardonnay reserva/i }] },
   2: { a: [{ producer: "olasagasti", name: /bonito|ventresca/i }, { producer: "ubidea" }], b: [{ name: /BRUT CHARDONNAY MILLESIME/i }] },
-  3: { a: [{ cat: "pimientos" }], b: [{ name: /PALACIO DE SADA ROSADO/i }, { name: /IRACHE ROSADO/i }] },
+  3: { a: [{ cat: "verduras", name: /pimiento|piquillo|\bPIM\b/i }], b: [{ name: /PALACIO DE SADA ROSADO/i }, { name: /IRACHE ROSADO/i }] },
   4: { a: [{ producer: "la-vasco-navarra", cat: "quesos" }, { producer: "irular", name: /higo/i }], b: [{ name: /IRACHE TINTO 1891 CRIANZA/i }] },
   5: { a: [{ producer: "ibericomio" }, { producer: "salamanca-iberica" }], b: [{ name: /PCIRSUS Tinto CUVEE/i }, { name: /BRUT CHARDONNAY MILLESIME/i }] },
   6: { a: [{ producer: "arbizu", cat: "embutidos" }], b: [{ name: /altos de inurrieta/i }, { name: /UNSI TINTO TERRAZAS/i }] },
