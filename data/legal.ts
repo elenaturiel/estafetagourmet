@@ -2,14 +2,15 @@ import { site } from "./site";
 
 /**
  * Datos del titular de la web para las páginas legales.
- * Faltan los que solo conoce la tienda (razón social, NIF/CIF y, si aplica,
- * el registro): al rellenarlos desaparece el aviso de "texto provisional".
+ * Si se vacía el nombre o el NIF (o se vuelve a poner un marcador entre
+ * corchetes), las páginas legales muestran el aviso de "texto provisional".
  */
 export const legalEntity = {
-  name: "[Razón social o nombre del titular]",
-  taxId: "[NIF/CIF]",
+  name: "Cristina Lopez de Murillas",
+  taxId: "44612030B",
   address: "Calle Estafeta, 70 · 31001 Pamplona / Iruña (Navarra)",
-  registry: "[Datos del Registro Mercantil, si aplica]",
+  /** Empresaria individual: no inscrita en el Registro Mercantil. */
+  registry: "",
   email: site.email,
   /** Plazo legal de desistimiento en compras a distancia. */
   returnDays: "14 días naturales",
