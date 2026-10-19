@@ -1,7 +1,7 @@
 import type { Category } from "@/lib/types";
 
 /**
- * Categorías de la tienda, en el orden en que aparecen en la web.
+ * Categorías de la tienda, en el orden en que aparecen en la web (alfabético).
  *
  * - Para añadir una categoría: añade un objeto aquí (o una línea con
  *   `simple(...)`), su foto en public/images/categorias/<slug>.webp y sus
@@ -44,62 +44,6 @@ function simple(
 }
 
 export const categories: Category[] = [
-  simple(
-    "conservas",
-    "Conservas",
-    "Conservas",
-    "Bonito, ventresca, piparras y otras conservas seleccionadas en nuestra tienda de la calle Estafeta.",
-    "Lata de conserva de pescado con un tenedor",
-  ),
-  simple(
-    "legumbres",
-    "Legumbres",
-    "Legumbres",
-    "Alubias, lentejas y otras legumbres seleccionadas en nuestra tienda.",
-    "Alubias blancas, alubias rojas y lentejas",
-  ),
-  simple(
-    "verduras",
-    "Verduras",
-    "Verduras de Navarra",
-    "Espárragos, pimientos del piquillo, alcachofas, setas y otras verduras en conserva de la huerta navarra, seleccionadas en nuestra tienda.",
-    "Menestra de verduras, borraja y cardo",
-  ),
-  {
-    slug: "quesos",
-    name: "Quesos",
-    title: "Quesos navarros",
-    intro:
-      "Quesos artesanos de pequeños productores, catados uno a uno en nuestra tienda.",
-    image: { src: img("quesos"), alt: "Cuña de queso curado y dados de queso", placeholder: "Foto · quesos" },
-    seo: {
-      title: "Quesos navarros artesanos: Roncal e Idiazábal",
-      description:
-        "Compra quesos navarros artesanos de pequeños productores: DOP Roncal, Idiazábal, oveja, cabra y vaca. Envío en 24–48 h o recogida en la calle Estafeta de Pamplona.",
-      heading: "Quesos navarros artesanos, online y en Pamplona",
-      text: [
-        "Selección de quesos de pequeños productores navarros, catados uno a uno en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
-      ],
-    },
-    filters: [],
-  },
-  {
-    slug: "embutidos",
-    name: "Embutidos",
-    title: "Embutidos navarros",
-    intro: "Txistorra, chorizo y embutidos curados de obradores navarros.",
-    image: { src: img("embutidos"), alt: "Chorizo, jamón y salchichón cortados en lonchas", placeholder: "Foto · embutidos" },
-    seo: {
-      title: "Embutidos navarros artesanos: txistorra y chorizo",
-      description:
-        "Txistorra (chistorra), chorizo y embutidos artesanos de obradores navarros. Compra online con envío en 24–48 h o recoge tu pedido en la calle Estafeta de Pamplona.",
-      heading: "Embutidos navarros artesanos, online y en Pamplona",
-      text: [
-        "Embutidos de pequeños obradores navarros, seleccionados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
-      ],
-    },
-    filters: [],
-  },
   {
     slug: "aceites",
     name: "Aceites",
@@ -118,13 +62,6 @@ export const categories: Category[] = [
     filters: [],
   },
   simple(
-    "pates",
-    "Patés",
-    "Patés",
-    "Patés para untar, ideales para el aperitivo.",
-    "Paté en terrina y sobre una tostada",
-  ),
-  simple(
     "condimentos",
     "Condimentos",
     "Condimentos",
@@ -132,11 +69,11 @@ export const categories: Category[] = [
     "Escamas de sal sobre un plato",
   ),
   simple(
-    "preparados",
-    "Preparados",
-    "Platos preparados",
-    "Platos preparados listos para calentar y servir.",
-    "Cazuela de alubias guisadas",
+    "conservas",
+    "Conservas",
+    "Conservas",
+    "Bonito, ventresca, piparras y otras conservas seleccionadas en nuestra tienda de la calle Estafeta.",
+    "Lata de conserva de pescado con un tenedor",
   ),
   simple(
     "dulces",
@@ -146,22 +83,29 @@ export const categories: Category[] = [
     "Pastas y dulces tradicionales",
   ),
   {
-    slug: "vinos",
-    name: "Vinos y licores",
-    title: "Vinos y licores de Navarra",
-    intro: "Tintos, rosados y blancos de bodegas pequeñas de Navarra, patxarán, licores y sidras.",
-    image: { src: img("vinos"), alt: "Copas de vino tinto, rosado y blanco", placeholder: "Foto · vinos" },
+    slug: "embutidos",
+    name: "Embutidos",
+    title: "Embutidos navarros",
+    intro: "Txistorra, chorizo y embutidos curados de obradores navarros.",
+    image: { src: img("embutidos"), alt: "Chorizo, jamón y salchichón cortados en lonchas", placeholder: "Foto · embutidos" },
     seo: {
-      title: "Vinos D.O. Navarra, patxarán y licores",
+      title: "Embutidos navarros artesanos: txistorra y chorizo",
       description:
-        "Vinos de la D.O. Navarra de bodegas pequeñas, patxarán, licores y sidras seleccionados en nuestra tienda de Pamplona. Envío a toda la península en 24–48 h.",
-      heading: "Vinos y licores de Navarra, online y en Pamplona",
+        "Txistorra (chistorra), chorizo y embutidos artesanos de obradores navarros. Compra online con envío en 24–48 h o recoge tu pedido en la calle Estafeta de Pamplona.",
+      heading: "Embutidos navarros artesanos, online y en Pamplona",
       text: [
-        "Vinos de bodegas pequeñas de la D.O. Navarra, catados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
+        "Embutidos de pequeños obradores navarros, seleccionados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
       ],
     },
     filters: [],
   },
+  simple(
+    "legumbres",
+    "Legumbres",
+    "Legumbres",
+    "Alubias, lentejas y otras legumbres seleccionadas en nuestra tienda.",
+    "Alubias blancas, alubias rojas y lentejas",
+  ),
   simple(
     "lotes",
     "Lotes",
@@ -186,4 +130,60 @@ export const categories: Category[] = [
       ],
     },
   ),
+  simple(
+    "pates",
+    "Patés",
+    "Patés",
+    "Patés para untar, ideales para el aperitivo.",
+    "Paté en terrina y sobre una tostada",
+  ),
+  simple(
+    "preparados",
+    "Preparados",
+    "Platos preparados",
+    "Platos preparados listos para calentar y servir.",
+    "Cazuela de alubias guisadas",
+  ),
+  {
+    slug: "quesos",
+    name: "Quesos",
+    title: "Quesos navarros",
+    intro:
+      "Quesos artesanos de pequeños productores, catados uno a uno en nuestra tienda.",
+    image: { src: img("quesos"), alt: "Cuña de queso curado y dados de queso", placeholder: "Foto · quesos" },
+    seo: {
+      title: "Quesos navarros artesanos: Roncal e Idiazábal",
+      description:
+        "Compra quesos navarros artesanos de pequeños productores: DOP Roncal, Idiazábal, oveja, cabra y vaca. Envío en 24–48 h o recogida en la calle Estafeta de Pamplona.",
+      heading: "Quesos navarros artesanos, online y en Pamplona",
+      text: [
+        "Selección de quesos de pequeños productores navarros, catados uno a uno en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
+      ],
+    },
+    filters: [],
+  },
+  simple(
+    "verduras",
+    "Verduras",
+    "Verduras de Navarra",
+    "Espárragos, pimientos del piquillo, alcachofas, setas y otras verduras en conserva de la huerta navarra, seleccionadas en nuestra tienda.",
+    "Menestra de verduras, borraja y cardo",
+  ),
+  {
+    slug: "vinos",
+    name: "Vinos y licores",
+    title: "Vinos y licores de Navarra",
+    intro: "Tintos, rosados y blancos de bodegas pequeñas de Navarra, patxarán, licores y sidras.",
+    image: { src: img("vinos"), alt: "Copas de vino tinto, rosado y blanco", placeholder: "Foto · vinos" },
+    seo: {
+      title: "Vinos D.O. Navarra, patxarán y licores",
+      description:
+        "Vinos de la D.O. Navarra de bodegas pequeñas, patxarán, licores y sidras seleccionados en nuestra tienda de Pamplona. Envío a toda la península en 24–48 h.",
+      heading: "Vinos y licores de Navarra, online y en Pamplona",
+      text: [
+        "Vinos de bodegas pequeñas de la D.O. Navarra, catados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
+      ],
+    },
+    filters: [],
+  },
 ];
