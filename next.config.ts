@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { removedProducts, renamedProducts } from "./data/removed-products";
+import { MERGED_CATEGORIES, removedProducts, renamedProducts } from "./data/removed-products";
 
 /**
  * Dominio canónico.
@@ -44,12 +44,12 @@ const nextConfig: NextConfig = {
       // Los lotes de El Navarrico ya no se venden.
       { source: "/tienda/lotes/navarrico-lote-:lote", destination: "/tienda/lotes", permanent: true },
       // "Chocolate sabor nº1…6" tienen ya nombre propio.
-      { source: "/tienda/dulces/navarra-chocolate-sabor-n-1", destination: "/tienda/chocolates/chocolate-negro-72-vino-tinto", permanent: true },
-      { source: "/tienda/dulces/navarra-chocolate-sabor-n-2", destination: "/tienda/chocolates/chocolate-negro-85-arandanos", permanent: true },
-      { source: "/tienda/dulces/navarra-chocolate-sabor-n-3", destination: "/tienda/chocolates/chocolate-negro-62-puro-sin-azucar-anadido", permanent: true },
-      { source: "/tienda/dulces/navarra-chocolate-sabor-n-4", destination: "/tienda/chocolates/chocolate-con-leche-cafe-bombon-sin-azucar-anadido", permanent: true },
-      { source: "/tienda/dulces/navarra-chocolate-sabor-n-5", destination: "/tienda/chocolates/chocolate-negro-72-piparras", permanent: true },
-      { source: "/tienda/dulces/navarra-chocolate-sabor-n-6", destination: "/tienda/chocolates/chocolate-con-leche-manzana-a-la-sidra", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-1", destination: "/tienda/dulces/chocolate-negro-72-vino-tinto", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-2", destination: "/tienda/dulces/chocolate-negro-85-arandanos", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-3", destination: "/tienda/dulces/chocolate-negro-62-puro-sin-azucar-anadido", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-4", destination: "/tienda/dulces/chocolate-con-leche-cafe-bombon-sin-azucar-anadido", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-5", destination: "/tienda/dulces/chocolate-negro-72-piparras", permanent: true },
+      { source: "/tienda/dulces/navarra-chocolate-sabor-n-6", destination: "/tienda/dulces/chocolate-con-leche-manzana-a-la-sidra", permanent: true },
       // Productos retirados: su ficha lleva a la categoría.
       ...removedProducts.map(([categoria, slug]) => ({
         source: `/tienda/${categoria}/${slug}`,
@@ -66,6 +66,14 @@ const nextConfig: NextConfig = {
       ...["que-vino-elegir-para-cada-queso-navarro", "que-comprar-en-cada-epoca-del-ano-en-navarra", "el-productor-del-mes"].map(
         (slug) => ({ source: `/blog/${slug}`, destination: "/blog", permanent: true }),
       ),
+      // Categorías que se unieron a otras (EXCEL_WEB, oct. 2026): la categoría y
+      // sus fichas pasan a la nueva (los productos conservan su dirección).
+      // Van después de las de productos retirados o renombrados, que usan la
+      // categoría antigua.
+      ...Object.entries(MERGED_CATEGORIES).flatMap(([vieja, nueva]) => [
+        { source: `/tienda/${vieja}`, destination: `/tienda/${nueva}`, permanent: true },
+        { source: `/tienda/${vieja}/:producto`, destination: `/tienda/${nueva}/:producto`, permanent: true },
+      ]),
       ]),
       ...canonicalHostRedirects(),
     ];

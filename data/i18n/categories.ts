@@ -7,29 +7,17 @@ type T2 = { en: Tr; fr: Tr };
 
 /** Nombre, título, presentación y texto de la foto de cada categoría, en inglés y francés. */
 const TEXTS: Record<string, T2> = {
-  esparragos: {
-    en: { name: "Asparagus", title: "Asparagus from Navarre", intro: "Asparagus from Navarre's gardens, selected at our shop.", alt: "White asparagus with oil and parsley" },
-    fr: { name: "Asperges", title: "Asperges de Navarre", intro: "Asperges des potagers de Navarre, sélectionnées dans notre boutique.", alt: "Asperges blanches à l'huile et au persil" },
-  },
-  alcachofas: {
-    en: { name: "Artichokes", title: "Artichokes", intro: "Preserved artichokes from the garden, selected at our shop.", alt: "Artichoke hearts with parsley" },
-    fr: { name: "Artichauts", title: "Artichauts", intro: "Artichauts en conserve du potager, sélectionnés dans notre boutique.", alt: "Cœurs d'artichaut au persil" },
-  },
-  pimientos: {
-    en: { name: "Peppers", title: "Peppers", intro: "Piquillo peppers and other varieties, selected at our shop.", alt: "Roasted piquillo peppers with sliced garlic" },
-    fr: { name: "Poivrons", title: "Poivrons", intro: "Piquillos et autres variétés, sélectionnés dans notre boutique.", alt: "Piquillos rôtis à l'ail émincé" },
-  },
   conservas: {
-    en: { name: "Tinned fish", title: "Tinned fish", intro: "Tinned fish selected at our shop on Calle Estafeta.", alt: "Tin of fish with a fork" },
-    fr: { name: "Conserves", title: "Conserves", intro: "Conserves sélectionnées dans notre boutique de la Calle Estafeta.", alt: "Boîte de conserve de poisson avec une fourchette" },
+    en: { name: "Preserves", title: "Preserves", intro: "Bonito, ventresca, piparra chillies and other preserves selected at our shop on Calle Estafeta.", alt: "Tin of fish with a fork" },
+    fr: { name: "Conserves", title: "Conserves", intro: "Bonite, ventrèche, piments piparras et autres conserves sélectionnés dans notre boutique de la Calle Estafeta.", alt: "Boîte de conserve de poisson avec une fourchette" },
   },
   legumbres: {
     en: { name: "Pulses", title: "Pulses", intro: "White beans, red beans, lentils and other pulses selected at our shop.", alt: "White beans, red beans and lentils" },
     fr: { name: "Légumineuses", title: "Légumineuses", intro: "Haricots blancs, haricots rouges, lentilles et autres légumineuses sélectionnés dans notre boutique.", alt: "Haricots blancs, haricots rouges et lentilles" },
   },
   verduras: {
-    en: { name: "Vegetables", title: "Vegetables", intro: "Preserved vegetables from the garden, selected at our shop.", alt: "Vegetable medley, borage and cardoon" },
-    fr: { name: "Légumes", title: "Légumes", intro: "Légumes en conserve du potager, sélectionnés dans notre boutique.", alt: "Menestra de légumes, bourrache et cardon" },
+    en: { name: "Vegetables", title: "Vegetables from Navarre", intro: "Asparagus, piquillo peppers, artichokes, mushrooms and other preserved vegetables from Navarre's gardens, selected at our shop.", alt: "Vegetable medley, borage and cardoon" },
+    fr: { name: "Légumes", title: "Légumes de Navarre", intro: "Asperges, piquillos, artichauts, champignons et autres légumes en conserve des potagers de Navarre, sélectionnés dans notre boutique.", alt: "Menestra de légumes, bourrache et cardon" },
   },
   quesos: {
     en: { name: "Cheeses", title: "Navarrese cheeses", intro: "Artisan cheeses from small producers, tasted one by one at our shop.", alt: "Wedge of mature cheese and cubes of cheese" },
@@ -43,25 +31,9 @@ const TEXTS: Record<string, T2> = {
     en: { name: "Oils", title: "Oils from Navarre", intro: "Extra virgin olive oil from Navarrese mills.", alt: "Bottle of extra virgin olive oil" },
     fr: { name: "Huiles", title: "Huiles de Navarre", intro: "Huile d'olive vierge extra de moulins navarrais.", alt: "Bouteille d'huile d'olive vierge extra" },
   },
-  "setas-y-hongos": {
-    en: { name: "Mushrooms", title: "Mushrooms", intro: "Preserved mushrooms, selected at our shop.", alt: "Button mushrooms, chanterelles and mixed mushrooms on a plate" },
-    fr: { name: "Champignons", title: "Champignons", intro: "Champignons en conserve, sélectionnés dans notre boutique.", alt: "Champignons de Paris, girolles et champignons variés dans une assiette" },
-  },
-  cremas: {
-    en: { name: "Cream soups", title: "Cream soups", intro: "Vegetable cream soups ready to heat and serve.", alt: "Two bowls of vegetable cream soup" },
-    fr: { name: "Veloutés", title: "Veloutés", intro: "Veloutés de légumes prêts à réchauffer et à servir.", alt: "Deux bols de velouté de légumes" },
-  },
-  salsas: {
-    en: { name: "Sauces", title: "Sauces", intro: "Sauces to go with meat, fish and vegetables.", alt: "Jar of sauce with a spoon" },
-    fr: { name: "Sauces", title: "Sauces", intro: "Sauces pour accompagner viandes, poissons et légumes.", alt: "Pot de sauce avec une cuillère" },
-  },
   pates: {
     en: { name: "Pâtés", title: "Pâtés", intro: "Spreadable pâtés, ideal for an aperitif.", alt: "Pâté in a terrine and on a slice of toast" },
     fr: { name: "Pâtés", title: "Pâtés", intro: "Pâtés à tartiner, idéaux pour l'apéritif.", alt: "Pâté en terrine et sur une tartine" },
-  },
-  encurtidos: {
-    en: { name: "Pickles", title: "Pickles", intro: "Chillies and pickles for the aperitif.", alt: "Bowl of pickled chillies" },
-    fr: { name: "Pickles", title: "Pickles", intro: "Piments et pickles pour l'apéritif.", alt: "Bol de piments au vinaigre" },
   },
   condimentos: {
     en: { name: "Seasonings", title: "Seasonings", intro: "Salts, spices and seasonings for cooking.", alt: "Salt flakes on a plate" },
@@ -71,29 +43,13 @@ const TEXTS: Record<string, T2> = {
     en: { name: "Ready meals", title: "Ready meals", intro: "Ready meals to heat and serve.", alt: "Casserole of stewed beans" },
     fr: { name: "Plats cuisinés", title: "Plats cuisinés", intro: "Plats cuisinés prêts à réchauffer et à servir.", alt: "Cocotte de haricots mijotés" },
   },
-  mermeladas: {
-    en: { name: "Jams", title: "Jams", intro: "Jams and preserves for breakfasts and cheese boards.", alt: "Jar of jam with a spoon" },
-    fr: { name: "Confitures", title: "Confitures", intro: "Confitures pour les petits-déjeuners et les plateaux de fromages.", alt: "Pot de confiture avec une cuillère" },
-  },
-  chocolates: {
-    en: { name: "Chocolates", title: "Chocolates", intro: "Chocolates selected at our shop on Calle Estafeta.", alt: "Dark chocolate bar in squares" },
-    fr: { name: "Chocolats", title: "Chocolats", intro: "Chocolats sélectionnés dans notre boutique de la Calle Estafeta.", alt: "Tablette de chocolat noir en carrés" },
-  },
   dulces: {
-    en: { name: "Sweets", title: "Sweets", intro: "Biscuits, traditional sweets and treats for coffee time.", alt: "Biscuits and traditional sweets" },
-    fr: { name: "Douceurs", title: "Douceurs", intro: "Biscuits, douceurs traditionnelles et gourmandises pour le café.", alt: "Biscuits et douceurs traditionnelles" },
+    en: { name: "Sweets", title: "Sweets", intro: "Chocolate, jams, honey, biscuits and other treats for coffee time and after dinner.", alt: "Biscuits and traditional sweets" },
+    fr: { name: "Douceurs", title: "Douceurs", intro: "Chocolats, confitures, miel, biscuits et autres douceurs pour le café et le dessert.", alt: "Biscuits et douceurs traditionnelles" },
   },
   vinos: {
-    en: { name: "D.O. Navarra wines", title: "D.O. Navarra wines", intro: "Reds, rosés and whites from small Navarrese wineries.", alt: "Glasses of red, rosé and white wine" },
-    fr: { name: "Vins D.O. Navarra", title: "Vins D.O. Navarra", intro: "Vins rouges, rosés et blancs de petites caves de Navarre.", alt: "Verres de vin rouge, rosé et blanc" },
-  },
-  espumosos: {
-    en: { name: "Sparkling wines", title: "Sparkling wines", intro: "Sparkling wines for toasts and celebrations.", alt: "Glass of sparkling wine" },
-    fr: { name: "Vins mousseux", title: "Vins mousseux", intro: "Vins mousseux pour trinquer et célébrer.", alt: "Coupe de vin mousseux" },
-  },
-  bebidas: {
-    en: { name: "Drinks", title: "Drinks and liqueurs", intro: "Patxaran, liqueurs and other drinks.", alt: "Glasses of patxaran and liqueur" },
-    fr: { name: "Boissons", title: "Boissons et liqueurs", intro: "Patxaran, liqueurs et autres boissons.", alt: "Verres de patxaran et de liqueur" },
+    en: { name: "Wines and liqueurs", title: "Wines and liqueurs from Navarre", intro: "Reds, rosés and whites from small Navarrese wineries, patxaran, liqueurs and ciders.", alt: "Glasses of red, rosé and white wine" },
+    fr: { name: "Vins et liqueurs", title: "Vins et liqueurs de Navarre", intro: "Vins rouges, rosés et blancs de petites caves de Navarre, patxaran, liqueurs et cidres.", alt: "Verres de vin rouge, rosé et blanc" },
   },
   lotes: {
     en: { name: "Gift sets", title: "Gift sets", intro: "Sets with the best of the shop, ready to enjoy or give as a gift.", alt: "Gift set with txistorra, asparagus, peppers and wine" },
