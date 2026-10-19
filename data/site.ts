@@ -96,7 +96,12 @@ export const site = {
     count: "[nº]",
   },
 
-  newsletterIncentive: "[incentivo: p. ej. descuento en tu primer pedido]",
+  /** Regalo por suscribirse a la newsletter, en cada idioma. */
+  newsletterIncentive: {
+    es: "un 5 % de descuento en tu primera compra",
+    en: "5% off your first order",
+    fr: "5 % de réduction sur votre première commande",
+  },
 } as const;
 
 /** Un valor es marcador si sigue entre corchetes. */
