@@ -1,7 +1,7 @@
 /** Menús de la web. Cambia aquí los enlaces de cabecera y pie. */
 export const mainNav = [
+  // Los lotes están dentro de la tienda (categoría Lotes).
   { href: "/tienda", key: "shop" },
-  { href: "/tienda/lotes", key: "lots" },
   { href: "/productores", key: "producers" },
   { href: "/maridajes", key: "pairings" },
   { href: "/newsletter", key: "newsletter" },

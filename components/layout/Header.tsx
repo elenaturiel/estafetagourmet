@@ -17,7 +17,6 @@ import { RECIPIENTS, giftsHref } from "@/data/gifts";
 import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
-import { formatPrice } from "@/lib/format";
 import { fmt, localePath, locales, localeNames, type Locale } from "@/lib/i18n/config";
 import { useLocale, usePath, useT } from "@/lib/i18n/client";
 import { Logo } from "./Logo";
@@ -39,8 +38,6 @@ export type HeaderLot = {
 };
 
 function isActive(pathname: string, href: string) {
-  // "Lotes" es una categoría de la tienda: dentro de ella solo se marca "Lotes", no "Tienda".
-  if (href === "/tienda" && pathname.startsWith("/tienda/lotes")) return false;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -50,12 +47,9 @@ const iconButton =
 export function Header({
   categories,
   featuredLot,
-  lots,
 }: {
   categories: HeaderCategory[];
   featuredLot?: HeaderLot;
-  /** Los lotes de siempre (sin los de ocasión), para el menú "Lotes". */
-  lots: HeaderLot[];
 }) {
   const pathname = usePath();
   const t = useT();
@@ -179,12 +173,6 @@ export function Header({
           label: t.common.nav[item.key],
           href: item.href,
           current: isActive(pathname, item.href),
-          ...(item.key === "lots"
-            ? {
-                panelLabel: t.common.header.lotsPanel,
-                panel: <GiftsMenu lots={lots} />,
-              }
-            : {}),
           ...(item.key === "shop"
             ? {
                 panelLabel: t.common.header.shopPanel,
@@ -416,83 +404,6 @@ function GiftLinks() {
       >
         {t.common.header.allGiftIdeas}
       </Link>
-    </div>
-  );
-}
-
-/**
- * Panel del menú "Lotes": a la izquierda cada lote por separado; a la derecha
- * "¿Buscando un regalo?" con las ocasiones y destinatarios.
- */
-function GiftsMenu({ lots }: { lots: HeaderLot[] }) {
-  const t = useT();
-  return (
-    <div className="container-site grid grid-cols-[minmax(0,1fr)_380px] gap-8 py-8 xl:gap-12">
-      <div>
-        <p className="eyebrow mb-4 text-[12px] text-vino">{t.common.header.ourLots}</p>
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-3 xl:grid-cols-3">
-          {lots.map((lot) => (
-            <li key={lot.href}>
-              <Link
-                href={lot.href}
-                className="group flex items-center gap-3 rounded-eg p-1.5 transition-colors hover:bg-crema-oscuro/60"
-              >
-                <span className="block w-16 shrink-0 overflow-hidden rounded-eg">
-                  <ImagePlaceholder
-                    label=""
-                    src={lot.src}
-                    alt=""
-                    ratio="1 / 1"
-                    blend
-                    sizes="64px"
-                    className="transition-transform duration-300 ease-out group-hover:scale-110"
-                  />
-                </span>
-                <span className="min-w-0">
-                  <span className="block font-serif text-[16px] leading-tight group-hover:text-vino">
-                    {lot.name}
-                  </span>
-                  <span className="mt-0.5 block text-[13px] text-secundario">
-                    {lot.price === null
-                      ? t.common.header.priceOnRequest
-                      : formatPrice(lot.price)}
-                  </span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href="/tienda/lotes"
-          className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
-        >
-          {t.common.header.seeAllLots}
-        </Link>
-      </div>
-      <div className="self-start border border-linea bg-papel p-6">
-        <p className="font-serif text-[30px] leading-[1.1] tracking-[-0.02em] text-vino italic">
-          {t.common.header.lookingForGift}
-        </p>
-        <p className="mt-1 text-[13px] text-secundario">{t.common.header.haveSolution}</p>
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {RECIPIENTS.map((r) => (
-            <li key={r.slug}>
-              <Link
-                href={giftsHref(r.slug)}
-                className="inline-flex min-h-[36px] items-center rounded-full border border-tinta px-3.5 text-[13px] font-semibold transition-colors hover:bg-tinta hover:text-crema"
-              >
-                {t.gifts.recipients[r.slug].short}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href={giftsHref()}
-          className="mt-4 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
-        >
-          {t.common.header.allGiftIdeas}
-        </Link>
-      </div>
     </div>
   );
 }
