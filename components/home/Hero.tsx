@@ -2,6 +2,7 @@ import { Link } from "@/components/ui/Link";
 import { ButtonLink } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
+import { HeroVideo } from "@/components/home/HeroVideo";
 import { Stamp } from "@/components/ui/Stamp";
 import { site } from "@/data/site";
 import { formatPrice } from "@/lib/format";
@@ -15,7 +16,8 @@ export async function Hero({ featuredLot }: { featuredLot?: Product }) {
   const h = t.home.hero;
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-crema">
-      <div className="container-site grid items-center gap-7 pt-6 pb-8 lg:min-h-[680px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16 lg:py-16">
+      <HeroVideo />
+      <div className="container-site relative grid items-center gap-7 pt-6 pb-8 lg:min-h-[680px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16 lg:py-16">
         <div className="animate-rise">
           <p className="eyebrow inline-flex items-center gap-2 text-[11px] text-vino lg:text-[12px]">
             <span className="h-px w-6 bg-vino lg:w-8" aria-hidden="true" />
