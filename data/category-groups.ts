@@ -17,32 +17,17 @@ export const categoryGroups: CategoryGroupConfig[] = [
   {
     slug: "comida",
     name: "Comida",
+    // Por orden alfabético.
     sections: [
-      { name: "Quesos y embutidos", categories: ["quesos", "embutidos"] },
       {
-        name: "Conservas y verduras",
-        categories: [
-          "esparragos",
-          "alcachofas",
-          "pimientos",
-          "verduras",
-          "legumbres",
-          "setas-y-hongos",
-          "conservas",
-          "encurtidos",
-        ],
+        categories: ["aceites", "condimentos", "conservas", "dulces", "embutidos", "legumbres", "pates", "preparados", "quesos", "verduras"],
       },
-      {
-        name: "Despensa",
-        categories: ["aceites", "condimentos", "salsas", "cremas", "preparados", "pates"],
-      },
-      { name: "Dulces", categories: ["mermeladas", "chocolates", "dulces"] },
     ],
   },
   {
     slug: "bebida",
     name: "Bebida",
-    sections: [{ categories: ["vinos", "espumosos", "bebidas"] }],
+    sections: [{ categories: ["vinos"] }],
   },
   {
     slug: "lotes",

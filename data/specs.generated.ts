@@ -18,8 +18,8 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Leche y derivados",
     "exact": false
   },
-  "lvn-queso-reserva-1-2-piezas-350-g": {
-    "w": "350 g",
+  "lvn-queso-reserva-1-2-piezas-250-g": {
+    "w": "250 g",
     "a": "Leche",
     "exact": false
   },
@@ -84,8 +84,8 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Leche",
     "exact": false
   },
-  "lvn-cuna-queso-de-oveja-inyectado-con-trufa-200-g": {
-    "w": "200 g",
+  "lvn-cuna-queso-de-oveja-inyectado-con-trufa-150-g": {
+    "w": "150 g",
     "a": "Leche",
     "exact": false
   },
@@ -207,28 +207,28 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Ninguno en la lista de ingredientes",
     "exact": false
   },
-  "lc-esparragos-5": {
+  "lc-esparragos-5-fr": {
     "ref": "Ref. lata 8 frutos: 660 g neto / 425 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
     "p": "Lata",
     "exact": false
   },
-  "lc-esparragos-6": {
+  "lc-esparragos-6-fr": {
     "ref": "Ref. lata 8 frutos: 660 g neto / 425 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
     "p": "Lata",
     "exact": false
   },
-  "lc-esparragos-8": {
+  "lc-esparragos-8-fr": {
     "w": "660 g neto / 425 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
     "p": "Lata",
     "exact": true
   },
-  "lc-esparragos-10": {
+  "lc-esparragos-10-fr": {
     "ref": "Ref. lata 8 frutos: 660 g neto / 425 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
@@ -291,28 +291,28 @@ export const specRows: Record<string, SpecRow> = {
     "p": "Tarro de cristal",
     "exact": false
   },
-  "lc-esparrago-5": {
+  "lc-esparrago-5-lata": {
     "ref": "Ref. lata AL-370 6 frutos: 345 g neto / 220 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
     "p": "Lata AL-370",
     "exact": false
   },
-  "lc-esparrago-6": {
+  "lc-esparrago-6-lata": {
     "w": "345 g neto / 220 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
     "p": "Lata AL-370",
     "exact": true
   },
-  "lc-esparrago-6-8": {
+  "lc-esparrago-6-8-lata": {
     "ref": "Ref. lata AL-370 6 frutos: 345 g neto / 220 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
     "p": "Lata AL-370",
     "exact": false
   },
-  "lc-esparrago-8-12": {
+  "lc-esparrago-8-12-lata": {
     "ref": "Ref. lata AL-370 6 frutos: 345 g neto / 220 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",

@@ -26,7 +26,7 @@ const DESCRIPTION = "[Descripción del producto: origen, elaboración, conservac
  */
 const FEATURED = [
   "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
-  "LVN QUESO RESERVA 1/2 PIEZAS 350 G.",
+  "LVN QUESO RESERVA 1/2 PIEZAS 250 G.",
   "ARBIZU Txistorra individual",
   "INURRIETA TINTO altos de inurrieta",
 ];
@@ -71,6 +71,43 @@ const PRICES: Record<string, number> = {};
  */
 const PHOTOS: Record<string, string> = {
   "NAVARRA NEGRO 85%": "/images/productos-estafeta/navarra-negro-85.webp",
+  "AIDIN mermelada de castaña con patxaran": "/images/productos-estafeta/aidin-mermelada-de-castana-con-patxaran.webp",
+  "AIDIN mermelada de cebolla confitada con vino": "/images/productos-estafeta/aidin-mermelada-de-cebolla-confitada-con-vino.webp",
+  "AIDIN mermelada de fresa de mendigorria": "/images/productos-estafeta/aidin-mermelada-de-fresa-de-mendigorria.webp",
+  "AIDIN mermelada de higos nueces y brandy": "/images/productos-estafeta/aidin-mermelada-de-higos-nueces-y-brandy.webp",
+  "AIDIN mermelada de aceite": "/images/productos-estafeta/aidin-mermelada-de-aceite.webp",
+  "LARRASOAÑA txistorra dulce 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
+  "LARRASOAÑA txistorra picante 220g": "/images/productos-estafeta/larrasoana-txistorra-220g.webp",
+  "LARRALDEA sidra navarra": "/images/productos-estafeta/larraldea-sidra-navarra.webp",
+  "LARRALDEA sidra ecologica navarra": "/images/productos-estafeta/larraldea-sidra-ecologica-navarra.webp",
+  "LARRA GAZTAZARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
+  "LARRA cuña 350g caja carton": "/images/productos-estafeta/larra-cuna-350g-caja-carton.webp",
+  "LC Guindillas \"PIPARRAS\" 360 ml": "/images/productos/lc-guindillas-piparras.webp",
+  "LC Guindillas \"PIPARRAS\" 630 ml": "/images/productos/lc-guindillas-piparras.webp",
+  "IBERICOMIO Salchichón ibérico Galocha": "/images/productos-estafeta/ibericomio-salchichon-iberico-galocha.webp",
+  "ECOPRO ESTUCHE OLIVE LOVERS": "/images/productos-estafeta/ecopro-estuche-olive-lovers.webp",
+  "ECOPRO Cornicabra 500 ml": "/images/productos-estafeta/ecopro-cornicabra-500-ml.webp",
+  "ECOPRO Coupage 500 ml": "/images/productos-estafeta/ecopro-coupage-500-ml.webp",
+  "ECOPRO Edición Limitada 500 ml": "/images/productos-estafeta/ecopro-edicion-limitada-500-ml.webp",
+  "ECOPRO Edición Limitada 250 ml": "/images/productos-estafeta/ecopro-edicion-limitada-250-ml.webp",
+  "ECOPRO Sin filtrar 500 ml": "/images/productos-estafeta/ecopro-sin-filtrar-500-ml.webp",
+  "ECOPRO Cornicabra 250 ml": "/images/productos-estafeta/ecopro-cornicabra-500-ml.webp",
+  "ECOPRO Coupage 250 ml": "/images/productos-estafeta/ecopro-coupage-500-ml.webp",
+  "LVN QUESO RESERVA 1/2 PIEZAS 250 G.": "/images/productos-estafeta/lvn-queso-reserva-1-2-piezas-350-g.webp",
+  "LVN CUÑA DE QUESO D.O. IDIAZABAL AHUM. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-ahum-250-g.webp",
+  "LVN CUÑA DE QUESO D.O. IDIAZABAL NAT. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-d-o-idiazabal-nat-250-g.webp",
+  "LVN CUÑA DE QUESO OVEJA V NAVARRA AHUM. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-oveja-v-navarra-ahum-250-g.webp",
+  "LVN CUÑA DE QUESO OVEJA V NAVARRA NAT. 250 G.": "/images/productos-estafeta/lvn-cuna-de-queso-oveja-v-navarra-nat-250-g.webp",
+  "LVN QUESO OVEJA V. NAVARRA CUÑA 250 G. EST. METALICO": "/images/productos-estafeta/lvn-queso-oveja-v-navarra-cuna-250-g-est-metalico.webp",
+  "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G": "/images/productos-estafeta/lvn-cuna-queso-oveja-trufa.webp",
+  "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G": "/images/productos-estafeta/lvn-cuna-queso-oveja-ajo-negro.webp",
+  "BRESKA Miel milflores 500g": "/images/productos-estafeta/breska-miel-milflores-500g.webp",
+  "BRESKA Miel milflores 1000g": "/images/productos-estafeta/breska-miel-milflores-1000g.webp",
+  "BRESKA Romero 500g": "/images/productos-estafeta/breska-romero-500g.webp",
+  "BRESKA Romero 1000g": "/images/productos-estafeta/breska-romero-1000g.webp",
+  "BRESKA Encina 500g": "/images/productos-estafeta/breska-encina-500g.webp",
+  "BRESKA Encina 1000g": "/images/productos-estafeta/breska-encina-1000g.webp",
+  "AIDIN mermelada de cascabillo de roncal": "/images/productos-estafeta/aidin-mermelada-de-cascabillo-de-roncal.webp",
   "CHIVITE Vendimia Tardía COLECCION 125": "/images/productos-estafeta/chivite-vendimia-tardia-coleccion-125.webp",
   "NAVARRA NEGRO CAFÉ": "/images/productos-estafeta/navarra-negro-cafe.webp",
   "NAVARRA NEGRO CEREZA Y MIEL": "/images/productos-estafeta/navarra-negro-cereza-y-miel.webp",
@@ -127,21 +164,9 @@ const RENAMED: Record<string, { name: string; description: string }> = {
   },
 };
 
-/**
- * En la hoja los chocolates y las mermeladas vienen en "Dulces": aquí pasan a sus
- * categorías "Chocolates" y "Mermeladas" (Leyre, Pedro Mayo y los chocolates de Navarra en Dulce; las
- * pastas y las galletas se quedan en Dulces).
- */
-function categoryOf(sheetCategory: string, producerSlug: string, sheetName: string): string {
-  if (sheetCategory !== "dulces") return sheetCategory;
-  if (/mermelada/i.test(sheetName)) return "mermeladas";
-  if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
-  if (producerSlug === "navarra-en-dulce" && !/pastas|galletas/i.test(sheetName)) return "chocolates";
-  return sheetCategory;
-}
 
 const sheetProducts: Product[] = productRows.map(([sheetCategory, producerSlug, sheetName, price]) => {
-  const categorySlug = categoryOf(sheetCategory, producerSlug, sheetName);
+  const categorySlug = sheetCategory;
   const renamed = RENAMED[sheetName];
   const baseName = renamed?.name ?? sheetName;
   const slug = uniqueSlug(baseName);

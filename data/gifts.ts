@@ -56,7 +56,7 @@ const SINGLES: [string, RecipientSlug[]][] = [
   ["SALAMANCA Jamón ibérico bellota 50%", ["padres", "navidad", "empresas"]],
   ["LN Patxarán ETXEKO", ["sanfermin", "padres", "amigos"]],
   ["PCIRSUS Tinto SELECCIÓN DE FAMILIA", ["navidad", "padres", "empresas"]],
-  ["LVN QUESO RESERVA 1/2 PIEZAS 350 G.", ["padres"]],
+  ["LVN QUESO RESERVA 1/2 PIEZAS 250 G.", ["padres"]],
   ["ARBIZU Txistorra individual", ["sanfermin", "amigos", "eventos"]],
   ["OCHOA Labrit rosado", ["amigos", "cumpleanos"]],
   ["KATEALDE Foie gras barqueta micuit", ["navidad", "pareja", "padres"]],
@@ -77,11 +77,11 @@ export const GIFT_PRODUCTS: { slug: string; para: RecipientSlug[] }[] = SINGLES.
 
 /** Parejas de productos que suenan bien juntos (se compran con un solo botón). */
 const PAIRS: { name: string; blurb: string; titles: [string, string]; para: RecipientSlug[] }[] = [
-  { name: "Queso y vino", blurb: "Un queso curado de oveja y un tinto navarro con carácter.", titles: ["LVN QUESO RESERVA 1/2 PIEZAS 350 G.", "INURRIETA TINTO altos de inurrieta"], para: ["padres", "amigos", "pareja"] },
+  { name: "Queso y vino", blurb: "Un queso curado de oveja y un tinto navarro con carácter.", titles: ["LVN QUESO RESERVA 1/2 PIEZAS 250 G.", "INURRIETA TINTO altos de inurrieta"], para: ["padres", "amigos", "pareja"] },
   { name: "Txistorra y patxarán", blurb: "La fiesta navarra en dos productos: la txistorra de siempre y un buen patxarán para el final.", titles: ["ARBIZU Txistorra individual", "LN Patxarán LA NAVARRA"], para: ["sanfermin", "amigos", "eventos", "padres"] },
   { name: "Jamón y tinto", blurb: "Jamón ibérico de bellota y un tinto joven para abrir sin pensar.", titles: ["SALAMANCA Jamón ibérico bellota 50%", "PCIRSUS VENDIMIA SELECCIONADA"], para: ["navidad", "padres", "pareja"] },
   { name: "Foie y mermelada", blurb: "Foie gras de pato con mermelada de higo: el aperitivo que luce en cualquier mesa.", titles: ["KATEALDE Foie gras barqueta micuit", "IRULAR Mermelada higo"], para: ["navidad", "pareja", "eventos"] },
-  { name: "Espárragos y blanco", blurb: "Espárragos blancos de Navarra y un blanco fresco para acompañarlos.", titles: ["LC ESPÁRRAGOS 6", "INURRIETA BLANCO orchidea"], para: ["cumpleanos", "amigos", "pareja", "eventos"] },
+  { name: "Espárragos y blanco", blurb: "Espárragos blancos de Navarra y un blanco fresco para acompañarlos.", titles: ["LC ESPÁRRAGOS 6 FR", "INURRIETA BLANCO orchidea"], para: ["cumpleanos", "amigos", "pareja", "eventos"] },
   { name: "Chocolate y moscatel", blurb: "Chocolate negro 85 % y un moscatel de vendimia tardía: el postre perfecto.", titles: ["LEYRE 85 % 125 GRS.", "OCHOA Moscatel Vendimia Tardía"], para: ["cumpleanos", "pareja", "padres"] },
   { name: "Aperitivo de piparras", blurb: "Piparras y bonito del norte en escabeche: un pincho clásico en casa.", titles: ["UBIDEA PIPARRAS MEDIANAS", "OLASAGASTI Bonito en escabeche 112G"], para: ["sanfermin", "amigos", "eventos"] },
   { name: "Cena fácil para dos", blurb: "Piquillos rellenos de bacalao y un rosado fresco: lista en minutos.", titles: ["NAVARRICO Pimientos rellenos de bacalao", "INURRIETA ROSADO mediodia"], para: ["pareja"] },

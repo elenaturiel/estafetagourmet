@@ -4,7 +4,11 @@ Importa el catálogo desde la hoja de cálculo de productos (.xlsx u .ods) y
 genera data/products.generated.ts, que es lo que lee la web.
 
 Uso:
-    python3 scripts/importar-productos.py ruta/a/PLANTILLA_ARTÍCULOS.xlsx
+    python3 scripts/importar-productos.py ruta/a/PLANTILLA_ARTÍCULOS.xlsx [--no-bajar]
+
+Con --no-bajar, si la hoja trae para un producto un precio más bajo que el
+que ya tiene la web, se queda el de la web (se usó con el EXCEL_WEB de oct.
+2026, que traía precios antiguos: la tienda pidió quedarse con los más altos).
 
 Se lee la primera hoja (en la plantilla, «Plantilla (2)»). Las tres primeras
 columnas deben ser FAMILIA | SUBFAMILIA | ARTICULO (con cabecera en la primera
@@ -42,6 +46,10 @@ DESCATALOGADOS = {
     "LVN QUESO OVEJA 1/2 PIEZAS 400 G.",
     "LVN QUESO DE OVEJA V. NAVARRA AHUM. 1/2 PIEZA 400 G.",
     "LVN CREMA AL QUESO SUAVE 125 GR.",
+    "AIDIN mermelada de otoño",
+    "LVN CREMA AL QUESO AÑEJO INTENSO 125 GR.",
+    "LVN CREMA AL QUESO DE OVEJA 125 GR.",
+    "LVN CREMA AL QUESO DE CABRA 125 GR.",
     "NAVARRICO ESPÁRRAGOS ALIÑADOS",
     "DANTZA Espárrago DO Navarra Lata 1/2 Kg",
     "DANTZA Espárrago DO Navarra Lata Fiesta",
@@ -81,25 +89,33 @@ DESCATALOGADOS = {
     "IBERICOMIO Jamón de cebo 50% ibérico Loncheado",
 }
 
-# Familia de la hoja → slug de categoría (data/categories.ts)
+# Familia de la hoja → slug de categoría (data/categories.ts). Desde el
+# EXCEL_WEB de oct. 2026 la hoja usa 11 familias; las antiguas se mantienen
+# para poder leer hojas viejas (van a la categoría que las sustituye).
 FAMILIAS = {
     "QUESOS": "quesos",
     "EMBUTIDO": "embutidos",
-    "VINOS": "vinos",
-    "ESPÁRRAGOS": "esparragos",
-    "ALCACHOFAS": "alcachofas",
-    "PIMIENTO": "pimientos",
-    "LEGUMBRE": "legumbres",
-    "ACEITE": "aceites",
+    "VINOS Y LICORES": "vinos",
+    "VERDURAS": "verduras",
+    "CONSERVAS": "conservas",
+    "LEGUMBRES": "legumbres",
+    "ACEITES": "aceites",
     "PREPARADO": "preparados",
     "PATES": "pates",
-    "ENCURTIDOS": "encurtidos",
     "CONDIMENTOS": "condimentos",
     "DULCES": "dulces",
-    "BEBIDAS": "bebidas",
     "LOTES": "lotes",
-    "ATUN Y BONITO": "conservas",  # ya no es categoría propia
-    "SETAS Y HONGOS": "setas-y-hongos",
+    # Familias de hojas anteriores
+    "VINOS": "vinos",
+    "BEBIDAS": "vinos",
+    "ESPÁRRAGOS": "verduras",
+    "ALCACHOFAS": "verduras",
+    "PIMIENTO": "verduras",
+    "SETAS Y HONGOS": "verduras",
+    "LEGUMBRE": "legumbres",
+    "ACEITE": "aceites",
+    "ENCURTIDOS": "conservas",
+    "ATUN Y BONITO": "conservas",
 }
 
 # Títulos equivocados en la hoja → título correcto. En la plantilla de oct. 2026
@@ -112,6 +128,30 @@ CORREGIR_TITULO = {
     "GRAN CHIVITE LEGARDETA Blanco 2024": "GRAN CHIVITE LEGARDETA Blanco",
     "GRAN CHIVITE LEGARDETA Tinto 2023": "GRAN CHIVITE LEGARDETA Tinto",
     "CHIVITE COL. 125 VENDIMIA TARDIA. MOSCATEL": "CHIVITE Vendimia Tardía COLECCION 125",
+    # La hoja dice 200 g, pero la cuña es de 150 g.
+    "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 200 G.": "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G",
+    "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 200 G": "LVN CUÑA QUESO DE OVEJA INYECTADO CON AJO NEGRO 150 G",
+    "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G.": "LVN CUÑA QUESO DE OVEJA INYECTADO CON TRUFA 150 G",
+    # Se escribe Gaztazarra.
+    "LARRA GAZTAHAZARRA Crema oveja 200 g": "LARRA GAZTAZARRA Crema oveja 200 g",
+    "EKIA Gaztazaharra": "EKIA Gaztazarra",
+    "EKIA gaztahazarra": "EKIA Gaztazarra",
+}
+
+# Productos que se venden en la web aunque aún no estén en la hoja
+# (categoría, proveedor tal cual en la hoja, título, PVP con IVA). Si la hoja ya
+# trae el título, manda la hoja.
+EXTRA_PRODUCTOS = [
+    # En el EXCEL_WEB de oct. 2026 el chorizo Galocha sale dos veces y falta el salchichón.
+    ("embutidos", "IBERICOMIO", "IBERICOMIO Salchichón ibérico Galocha", 6.6),
+]
+
+# Títulos que la hoja repite con el mismo nombre para formatos distintos: se
+# distinguen por el precio (precio → título en la web); las filas con otro
+# precio sobran. Cualquier otro título repetido es un duplicado: manda la
+# primera fila (así lo pidió la tienda para los de La Catedral, oct. 2026).
+FORMATOS_POR_PRECIO = {
+    'LC Guindillas "PIPARRAS"': {7.9: 'LC Guindillas "PIPARRAS" 360 ml', 23.5: 'LC Guindillas "PIPARRAS" 630 ml', 23.45: 'LC Guindillas "PIPARRAS" 630 ml'},
 }
 
 # Proveedores escritos de dos formas en la hoja → forma única
@@ -224,9 +264,10 @@ def leer_ods(path: Path):
 
 
 def main():
-    if len(sys.argv) != 2:
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if len(args) != 1:
         sys.exit(__doc__)
-    ruta = Path(sys.argv[1])
+    ruta = Path(args[0])
     filas = leer_xlsx(ruta) if ruta.suffix.lower() == ".xlsx" else leer_ods(ruta)
     cab = [c.upper() for c in filas[0]]
     col_pvp = next((i for i, c in enumerate(cab) if c.strip() == "PVP FINAL"), 3)
@@ -234,6 +275,7 @@ def main():
         sys.exit(f"Cabecera inesperada: {filas[0][:4]}")
 
     productos, desconocidas, proveedores = [], Counter(), {}
+    vistos, duplicados = set(), []
     for f in filas[1:]:
         familia, sub, art = (f + ["", "", "", ""])[:3]
         pvp = f[col_pvp] if col_pvp < len(f) else ""
@@ -249,10 +291,41 @@ def main():
         titulo = CORREGIR_TITULO.get(titulo, titulo)
         if titulo in DESCATALOGADOS:
             continue
+        if titulo in FORMATOS_POR_PRECIO:
+            titulo = FORMATOS_POR_PRECIO[titulo].get(precio(pvp))
+            if not titulo:
+                continue
+        if titulo in vistos:
+            duplicados.append(titulo)
+            continue
+        vistos.add(titulo)
         # Los lotes de El Navarrico ya no se venden.
         if cat == "lotes" and slugify(nombre_p) == "el-navarrico":
             continue
         productos.append((cat, slugify(nombre_p), titulo, precio(pvp)))
+
+    titulos = {p[2] for p in productos}
+    for cat, sub, titulo, pvp in EXTRA_PRODUCTOS:
+        if titulo not in titulos:
+            nombre_p = nombre_proveedor(sub.upper())
+            proveedores[slugify(nombre_p)] = nombre_p
+            productos.append((cat, slugify(nombre_p), titulo, pvp))
+
+    if "--no-bajar" in sys.argv:
+        salida = Path(__file__).resolve().parent.parent / "data/products.generated.ts"
+        antes = {
+            m.group(1).replace('\\"', '"'): float(m.group(2))
+            for m in re.finditer(r'^  \[".*?", ".*?", "((?:[^"\\]|\\.)*)", ([\d.]+)\],$', salida.read_text(encoding="utf-8"), re.M)
+        }
+        subidos = 0
+        for i, (c, p, t, pr) in enumerate(productos):
+            if pr is not None and t in antes and antes[t] > pr:
+                productos[i] = (c, p, t, antes[t])
+                subidos += 1
+        print(f"--no-bajar: {subidos} precios de la hoja más bajos que los de la web; se quedan los de la web")
+
+    if duplicados:
+        print("Filas repetidas en la hoja (se usa la primera): " + "; ".join(duplicados))
 
     if desconocidas:
         sys.exit(

@@ -14,6 +14,15 @@ import type { Producer } from "@/lib/types";
 /** Slugs de los que salen en la portada, en este orden. TODO: elegir los reales. */
 const FEATURED = ["la-catedral", "el-navarrico", "la-vasco-navarra", "inurrieta"];
 
+/** Fotos de productores que no vienen de Drive (public/images/productores/<slug>.webp). */
+const IMAGES: Record<string, string> = {
+  larra: "/images/productores/larra.webp",
+  larrasoana: "/images/productores/larrasoana.webp",
+  larraldea: "/images/productores/larraldea.webp",
+  breska: "/images/productores/breska.webp",
+  ekia: "/images/productores/ekia.webp",
+};
+
 /** Localidad de cada productor, por slug. TODO: rellenar (mientras tanto sale el marcador). */
 const LOCALITY: Record<string, string> = {};
 
@@ -37,7 +46,7 @@ export const producers: Producer[] = Object.entries(producerNames)
       specialty: category.name,
       categorySlug: category.slug,
       featured: FEATURED.includes(slug) || undefined,
-      image: { alt: `Logotipo de ${name}`, placeholder: "Retrato · productor/a", src: producerImages[slug] },
+      image: { alt: `Logotipo de ${name}`, placeholder: "Retrato · productor/a", src: IMAGES[slug] ?? producerImages[slug] },
     };
   })
   .sort((a, b) => {
