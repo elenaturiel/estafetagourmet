@@ -17,7 +17,7 @@ export const common = defineMessages({
       producers: "Productores",
       pairings: "Maridajes",
       newsletter: "Newsletter",
-      blog: "Blog",
+      blog: "Blog y newsletter",
       visit: "Visítanos",
     },
     header: {
@@ -114,7 +114,7 @@ export const common = defineMessages({
       producers: "Producers",
       pairings: "Pairings",
       newsletter: "Newsletter",
-      blog: "Blog",
+      blog: "Blog & newsletter",
       visit: "Visit us",
     },
     header: {
@@ -211,7 +211,7 @@ export const common = defineMessages({
       producers: "Producteurs",
       pairings: "Accords",
       newsletter: "Newsletter",
-      blog: "Blog",
+      blog: "Blog et newsletter",
       visit: "Nous rendre visite",
     },
     header: {

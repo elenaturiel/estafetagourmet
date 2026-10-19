@@ -13,6 +13,7 @@ import {
   MenuIcon,
   SearchIcon,
 } from "@/components/ui/icons";
+import type { CategoryGroup } from "@/lib/category-tree-utils";
 import { RECIPIENTS, giftsHref } from "@/data/gifts";
 import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
@@ -38,6 +39,8 @@ export type HeaderLot = {
 };
 
 function isActive(pathname: string, href: string) {
+  // Los boletines viven dentro de la página del blog.
+  if (href === "/blog" && (pathname === "/newsletter" || pathname.startsWith("/newsletter/"))) return true;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -46,9 +49,11 @@ const iconButton =
 
 export function Header({
   categories,
+  tree,
   featuredLot,
 }: {
   categories: HeaderCategory[];
+  tree: CategoryGroup[];
   featuredLot?: HeaderLot;
 }) {
   const pathname = usePath();
@@ -177,7 +182,7 @@ export function Header({
             ? {
                 panelLabel: t.common.header.shopPanel,
                 panel: (
-                  <MegaMenu categories={categories} featuredLot={featuredLot} />
+                  <MegaMenu tree={tree} featuredLot={featuredLot} />
                 ),
               }
             : {}),
@@ -290,54 +295,71 @@ export function Header({
 }
 
 function MegaMenu({
-  categories,
+  tree,
   featuredLot,
 }: {
-  categories: HeaderCategory[];
+  tree: CategoryGroup[];
   featuredLot?: HeaderLot;
 }) {
   const t = useT();
   return (
     <div id="mega-tienda">
-      <div className="container-site grid grid-cols-[minmax(0,1fr)_260px] gap-8 xl:gap-12 py-8">
+      <div className="container-site grid grid-cols-[minmax(0,1fr)_280px] gap-10 py-8 xl:gap-16">
         <div>
-          <p className="eyebrow mb-4 text-[12px] text-vino">
-            {t.common.header.byCategory}
-          </p>
+          <p className="eyebrow mb-5 text-[12px] text-vino">{t.common.header.byCategory}</p>
           {/*
-            Al pasar el ratón (o con el foco del teclado) la categoría crece y
-            sube, su foto hace zoom y se enmarca en vino; el resto se atenúa
-            para que se note cuál está señalada. 200 ms con curva ease-out.
+            Lista de texto por grupos. Al pasar el ratón (o con el teclado) la
+            fila se rellena de vino desde la izquierda, el texto se desplaza y
+            aparece una flecha; el resto de filas se atenúa.
           */}
-          <ul className="group/cats grid grid-cols-8 gap-x-3 gap-y-5">
-            {categories.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={c.href}
-                  className="group block text-center transition-[opacity,transform] duration-200 ease-out group-hover/cats:opacity-50 hover:-translate-y-1.5 hover:scale-[1.06] hover:opacity-100! focus-visible:-translate-y-1.5 focus-visible:scale-[1.06]"
-                >
-                  <div className="arch overflow-hidden ring-vino ring-offset-2 ring-offset-crema transition-shadow duration-200 ease-out group-hover:ring-2 group-focus-visible:ring-2">
-                    <ImagePlaceholder
-                      label=""
-                      src={c.src}
-                      ratio="1 / 1"
-                      sizes="96px"
-                      className="transition-transform duration-300 ease-out group-hover:scale-110 group-focus-visible:scale-110"
-                    />
-                  </div>
-                  <span className="mt-2 inline-block font-serif text-[13px] leading-tight transition-colors xl:text-[14px] duration-200 group-hover:text-vino group-focus-visible:text-vino">
-                    {c.name}
-                    <span
-                      aria-hidden="true"
-                      className="mx-auto mt-1 block h-0.5 w-full origin-center scale-x-0 bg-vino transition-transform duration-200 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
-                    />
-                  </span>
-                </Link>
-              </li>
+          <div className="group/cats grid grid-cols-3 gap-x-8 gap-y-6">
+            {tree.map((g) => (
+              <section key={g.slug} className={g.slug === "comida" ? "col-span-2" : undefined}>
+                <h3 className="mb-2 border-b border-linea pb-2 font-serif text-[18px]">{g.name}</h3>
+                <ul className={cn("grid gap-x-6", g.slug === "comida" ? "grid-cols-2" : "grid-cols-1")}>
+                  {g.sections
+                    .flatMap((sec) => sec.items)
+                    .map((c) => (
+                      <li key={c.slug}>
+                        <Link
+                          href={c.href}
+                          className="group relative flex min-h-[42px] items-center justify-between overflow-hidden px-3 text-[15px] transition-[opacity,color] duration-200 ease-out group-hover/cats:opacity-45 hover:opacity-100! hover:text-crema focus-visible:text-crema focus-visible:opacity-100"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 origin-left scale-x-0 bg-vino transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                          />
+                          <span className="relative transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5">
+                            {c.name}
+                          </span>
+                          <span className="relative flex items-center gap-2 text-[12px]">
+                            {c.count > 0 ? (
+                              <span className="text-secundario transition-colors group-hover:text-crema/80 group-focus-visible:text-crema/80">
+                                {c.count}
+                              </span>
+                            ) : null}
+                            <span
+                              aria-hidden="true"
+                              className="-translate-x-2 text-[15px] opacity-0 transition-[transform,opacity] duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+                            >
+                              →
+                            </span>
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </section>
             ))}
-          </ul>
+          </div>
+          <Link
+            href="/tienda"
+            className="mt-5 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
+          >
+            {t.common.header.seeShop}
+          </Link>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           <GiftLinks />
           {featuredLot ? (
             <Link
@@ -351,29 +373,19 @@ function MegaMenu({
                   alt={featuredLot.src ? featuredLot.name : undefined}
                   ratio="16 / 9"
                   blend
-                  sizes="260px"
+                  sizes="280px"
                   className="transition-transform duration-300 ease-out group-hover:scale-105"
                 />
               </div>
               <div className="p-5">
-                <p className="eyebrow text-[11px] text-dorado">
-                  {t.common.header.featuredLot}
-                </p>
-                <p className="mt-1 font-serif text-[20px] leading-tight">
-                  {featuredLot.name}
-                </p>
+                <p className="eyebrow text-[11px] text-dorado">{t.common.header.featuredLot}</p>
+                <p className="mt-1 font-serif text-[20px] leading-tight">{featuredLot.name}</p>
                 <p className="mt-2 text-[14px] font-semibold underline-offset-4 group-hover:underline">
                   {t.common.header.discover}
                 </p>
               </div>
             </Link>
           ) : null}
-          <Link
-            href="/tienda"
-            className="inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
-          >
-            {t.common.header.seeShop}
-          </Link>
         </div>
       </div>
     </div>

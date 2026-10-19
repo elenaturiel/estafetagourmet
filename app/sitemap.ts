@@ -11,7 +11,6 @@ const staticPaths = [
   "/regalos",
   "/maridajes",
   "/productores",
-  "/newsletter",
   "/blog",
   "/visitanos",
   "/envios-y-devoluciones",

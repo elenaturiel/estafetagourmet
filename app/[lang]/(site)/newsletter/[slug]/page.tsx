@@ -68,7 +68,7 @@ export default async function NewsletterIssuePage({ params }: Params) {
         <Breadcrumbs
           items={[
             { name: t.shop.breadcrumb.home, path: "/" },
-            { name: t.common.nav.newsletter, path: "/newsletter" },
+            { name: t.common.nav.blog, path: "/blog" },
             { name: issue.title, path },
           ]}
         />
@@ -158,7 +158,7 @@ export default async function NewsletterIssuePage({ params }: Params) {
               {fmt(n.issueShort, { n: next.number, title: next.title })} <span aria-hidden="true">→</span>
             </Link>
           ) : (
-            <Link href="/newsletter" className="min-h-[44px] text-[15px] font-semibold text-vino hover:underline">
+            <Link href="/blog#boletines" className="min-h-[44px] text-[15px] font-semibold text-vino hover:underline">
               {n.all} <span aria-hidden="true">→</span>
             </Link>
           )}

@@ -25,7 +25,7 @@ export async function NewsletterSection() {
           {after}
         </p>
         <NewsletterForm />
-        <ArrowLink href="/newsletter" className="mt-4 lg:mt-6">
+        <ArrowLink href="/blog#boletines" className="mt-4 lg:mt-6">
           {t.link}
         </ArrowLink>
       </div>

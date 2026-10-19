@@ -38,6 +38,8 @@ const nextConfig: NextConfig = {
       list.flatMap((r) => [r, ...(["en", "fr"] as const).map((l) => ({ ...r, source: `/${l}${r.source}`, destination: `/${l}${r.destination}` }))]);
     return [
       ...inAllLanguages([
+      // Newsletter y blog son una sola página.
+      { source: "/newsletter", destination: "/blog", permanent: true },
       // Atún y bonito dejó de ser categoría: sus productos están en Conservas.
       { source: "/tienda/atun-y-bonito", destination: "/tienda/conservas", permanent: true },
       { source: "/tienda/atun-y-bonito/:producto", destination: "/tienda/conservas/:producto", permanent: true },

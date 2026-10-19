@@ -56,8 +56,9 @@ export const pages = defineMessages({
       metaTitle: "Blog: maridajes, temporada y productores de Navarra",
       metaDescription:
         "Notas de temporada, maridajes de vinos y quesos navarros y el trabajo de nuestros productores, desde la tienda de la calle Estafeta de Pamplona.",
-      intro: "Notas de temporada, maridajes y el trabajo de nuestros productores.",
+      intro: "Notas de temporada, maridajes y el trabajo de nuestros productores, y los boletines de la tienda en un solo sitio.",
       articles: "Artículos",
+      tabNewsletter: "Boletines",
       back: "Volver al blog",
       more: "Sigue leyendo",
       spanishOnly: "",
@@ -139,8 +140,9 @@ export const pages = defineMessages({
       metaTitle: "Blog: pairings, seasons and producers of Navarre",
       metaDescription:
         "Seasonal notes, pairings of Navarrese wines and cheeses and the work of our producers, from our shop on Calle Estafeta in Pamplona.",
-      intro: "Seasonal notes, pairings and the work of our producers.",
+      intro: "Seasonal notes, pairings and the work of our producers, plus the shop's newsletters, all in one place.",
       articles: "Articles",
+      tabNewsletter: "Newsletters",
       back: "Back to the blog",
       more: "Keep reading",
       spanishOnly: "",
@@ -222,8 +224,9 @@ export const pages = defineMessages({
       metaTitle: "Blog : accords, saisons et producteurs de Navarre",
       metaDescription:
         "Notes de saison, accords de vins et fromages navarrais et le travail de nos producteurs, depuis notre boutique de la Calle Estafeta à Pampelune.",
-      intro: "Notes de saison, accords et le travail de nos producteurs.",
+      intro: "Notes de saison, accords et le travail de nos producteurs, et les newsletters de la boutique au même endroit.",
       articles: "Articles",
+      tabNewsletter: "Newsletters",
       back: "Retour au blog",
       more: "Continuer la lecture",
       spanishOnly: "",

@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   }
   if (body?._type === "newsletterIssue") {
     refresh("/");
-    refresh("/newsletter");
+    refresh("/blog");
     revalidatePath("/sitemap.xml");
     if (body.slug?.current) refresh(`/newsletter/${body.slug.current}`);
   }

@@ -4,7 +4,7 @@ export const mainNav = [
   { href: "/tienda", key: "shop" },
   { href: "/productores", key: "producers" },
   { href: "/maridajes", key: "pairings" },
-  { href: "/newsletter", key: "newsletter" },
+  // Blog y newsletter comparten página (/blog); los boletines están en /blog#boletines.
   { href: "/blog", key: "blog" },
   { href: "/visitanos", key: "visit" },
 ] as const;
@@ -18,7 +18,7 @@ export const footerNav = {
     { href: "/regalos", key: "gifts" },
     { href: "/maridajes", key: "pairings" },
     { href: "/blog", key: "blog" },
-    { href: "/newsletter", key: "newsletter" },
+    { href: "/blog#boletines", key: "newsletter" },
   ],
   help: [
     { href: "/envios-y-devoluciones", key: "shipping" },

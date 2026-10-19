@@ -15,7 +15,7 @@ export async function LatestNewslettersSection() {
         eyebrow={t.home.newsletters.eyebrow}
         title={t.home.newsletters.title}
         subtitle={t.home.newsletters.subtitle}
-        action={<ArrowLink href="/newsletter">{t.home.newsletters.link}</ArrowLink>}
+        action={<ArrowLink href="/blog#boletines">{t.home.newsletters.link}</ArrowLink>}
       />
       <ul data-reveal-stagger className="grid gap-4 md:grid-cols-3 md:gap-5">
         {latest.map((issue, i) => (
