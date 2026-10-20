@@ -28,6 +28,8 @@ function canonicalHostRedirects() {
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Fotos del panel /admin: se reducen en el navegador, así que 4 MB sobran.
+  experimental: { serverActions: { bodySizeLimit: "4mb" } },
   images: {
     // Fotos que la dueña sube al blog desde el panel (Sanity).
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],

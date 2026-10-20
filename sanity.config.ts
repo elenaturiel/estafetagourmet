@@ -14,7 +14,7 @@ import { schemaTypes } from "./sanity/schemaTypes";
 export default defineConfig({
   name: "estafeta-gourmet",
   title: "Estafeta Gourmet · Blog",
-  basePath: "/admin",
+  basePath: "/admin/estudio",
   projectId,
   dataset,
   apiVersion,

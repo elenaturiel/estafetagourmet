@@ -86,3 +86,21 @@ export async function sendCampaign(opts: { name: string; subject: string; prehea
   else await brevo(`/emailCampaigns/${id}/sendNow`, apiKey);
   return id;
 }
+
+/** Cuántas personas están en la lista de la newsletter (o null si no se puede saber). */
+export async function subscriberCount(): Promise<number | null> {
+  try {
+    const apiKey = env("BREVO_API_KEY");
+    const listId = Number(env("BREVO_LIST_ID").replace(/\D/g, ""));
+    if (!apiKey || !listId) return null;
+    const res = await fetch(`${API}/contacts/lists/${listId}`, {
+      headers: { "api-key": apiKey, accept: "application/json" },
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { uniqueSubscribers?: number; totalSubscribers?: number };
+    return data.uniqueSubscribers ?? data.totalSubscribers ?? null;
+  } catch {
+    return null;
+  }
+}

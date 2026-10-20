@@ -142,7 +142,9 @@ Los componentes nunca leen `/data` directamente, siempre pasan por `lib/catalog.
 
 ## Blog: panel para escribir entradas
 
-La dueña de la tienda escribe las entradas desde **`/admin`** (p. ej. `www.tudominio.com/admin`) con **Sanity**, un editor visual que se abre desde la propia web y funciona en ordenador y en móvil. Puede poner título, categoría, foto principal, texto con subtítulos, citas y más fotos. Al pulsar **Publish** la entrada aparece en el blog y en la portada.
+**Panel propio con contraseña (`/admin`).** La dueña entra en `www.tudominio.com/admin` con una contraseña (variable `ADMIN_PASSWORD` en Vercel, mínimo 8 caracteres) y desde ahí escribe las entradas del blog: título, categoría, foto principal, entradilla y texto (con botones para subtítulo, negrita, cursiva, lista, cita, enlace y fotos). **Publicar** la deja en el blog y en la portada al momento; **Guardar borrador** la guarda sin publicar. Desde la misma pantalla se puede **enviar la entrada por correo** (una prueba a su correo, o a todos los suscriptores de Brevo). Funciona en ordenador y móvil y no aparece en Google.
+
+Por dentro las entradas se guardan en Sanity (el panel usa `SANITY_WRITE_TOKEN`, ya configurado); el editor visual de Sanity sigue disponible en `/admin/estudio` por si hiciera falta (boletines y avisos se siguen escribiendo ahí). Código: `app/admin/`, `components/admin/`, `lib/admin-*.ts`.
 
 **Solo entra quien está invitado al proyecto.** `/admin` pide iniciar sesión con Google, GitHub o correo y contraseña, y únicamente acepta a los miembros del proyecto de Sanity. Cualquier otra persona ve la pantalla de acceso y no puede entrar. Además, `/admin` no aparece en Google.
 
