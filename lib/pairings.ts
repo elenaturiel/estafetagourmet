@@ -30,3 +30,24 @@ export function pairingsFor(product: Product, all: Product[], maxPartners = 3): 
   }
   return out;
 }
+
+const words = (s: string) =>
+  new Set(norm(s).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3));
+
+/**
+ * Productos parecidos: de la misma categoría, ordenados por cercanía (mismo
+ * productor, palabras en común en el nombre y precio similar).
+ */
+export function similarProducts(product: Product, all: Product[]): Product[] {
+  const mine = words(product.name);
+  const score = (p: Product) => {
+    let n = 0;
+    if (product.producerSlug && p.producerSlug === product.producerSlug) n += 3;
+    for (const w of words(p.name)) if (mine.has(w)) n += 1;
+    if (product.price !== null && p.price !== null) n += Math.max(0, 2 - Math.abs(p.price - product.price) / Math.max(product.price, 1) * 2);
+    return n;
+  };
+  return all
+    .filter((p) => p.slug !== product.slug && p.categorySlug === product.categorySlug)
+    .sort((a, b) => score(b) - score(a) || a.rank - b.rank);
+}

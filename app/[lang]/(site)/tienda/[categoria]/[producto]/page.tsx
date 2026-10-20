@@ -16,9 +16,7 @@ import {
   getCategory,
   getProducerMap,
   getProduct,
-  getProducts,
   getProductsBySlugs,
-  localize,
   productByline,
   productHref,
 } from "@/lib/catalog";
@@ -26,7 +24,8 @@ import { formatPrice } from "@/lib/format";
 import { fmt } from "@/lib/i18n/config";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
-import { pairingsFor } from "@/lib/pairings";
+import { CATEGORY_PAIRINGS, categoryPairingKey } from "@/data/category-pairings";
+import { pairingsFor, similarProducts } from "@/lib/pairings";
 import { shippingArea, shippingSummary } from "@/lib/shipping";
 import { productJsonLd } from "@/lib/structured-data";
 
@@ -77,18 +76,22 @@ export default async function ProductPage({ params }: Params) {
   const s = t.shop.product;
 
   const producer = product.producerSlug ? producers[product.producerSlug] : undefined;
-  // "Combina con": maridajes definidos en los datos o, si no hay, otros de la categoría.
-  const pairs = product.pairsWith?.length
-    ? await getProductsBySlugs(product.pairsWith)
-    : (await getProducts({ category: product.categorySlug })).filter((p) => p.slug !== product.slug);
   // Los maridajes se emparejan con los nombres originales (en español) y se traducen después.
   const raws = await getAllProductsRaw();
   const raw = raws.find((p) => p.slug === product.slug)!;
-  const pairings = await Promise.all(
-    pairingsFor(raw, raws)
-      .slice(0, 2)
-      .map(async (x) => ({ ...x, pairing: localizePairing(x.pairing, locale), partners: await Promise.all(x.partners.map(localize)) })),
-  );
+  // Primero los de /maridajes en los que entra el producto; si hay menos de 3, se completan con ideas generales de su tipo.
+  const own = pairingsFor(raw, raws).map(({ group, pairing }) => {
+    const l = localizePairing(pairing, locale);
+    return { key: `n${pairing.n}`, kicker: l.kicker, title: l.title, with: l.with, text: l.text, href: `/maridajes#${group}` };
+  });
+  const general = CATEGORY_PAIRINGS[categoryPairingKey(raw.categorySlug, raw.name)] ?? CATEGORY_PAIRINGS.generic;
+  const fill = general.map((g, i) => ({ key: `g${i}`, ...g[locale], href: "/maridajes" }));
+  const pairings = [...own.slice(0, 4), ...fill].slice(0, Math.max(3, Math.min(own.length, 4)));
+  // "Productos similares": de la misma categoría, mejor del mismo productor o con palabras parecidas en el nombre.
+  const similar = similarProducts(raw, raws)
+    .slice(0, 4)
+    .map((x) => x.slug);
+  const pairs = await getProductsBySlugs(similar);
   const href = productHref(product);
   const byline = productByline(product, producer);
   const cartItem = {
@@ -305,27 +308,16 @@ export default async function ProductPage({ params }: Params) {
           <h2 id="maridaje-title" className="mt-2 text-[26px] leading-tight tracking-[-0.02em] lg:mt-3 lg:text-[44px]">
             {s.pairWhat}
           </h2>
-          <ul className="mt-6 grid gap-6 lg:mt-8 lg:gap-8">
-            {pairings.map(({ group, pairing, partners }) => (
-              <li key={pairing.n} className="grid gap-5 border border-linea bg-papel p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-6 lg:p-8">
-                <div>
-                  <p className="eyebrow text-[12px] text-secundario">{pairing.kicker}</p>
-                  <h3 className="mt-2 text-[21px] leading-snug tracking-[-0.015em] lg:text-[24px]">{pairing.title}</h3>
-                  <p className="mt-1 font-serif text-[17px] text-vino italic lg:text-[18px]">{fmt(s.pairWith, { drink: pairing.with })}</p>
-                  <p className="mt-3 text-[15px] leading-[1.6] text-secundario">{pairing.text}</p>
-                  <Link href={`/maridajes#${group}`} className="mt-3 inline-flex min-h-[44px] items-center text-[15px] font-semibold text-vino hover:underline">
-                    {s.pairAll}
-                  </Link>
-                </div>
-                {partners.length ? (
-                  <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
-                    {partners.map((p) => (
-                      <li key={p.slug}>
-                        <ProductCard product={p} producer={p.producerSlug ? producers[p.producerSlug] : undefined} />
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+          <ul className="mt-6 grid gap-4 md:grid-cols-3 lg:mt-8 lg:gap-6">
+            {pairings.map((x) => (
+              <li key={x.key} className="flex flex-col border border-linea bg-papel p-5 lg:p-7">
+                <p className="eyebrow text-[12px] text-secundario">{x.kicker}</p>
+                <h3 className="mt-2 text-[20px] leading-snug tracking-[-0.015em] lg:text-[22px]">{x.title}</h3>
+                <p className="mt-1 font-serif text-[16px] text-vino italic lg:text-[17px]">{fmt(s.pairWith, { drink: x.with })}</p>
+                <p className="mt-3 text-[15px] leading-[1.6] text-secundario">{x.text}</p>
+                <Link href={x.href} className="mt-auto inline-flex min-h-[44px] items-center pt-2 text-[15px] font-semibold text-vino hover:underline">
+                  {s.pairAll}
+                </Link>
               </li>
             ))}
           </ul>
@@ -334,7 +326,7 @@ export default async function ProductPage({ params }: Params) {
 
       {pairs.length ? (
         <section aria-labelledby="combina-title" className="mt-12 border-t border-linea pt-10 lg:mt-28 lg:pt-14">
-          <p className="eyebrow text-vino">{s.pairing}</p>
+          <p className="eyebrow text-vino">{s.alsoLike}</p>
           <h2 id="combina-title" className="mt-2 text-[26px] leading-tight tracking-[-0.02em] lg:mt-3 lg:text-[44px]">
             {s.combines}
           </h2>
