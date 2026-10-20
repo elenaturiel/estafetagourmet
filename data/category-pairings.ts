@@ -6,6 +6,7 @@
  * Cada idea lleva su texto en los tres idiomas. Para añadir una: copia un
  * bloque { es, en, fr } dentro de la lista del tipo que toque.
  */
+import type { PairingRule } from "@/data/pairing-products";
 import type { Locale } from "@/lib/i18n/config";
 
 export type TextPairing = { kicker: string; title: string; with: string; text: string };
@@ -252,6 +253,32 @@ export const CATEGORY_PAIRINGS: Record<string, Trio[]> = {
       P("Navarre · Wine", "With a Navarre wine", "young garnacha or rosé", "Navarre's wines, fresh and fruity, go with almost anything."),
       P("Navarre · Vin", "Avec un vin de Navarre", "grenache jeune ou rosé", "Les vins de Navarre, frais et fruités, s'accordent avec presque tout.")),
   ],
+};
+
+/**
+ * Producto de la tienda al que lleva cada maridaje general (mismo orden que la
+ * lista de arriba): categoría y, si se quiere, palabras del nombre. Entre los
+ * que encajan se elige uno distinto según la ficha, para que no enlace siempre al mismo.
+ */
+export const CATEGORY_PAIRING_LINKS: Record<string, PairingRule[]> = {
+  aceites: [{ cat: "condimentos" }, { cat: "verduras" }, { cat: "quesos" }, { cat: "conservas" }],
+  condimentos: [{ cat: "embutidos" }, { cat: "verduras" }, { cat: "aceites" }, { cat: "conservas" }],
+  conservas: [{ cat: "vinos", name: /blanco|chardonnay|brut/i }, { cat: "verduras", name: /piparra/i }, { cat: "vinos", name: /rosado/i }, { cat: "legumbres" }],
+  dulces: [{ cat: "dulces" }, { cat: "quesos" }, { cat: "vinos", name: /pacharan|patxaran/i }, { cat: "dulces" }],
+  embutidos: [{ cat: "vinos", name: /garnacha|tinto/i }, { cat: "verduras", name: /piparra/i }, { cat: "quesos" }, { cat: "vinos", name: /rosado/i }],
+  legumbres: [{ cat: "vinos", name: /tinto/i }, { cat: "vinos", name: /rosado/i }, { cat: "vinos", name: /blanco|chardonnay/i }],
+  lotes: [{ cat: "vinos" }, { cat: "vinos", name: /brut|millesime/i }, { cat: "lotes" }],
+  pates: [{ cat: "vinos", name: /tinto/i }, { cat: "dulces", name: /mermelada|tomate|higo/i }, { cat: "vinos", name: /brut|millesime/i }],
+  preparados: [{ cat: "vinos", name: /tinto/i }, { cat: "verduras" }, { cat: "vinos", name: /rosado/i }],
+  quesos: [{ cat: "dulces", name: /mermelada|higo/i }, { cat: "dulces" }, { cat: "embutidos" }, { cat: "vinos", name: /blanco|rosado/i }],
+  verduras: [{ cat: "aceites" }, { cat: "vinos", name: /rosado/i }, { cat: "vinos", name: /blanco|chardonnay/i }, { cat: "embutidos" }],
+  "vino-tinto": [{ cat: "embutidos" }, { cat: "quesos" }, { cat: "embutidos" }, { cat: "legumbres" }],
+  "vino-blanco": [{ cat: "verduras", name: /esparrag/i }, { cat: "conservas" }, { cat: "quesos" }, { cat: "conservas" }],
+  "vino-rosado": [{ cat: "verduras", name: /piquillo|pimiento/i }, { cat: "verduras" }, { cat: "embutidos" }, { cat: "preparados" }],
+  "vino-espumoso": [{ cat: "conservas" }, { cat: "embutidos" }, { cat: "quesos" }, { cat: "dulces" }],
+  "vino-dulce": [{ cat: "pates" }, { cat: "quesos" }, { cat: "dulces", name: /chocolate/i }, { cat: "dulces" }],
+  licor: [{ cat: "dulces" }, { cat: "dulces", name: /chocolate/i }, { cat: "quesos" }, { cat: "dulces" }],
+  generic: [{ cat: "aceites" }, { cat: "quesos" }, { cat: "vinos" }],
 };
 
 /** Qué lista de maridajes generales le toca a un producto (según su categoría y, en bebidas, su tipo). */

@@ -4,7 +4,7 @@ import type { Product } from "@/lib/types";
 
 const norm = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-const matches = (p: Product, rules: PairingRule[]) =>
+export const matches = (p: Product, rules: PairingRule[]) =>
   rules.some(
     (r) =>
       (!r.cat || p.categorySlug === r.cat) &&
@@ -50,4 +50,14 @@ export function similarProducts(product: Product, all: Product[]): Product[] {
   return all
     .filter((p) => p.slug !== product.slug && p.categorySlug === product.categorySlug)
     .sort((a, b) => score(b) - score(a) || a.rank - b.rank);
+}
+
+/** Producto que encaja con una regla; entre varios, uno u otro según la ficha (para variar los enlaces). */
+export function pickPartner(rule: PairingRule | undefined, all: Product[], product: Product): Product | undefined {
+  if (!rule) return undefined;
+  const found = all.filter((p) => p.slug !== product.slug && matches(p, [rule]));
+  if (!found.length) return undefined;
+  let h = 0;
+  for (const ch of product.slug) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return found[h % found.length];
 }
