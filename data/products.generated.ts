@@ -303,6 +303,7 @@ export const productRows: ProductRow[] = [
   ["embutidos", "arbizu", "ARBIZU Chorizo a la sidra", 6.4],
   ["embutidos", "ibericomio", "IBERICOMIO Jamón de Bellota 100% Ibérica Martin Matas", 18.9],
   ["embutidos", "ibericomio", "IBERICOMIO Chorizo ibérico Galocha", 6.5],
+  ["embutidos", "ibericomio", "IBERICOMIO Salchichón ibérico Galocha", 6.5],
   ["embutidos", "ibericomio", "IBERICOMIO Jamón de Bellota 100% Ibérico Montecillo", 17.9],
   ["embutidos", "ibericomio", "IBERICOMIO Lomo de bellota 100% ibérico loncheado", 14.5],
   ["embutidos", "salamanca-iberica", "SALAMANCA Jamón ibérico cebo 50%", 13.2],
@@ -311,5 +312,4 @@ export const productRows: ProductRow[] = [
   ["embutidos", "salamanca-iberica", "SALAMANCA Salchichón ibérico bellota 100%", 8.6],
   ["embutidos", "larrasoana", "LARRASOAÑA txistorra dulce 220g", 3.9],
   ["embutidos", "larrasoana", "LARRASOAÑA txistorra picante 220g", 3.9],
-  ["embutidos", "ibericomio", "IBERICOMIO Salchichón ibérico Galocha", 6.5],
 ];

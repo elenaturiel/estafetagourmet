@@ -137,11 +137,12 @@ CORREGIR_TITULO = {
 # Productos que se venden en la web aunque aún no estén en la hoja
 # (categoría, proveedor tal cual en la hoja, título, PVP con IVA). Si la hoja ya
 # trae el título, manda la hoja.
-EXTRA_PRODUCTOS = [
-    # En el EXCEL_WEB de oct. 2026 el chorizo Galocha sale dos veces y falta el
-    # salchichón (mismo precio que el chorizo).
-    ("embutidos", "IBERICOMIO", "IBERICOMIO Salchichón ibérico Galocha", 6.5),
-]
+EXTRA_PRODUCTOS: list[tuple[str, str, str, float | None]] = []
+
+# Títulos que la hoja repite por error: la segunda fila es otro producto.
+# En el EXCEL_WEB de oct. 2026 el chorizo Galocha sale dos veces y la segunda
+# es el salchichón (mismo precio).
+SEGUNDA_FILA = {"IBERICOMIO Chorizo ibérico Galocha": "IBERICOMIO Salchichón ibérico Galocha"}
 
 # Títulos que la hoja repite con el mismo nombre para formatos distintos: se
 # distinguen por el precio (precio → título en la web); las filas con otro
@@ -290,6 +291,8 @@ def main():
             titulo = FORMATOS_POR_PRECIO[titulo].get(precio(pvp))
             if not titulo:
                 continue
+        if titulo in vistos and titulo in SEGUNDA_FILA:
+            titulo = SEGUNDA_FILA[titulo]
         if titulo in vistos:
             duplicados.append(titulo)
             continue
