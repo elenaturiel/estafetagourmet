@@ -89,7 +89,7 @@ export const pairingGroups: PairingGroup[] = [
       },
       {
         n: 9, kicker: "Crema de hongos · Blanco de guarda", title: "Crema de hongos de Anko",
-        with: "Castillo de Monjardín Chardonnay Gran Reserva",
+        with: "Castillo de Monjardín Chardonnay Reserva",
         text: "Los aromas de sotobosque y la textura cremosa de los hongos casan con un blanco con crianza, de notas tostadas y volumen en boca.",
         shop: [{ label: "Preparados", href: "/tienda/preparados" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
@@ -114,8 +114,8 @@ export const pairingGroups: PairingGroup[] = [
       },
       {
         n: 12, kicker: "Paté · Mermelada · Tinto joven", title: "Paté de campaña de Arbizu o paté de hígado de Beola",
-        with: "mermelada de tomate de Aidin y Unsi Terrazas Garnacha Tinta",
-        text: "El tomate aporta dulzor y frescura al paté. Una garnacha joven y afrutada cierra un aperitivo sencillo y redondo.",
+        with: "mermelada de cebolla confitada de Aidin y Unsi Terrazas Garnacha Tinta",
+        text: "La cebolla confitada aporta dulzor y contraste al paté. Una garnacha joven y afrutada cierra un aperitivo sencillo y redondo.",
         shop: [{ label: "Patés y foie", href: "/tienda/pates" }, { label: "Mermeladas", href: "/tienda/dulces" }, { label: "Vinos", href: "/tienda/vinos" }],
       },
     ],
@@ -133,14 +133,14 @@ export const pairingGroups: PairingGroup[] = [
       },
       {
         n: 14, kicker: "Chocolate al patxarán · Patxarán", title: "Chocolate negro 72 % al patxarán de Navarra en Dulce",
-        with: "Patxarán Etxeko, Baines Etiqueta Oro o Belasco",
+        with: "Patxarán Basarana, Baines Etiqueta Oro o Belasco",
         text: "El chocolate repite los aromas de endrina del licor: una combinación muy navarra. Servir el patxarán muy frío.",
         shop: [{ label: "Chocolates", href: "/tienda/dulces" }, { label: "Patxarán y licores", href: "/tienda/vinos" }],
       },
       {
         n: 15, kicker: "Naranja · Crema de patxarán", title: "Chocolate negro 85 % con naranja de Navarra en Dulce",
-        with: "Bianca Villa, crema de naranja con patxarán",
-        text: "Naranja con naranja: el cítrico del chocolate y de la crema se refuerzan, y el patxarán pone el toque local.",
+        with: "Crema de patxarán de Baines",
+        text: "El cítrico del chocolate y la suavidad de la crema de patxarán se equilibran: un final de comida muy navarro.",
         shop: [{ label: "Chocolates", href: "/tienda/dulces" }, { label: "Patxarán y licores", href: "/tienda/vinos" }],
       },
     ],

@@ -118,7 +118,7 @@ export const specRows: Record<string, SpecRow> = {
     "p": "Frasco 370 ml",
     "exact": false
   },
-  "navarrico-esparrago-frasco-370-ml-9-12": {
+  "navarrico-esparrago-frasco-370-ml-8-12": {
     "i": "Espárragos, agua y sal.",
     "a": "Ninguno en la lista de ingredientes",
     "p": "Frasco 370 ml",
@@ -172,13 +172,13 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Ninguno en la lista de ingredientes",
     "exact": false
   },
-  "dantza-esparrago-do-navarra-frasco-m-580-5-8-y-8-10": {
+  "dantza-esparrago-do-navarra-frasco-m-580": {
     "w": "325 g neto escurrido",
     "i": "Espárragos, agua, sal, ácido cítrico.",
     "a": "Ninguno en la lista de ingredientes",
     "exact": false
   },
-  "dantza-esparrago-do-navarra-frasco-r-370-6-8": {
+  "dantza-esparrago-do-navarra-frasco-r-370": {
     "w": "205 g neto escurrido",
     "i": "Espárragos, agua, sal, ácido cítrico.",
     "a": "Ninguno en la lista de ingredientes",
@@ -256,7 +256,7 @@ export const specRows: Record<string, SpecRow> = {
     "p": "Tarro de cristal",
     "exact": false
   },
-  "lc-yemas-4-6-frasco": {
+  "lc-yemas-04-06-frasco": {
     "w": "240 g neto / 140 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
@@ -291,7 +291,7 @@ export const specRows: Record<string, SpecRow> = {
     "p": "Tarro de cristal",
     "exact": false
   },
-  "lc-esparrago-5-lata": {
+  "lc-esparragos-5-lata-extra-gr": {
     "ref": "Ref. lata AL-370 6 frutos: 345 g neto / 220 g escurrido",
     "i": "Espárragos, agua, sal, acidulante (ácido cítrico).",
     "a": "No contiene",
@@ -640,7 +640,7 @@ export const specRows: Record<string, SpecRow> = {
     "a": "Contiene sulfitos",
     "exact": false
   },
-  "alconde-moreno-y-cabezon-garnacha-blanca": {
+  "alconde-moreno-y-cabezon": {
     "a": "Contiene sulfitos",
     "exact": false
   },

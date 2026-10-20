@@ -118,12 +118,8 @@ FAMILIAS = {
     "ATUN Y BONITO": "conservas",
 }
 
-# Títulos equivocados en la hoja → título correcto. En la plantilla de oct. 2026
-# los tamaños de La Maja Alfar Arbequina están cambiados (el de 11,20 € es el
-# de 1000 ml y el de 5,30 €, el de 250 ml). Quitar cuando se corrija la hoja.
+# Títulos equivocados en la hoja → título correcto.
 CORREGIR_TITULO = {
-    "LA MAJA AOVE ALFAR ARBEQUINA 250": "LA MAJA AOVE ALFAR ARBEQUINA 1000",
-    "LA MAJA AOVE ALFAR ARBEQUINA 1000": "LA MAJA AOVE ALFAR ARBEQUINA 250",
     # La añada cambia cada año: en la web va sin ella para no cambiar de ficha.
     "GRAN CHIVITE LEGARDETA Blanco 2024": "GRAN CHIVITE LEGARDETA Blanco",
     "GRAN CHIVITE LEGARDETA Tinto 2023": "GRAN CHIVITE LEGARDETA Tinto",
@@ -142,17 +138,16 @@ CORREGIR_TITULO = {
 # (categoría, proveedor tal cual en la hoja, título, PVP con IVA). Si la hoja ya
 # trae el título, manda la hoja.
 EXTRA_PRODUCTOS = [
-    # En el EXCEL_WEB de oct. 2026 el chorizo Galocha sale dos veces y falta el salchichón.
-    ("embutidos", "IBERICOMIO", "IBERICOMIO Salchichón ibérico Galocha", 6.6),
+    # En el EXCEL_WEB de oct. 2026 el chorizo Galocha sale dos veces y falta el
+    # salchichón (mismo precio que el chorizo).
+    ("embutidos", "IBERICOMIO", "IBERICOMIO Salchichón ibérico Galocha", 6.5),
 ]
 
 # Títulos que la hoja repite con el mismo nombre para formatos distintos: se
 # distinguen por el precio (precio → título en la web); las filas con otro
 # precio sobran. Cualquier otro título repetido es un duplicado: manda la
 # primera fila (así lo pidió la tienda para los de La Catedral, oct. 2026).
-FORMATOS_POR_PRECIO = {
-    'LC Guindillas "PIPARRAS"': {7.9: 'LC Guindillas "PIPARRAS" 360 ml', 23.5: 'LC Guindillas "PIPARRAS" 630 ml', 23.45: 'LC Guindillas "PIPARRAS" 630 ml'},
-}
+FORMATOS_POR_PRECIO: dict[str, dict[float, str]] = {}
 
 # Proveedores escritos de dos formas en la hoja → forma única
 ALIAS_PROVEEDOR = {"NAVARRA ENDULCE": "NAVARRA EN DULCE"}
