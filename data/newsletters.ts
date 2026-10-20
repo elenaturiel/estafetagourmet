@@ -157,7 +157,7 @@ export const newsletters: Newsletter[] = [
     shop: {
       title: "Espárragos en nuestra tienda",
       products: [
-        "DANTZA Espárrago DO Navarra Frasco R 370 (6-8)",
+        "DANTZA Espárrago DO Navarra Frasco R 370",
         "NAVARRICO ESPÁRRAGO FRASCO 580 ml 9/12 FR D.O",
         "LC ESPÁRRAGO 06-08 FRASCO",
       ],
@@ -212,7 +212,6 @@ export const newsletters: Newsletter[] = [
     shop: {
       title: "Piquillos en nuestra tienda",
       products: [
-        "NAVARRICO PIQUILLO ENTERO FRASCO 350ml D.O",
         "LC PIMIENTO CONFITADO",
         "ANKO pimiento piquillo entero extra",
       ],
@@ -407,7 +406,7 @@ export const newsletters: Newsletter[] = [
     shop: {
       title: "Pacharanes en nuestra tienda",
       products: [
-        "LN Patxarán ETXEKO",
+        "LN Patxarán BASARANA ETIQUETA NEGRA",
         "LN Patxarán LA NAVARRA",
         "LN Patxarán BELASCO ORO",
         "BAINES Patxarán BAINES etiqueta oro",

@@ -82,7 +82,7 @@ const PHOTOS: Record<string, string> = {
   "LARRALDEA sidra ecologica navarra": "/images/productos-estafeta/larraldea-sidra-ecologica-navarra.webp",
   "LARRA GAZTAZARRA Crema oveja 200 g": "/images/productos-estafeta/larra-gaztazarra-crema-oveja-200-g.webp",
   "LARRA cuña 350g caja carton": "/images/productos-estafeta/larra-cuna-350g-caja-carton.webp",
-  "LC Guindillas \"PIPARRAS\" 360 ml": "/images/productos/lc-guindillas-piparras.webp",
+  "LC Guindillas 360 g": "/images/productos/lc-guindillas-piparras.webp",
   "LC Guindillas \"PIPARRAS\" 630 ml": "/images/productos/lc-guindillas-piparras.webp",
   "IBERICOMIO Salchichón ibérico Galocha": "/images/productos-estafeta/ibericomio-salchichon-iberico-galocha.webp",
   "ECOPRO ESTUCHE OLIVE LOVERS": "/images/productos-estafeta/ecopro-estuche-olive-lovers.webp",
@@ -121,7 +121,7 @@ const PHOTOS: Record<string, string> = {
   "NAVARRA NEGRO PIPARAS": "/images/productos-estafeta/chocolate-negro-72-piparras.webp",
   "NAVARRA CON LECHE SIDRA Y MANZANA": "/images/productos-estafeta/chocolate-con-leche-manzana-a-la-sidra.webp",
   "NAVARRICO PIQUILLO TIRAS FRASCO 250ml": "/images/productos-estafeta/navarrico-piquillo-tiras-primera.webp",
-  "NAVARRICO ESPÁRRAGOS BRASA ALIÑADOS": "/images/productos-estafeta/navarrico-esparragos-braseados.webp",
+  "NAVARRICO ESPÁRRAGOS BRASA": "/images/productos-estafeta/navarrico-esparragos-braseados.webp",
   "NAVARRA PASTAS SAN FERMIN AL PATXARAN": "/images/productos-estafeta/navarra-pastas-san-fermin-al-patxaran.webp",
 };
 
