@@ -2,7 +2,7 @@
  * Envío de formularios desde el navegador.
  *
  * - Newsletter: /api/newsletter (Brevo). Ver lib/newsletter.ts.
- * - Contacto: TODO (ver TODO.md). Hoy solo se simula el envío.
+ * - Contacto: /api/contact (correo por Brevo a CONTACT_TO o al correo de la tienda).
  */
 import type { Locale } from "@/lib/i18n/config";
 
@@ -36,7 +36,16 @@ export async function submitNewsletter(
   return { doubleOptIn: Boolean(json.doubleOptIn) };
 }
 
-export async function submitContact(payload: ContactPayload): Promise<void> {
-  void payload;
-  await new Promise((r) => setTimeout(r, 400));
+/** Envía el mensaje de contacto (/api/contact). Devuelve false si no se pudo enviar. */
+export async function submitContact(payload: ContactPayload & { website?: string }): Promise<boolean> {
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }

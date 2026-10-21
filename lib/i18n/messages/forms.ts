@@ -28,6 +28,7 @@ export const forms = defineMessages({
       sentTitle: "¡Mensaje enviado!",
       sentText: "Gracias por escribirnos. Te responderemos lo antes posible.",
       review: "Revisa los campos marcados.",
+      sendError: "No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos por WhatsApp.",
     },
     popup: {
       eyebrow: "Club Estafeta",
@@ -80,6 +81,7 @@ export const forms = defineMessages({
       sentTitle: "Message sent!",
       sentText: "Thank you for writing to us. We will reply as soon as we can.",
       review: "Please check the highlighted fields.",
+      sendError: "We could not send your message. Please try again or write to us on WhatsApp.",
     },
     popup: {
       eyebrow: "Estafeta Club",
@@ -132,6 +134,7 @@ export const forms = defineMessages({
       sentTitle: "Message envoyé !",
       sentText: "Merci de nous avoir écrit. Nous vous répondrons dès que possible.",
       review: "Vérifiez les champs signalés.",
+      sendError: "Nous n'avons pas pu envoyer votre message. Réessayez ou écrivez-nous sur WhatsApp.",
     },
     popup: {
       eyebrow: "Club Estafeta",

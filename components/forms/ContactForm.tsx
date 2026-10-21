@@ -14,7 +14,7 @@ export function ContactForm() {
   const c = t.contact;
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,8 +38,8 @@ export function ContactForm() {
     }
 
     setStatus("sending");
-    await submitContact({ name, email, message });
-    setStatus("done");
+    const ok = await submitContact({ name, email, message, website: data.get("website")?.toString() ?? "" });
+    setStatus(ok ? "done" : "error");
   }
 
   if (status === "done") {
@@ -117,6 +117,15 @@ export function ContactForm() {
           </p>
         ) : null}
       </div>
+      {/* Trampa para bots: las personas no lo ven. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <input name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+      {status === "error" ? (
+        <p role="alert" className="mt-4 text-[14px] font-semibold text-vino">
+          {c.sendError}
+        </p>
+      ) : null}
       <button
         type="submit"
         disabled={status === "sending"}

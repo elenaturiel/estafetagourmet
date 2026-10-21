@@ -48,7 +48,7 @@ export const common = defineMessages({
       allProducts: "Todos los productos",
     },
     footer: {
-      since: "Alimentación gourmet de Navarra, desde {year}.",
+      since: "Producto navarro catado uno a uno.",
       shop: "Tienda",
       help: "Ayuda",
       legal: "Legal",
@@ -145,7 +145,7 @@ export const common = defineMessages({
       allProducts: "All products",
     },
     footer: {
-      since: "Gourmet food from Navarre, since {year}.",
+      since: "Navarrese produce, tasted one by one.",
       shop: "Shop",
       help: "Help",
       legal: "Legal",
@@ -242,7 +242,7 @@ export const common = defineMessages({
       allProducts: "Tous les produits",
     },
     footer: {
-      since: "Gastronomie de Navarre, depuis {year}.",
+      since: "Produits navarrais goûtés un à un.",
       shop: "Boutique",
       help: "Aide",
       legal: "Mentions légales",

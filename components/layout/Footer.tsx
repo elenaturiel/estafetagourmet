@@ -1,7 +1,6 @@
 import { Link } from "@/components/ui/Link";
 import { footerNav } from "@/data/navigation";
 import { site } from "@/data/site";
-import { fmt } from "@/lib/i18n/config";
 import { getT } from "@/lib/i18n/server";
 import { CookieSettingsButton } from "./CookieBanner";
 
@@ -43,7 +42,7 @@ export async function Footer() {
           <div className="col-span-2 max-w-sm lg:col-span-1">
             <p className="font-serif text-[24px] leading-tight font-medium text-crema">{site.name}</p>
             <p className="mt-3 text-[15px] leading-relaxed">
-              {fmt(f.since, { year: site.foundedYear })} {site.address.street} · {site.address.cityShort}.
+              {f.since} {site.address.street} · {site.address.cityShort}.
             </p>
             <p className="mt-3 text-[15px]">
               <a

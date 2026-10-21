@@ -54,7 +54,7 @@ Todo lo que aparece en la web entre `[corchetes]` es un dato que falta. Esta es 
 ## Funcionalidad
 
 - [ ] **Pago.** Conectar Shopify y el checkout; ver README → "Conectar Shopify". Hoy "Finalizar pedido" está desactivado e invita a llamar.
-- [ ] **Formulario de contacto.** Hoy solo simula el envío (`lib/forms.ts → submitContact`). Conectarlo a un servicio de correo.
+- [x] **Formulario de contacto.** Envía el mensaje por correo (Brevo) a `CONTACT_TO` o, si no existe, a `info@estafetagourmet.com`. Pon `CONTACT_TO` en Vercel con el correo donde quieras recibirlos.
 - [ ] **Newsletter y popup:** crear la cuenta de Brevo y añadir las variables. Ver README → "Newsletter y popup de bienvenida". Hasta entonces el popup no aparece en la web publicada.
 - [ ] **Panel del blog:** crear el proyecto de Sanity, añadir las variables e invitar a la dueña. Ver README → "Blog: panel para escribir entradas".
 - [ ] **Foto del popup** de la newsletter (`components/newsletter/NewsletterPopup.tsx`).
