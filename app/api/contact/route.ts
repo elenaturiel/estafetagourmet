@@ -8,7 +8,7 @@ const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 /**
  * Formulario de contacto: el mensaje llega por correo a CONTACT_TO (si no se
  * define, a site.email) y se puede responder directamente a quien lo escribió.
- * Se envía con Brevo (BREVO_API_KEY y BREVO_SENDER_EMAIL, los de la newsletter).
+ * Se envía con Formspree (FORMSPREE_FORM_ID) o, si no está, con Brevo (BREVO_API_KEY y BREVO_SENDER_EMAIL).
  */
 export async function POST(req: NextRequest) {
   let data: { name?: unknown; email?: unknown; message?: unknown; website?: unknown };
@@ -24,6 +24,22 @@ export async function POST(req: NextRequest) {
   const email = typeof data.email === "string" ? data.email.trim().slice(0, 254) : "";
   const message = typeof data.message === "string" ? data.message.trim().slice(0, 5000) : "";
   if (!name || !EMAIL_RE.test(email) || message.length < 10) return NextResponse.json({ ok: false }, { status: 400 });
+
+  // Con Formspree (formspree.io): pon FORMSPREE_FORM_ID en Vercel y los mensajes llegan al correo de ese formulario.
+  const formspree = env("FORMSPREE_FORM_ID");
+  if (formspree) {
+    const r = await fetch(`https://formspree.io/f/${encodeURIComponent(formspree)}`, {
+      method: "POST",
+      headers: { "content-type": "application/json", accept: "application/json" },
+      body: JSON.stringify({ name, email, message, _subject: `Mensaje de la web: ${name}` }),
+      cache: "no-store",
+    });
+    if (!r.ok) {
+      console.error("[contact] formspree", r.status);
+      return NextResponse.json({ ok: false, code: `formspree_${r.status}` }, { status: 502 });
+    }
+    return NextResponse.json({ ok: true });
+  }
 
   const apiKey = env("BREVO_API_KEY");
   const senderEmail = env("BREVO_SENDER_EMAIL");

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
+import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { ProductCard, tagClass } from "@/components/cards/ProductCard";
 import { FreeShippingMeter } from "@/components/cart/FreeShippingMeter";
 import { ButtonLink } from "@/components/ui/Button";
@@ -291,13 +292,35 @@ export default async function ProductPage({ params }: Params) {
                 <p className="eyebrow text-[12px] text-secundario">{x.kicker}</p>
                 <h3 className="mt-2 text-[20px] leading-snug tracking-[-0.015em] lg:text-[22px]">{x.title}</h3>
                 <p className="mt-1 font-serif text-[16px] text-vino italic lg:text-[17px]">{fmt(s.pairWith, { drink: x.with })}</p>
-                <p className="mt-3 text-[15px] leading-[1.6] text-secundario">{x.text}</p>
-                <Link
-                  href={x.partner ? productHref(x.partner) : x.group ? `/maridajes#${x.group}` : "/maridajes"}
-                  className="mt-auto inline-flex min-h-[44px] items-center pt-2 text-[15px] font-semibold text-vino hover:underline"
-                >
-                  {x.partner ? fmt(s.pairProduct, { name: x.partner.name }) : s.pairAll}
-                </Link>
+                <p className="mt-3 mb-5 text-[15px] leading-[1.6] text-secundario">{x.text}</p>
+                {x.partner ? (
+                  <Link
+                    href={productHref(x.partner)}
+                    className="group mt-auto -mx-1 flex items-center gap-4 border-t border-linea p-1 pt-4 hover:text-vino"
+                  >
+                    <ImagePlaceholder
+                      label=""
+                      src={x.partner.image.src}
+                      alt={x.partner.name}
+                      ratio="1 / 1"
+                      sizes="88px"
+                      className="w-[88px] shrink-0 bg-white transition-transform duration-300 ease-out group-hover:scale-105"
+                    />
+                    <span className="min-w-0 text-[15px] font-semibold">
+                      <span className="line-clamp-2 block">{x.partner.name}</span>
+                      <span className="mt-1 block text-[14px] text-vino underline-offset-4 group-hover:underline">
+                        {s.pairProduct}
+                      </span>
+                    </span>
+                  </Link>
+                ) : (
+                  <Link
+                    href={x.group ? `/maridajes#${x.group}` : "/maridajes"}
+                    className="mt-auto inline-flex min-h-[44px] items-center pt-2 text-[15px] font-semibold text-vino hover:underline"
+                  >
+                    {s.pairAll}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

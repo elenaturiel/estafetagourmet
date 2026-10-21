@@ -79,6 +79,7 @@ export async function subscribe(
   source: string,
   origin: string,
   lang: "es" | "en" | "fr" = "es",
+  skipDoi = false,
 ): Promise<{ doubleOptIn: boolean }> {
   const cfg = config();
   if (!cfg) {
@@ -90,7 +91,8 @@ export async function subscribe(
   }
 
   const siteUrl = env("NEXT_PUBLIC_SITE_URL") || origin;
-  const [url, body] = cfg.doiTemplateId
+  const useDoi = Boolean(cfg.doiTemplateId) && !skipDoi;
+  const [url, body] = useDoi
     ? [
         `${API}/contacts/doubleOptinConfirmation`,
         {
@@ -106,7 +108,7 @@ export async function subscribe(
         { email, listIds: [cfg.listId], updateEnabled: true, attributes: { ORIGEN: source } },
       ];
 
-  const result = { doubleOptIn: Boolean(cfg.doiTemplateId) };
+  const result = { doubleOptIn: useDoi };
   let res = await post(url, cfg.apiKey, body);
   if (res.ok) return result;
 
@@ -122,5 +124,11 @@ export async function subscribe(
   // El contacto ya estaba en la lista: para quien se apunta, es un éxito.
   if (res.status === 400 && /duplicate|already exist/i.test(detail)) return result;
 
-  throw new BrevoError(res.status, detail, classify(res.status, detail));
+  const code = classify(res.status, detail);
+  // La plantilla de confirmación no existe o no es válida: se apunta igualmente (sin correo de confirmación) para no perder suscriptores.
+  if (useDoi && code === "plantilla_doi_no_valida") {
+    console.error("[newsletter] BREVO_DOI_TEMPLATE_ID no es válida; se añade sin confirmación.", detail.slice(0, 200));
+    return subscribe(email, source, origin, lang, true);
+  }
+  throw new BrevoError(res.status, detail, code);
 }
