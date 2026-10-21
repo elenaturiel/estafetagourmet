@@ -149,7 +149,7 @@ export function NewsletterPopup() {
         {/* Imagen: solo en pantallas medianas y grandes */}
         <div className="relative hidden bg-vino p-6 sm:block">
           <div className="arch h-full overflow-hidden">
-            <ImagePlaceholder label={p.photoLabel} className="h-full min-h-[380px]" />
+            <ImagePlaceholder label={p.photoLabel} src="/images/portada/portada-chivite-pizarra.webp" alt="" sizes="340px" className="h-full min-h-[380px]" />
           </div>
         </div>
 
