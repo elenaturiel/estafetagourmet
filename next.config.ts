@@ -34,6 +34,8 @@ const nextConfig: NextConfig = {
   images: {
     // Fotos que la dueña sube al blog desde el panel (Sanity).
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+    // Copia estática para otro servidor (STATIC_COPY=1): fotos sin el optimizador de Next.
+    unoptimized: process.env.STATIC_COPY === "1",
   },
   async redirects() {
     // Las redirecciones de la tienda valen también con /en y /fr por delante.
