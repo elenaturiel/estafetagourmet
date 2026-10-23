@@ -14,6 +14,9 @@ import type { Category } from "@/lib/types";
 
 const img = (slug: string) => `/images/categorias/${slug}.webp`;
 
+/** Tienda online de los aceites: la categoría Aceites lleva aquí. */
+export const ACEITES_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/page/1?l=1&d=1";
+
 /** Categoría sencilla: sin filtros propios y con textos SEO genéricos. */
 function simple(
   slug: string,
@@ -47,6 +50,8 @@ export const categories: Category[] = [
   {
     slug: "aceites",
     name: "Aceites",
+    // Los aceites se venden en la tienda online (ecommerce.estafetagourmet.com).
+    href: ACEITES_ONLINE,
     title: "Aceites de Navarra",
     intro: "Aceite de oliva virgen extra de almazaras navarras.",
     image: { src: img("aceites"), alt: "Botella de aceite de oliva virgen extra", placeholder: "Foto · aceites" },

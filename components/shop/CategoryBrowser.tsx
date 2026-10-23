@@ -23,7 +23,7 @@ import {
 import type { AttributeFilter, Producer, Product } from "@/lib/types";
 
 /** Categorías del filtro, agrupadas (Comida, Bebida…). */
-export type CategoryFilterGroup = { name: string; items: { slug: string; name: string }[] };
+export type CategoryFilterGroup = { name: string; items: { slug: string; name: string; href?: string }[] };
 
 /** Productos que se cargan de golpe; el resto, con "Ver más productos". */
 const PAGE_SIZE = 24;
@@ -382,9 +382,14 @@ function FilterPanel({
                     label={c.name}
                     count={perCategory[c.slug]}
                     checked={state.categories.includes(c.slug)}
-                    onChange={(on) =>
-                      onChange({ ...state, categories: toggle(state.categories, c.slug, on) })
-                    }
+                    onChange={(on) => {
+                      // Categorías que se venden en otra web (p. ej. Aceites): se va allí.
+                      if (on && c.href && /^https?:/.test(c.href)) {
+                        window.location.href = c.href;
+                        return;
+                      }
+                      onChange({ ...state, categories: toggle(state.categories, c.slug, on) });
+                    }}
                   />
                 ))}
               </div>
