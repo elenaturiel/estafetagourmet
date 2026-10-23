@@ -1,6 +1,7 @@
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { ButtonLink } from "@/components/ui/Button";
 import { getT } from "@/lib/i18n/server";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 export default async function NotFound() {
   const t = await getT();
@@ -12,7 +13,7 @@ export default async function NotFound() {
         <p className="mt-4 max-w-xl text-[16px] text-secundario lg:text-[17px]">{t.common.notFound.text}</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/">{t.common.notFound.home}</ButtonLink>
-          <ButtonLink href="/tienda" variant="secondary">
+          <ButtonLink href={TIENDA_ONLINE} variant="secondary">
             {t.common.notFound.shop}
           </ButtonLink>
         </div>

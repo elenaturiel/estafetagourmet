@@ -11,6 +11,7 @@ import { fmt } from "@/lib/i18n/config";
 import { useLocale, useT } from "@/lib/i18n/client";
 import { shippingArea, shippingCost } from "@/lib/shipping";
 import { useCart } from "./useCart";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 export function CartView() {
   const t = useT();
@@ -24,7 +25,7 @@ export function CartView() {
       <div className="border border-linea bg-papel p-8 lg:p-12">
         <p className="font-serif text-[24px]">{c.empty}</p>
         <p className="mt-2 text-secundario">{c.emptyPage}</p>
-        <ButtonLink href="/tienda" className="mt-6">
+        <ButtonLink href={TIENDA_ONLINE} className="mt-6">
           {c.goShop}
         </ButtonLink>
       </div>

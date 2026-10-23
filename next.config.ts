@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { ACEITES_ONLINE } from "./data/categories";
+import { ACEITES_ONLINE, TIENDA_ONLINE } from "./data/tienda-online";
 import { MERGED_CATEGORIES, removedProducts, renamedProducts } from "./data/removed-products";
 
 /**
@@ -80,6 +80,17 @@ const nextConfig: NextConfig = {
         { source: `/tienda/${vieja}/:producto`, destination: `/tienda/${nueva}/:producto`, permanent: true },
       ]),
       ]),
+      // La tienda entera (sin categoría ni filtro) se compra en la tienda online;
+      // /tienda?productor=… o ?categoria=… sigue en la web.
+      ...["", "/en", "/fr"].map((l) => ({
+        source: `${l}/tienda`,
+        destination: TIENDA_ONLINE,
+        permanent: false,
+        missing: [
+          { type: "query" as const, key: "productor" },
+          { type: "query" as const, key: "categoria" },
+        ],
+      })),
       // La categoría Aceites se compra en la tienda online.
       ...["", "/en", "/fr"].map((l) => ({ source: `${l}/tienda/aceites`, destination: ACEITES_ONLINE, permanent: false })),
       ...canonicalHostRedirects(),

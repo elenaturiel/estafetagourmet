@@ -3,6 +3,7 @@ import { ArrowLink } from "@/components/ui/Button";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { getCategories } from "@/lib/catalog";
 import { getT } from "@/lib/i18n/server";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 /**
  * Todas las categorías: en móvil, una cuadrícula de tres columnas; en
@@ -16,7 +17,7 @@ export async function CategoriesSection() {
         id="categorias-title"
         eyebrow={t.home.categories.eyebrow}
         title={t.home.categories.title}
-        action={<ArrowLink href="/tienda">{t.home.categories.link}</ArrowLink>}
+        action={<ArrowLink href={TIENDA_ONLINE}>{t.home.categories.link}</ArrowLink>}
       />
       <ul
         data-reveal-stagger

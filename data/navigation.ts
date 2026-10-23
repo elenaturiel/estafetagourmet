@@ -1,7 +1,9 @@
+import { TIENDA_ONLINE } from "./tienda-online";
+
 /** Menús de la web. Cambia aquí los enlaces de cabecera y pie. */
 export const mainNav = [
   // Los lotes están dentro de la tienda (categoría Lotes).
-  { href: "/tienda", key: "shop" },
+  { href: TIENDA_ONLINE, key: "shop" },
   { href: "/productores", key: "producers" },
   { href: "/maridajes", key: "pairings" },
   // Blog y newsletter comparten página (/blog); los boletines están en /blog#boletines.

@@ -10,6 +10,7 @@ import { fmt } from "@/lib/i18n/config";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { productHref } from "@/lib/product-utils";
 import type { Product } from "@/lib/types";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 export async function Hero({ featuredLot }: { featuredLot?: Product }) {
   const [t, locale] = await Promise.all([getT(), getLocale()]);
@@ -33,7 +34,7 @@ export async function Hero({ featuredLot }: { featuredLot?: Product }) {
             {h.text}
           </p>
           <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-row lg:mt-8">
-            <ButtonLink href="/tienda" className="px-4 sm:px-9">
+            <ButtonLink href={TIENDA_ONLINE} className="px-4 sm:px-9">
               {h.shopNow}
             </ButtonLink>
             <ButtonLink href="/tienda/lotes" variant="secondary" className="px-4">
