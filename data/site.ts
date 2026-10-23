@@ -54,6 +54,12 @@ export const site = {
     international: "+34 624 64 27 42",
   },
 
+  /**
+   * Venta online desde esta web. En false no hay botones de «Añadir» ni cesta,
+   * y la tienda muestra el aviso de pedidos por WhatsApp.
+   */
+  onlineSales: false,
+
   /** WhatsApp (mismo número que el teléfono). El mensaje se rellena solo al abrir el chat. */
   whatsappHref: "https://wa.me/34624642742",
   whatsappMessage: "Hola, os escribo desde la web de Estafeta Gourmet.",

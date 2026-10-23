@@ -5,6 +5,7 @@ import { getAllProducts, getProducers } from "@/lib/catalog";
 import { getCategoryTree } from "@/lib/category-tree";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
+import { ShopNotice } from "@/components/shop/ShopNotice";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [t, locale] = await Promise.all([getT(), getLocale()]);
@@ -39,6 +40,7 @@ export default async function ShopPage() {
       </div>
 
       <div className="container-site pt-6 pb-12 lg:pt-10 lg:pb-24">
+        <ShopNotice className="mb-6 lg:mb-10" />
         <h2 className="sr-only">{t.shop.page.allProducts}</h2>
         <CategoryBrowser products={products} producers={producers} filters={[]} categoryGroups={filterGroups} />
       </div>

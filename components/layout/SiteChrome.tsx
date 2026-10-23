@@ -4,6 +4,7 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getCategoryTree } from "@/lib/category-tree";
 import { getCategories, getProducts } from "@/lib/catalog";
+import { site } from "@/data/site";
 import { categoryHref, productHref } from "@/lib/product-utils";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { isNewsletterEnabled } from "@/lib/newsletter";
@@ -46,7 +47,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       </main>
       <Footer />
       <WhatsAppButton />
-      <CartDrawer />
+      {site.onlineSales ? <CartDrawer /> : null}
       <ScrollReveal />
       <ScrollToTop />
       <CookieBanner />
