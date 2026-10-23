@@ -88,6 +88,8 @@ export const common = defineMessages({
       text: "Mientras tanto, puedes hacer tus pedidos por WhatsApp.",
       button: "Pedir por WhatsApp",
       message: "Hola, me gustaría hacer un pedido.",
+      dialogText: "Puedes pedirnos por WhatsApp.",
+      close: "Cerrar",
     },
     site: {
       hoursDays: "De martes a sábado",
@@ -191,6 +193,8 @@ export const common = defineMessages({
       text: "In the meantime, you can place your orders on WhatsApp.",
       button: "Order on WhatsApp",
       message: "Hello, I'd like to place an order.",
+      dialogText: "You can order from us on WhatsApp.",
+      close: "Close",
     },
     site: {
       hoursDays: "Tuesday to Saturday",
@@ -294,6 +298,8 @@ export const common = defineMessages({
       text: "En attendant, vous pouvez passer vos commandes sur WhatsApp.",
       button: "Commander sur WhatsApp",
       message: "Bonjour, je souhaite passer une commande.",
+      dialogText: "Vous pouvez nous commander sur WhatsApp.",
+      close: "Fermer",
     },
     site: {
       hoursDays: "Du mardi au samedi",

@@ -10,7 +10,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { fmt } from "@/lib/i18n/config";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
-import { TIENDA_ONLINE } from "@/data/tienda-online";
+import { TIENDA_ONLINE, TIENDA_ONLINE_ACTIVA } from "@/data/tienda-online";
 import { ShopNotice } from "@/components/shop/ShopNotice";
 
 type Params = { params: Promise<{ categoria: string }> };
@@ -19,8 +19,8 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const categories = await getCategories();
-  // Las categorías con enlace propio (`href`) no tienen página.
-  return categories.filter((c) => !c.href).map((c) => ({ categoria: c.slug }));
+  // Las categorías con enlace propio (`href`) no tienen página (mientras la tienda online no esté activa, sí).
+  return categories.filter((c) => !c.href || !TIENDA_ONLINE_ACTIVA).map((c) => ({ categoria: c.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -38,7 +38,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function CategoryPage({ params }: Params) {
   const { categoria } = await params;
   const category = await getCategory(categoria);
-  if (!category || category.href) notFound();
+  // Una categoría que lleva a otra web solo tiene página propia mientras esa web no está activa.
+  if (!category || (category.href && TIENDA_ONLINE_ACTIVA)) notFound();
 
   const [products, allProducers] = await Promise.all([
     getProducts({ category: category.slug }),

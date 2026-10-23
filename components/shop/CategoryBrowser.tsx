@@ -21,6 +21,8 @@ import {
   type SortKey,
 } from "@/lib/filters";
 import type { AttributeFilter, Producer, Product } from "@/lib/types";
+import { TIENDA_ONLINE_ACTIVA } from "@/data/tienda-online";
+import { openShopGate } from "./ShopGate";
 
 /** Categorías del filtro, agrupadas (Comida, Bebida…). */
 export type CategoryFilterGroup = { name: string; items: { slug: string; name: string; href?: string }[] };
@@ -385,7 +387,8 @@ function FilterPanel({
                     onChange={(on) => {
                       // Categorías que se venden en otra web (p. ej. Aceites): se va allí.
                       if (on && c.href && /^https?:/.test(c.href)) {
-                        window.location.href = c.href;
+                        if (TIENDA_ONLINE_ACTIVA) window.location.href = c.href;
+                        else openShopGate();
                         return;
                       }
                       onChange({ ...state, categories: toggle(state.categories, c.slug, on) });
