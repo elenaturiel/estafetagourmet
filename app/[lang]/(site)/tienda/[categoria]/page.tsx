@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { fmt } from "@/lib/i18n/config";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 type Params = { params: Promise<{ categoria: string }> };
 
@@ -100,7 +101,7 @@ function EmptyCategory({ name, t }: { name: string; t: Awaited<ReturnType<typeof
       <p className="mx-auto mt-3 max-w-lg text-[16px] text-secundario">{fmt(t.soonText, { street: site.address.street })}</p>
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         <ButtonLink href={site.phone.href}>{fmt(t.call, { phone: site.phone.display })}</ButtonLink>
-        <ButtonLink href="/tienda" variant="secondary">
+        <ButtonLink href={TIENDA_ONLINE} variant="secondary">
           {t.seeOthers}
         </ButtonLink>
       </div>

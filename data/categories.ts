@@ -1,4 +1,5 @@
 import type { Category } from "@/lib/types";
+import { ACEITES_ONLINE } from "./tienda-online";
 
 /**
  * Categorías de la tienda, en el orden en que aparecen en la web (alfabético).
@@ -13,9 +14,6 @@ import type { Category } from "@/lib/types";
  */
 
 const img = (slug: string) => `/images/categorias/${slug}.webp`;
-
-/** Tienda online de los aceites: la categoría Aceites lleva aquí. */
-export const ACEITES_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/page/1?l=1&d=1";
 
 /** Categoría sencilla: sin filtros propios y con textos SEO genéricos. */
 function simple(

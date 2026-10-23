@@ -13,6 +13,7 @@ import { cartUi } from "./cart-ui";
 import { FreeShippingMeter } from "./FreeShippingMeter";
 import { shippingSummary } from "@/lib/shipping";
 import { useCart } from "./useCart";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 /** Cajón lateral de la cesta. Se abre al añadir un producto o al pulsar "Cesta". */
 export function CartDrawer() {
@@ -115,7 +116,7 @@ export function CartDrawer() {
           <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
             <p className="font-serif text-[24px]">{t.empty}</p>
             <p className="mt-2 text-secundario">{t.emptyDrawer}</p>
-            <Link href="/tienda" className={cn(buttonClasses("primary", "md"), "mt-6")}>
+            <Link href={TIENDA_ONLINE} className={cn(buttonClasses("primary", "md"), "mt-6")}>
               {t.goShop}
             </Link>
           </div>

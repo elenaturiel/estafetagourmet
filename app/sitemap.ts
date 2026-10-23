@@ -7,7 +7,6 @@ import { localePath, locales } from "@/lib/i18n/config";
 
 const staticPaths = [
   "/",
-  "/tienda",
   "/regalos",
   "/maridajes",
   "/productores",

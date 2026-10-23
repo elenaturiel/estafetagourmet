@@ -3,6 +3,7 @@ import { Section, SectionHeader } from "@/components/ui/Section";
 import { getAllProducts, getCategories, getFeaturedProducts, getProducerMap } from "@/lib/catalog";
 import { getT } from "@/lib/i18n/server";
 import { FavoritesTabs } from "./FavoritesTabs";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 export async function FeaturedProducts() {
   const [featured, all, categories, producers, t] = await Promise.all([
@@ -37,7 +38,7 @@ export async function FeaturedProducts() {
         eyebrow={t.home.favorites.eyebrow}
         title={t.home.favorites.title}
         subtitle={t.home.favorites.subtitle}
-        action={<ArrowLink href="/tienda">{t.home.favorites.link}</ArrowLink>}
+        action={<ArrowLink href={TIENDA_ONLINE}>{t.home.favorites.link}</ArrowLink>}
       />
       <FavoritesTabs tabs={shownTabs} producers={producers} />
     </Section>

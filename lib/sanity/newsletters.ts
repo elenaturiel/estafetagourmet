@@ -2,6 +2,7 @@ import "server-only";
 import { groq } from "next-sanity";
 import type { Newsletter } from "@/data/newsletters";
 import { sanityFetch, sanityImageUrl } from "./client";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 type Row = {
   title: string;
@@ -48,7 +49,7 @@ export async function getSanityNewsletters(after: number): Promise<Newsletter[] 
         shop: {
           title: r.shopTitle || "En nuestra tienda",
           products: r.shopProducts ?? [],
-          cta: { label: r.ctaLabel || "Ver la tienda", href: r.ctaHref || "/tienda" },
+          cta: { label: r.ctaLabel || "Ver la tienda", href: r.ctaHref || TIENDA_ONLINE },
         },
       };
     });

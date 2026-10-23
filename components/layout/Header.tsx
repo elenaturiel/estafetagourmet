@@ -21,6 +21,7 @@ import { cn } from "@/lib/cn";
 import { fmt, localePath, locales, localeNames, type Locale } from "@/lib/i18n/config";
 import { useLocale, usePath, useT } from "@/lib/i18n/client";
 import { Logo } from "./Logo";
+import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 export type HeaderCategory = {
   slug: string;
@@ -228,7 +229,7 @@ export function Header({
                       <ul className="grid grid-cols-2 gap-x-4 pb-4">
                         <li className="col-span-2">
                           <Link
-                            href="/tienda"
+                            href={TIENDA_ONLINE}
                             onClick={() => menuRef.current?.close()}
                             className="inline-flex min-h-[44px] items-center text-[16px] font-semibold text-vino"
                           >
@@ -353,7 +354,7 @@ function MegaMenu({
             ))}
           </div>
           <Link
-            href="/tienda"
+            href={TIENDA_ONLINE}
             className="mt-5 inline-flex min-h-[36px] items-center text-[15px] font-semibold text-vino hover:underline"
           >
             {t.common.header.seeShop}
