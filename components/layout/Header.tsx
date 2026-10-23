@@ -167,7 +167,7 @@ export function Header({
           >
             <SearchIcon size={22} />
           </Link>
-          {cartButton}
+          {site.onlineSales ? cartButton : null}
         </div>
       </div>
 

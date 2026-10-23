@@ -83,6 +83,12 @@ export const common = defineMessages({
       message: "Hola, os escribo desde la web de Estafeta Gourmet.",
       productMessage: "Hola, os escribo desde la web de Estafeta Gourmet. Me interesa: {product}",
     },
+    shopNotice: {
+      title: "Tienda online en construcción",
+      text: "Mientras tanto, puedes hacer tus pedidos por WhatsApp.",
+      button: "Pedir por WhatsApp",
+      message: "Hola, me gustaría hacer un pedido.",
+    },
     site: {
       hoursDays: "De martes a sábado",
       noDelivery: "Canarias ni Baleares",
@@ -180,6 +186,12 @@ export const common = defineMessages({
       message: "Hello, I'm writing from the Estafeta Gourmet website.",
       productMessage: "Hello, I'm writing from the Estafeta Gourmet website. I'm interested in: {product}",
     },
+    shopNotice: {
+      title: "Online shop under construction",
+      text: "In the meantime, you can place your orders on WhatsApp.",
+      button: "Order on WhatsApp",
+      message: "Hello, I'd like to place an order.",
+    },
     site: {
       hoursDays: "Tuesday to Saturday",
       noDelivery: "the Canary Islands or the Balearic Islands",
@@ -276,6 +288,12 @@ export const common = defineMessages({
       text: "Écrivez-nous sur WhatsApp",
       message: "Bonjour, je vous écris depuis le site d'Estafeta Gourmet.",
       productMessage: "Bonjour, je vous écris depuis le site d'Estafeta Gourmet. Je suis intéressé(e) par : {product}",
+    },
+    shopNotice: {
+      title: "Boutique en ligne en construction",
+      text: "En attendant, vous pouvez passer vos commandes sur WhatsApp.",
+      button: "Commander sur WhatsApp",
+      message: "Bonjour, je souhaite passer une commande.",
     },
     site: {
       hoursDays: "Du mardi au samedi",

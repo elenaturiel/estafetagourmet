@@ -4,6 +4,7 @@ import { Link } from "@/components/ui/Link";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ButtonLink } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
 import { useLocale, useT } from "@/lib/i18n/client";
@@ -125,7 +126,7 @@ export function ProductCard({
               >
                 {t.consult}<span className="sr-only"> {product.name}</span>
               </ButtonLink>
-            ) : (
+            ) : site.onlineSales ? (
               <AddToCartButton
                 variant="primary"
                 label={t.add}
@@ -139,7 +140,7 @@ export function ProductCard({
                   imageLabel: product.image.placeholder,
                 }}
               />
-            )}
+            ) : null}
           </div>
         </div>
       </div>

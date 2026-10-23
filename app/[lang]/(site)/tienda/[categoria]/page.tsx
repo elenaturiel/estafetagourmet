@@ -11,6 +11,7 @@ import { fmt } from "@/lib/i18n/config";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
 import { TIENDA_ONLINE } from "@/data/tienda-online";
+import { ShopNotice } from "@/components/shop/ShopNotice";
 
 type Params = { params: Promise<{ categoria: string }> };
 
@@ -67,6 +68,7 @@ export default async function CategoryPage({ params }: Params) {
         <div className="mb-6 lg:mb-12">
           <CategoryMenu tree={tree} current={category.slug} currentName={category.name} />
         </div>
+        <ShopNotice className="mb-6 lg:mb-10" />
         {products.length ? (
           <CategoryBrowser products={products} producers={producers} filters={category.filters} />
         ) : (

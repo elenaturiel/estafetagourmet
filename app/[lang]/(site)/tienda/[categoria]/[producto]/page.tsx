@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Link } from "@/components/ui/Link";
 import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { ProductGallery } from "@/components/shop/ProductGallery";
+import { ShopNotice } from "@/components/shop/ShopNotice";
 import { localizePairing } from "@/data/i18n/pairings";
 import { isPlaceholder, site } from "@/data/site";
 import {
@@ -152,7 +153,9 @@ export default async function ProductPage({ params }: Params) {
           )}
           <p className="mt-4 text-[16px] leading-[1.6] text-secundario lg:mt-6 lg:text-[17px]">{product.description}</p>
 
-          <div id="comprar" className="mt-6 hidden lg:mt-8 lg:block">
+          {/* Sin venta online: aviso de pedidos por WhatsApp en lugar del botón */}
+          {!site.onlineSales && product.price !== null ? <ShopNotice compact className="mt-6 lg:mt-8" /> : null}
+          <div id="comprar" className={site.onlineSales || product.price === null ? "mt-6 hidden lg:mt-8 lg:block" : "hidden"}>
             {product.price === null ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 <ButtonLink href="/visitanos#contacto">{s.askPrice}</ButtonLink>
@@ -164,9 +167,11 @@ export default async function ProductPage({ params }: Params) {
               <AddToCartButton variant="primary" size="md" item={cartItem} />
             )}
           </div>
-          <div className="mt-5 rounded-eg border border-linea bg-papel p-4">
-            <FreeShippingMeter subtotal={null} />
-          </div>
+          {site.onlineSales ? (
+            <div className="mt-5 rounded-eg border border-linea bg-papel p-4">
+              <FreeShippingMeter subtotal={null} />
+            </div>
+          ) : null}
 
           <ul className="mt-5 grid gap-2.5 text-[14px] lg:mt-6 lg:gap-3 lg:text-[15px]">
             <li className="flex items-start gap-3">
@@ -344,23 +349,25 @@ export default async function ProductPage({ params }: Params) {
       ) : null}
 
       {/* Barra de compra en móvil: se queda abajo mientras se ve la ficha y deja libre el pie */}
-      <div className="sticky bottom-0 z-30 -mx-4 mt-10 flex items-center gap-3 border-t border-linea bg-crema/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6 lg:hidden">
-        <div className="min-w-0 flex-1">
-          <p className="truncate font-serif text-[15px] leading-tight">{product.name}</p>
-          <p className="text-[15px] font-semibold">
-            {product.price === null ? s.priceOnRequest : formatPrice(product.price, locale)}
-          </p>
+      {site.onlineSales || product.price === null ? (
+        <div className="sticky bottom-0 z-30 -mx-4 mt-10 flex items-center gap-3 border-t border-linea bg-crema/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6 lg:hidden">
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-serif text-[15px] leading-tight">{product.name}</p>
+            <p className="text-[15px] font-semibold">
+              {product.price === null ? s.priceOnRequest : formatPrice(product.price, locale)}
+            </p>
+          </div>
+          <div className="w-[150px] shrink-0">
+            {product.price === null ? (
+              <ButtonLink href="/visitanos#contacto" size="sm" className="w-full">
+                {s.consult}
+              </ButtonLink>
+            ) : (
+              <AddToCartButton variant="primary" label={s.add} item={cartItem} />
+            )}
+          </div>
         </div>
-        <div className="w-[150px] shrink-0">
-          {product.price === null ? (
-            <ButtonLink href="/visitanos#contacto" size="sm" className="w-full">
-              {s.consult}
-            </ButtonLink>
-          ) : (
-            <AddToCartButton variant="primary" label={s.add} item={cartItem} />
-          )}
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 }
