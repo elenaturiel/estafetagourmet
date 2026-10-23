@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { ACEITES_ONLINE, TIENDA_ONLINE } from "./data/tienda-online";
+import { ACEITES_ONLINE, TIENDA_ONLINE, TIENDA_ONLINE_ACTIVA } from "./data/tienda-online";
 import { MERGED_CATEGORIES, removedProducts, renamedProducts } from "./data/removed-products";
 
 /**
@@ -25,6 +25,22 @@ function canonicalHostRedirects() {
       permanent: true,
     },
   ];
+}
+
+/** /tienda (sin categoría ni filtro) y /tienda/aceites → tienda online, en los tres idiomas. */
+function tiendaOnlineRedirects() {
+  return ["", "/en", "/fr"].flatMap((l) => [
+    {
+      source: `${l}/tienda`,
+      destination: TIENDA_ONLINE,
+      permanent: false,
+      missing: [
+        { type: "query" as const, key: "productor" },
+        { type: "query" as const, key: "categoria" },
+      ],
+    },
+    { source: `${l}/tienda/aceites`, destination: ACEITES_ONLINE, permanent: false },
+  ]);
 }
 
 const nextConfig: NextConfig = {
@@ -82,19 +98,8 @@ const nextConfig: NextConfig = {
         { source: `/tienda/${vieja}/:producto`, destination: `/tienda/${nueva}/:producto`, permanent: true },
       ]),
       ]),
-      // La tienda entera (sin categoría ni filtro) se compra en la tienda online;
-      // /tienda?productor=… o ?categoria=… sigue en la web.
-      ...["", "/en", "/fr"].map((l) => ({
-        source: `${l}/tienda`,
-        destination: TIENDA_ONLINE,
-        permanent: false,
-        missing: [
-          { type: "query" as const, key: "productor" },
-          { type: "query" as const, key: "categoria" },
-        ],
-      })),
-      // La categoría Aceites se compra en la tienda online.
-      ...["", "/en", "/fr"].map((l) => ({ source: `${l}/tienda/aceites`, destination: ACEITES_ONLINE, permanent: false })),
+      // Con la tienda online operativa (TIENDA_ONLINE_ACTIVA), /tienda y /tienda/aceites llevan a ella.
+      ...(TIENDA_ONLINE_ACTIVA ? tiendaOnlineRedirects() : []),
       ...canonicalHostRedirects(),
     ];
   },

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ShopGate } from "@/components/shop/ShopGate";
 import { getCategoryTree } from "@/lib/category-tree";
 import { getCategories, getProducts } from "@/lib/catalog";
 import { site } from "@/data/site";
@@ -48,6 +49,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       <Footer />
       <WhatsAppButton />
       {site.onlineSales ? <CartDrawer /> : null}
+      <ShopGate />
       <ScrollReveal />
       <ScrollToTop />
       <CookieBanner />
