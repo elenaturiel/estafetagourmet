@@ -5,6 +5,9 @@ import { getT } from "@/lib/i18n/server";
 import { FavoritesTabs } from "./FavoritesTabs";
 import { TIENDA_ONLINE } from "@/data/tienda-online";
 
+/** Productos que no salen en «Favoritos» (los packs de Pago de Cirsus, que parecen lotes). */
+const NOT_IN_FAVORITES = new Set(["pcirsus-tinto-seleccion-de-familia", "pcirsus-tinto-cuvee-especial"]);
+
 export async function FeaturedProducts() {
   const [featured, all, categories, producers, t] = await Promise.all([
     getFeaturedProducts(4),
@@ -20,7 +23,10 @@ export async function FeaturedProducts() {
       .map((c) => ({
         key: c.slug,
         label: c.name,
-        products: all.filter((p) => p.categorySlug === c.slug).sort((a, b) => a.rank - b.rank).slice(0, 4),
+        products: all
+          .filter((p) => p.categorySlug === c.slug && !NOT_IN_FAVORITES.has(p.slug))
+          .sort((a, b) => a.rank - b.rank)
+          .slice(0, 4),
       }))
       .filter((tab) => tab.products.length > 1),
   ];
