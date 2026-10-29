@@ -118,7 +118,7 @@ const allCategories: Category[] = [
     "licores",
     "Licores",
     "Patxarán y licores",
-    "Patxarán navarro, cremas y licores para la sobremesa.",
+    "Patxarán navarro, cremas, licores y sidra natural.",
     "Copas de patxarán y licor",
     { image: { src: img("bebidas"), alt: "Copas de patxarán y licor", placeholder: "Foto · licores" } },
   ),
@@ -189,7 +189,7 @@ const allCategories: Category[] = [
     slug: "vinos",
     name: "Vinos",
     title: "Vinos de Navarra",
-    intro: "Tintos, rosados, blancos y dulces de bodegas pequeñas de Navarra, y sidra natural.",
+    intro: "Tintos, rosados, blancos y dulces de bodegas pequeñas de Navarra.",
     image: { src: img("vinos"), alt: "Copas de vino tinto, rosado y blanco", placeholder: "Foto · vinos" },
     seo: {
       title: "Vinos D.O. Navarra: tintos, rosados y blancos",
