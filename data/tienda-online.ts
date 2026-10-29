@@ -21,4 +21,17 @@ export const TIENDA_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/pag
  */
 export const CATEGORIAS_ONLINE: Record<string, string> = {
   aceites: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=1",
+  condimentos: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=2",
+  conservas: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=3",
+  dulces: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=4",
+  embutidos: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=5",
+  legumbres: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=6",
+  pates: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=7",
+  preparados: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=8",
+  quesos: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=9",
+  verduras: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=10",
+  vinos: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=11",
+  lotes: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=14",
+  // En la tienda online también hay Licores (d=12) y Chocolates (d=13); aquí van
+  // dentro de Vinos y licores y de Dulces.
 };
