@@ -5,6 +5,7 @@ import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ButtonLink } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { site } from "@/data/site";
+import { compraOnline } from "@/data/tienda-online";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
 import { useLocale, useT } from "@/lib/i18n/client";
@@ -32,7 +33,9 @@ export function ProductCard({
   lift?: boolean;
   className?: string;
 }) {
-  const t = useT().home.card;
+  const all = useT();
+  const t = all.home.card;
+  const tc = all.common;
   const locale = useLocale();
   const href = productHref(product);
   const byline = productByline(product, producer);
@@ -140,7 +143,17 @@ export function ProductCard({
                   imageLabel: product.image.placeholder,
                 }}
               />
-            ) : null}
+            ) : (
+              // Se compra en la tienda online, en la página de su categoría.
+              <ButtonLink
+                href={compraOnline(product.categorySlug)}
+                variant="primary"
+                size="sm"
+                className="w-full sm:w-auto sm:px-5"
+              >
+                {tc.buyOnline}<span className="sr-only"> {product.name}</span>
+              </ButtonLink>
+            )}
           </div>
         </div>
       </div>

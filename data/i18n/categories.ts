@@ -43,13 +43,21 @@ const TEXTS: Record<string, T2> = {
     en: { name: "Ready meals", title: "Ready meals", intro: "Ready meals to heat and serve.", alt: "Casserole of stewed beans" },
     fr: { name: "Plats cuisinés", title: "Plats cuisinés", intro: "Plats cuisinés prêts à réchauffer et à servir.", alt: "Cocotte de haricots mijotés" },
   },
+  chocolates: {
+    en: { name: "Chocolate", title: "Chocolate", intro: "Artisan chocolate from Navarre and cocoa bars selected at our shop.", alt: "Bar of dark chocolate broken into squares" },
+    fr: { name: "Chocolats", title: "Chocolats", intro: "Chocolats artisanaux de Navarre et tablettes de cacao sélectionnés dans notre boutique.", alt: "Tablette de chocolat noir en carrés" },
+  },
+  licores: {
+    en: { name: "Liqueurs", title: "Patxaran and liqueurs", intro: "Navarrese patxaran, creams and liqueurs for after dinner.", alt: "Glasses of patxaran and liqueur" },
+    fr: { name: "Liqueurs", title: "Patxaran et liqueurs", intro: "Patxaran navarrais, crèmes et liqueurs pour la fin du repas.", alt: "Verres de patxaran et de liqueur" },
+  },
   dulces: {
-    en: { name: "Sweets", title: "Sweets", intro: "Chocolate, jams, honey, biscuits and other treats for coffee time and after dinner.", alt: "Biscuits and traditional sweets" },
-    fr: { name: "Douceurs", title: "Douceurs", intro: "Chocolats, confitures, miel, biscuits et autres douceurs pour le café et le dessert.", alt: "Biscuits et douceurs traditionnelles" },
+    en: { name: "Sweets", title: "Sweets", intro: "Jams, honey, biscuits and other treats for breakfast, coffee time and after dinner.", alt: "Biscuits and traditional sweets" },
+    fr: { name: "Douceurs", title: "Douceurs", intro: "Confitures, miel, biscuits et autres douceurs pour le petit-déjeuner, le café et le dessert.", alt: "Biscuits et douceurs traditionnelles" },
   },
   vinos: {
-    en: { name: "Wines and liqueurs", title: "Wines and liqueurs from Navarre", intro: "Reds, rosés and whites from small Navarrese wineries, patxaran, liqueurs and ciders.", alt: "Glasses of red, rosé and white wine" },
-    fr: { name: "Vins et liqueurs", title: "Vins et liqueurs de Navarre", intro: "Vins rouges, rosés et blancs de petites caves de Navarre, patxaran, liqueurs et cidres.", alt: "Verres de vin rouge, rosé et blanc" },
+    en: { name: "Wines", title: "Wines from Navarre", intro: "Reds, rosés, whites and sweet wines from small Navarrese wineries, and natural cider.", alt: "Glasses of red, rosé and white wine" },
+    fr: { name: "Vins", title: "Vins de Navarre", intro: "Vins rouges, rosés, blancs et doux de petites caves de Navarre, et cidre naturel.", alt: "Verres de vin rouge, rosé et blanc" },
   },
   lotes: {
     en: { name: "Gift sets", title: "Gift sets", intro: "Sets with the best of the shop, ready to enjoy or give as a gift.", alt: "Gift set with txistorra, asparagus, peppers and wine" },

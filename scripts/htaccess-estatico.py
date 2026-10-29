@@ -10,6 +10,7 @@ ren_part, merged_part = rest.split('export const MERGED_CATEGORIES')
 removed=re.findall(r'^  \["([a-z-]+)", "([a-z0-9-]+)"\],$', head, re.M)
 renamed=re.findall(r'^  \["([a-z-]+)", "([a-z0-9-]+)", "([a-z0-9-]+)"\],$', ren_part, re.M)
 merged=re.findall(r'^  "?([a-z-]+)"?: "([a-z-]+)",$', merged_part, re.M)
+moved=re.findall(r'^  \["([a-z-]+)", "([a-z0-9-]+)", "([a-z-]+)"\],$', merged_part.split('movedProducts')[1], re.M) if 'movedProducts' in merged_part else []
 t=open(R+'/data/tienda-online.ts').read()
 TIENDA=re.search(r'TIENDA_ONLINE = "([^"]+)"',t).group(1)
 ONLINE=re.findall(r'^  "?([a-z-]+)"?: "(https://[^"]+)",$', t.split('CATEGORIAS_ONLINE')[1], re.M)
@@ -29,6 +30,8 @@ out+=["",
 out+=[f"RewriteRule ^{L}tienda/{c}/{sl}/?$ /$1tienda/{c} [R=301,L]" for c,sl in removed]
 out+=["","# Productos con nombre nuevo"]
 out+=[f"RewriteRule ^{L}tienda/{c}/{a}/?$ /$1tienda/{c}/{b} [R=301,L]" for c,a,b in renamed]
+out+=["","# Productos que cambiaron de categoría"]
+out+=[f"RewriteRule ^{L}tienda/{a}/{sl}/?$ /$1tienda/{b}/{sl} [R=301,L]" for a,sl,b in moved]
 out+=["","# Categorías que se unieron a otras"]
 out+=[f"RewriteRule ^{L}tienda/{a}(/.*)?$ /$1tienda/{b}$2 [R=301,L]" for a,b in merged]
 out+=["","# Antigua página de la newsletter",f"RewriteRule ^{L}newsletter/?$ /$1blog [R=301,L]",""]

@@ -166,8 +166,20 @@ const RENAMED: Record<string, { name: string; description: string }> = {
 };
 
 
+/**
+ * La hoja no tiene Chocolates ni Licores (van en Dulces y en Vinos y licores),
+ * pero la web sí, igual que la tienda online: aquí se separan.
+ */
+function categoryOf(sheetCategory: string, producerSlug: string, sheetName: string): string {
+  if (sheetCategory === "vinos" && /patxar|pachar|licor|orujo|crema de/i.test(sheetName)) return "licores";
+  if (sheetCategory !== "dulces") return sheetCategory;
+  if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
+  if (producerSlug === "navarra-en-dulce" && !/pastas|galletas/i.test(sheetName)) return "chocolates";
+  return sheetCategory;
+}
+
 const sheetProducts: Product[] = productRows.map(([sheetCategory, producerSlug, sheetName, price]) => {
-  const categorySlug = sheetCategory;
+  const categorySlug = categoryOf(sheetCategory, producerSlug, sheetName);
   const renamed = RENAMED[sheetName];
   const baseName = renamed?.name ?? sheetName;
   const slug = uniqueSlug(baseName);
