@@ -10,7 +10,6 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Link } from "@/components/ui/Link";
 import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { ProductGallery } from "@/components/shop/ProductGallery";
-import { ShopNotice } from "@/components/shop/ShopNotice";
 import { localizePairing } from "@/data/i18n/pairings";
 import { isPlaceholder, site } from "@/data/site";
 import {
@@ -153,8 +152,6 @@ export default async function ProductPage({ params }: Params) {
           )}
           <p className="mt-4 text-[16px] leading-[1.6] text-secundario lg:mt-6 lg:text-[17px]">{product.description}</p>
 
-          {/* Sin venta online: aviso de pedidos por WhatsApp en lugar del botón */}
-          {!site.onlineSales && product.price !== null ? <ShopNotice compact className="mt-6 lg:mt-8" /> : null}
           <div id="comprar" className={site.onlineSales || product.price === null ? "mt-6 hidden lg:mt-8 lg:block" : "hidden"}>
             {product.price === null ? (
               <div className="grid gap-3 sm:grid-cols-2">

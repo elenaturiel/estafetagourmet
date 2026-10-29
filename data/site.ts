@@ -55,8 +55,8 @@ export const site = {
   },
 
   /**
-   * Venta online desde esta web. En false no hay botones de «Añadir» ni cesta,
-   * y la tienda muestra el aviso de pedidos por WhatsApp.
+   * Venta online desde esta web. En false no hay botones de «Añadir» ni cesta
+   * (se compra en la tienda online, ver data/tienda-online.ts).
    */
   onlineSales: false,
 

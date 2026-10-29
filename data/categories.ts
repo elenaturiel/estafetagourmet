@@ -1,5 +1,5 @@
 import type { Category } from "@/lib/types";
-import { ACEITES_ONLINE } from "./tienda-online";
+import { CATEGORIAS_ONLINE } from "./tienda-online";
 
 /**
  * Categorías de la tienda, en el orden en que aparecen en la web (alfabético).
@@ -44,12 +44,10 @@ function simple(
   };
 }
 
-export const categories: Category[] = [
+const allCategories: Category[] = [
   {
     slug: "aceites",
     name: "Aceites",
-    // Los aceites se venden en la tienda online (ecommerce.estafetagourmet.com).
-    href: ACEITES_ONLINE,
     title: "Aceites de Navarra",
     intro: "Aceite de oliva virgen extra de almazaras navarras.",
     image: { src: img("aceites"), alt: "Botella de aceite de oliva virgen extra", placeholder: "Foto · aceites" },
@@ -190,3 +188,8 @@ export const categories: Category[] = [
     filters: [],
   },
 ];
+
+/** Las categorías que se compran en la tienda online enlazan allí (data/tienda-online.ts). */
+export const categories: Category[] = allCategories.map((c) =>
+  CATEGORIAS_ONLINE[c.slug] ? { ...c, href: CATEGORIAS_ONLINE[c.slug] } : c,
+);
