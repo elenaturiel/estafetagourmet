@@ -387,7 +387,7 @@ function FilterPanel({
                     onChange={(on) => {
                       // Categorías que se venden en otra web (p. ej. Aceites): se va allí.
                       if (on && c.href && /^https?:/.test(c.href)) {
-                        if (TIENDA_ONLINE_ACTIVA) window.location.href = c.href;
+                        if (TIENDA_ONLINE_ACTIVA) window.open(c.href, "_blank", "noopener");
                         else openShopGate();
                         return;
                       }
