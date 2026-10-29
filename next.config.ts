@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { ACEITES_ONLINE, TIENDA_ONLINE, TIENDA_ONLINE_ACTIVA } from "./data/tienda-online";
+import { CATEGORIAS_ONLINE, TIENDA_ONLINE, TIENDA_ONLINE_ACTIVA } from "./data/tienda-online";
 import { MERGED_CATEGORIES, removedProducts, renamedProducts } from "./data/removed-products";
 
 /**
@@ -27,7 +27,7 @@ function canonicalHostRedirects() {
   ];
 }
 
-/** /tienda (sin categoría ni filtro) y /tienda/aceites → tienda online, en los tres idiomas. */
+/** /tienda (sin categoría ni filtro) y las categorías de CATEGORIAS_ONLINE → tienda online, en los tres idiomas. */
 function tiendaOnlineRedirects() {
   return ["", "/en", "/fr"].flatMap((l) => [
     {
@@ -39,7 +39,11 @@ function tiendaOnlineRedirects() {
         { type: "query" as const, key: "categoria" },
       ],
     },
-    { source: `${l}/tienda/aceites`, destination: ACEITES_ONLINE, permanent: false },
+    ...Object.entries(CATEGORIAS_ONLINE).map(([slug, url]) => ({
+      source: `${l}/tienda/${slug}`,
+      destination: url,
+      permanent: false,
+    })),
   ]);
 }
 

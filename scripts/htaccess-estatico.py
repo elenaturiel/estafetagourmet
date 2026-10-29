@@ -11,7 +11,8 @@ removed=re.findall(r'^  \["([a-z-]+)", "([a-z0-9-]+)"\],$', head, re.M)
 renamed=re.findall(r'^  \["([a-z-]+)", "([a-z0-9-]+)", "([a-z0-9-]+)"\],$', ren_part, re.M)
 merged=re.findall(r'^  "?([a-z-]+)"?: "([a-z-]+)",$', merged_part, re.M)
 t=open(R+'/data/tienda-online.ts').read()
-TIENDA=re.search(r'TIENDA_ONLINE = "([^"]+)"',t).group(1); ACE=re.search(r'ACEITES_ONLINE = "([^"]+)"',t).group(1)
+TIENDA=re.search(r'TIENDA_ONLINE = "([^"]+)"',t).group(1)
+ONLINE=re.findall(r'^  "?([a-z-]+)"?: "(https://[^"]+)",$', t.split('CATEGORIAS_ONLINE')[1], re.M)
 L='(en/|fr/)?'
 out=["# Estafeta Gourmet: copia estática de la web (servidor Apache).",
 "# Hace las redirecciones que en Vercel hacía la propia web.","",
@@ -21,8 +22,9 @@ out=["# Estafeta Gourmet: copia estática de la web (servidor Apache).",
 "# Toda la tienda (sin categoría ni productor): tienda online",
 "RewriteCond %{QUERY_STRING} !(^|&)(productor|categoria)=",
 f"RewriteRule ^{L}tienda/?$ {TIENDA} [R=302,L,NE,QSD]","",
-"# Aceites: tienda online",
-f"RewriteRule ^{L}tienda/aceites/?$ {ACE} [R=302,L,NE]","",
+"# Categorías que se compran en la tienda online"]
+out+=[f"RewriteRule ^{L}tienda/{slug}/?$ {url} [R=302,L,NE]" for slug,url in ONLINE]
+out+=["",
 "# Productos retirados: a su categoría"]
 out+=[f"RewriteRule ^{L}tienda/{c}/{sl}/?$ /$1tienda/{c} [R=301,L]" for c,sl in removed]
 out+=["","# Productos con nombre nuevo"]
