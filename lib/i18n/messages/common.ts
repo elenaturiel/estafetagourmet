@@ -8,7 +8,7 @@ export const common = defineMessages({
       label: "Información de envíos",
       shipping: "Envíos a toda la península en 24–48 h",
       pickup: "Recogida en tienda · Calle Estafeta, 70",
-      freeShipping: "Envío gratis desde {amount} €",
+      freeShipping: "Envío gratis en compras de más de {amount} €",
     },
     nav: {
       label: "Navegación principal",
@@ -248,7 +248,7 @@ export const common = defineMessages({
       label: "Informations de livraison",
       shipping: "Livraison dans toute l'Espagne péninsulaire en 24–48 h",
       pickup: "Retrait en boutique · Calle Estafeta, 70",
-      freeShipping: "Livraison offerte dès {amount} €",
+      freeShipping: "Livraison offerte au-delà de {amount} €",
     },
     nav: {
       label: "Navigation principale",

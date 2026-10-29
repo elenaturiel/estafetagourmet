@@ -23,7 +23,7 @@ export function Envios({ locale }: { locale: Locale }) {
           </li>
           <li>
             <strong>Shipping costs:</strong> {cost} for orders up to {ship.maxWeightKg} kg. Shipping is{" "}
-            <strong>free from €{ship.freeShippingFrom}</strong> of purchases.
+            <strong>free on orders over €{ship.freeShippingFrom}</strong>; for orders of €{ship.freeShippingFrom} or less it costs {cost}.
           </li>
           <li>
             <strong>Orders over {ship.maxWeightKg} kg:</strong> the shipping price is on request. We confirm it before charging you; if you
@@ -100,7 +100,7 @@ export function Envios({ locale }: { locale: Locale }) {
           </li>
           <li>
             <strong>Frais de livraison :</strong> {cost} pour les commandes jusqu'à {ship.maxWeightKg} kg. La livraison est{" "}
-            <strong>offerte dès {ship.freeShippingFrom} €</strong> d'achat.
+            <strong>offerte au-delà de {ship.freeShippingFrom} €</strong> d'achat ; jusqu'à {ship.freeShippingFrom} €, elle coûte {cost}.
           </li>
           <li>
             <strong>Commandes de plus de {ship.maxWeightKg} kg :</strong> le prix de la livraison est sur demande. Nous vous le confirmons avant
@@ -178,7 +178,7 @@ export function Envios({ locale }: { locale: Locale }) {
         </li>
         <li>
           <strong>Gastos de envío:</strong> {cost} para pedidos de hasta {ship.maxWeightKg} kg. El envío es{" "}
-          <strong>gratis a partir de {ship.freeShippingFrom} €</strong> de compra.
+          <strong>gratis en compras de más de {ship.freeShippingFrom} €</strong>; en compras de {ship.freeShippingFrom} € o menos cuesta {cost}.
         </li>
         <li>
           <strong>Pedidos de más de {ship.maxWeightKg} kg:</strong> el precio del envío es a consultar. Te lo confirmamos antes de cobrarlo; si
