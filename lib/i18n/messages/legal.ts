@@ -11,7 +11,7 @@ export const legal = defineMessages({
     privacy: { title: "Política de privacidad", metaDescription: "Cómo trata Estafeta Gourmet tus datos personales: pedidos, formulario de contacto y newsletter, y cómo ejercer tus derechos." },
     cookies: { title: "Política de cookies", metaDescription: "Qué cookies y almacenamiento usa la web de Estafeta Gourmet, para qué sirven y cómo aceptarlas, rechazarlas o cambiar tu elección en cualquier momento." },
     terms: { title: "Condiciones de venta", metaTitle: "Condiciones generales de venta", metaDescription: "Condiciones generales de venta de la tienda online de Estafeta Gourmet: pedidos, precios, pago, envío, venta de alcohol, garantías y devoluciones." },
-    shipping: { title: "Envíos y devoluciones", metaDescription: "Envíos a toda la península en 24–48 h: 5,95 € hasta 5 kg y gratis desde 70 €. No enviamos a Canarias ni Baleares. Recogida en la calle Estafeta de Pamplona y devoluciones." },
+    shipping: { title: "Envíos y devoluciones", metaDescription: "Envíos a toda la península en 24–48 h: gratis en compras de más de 70 €; si no, 5,95 € (hasta 5 kg). No enviamos a Canarias ni Baleares. Recogida en la calle Estafeta de Pamplona y devoluciones." },
   },
   en: {
     pending: "Pending:",

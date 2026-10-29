@@ -181,7 +181,7 @@ export default async function ProductPage({ params }: Params) {
           <ul className="mt-5 grid gap-2.5 text-[14px] lg:mt-6 lg:gap-3 lg:text-[15px]">
             <li className="flex items-start gap-3">
               <TruckIcon className="mt-0.5 shrink-0 text-vino" />
-              {fmt(s.shipLine, { cost: formatPrice(site.shipping.cost, locale), lead: site.shipping.leadTime, noDelivery: t.common.site.noDelivery })}
+              {fmt(s.shipLine, { cost: formatPrice(site.shipping.cost, locale), from: site.shipping.freeShippingFrom, lead: site.shipping.leadTime, noDelivery: t.common.site.noDelivery })}
             </li>
             <li className="flex items-start gap-3">
               <PinIcon className="mt-0.5 shrink-0 text-vino" /> {fmt(s.pickupLine, { street: site.address.street })}

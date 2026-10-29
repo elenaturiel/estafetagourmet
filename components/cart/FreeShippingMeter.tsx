@@ -21,13 +21,15 @@ export function FreeShippingMeter({ subtotal }: { subtotal: number | null }) {
       </p>
     );
   }
-  const left = Math.max(0, threshold - subtotal);
+  // Gratis solo si la compra SUPERA el umbral: con 70 € justos aún falta un céntimo.
+  const free = subtotal > threshold;
+  const left = Math.max(0.01, threshold - subtotal);
   const pct = Math.min(100, Math.round((subtotal / threshold) * 100));
   const [before, after] = fmt(t.missing, { amount: "\u0000" }).split("\u0000");
   return (
     <div>
       <p className="text-[14px]" aria-live="polite">
-        {left > 0 ? (
+        {!free ? (
           <>
             {before}
             <strong>{formatPrice(left, locale)}</strong>
