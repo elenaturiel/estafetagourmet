@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import { CATEGORIAS_ONLINE, TIENDA_ONLINE, TIENDA_ONLINE_ACTIVA } from "./data/tienda-online";
-import { MERGED_CATEGORIES, removedProducts, renamedProducts } from "./data/removed-products";
+import { MERGED_CATEGORIES, movedProducts, removedProducts, renamedProducts } from "./data/removed-products";
 
 /**
  * Dominio canónico.
@@ -87,6 +87,12 @@ const nextConfig: NextConfig = {
       ...renamedProducts.map(([categoria, viejo, nuevo]) => ({
         source: `/tienda/${categoria}/${viejo}`,
         destination: `/tienda/${categoria}/${nuevo}`,
+        permanent: true,
+      })),
+      // Productos que pasaron a Licores o Chocolates: la ficha antigua lleva a la nueva.
+      ...movedProducts.map(([desde, slug, hasta]) => ({
+        source: `/tienda/${desde}/${slug}`,
+        destination: `/tienda/${hasta}/${slug}`,
         permanent: true,
       })),
       // Entradas de ejemplo del blog que ya no existen.

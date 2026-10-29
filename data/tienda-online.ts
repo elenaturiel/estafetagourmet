@@ -31,7 +31,12 @@ export const CATEGORIAS_ONLINE: Record<string, string> = {
   quesos: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=9",
   verduras: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=10",
   vinos: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=11",
+  licores: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=12",
+  chocolates: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=13",
   lotes: "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=14",
-  // En la tienda online también hay Licores (d=12) y Chocolates (d=13); aquí van
-  // dentro de Vinos y licores y de Dulces.
 };
+
+/** Dónde se compra un producto de esta categoría: su página en la tienda online (o la tienda entera). */
+export function compraOnline(categorySlug: string): string {
+  return CATEGORIAS_ONLINE[categorySlug] ?? TIENDA_ONLINE;
+}

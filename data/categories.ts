@@ -63,6 +63,13 @@ const allCategories: Category[] = [
     filters: [],
   },
   simple(
+    "chocolates",
+    "Chocolates",
+    "Chocolates",
+    "Chocolates artesanos de Navarra y tabletas de cacao seleccionadas en nuestra tienda.",
+    "Tableta de chocolate negro en onzas",
+  ),
+  simple(
     "condimentos",
     "Condimentos",
     "Condimentos",
@@ -80,7 +87,7 @@ const allCategories: Category[] = [
     "dulces",
     "Dulces",
     "Dulces",
-    "Chocolates, mermeladas, miel, pastas y otros dulces para el café y la sobremesa.",
+    "Mermeladas, miel, pastas y otros dulces para el desayuno, el café y la sobremesa.",
     "Pastas y dulces tradicionales",
   ),
   {
@@ -106,6 +113,14 @@ const allCategories: Category[] = [
     "Legumbres",
     "Alubias, lentejas y otras legumbres seleccionadas en nuestra tienda.",
     "Alubias blancas, alubias rojas y lentejas",
+  ),
+  simple(
+    "licores",
+    "Licores",
+    "Patxarán y licores",
+    "Patxarán navarro, cremas y licores para la sobremesa.",
+    "Copas de patxarán y licor",
+    { image: { src: img("bebidas"), alt: "Copas de patxarán y licor", placeholder: "Foto · licores" } },
   ),
   simple(
     "lotes",
@@ -172,15 +187,15 @@ const allCategories: Category[] = [
   ),
   {
     slug: "vinos",
-    name: "Vinos y licores",
-    title: "Vinos y licores de Navarra",
-    intro: "Tintos, rosados y blancos de bodegas pequeñas de Navarra, patxarán, licores y sidras.",
+    name: "Vinos",
+    title: "Vinos de Navarra",
+    intro: "Tintos, rosados, blancos y dulces de bodegas pequeñas de Navarra, y sidra natural.",
     image: { src: img("vinos"), alt: "Copas de vino tinto, rosado y blanco", placeholder: "Foto · vinos" },
     seo: {
-      title: "Vinos D.O. Navarra, patxarán y licores",
+      title: "Vinos D.O. Navarra: tintos, rosados y blancos",
       description:
-        "Vinos de la D.O. Navarra de bodegas pequeñas, patxarán, licores y sidras seleccionados en nuestra tienda de Pamplona. Envío a toda la península en 24–48 h.",
-      heading: "Vinos y licores de Navarra, online y en Pamplona",
+        "Vinos de la D.O. Navarra de bodegas pequeñas: tintos, rosados, blancos y dulces seleccionados en nuestra tienda de Pamplona. Envío a toda la península en 24–48 h.",
+      heading: "Vinos de Navarra, online y en Pamplona",
       text: [
         "Vinos de bodegas pequeñas de la D.O. Navarra, catados en nuestra tienda de la calle Estafeta. Pídelos online con envío a toda la península en 24–48 h o pasa a recogerlos.",
       ],

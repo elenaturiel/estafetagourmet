@@ -412,7 +412,7 @@ export const newsletters: Newsletter[] = [
         "BAINES Patxarán BAINES etiqueta oro",
         "LAXOA Patxarán",
       ],
-      cta: { label: "Comprar pacharán", href: "/tienda/vinos" },
+      cta: { label: "Comprar pacharán", href: "/tienda/licores" },
     },
   },
   {

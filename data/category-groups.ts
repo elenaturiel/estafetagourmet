@@ -20,14 +20,14 @@ export const categoryGroups: CategoryGroupConfig[] = [
     // Por orden alfabético.
     sections: [
       {
-        categories: ["aceites", "condimentos", "conservas", "dulces", "embutidos", "legumbres", "pates", "preparados", "quesos", "verduras"],
+        categories: ["aceites", "chocolates", "condimentos", "conservas", "dulces", "embutidos", "legumbres", "pates", "preparados", "quesos", "verduras"],
       },
     ],
   },
   {
     slug: "bebida",
     name: "Bebida",
-    sections: [{ categories: ["vinos"] }],
+    sections: [{ categories: ["licores", "vinos"] }],
   },
   {
     slug: "lotes",

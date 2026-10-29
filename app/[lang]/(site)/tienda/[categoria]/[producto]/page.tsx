@@ -12,6 +12,7 @@ import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { ProductGallery } from "@/components/shop/ProductGallery";
 import { localizePairing } from "@/data/i18n/pairings";
 import { isPlaceholder, site } from "@/data/site";
+import { compraOnline } from "@/data/tienda-online";
 import {
   getAllProductsRaw,
   getCategory,
@@ -152,7 +153,7 @@ export default async function ProductPage({ params }: Params) {
           )}
           <p className="mt-4 text-[16px] leading-[1.6] text-secundario lg:mt-6 lg:text-[17px]">{product.description}</p>
 
-          <div id="comprar" className={site.onlineSales || product.price === null ? "mt-6 hidden lg:mt-8 lg:block" : "hidden"}>
+          <div id="comprar" className="mt-6 hidden lg:mt-8 lg:block">
             {product.price === null ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 <ButtonLink href="/visitanos#contacto">{s.askPrice}</ButtonLink>
@@ -160,8 +161,13 @@ export default async function ProductPage({ params }: Params) {
                   {fmt(s.call, { phone: site.phone.display })}
                 </ButtonLink>
               </div>
-            ) : (
+            ) : site.onlineSales ? (
               <AddToCartButton variant="primary" size="md" item={cartItem} />
+            ) : (
+              // Se compra en la tienda online, en la página de su categoría.
+              <ButtonLink href={compraOnline(product.categorySlug)} className="w-full sm:w-auto sm:px-10">
+                {t.common.buyOnline}
+              </ButtonLink>
             )}
           </div>
           {site.onlineSales ? (
@@ -346,25 +352,27 @@ export default async function ProductPage({ params }: Params) {
       ) : null}
 
       {/* Barra de compra en móvil: se queda abajo mientras se ve la ficha y deja libre el pie */}
-      {site.onlineSales || product.price === null ? (
-        <div className="sticky bottom-0 z-30 -mx-4 mt-10 flex items-center gap-3 border-t border-linea bg-crema/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6 lg:hidden">
-          <div className="min-w-0 flex-1">
-            <p className="truncate font-serif text-[15px] leading-tight">{product.name}</p>
-            <p className="text-[15px] font-semibold">
-              {product.price === null ? s.priceOnRequest : formatPrice(product.price, locale)}
-            </p>
-          </div>
-          <div className="w-[150px] shrink-0">
-            {product.price === null ? (
-              <ButtonLink href="/visitanos#contacto" size="sm" className="w-full">
-                {s.consult}
-              </ButtonLink>
-            ) : (
-              <AddToCartButton variant="primary" label={s.add} item={cartItem} />
-            )}
-          </div>
+      <div className="sticky bottom-0 z-30 -mx-4 mt-10 flex items-center gap-3 border-t border-linea bg-crema/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6 lg:hidden">
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-serif text-[15px] leading-tight">{product.name}</p>
+          <p className="text-[15px] font-semibold">
+            {product.price === null ? s.priceOnRequest : formatPrice(product.price, locale)}
+          </p>
         </div>
-      ) : null}
+        <div className="w-[150px] shrink-0">
+          {product.price === null ? (
+            <ButtonLink href="/visitanos#contacto" size="sm" className="w-full">
+              {s.consult}
+            </ButtonLink>
+          ) : site.onlineSales ? (
+            <AddToCartButton variant="primary" label={s.add} item={cartItem} />
+          ) : (
+            <ButtonLink href={compraOnline(product.categorySlug)} size="sm" className="w-full">
+              {t.common.buyOnline}
+            </ButtonLink>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

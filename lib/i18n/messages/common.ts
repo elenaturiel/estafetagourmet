@@ -91,6 +91,7 @@ export const common = defineMessages({
       dialogText: "Puedes pedirnos por WhatsApp.",
       close: "Cerrar",
     },
+    buyOnline: "Comprar",
     customLots: {
       eyebrow: "Lotes a tu medida",
       title: "Hacemos lotes personalizados",
@@ -205,6 +206,7 @@ export const common = defineMessages({
       dialogText: "You can order from us on WhatsApp.",
       close: "Close",
     },
+    buyOnline: "Buy",
     customLots: {
       eyebrow: "Made-to-measure gift sets",
       title: "We make custom gift sets",
@@ -319,6 +321,7 @@ export const common = defineMessages({
       dialogText: "Vous pouvez nous commander sur WhatsApp.",
       close: "Fermer",
     },
+    buyOnline: "Acheter",
     customLots: {
       eyebrow: "Coffrets sur mesure",
       title: "Nous préparons des coffrets personnalisés",

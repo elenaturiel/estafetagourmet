@@ -7,7 +7,7 @@ import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 /**
  * Todas las categorías: en móvil, una cuadrícula de tres columnas; en
- * escritorio, un muro de fotos (8 o 12 por fila según el ancho).
+ * escritorio, dos filas de 7.
  */
 export async function CategoriesSection() {
   const [categories, t] = await Promise.all([getCategories(), getT()]);
@@ -21,7 +21,7 @@ export async function CategoriesSection() {
       />
       <ul
         data-reveal-stagger
-        className="grid grid-cols-3 gap-x-3 gap-y-5 sm:grid-cols-4 lg:grid-cols-8 lg:gap-x-5 lg:gap-y-8 xl:grid-cols-12 xl:gap-x-3"
+        className="grid grid-cols-3 gap-x-3 gap-y-5 sm:grid-cols-4 lg:grid-cols-7 lg:gap-x-5 lg:gap-y-8"
       >
         {categories.map((c) => (
           <li key={c.slug}>
