@@ -22,6 +22,23 @@ export function ShopGate() {
   const ref = useRef<HTMLDialogElement>(null);
   const t = useT().common.shopNotice;
 
+  // Tienda online activa: sus enlaces se abren en una pestaña nueva, para no
+  // perder esta web (un clic normal; con Ctrl o el botón central el navegador ya lo hace).
+  useEffect(() => {
+    if (!TIENDA_ONLINE_ACTIVA) return;
+    const onClick = (e: MouseEvent) => {
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      const href = a?.getAttribute("href");
+      if (!href?.startsWith(TIENDA_ONLINE_ORIGEN)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(href, "_blank", "noopener");
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
   useEffect(() => {
     if (TIENDA_ONLINE_ACTIVA) return;
     const open = () => ref.current?.showModal();
