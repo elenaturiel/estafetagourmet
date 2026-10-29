@@ -92,6 +92,11 @@ export const common = defineMessages({
       close: "Cerrar",
     },
     buyOnline: "Comprar",
+    onlineShop: {
+      title: "¡Ya puedes comprar en nuestra tienda online!",
+      text: "Mete tus productos en el carrito y haz tu pedido por WhatsApp. Muy pronto activamos el pago con tarjeta.",
+      button: "Ir a la tienda online",
+    },
     customLots: {
       eyebrow: "Lotes a tu medida",
       title: "Hacemos lotes personalizados",
@@ -207,6 +212,11 @@ export const common = defineMessages({
       close: "Close",
     },
     buyOnline: "Buy",
+    onlineShop: {
+      title: "You can now shop in our online store!",
+      text: "Add your products to the basket and send us your order on WhatsApp. Card payment is coming very soon.",
+      button: "Go to the online store",
+    },
     customLots: {
       eyebrow: "Made-to-measure gift sets",
       title: "We make custom gift sets",
@@ -322,6 +332,11 @@ export const common = defineMessages({
       close: "Fermer",
     },
     buyOnline: "Acheter",
+    onlineShop: {
+      title: "Notre boutique en ligne est ouverte !",
+      text: "Ajoutez vos produits au panier et passez votre commande sur WhatsApp. Le paiement par carte arrive très bientôt.",
+      button: "Aller à la boutique en ligne",
+    },
     customLots: {
       eyebrow: "Coffrets sur mesure",
       title: "Nous préparons des coffrets personnalisés",

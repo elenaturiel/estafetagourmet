@@ -31,6 +31,7 @@ import { CATEGORY_PAIRING_LINKS, CATEGORY_PAIRINGS, categoryPairingKey } from "@
 import { pairingsFor, pickPartner, similarProducts } from "@/lib/pairings";
 import { shippingArea, shippingSummary } from "@/lib/shipping";
 import { productJsonLd } from "@/lib/structured-data";
+import { OnlineShopBanner } from "@/components/shop/OnlineShopBanner";
 
 type Params = { params: Promise<{ categoria: string; producto: string }> };
 
@@ -170,6 +171,7 @@ export default async function ProductPage({ params }: Params) {
               </ButtonLink>
             )}
           </div>
+          {!site.onlineSales && product.price !== null ? <OnlineShopBanner compact className="mt-5" /> : null}
           {site.onlineSales ? (
             <div className="mt-5 rounded-eg border border-linea bg-papel p-4">
               <FreeShippingMeter subtotal={null} />

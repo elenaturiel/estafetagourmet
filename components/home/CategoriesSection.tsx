@@ -4,6 +4,7 @@ import { Section, SectionHeader } from "@/components/ui/Section";
 import { getCategories } from "@/lib/catalog";
 import { getT } from "@/lib/i18n/server";
 import { TIENDA_ONLINE } from "@/data/tienda-online";
+import { OnlineShopBanner } from "@/components/shop/OnlineShopBanner";
 
 /**
  * Todas las categorías: en móvil, una cuadrícula de tres columnas; en
@@ -29,6 +30,7 @@ export async function CategoriesSection() {
           </li>
         ))}
       </ul>
+      <OnlineShopBanner className="mt-8 lg:mt-12" />
     </Section>
   );
 }
