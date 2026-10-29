@@ -185,6 +185,8 @@ export const MERGED_CATEGORIES: Record<string, string> = {
  * Chocolates (antes en Dulces): [categoría antigua, slug, categoría nueva].
  */
 export const movedProducts: [desde: string, slug: string, hasta: string][] = [
+  ["vinos", "larraldea-sidra-navarra", "licores"],
+  ["vinos", "larraldea-sidra-ecologica-navarra", "licores"],
   ["dulces", "navarra-negro-patxaran", "chocolates"],
   ["dulces", "navarra-negro-naranja", "chocolates"],
   ["dulces", "navarra-negro-85", "chocolates"],

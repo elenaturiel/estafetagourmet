@@ -171,7 +171,7 @@ const RENAMED: Record<string, { name: string; description: string }> = {
  * pero la web sí, igual que la tienda online: aquí se separan.
  */
 function categoryOf(sheetCategory: string, producerSlug: string, sheetName: string): string {
-  if (sheetCategory === "vinos" && /patxar|pachar|licor|orujo|crema de/i.test(sheetName)) return "licores";
+  if (sheetCategory === "vinos" && /patxar|pachar|licor|orujo|crema de|sidra/i.test(sheetName)) return "licores";
   if (sheetCategory !== "dulces") return sheetCategory;
   if (producerSlug === "leyre" || producerSlug === "pedro-mayo") return "chocolates";
   if (producerSlug === "navarra-en-dulce" && !/pastas|galletas/i.test(sheetName)) return "chocolates";
