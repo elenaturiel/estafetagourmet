@@ -457,6 +457,53 @@ export const newsletters: Newsletter[] = [
       cta: { label: "Comprar embutidos", href: "/tienda/embutidos" },
     },
   },
+  {
+    slug: "ya-estamos-abiertos",
+    number: 9,
+    theme: "Novedades",
+    title: "¡Ya estamos abiertos!",
+    subtitle: "Bienvenidos a Estafeta Gourmet",
+    excerpt: "Después de muchos meses de trabajo, Estafeta Gourmet abre sus puertas en plena Calle Estafeta de Pamplona.",
+    image: { src: "/images/blog/ya-estamos-abiertos-4x3.webp", alt: "Fachada de Estafeta Gourmet en la calle Estafeta, 70 de Pamplona, con el rótulo iluminado y la puerta abierta" },
+    lead: "Hay proyectos que se cocinan a fuego lento, y este ha sido uno de ellos. Después de muchos meses de trabajo, ilusión y algún que otro desvelo, por fin podemos decirlo: Estafeta Gourmet ya tiene sus puertas abiertas en plena Calle Estafeta, en el corazón de Pamplona.",
+    stats: [
+      { value: "Estafeta, 70", label: "en el casco viejo de Pamplona" },
+      { value: "Mar. – Sáb.", label: "de 10:00 a 14:00 y de 17:00 a 20:00" },
+    ],
+    sections: [
+      {
+        title: "Producto con historia",
+        paragraphs: ["Detrás de cada estantería hay mucho trabajo. Hemos recorrido bodegas, queserías, obradores y conserveras, y hemos probado y elegido cada producto uno a uno. Queríamos una tienda donde todo lo que encuentres tenga una historia y un sabor que merezca la pena. Por eso apostamos con orgullo por lo de aquí: productos de Navarra, de Km 0, hechos por gente que cuida lo que hace. Y junto a ellos, algunas joyas de fuera que nos han enamorado."],
+      },
+      {
+        title: "Te esperamos",
+        paragraphs: ["Estamos encantados de recibirte. Da igual que vivas a la vuelta de la esquina, que estés de paso por Pamplona o que vengas desde la otra punta del mundo. Aquí siempre vas a encontrar una sonrisa, un consejo y, si te apetece, algo rico que probar. Nos encanta charlar, contarte de dónde viene cada producto y ayudarte a encontrar justo lo que buscas."],
+      },
+      {
+        title: "Lotes a tu medida",
+        paragraphs: ["Y si estás pensando en sorprender a alguien, preparamos lotes personalizados a tu gusto y a tu presupuesto. Sirven para un cumpleaños, para dar las gracias, para un regalo de empresa o, simplemente, porque sí."],
+      },
+      {
+        title: "Los pequeños placeres",
+        paragraphs: [
+          "Porque eso es lo que de verdad queremos: que nos elijas para hacer felices a los demás… y también a ti. Darse un capricho no necesita excusa. Un buen vino, un queso con carácter o un chocolate que te alegra la tarde: los pequeños placeres son los que hacen grandes los días.",
+          "Gracias de corazón a todos los que nos habéis acompañado en este camino. Ahora empieza lo mejor, y queremos vivirlo contigo.",
+          "**Te esperamos en la Calle Estafeta. ¡Pasa a vernos!**",
+          "El equipo de Estafeta Gourmet",
+        ],
+      },
+    ],
+    shop: {
+      title: "Para empezar, algunos de nuestros favoritos",
+      products: [
+        "LVN QUESO RESERVA 1/2 PIEZAS 250 G.",
+        "IRACHE TINTO FUENTE DE IRACHE",
+        "ARBIZU Txistorra individual",
+        "Chocolate negro 72 % vino tinto",
+      ],
+      cta: { label: "Ver los lotes", href: "/tienda/lotes" },
+    },
+  },
 ];
 
 export function getNewsletter(slug: string): Newsletter | undefined {
