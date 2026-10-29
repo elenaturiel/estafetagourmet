@@ -2,6 +2,7 @@ import { ProductCard } from "@/components/cards/ProductCard";
 import { ButtonLink } from "@/components/ui/Button";
 import { getProducers, getProducts } from "@/lib/catalog";
 import { getT } from "@/lib/i18n/server";
+import { CustomLotsBanner } from "@/components/shop/CustomLotsBanner";
 
 /**
  * Banda vino con la categoría Lotes. Los productos salen de la hoja de
@@ -60,6 +61,7 @@ export async function LotsBand() {
             {t.home.lots.button}
           </ButtonLink>
         </div>
+        <CustomLotsBanner dark className="lg:col-span-2" />
       </div>
     </section>
   );
