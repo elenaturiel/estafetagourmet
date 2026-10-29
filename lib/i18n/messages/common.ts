@@ -91,6 +91,15 @@ export const common = defineMessages({
       dialogText: "Puedes pedirnos por WhatsApp.",
       close: "Cerrar",
     },
+    customLots: {
+      eyebrow: "Lotes a tu medida",
+      title: "Hacemos lotes personalizados",
+      text: "Cuéntanos para quién es, tu presupuesto y lo que te gustaría incluir: escríbenos por email o por WhatsApp y lo definimos juntos.",
+      whatsapp: "Escríbenos por WhatsApp",
+      email: "Escríbenos un email",
+      message: "Hola, me gustaría preparar un lote personalizado.",
+      subject: "Lote personalizado",
+    },
     site: {
       hoursDays: "De martes a sábado",
       noDelivery: "Canarias ni Baleares",
@@ -196,6 +205,15 @@ export const common = defineMessages({
       dialogText: "You can order from us on WhatsApp.",
       close: "Close",
     },
+    customLots: {
+      eyebrow: "Made-to-measure gift sets",
+      title: "We make custom gift sets",
+      text: "Tell us who it's for, your budget and what you'd like to include: email us or message us on WhatsApp and we'll put it together with you.",
+      whatsapp: "Message us on WhatsApp",
+      email: "Send us an email",
+      message: "Hello, I'd like to put together a custom gift set.",
+      subject: "Custom gift set",
+    },
     site: {
       hoursDays: "Tuesday to Saturday",
       noDelivery: "the Canary Islands or the Balearic Islands",
@@ -300,6 +318,15 @@ export const common = defineMessages({
       message: "Bonjour, je souhaite passer une commande.",
       dialogText: "Vous pouvez nous commander sur WhatsApp.",
       close: "Fermer",
+    },
+    customLots: {
+      eyebrow: "Coffrets sur mesure",
+      title: "Nous préparons des coffrets personnalisés",
+      text: "Dites-nous pour qui c'est, votre budget et ce que vous aimeriez y mettre : écrivez-nous par e-mail ou sur WhatsApp et nous le composons ensemble.",
+      whatsapp: "Écrivez-nous sur WhatsApp",
+      email: "Envoyez-nous un e-mail",
+      message: "Bonjour, je souhaite préparer un coffret personnalisé.",
+      subject: "Coffret personnalisé",
     },
     site: {
       hoursDays: "Du mardi au samedi",

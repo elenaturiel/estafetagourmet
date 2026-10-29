@@ -11,6 +11,7 @@ import { localizeGiftPair } from "@/data/i18n/gifts";
 import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import type { Product } from "@/lib/types";
+import { CustomLotsBanner } from "@/components/shop/CustomLotsBanner";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [t, locale] = await Promise.all([getT(), getLocale()]);
@@ -88,6 +89,7 @@ export default async function GiftsPage({ searchParams }: { searchParams: Promis
                 </li>
               ))}
             </ul>
+            <CustomLotsBanner className="mt-8 lg:mt-12" />
           </section>
         ) : null}
 

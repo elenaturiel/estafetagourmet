@@ -12,6 +12,7 @@ import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
 import { TIENDA_ONLINE, TIENDA_ONLINE_ACTIVA } from "@/data/tienda-online";
 import { ShopNotice } from "@/components/shop/ShopNotice";
+import { CustomLotsBanner } from "@/components/shop/CustomLotsBanner";
 
 type Params = { params: Promise<{ categoria: string }> };
 
@@ -69,6 +70,7 @@ export default async function CategoryPage({ params }: Params) {
         <div className="mb-6 lg:mb-12">
           <CategoryMenu tree={tree} current={category.slug} currentName={category.name} />
         </div>
+        {category.slug === "lotes" ? <CustomLotsBanner className="mb-6 lg:mb-8" /> : null}
         <ShopNotice className="mb-6 lg:mb-10" />
         {products.length ? (
           <CategoryBrowser products={products} producers={producers} filters={category.filters} />
