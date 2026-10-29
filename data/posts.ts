@@ -18,6 +18,35 @@ function paragraphs(slug: string, texts: string[]): PortableBlock[] {
  */
 export const posts: Post[] = [
   {
+    slug: "ya-estamos-abiertos",
+    category: "Novedades",
+    title: "¡Ya estamos abiertos! Bienvenidos a Estafeta Gourmet",
+    excerpt:
+      "Hay proyectos que se cocinan a fuego lento, y este ha sido uno de ellos. Después de muchos meses de trabajo, ilusión y algún que otro desvelo, por fin podemos decirlo: Estafeta Gourmet ya tiene sus puertas abiertas en plena Calle Estafeta, en el corazón de Pamplona.",
+    date: "2026-10-29",
+    image: {
+      src: "/images/blog/ya-estamos-abiertos.webp",
+      alt: "Fachada de Estafeta Gourmet en la calle Estafeta, 70 de Pamplona, con el rótulo iluminado y la puerta abierta",
+      placeholder: "Foto · blog",
+    },
+    cover: {
+      src: "/images/blog/ya-estamos-abiertos-fachada.webp",
+      alt: "Fachada de Estafeta Gourmet en la calle Estafeta, 70 de Pamplona, con el rótulo iluminado y la puerta abierta",
+      width: 600,
+      height: 1067,
+    },
+    body: paragraphs("ya-estamos-abiertos", [
+      "Hay proyectos que se cocinan a fuego lento, y este ha sido uno de ellos. Después de muchos meses de trabajo, ilusión y algún que otro desvelo, por fin podemos decirlo: Estafeta Gourmet ya tiene sus puertas abiertas en plena Calle Estafeta, en el corazón de Pamplona.",
+      "Detrás de cada estantería hay mucho trabajo. Hemos recorrido bodegas, queserías, obradores y conserveras, y hemos probado y elegido cada producto uno a uno. Queríamos una tienda donde todo lo que encuentres tenga una historia y un sabor que merezca la pena. Por eso apostamos con orgullo por lo de aquí: productos de Navarra, de Km 0, hechos por gente que cuida lo que hace. Y junto a ellos, algunas joyas de fuera que nos han enamorado.",
+      "Estamos encantados de recibirte. Da igual que vivas a la vuelta de la esquina, que estés de paso por Pamplona o que vengas desde la otra punta del mundo. Aquí siempre vas a encontrar una sonrisa, un consejo y, si te apetece, algo rico que probar. Nos encanta charlar, contarte de dónde viene cada producto y ayudarte a encontrar justo lo que buscas.",
+      "Y si estás pensando en sorprender a alguien, preparamos lotes personalizados a tu gusto y a tu presupuesto. Sirven para un cumpleaños, para dar las gracias, para un regalo de empresa o, simplemente, porque sí.",
+      "Porque eso es lo que de verdad queremos: que nos elijas para hacer felices a los demás… y también a ti. Darse un capricho no necesita excusa. Un buen vino, un queso con carácter o un chocolate que te alegra la tarde: los pequeños placeres son los que hacen grandes los días.",
+      "Gracias de corazón a todos los que nos habéis acompañado en este camino. Ahora empieza lo mejor, y queremos vivirlo contigo.",
+      "Te esperamos en la Calle Estafeta. ¡Pasa a vernos!",
+      "El equipo de Estafeta Gourmet",
+    ]),
+  },
+  {
     slug: "bienvenidos-a-esta-aventura",
     category: "Nuestra historia",
     title: "Bienvenidos",
