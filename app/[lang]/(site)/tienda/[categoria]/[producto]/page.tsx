@@ -12,7 +12,7 @@ import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { ProductGallery } from "@/components/shop/ProductGallery";
 import { localizePairing } from "@/data/i18n/pairings";
 import { isPlaceholder, site } from "@/data/site";
-import { compraOnline } from "@/data/tienda-online";
+import { compraOnline, TIENDA_ONLINE } from "@/data/tienda-online";
 import {
   getAllProductsRaw,
   getCategory,
@@ -24,6 +24,7 @@ import {
   productHref,
 } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
+import { isLotIdea } from "@/lib/product-utils";
 import { fmt } from "@/lib/i18n/config";
 import { getLocale, getT } from "@/lib/i18n/server";
 import { pageMetadata } from "@/lib/seo";
@@ -102,6 +103,7 @@ export default async function ProductPage({ params }: Params) {
   const pairs = await getProductsBySlugs(similar);
   const href = productHref(product);
   const byline = productByline(product, producer);
+  const lot = isLotIdea(product);
   const cartItem = {
     id: product.slug,
     name: product.name,
@@ -144,7 +146,11 @@ export default async function ProductPage({ params }: Params) {
           <h1 className="mt-1.5 text-[30px] leading-[1.06] tracking-[-0.02em] lg:mt-2 lg:text-[56px] lg:leading-[1.03]">
             {product.name}
           </h1>
-          {product.price === null ? (
+          {lot ? (
+            <p className="mt-4 text-[17px] leading-[1.5] lg:mt-5 lg:text-[18px]">
+              <span className="font-semibold text-vino">{t.common.lotIdea.label}.</span> {t.common.lotIdea.note}
+            </p>
+          ) : product.price === null ? (
             <p className="mt-4 text-[22px] font-semibold text-secundario lg:mt-5 lg:text-[24px]">{s.priceOnRequest}</p>
           ) : (
             <>
@@ -155,7 +161,11 @@ export default async function ProductPage({ params }: Params) {
           <p className="mt-4 text-[16px] leading-[1.6] text-secundario lg:mt-6 lg:text-[17px]">{product.description}</p>
 
           <div id="comprar" className="mt-6 hidden lg:mt-8 lg:block">
-            {product.price === null ? (
+            {lot ? (
+              <ButtonLink href={TIENDA_ONLINE} className="w-full sm:w-auto sm:px-10">
+                {t.common.lotIdea.button}
+              </ButtonLink>
+            ) : product.price === null ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 <ButtonLink href="/visitanos#contacto">{s.askPrice}</ButtonLink>
                 <ButtonLink href={site.phone.href} variant="secondary">
@@ -358,11 +368,15 @@ export default async function ProductPage({ params }: Params) {
         <div className="min-w-0 flex-1">
           <p className="truncate font-serif text-[15px] leading-tight">{product.name}</p>
           <p className="text-[15px] font-semibold">
-            {product.price === null ? s.priceOnRequest : formatPrice(product.price, locale)}
+            {lot ? t.common.lotIdea.label : product.price === null ? s.priceOnRequest : formatPrice(product.price, locale)}
           </p>
         </div>
         <div className="w-[150px] shrink-0">
-          {product.price === null ? (
+          {lot ? (
+            <ButtonLink href={TIENDA_ONLINE} size="sm" className="w-full">
+              {t.common.lotIdea.button}
+            </ButtonLink>
+          ) : product.price === null ? (
             <ButtonLink href="/visitanos#contacto" size="sm" className="w-full">
               {s.consult}
             </ButtonLink>

@@ -5,15 +5,14 @@ import { CheckCircleIcon, PinIcon, TruckIcon } from "@/components/ui/icons";
 import { HeroVideo } from "@/components/home/HeroVideo";
 import { Stamp } from "@/components/ui/Stamp";
 import { site } from "@/data/site";
-import { formatPrice } from "@/lib/format";
 import { fmt } from "@/lib/i18n/config";
-import { getLocale, getT } from "@/lib/i18n/server";
+import { getT } from "@/lib/i18n/server";
 import { productHref } from "@/lib/product-utils";
 import type { Product } from "@/lib/types";
 import { TIENDA_ONLINE } from "@/data/tienda-online";
 
 export async function Hero({ featuredLot }: { featuredLot?: Product }) {
-  const [t, locale] = await Promise.all([getT(), getLocale()]);
+  const t = await getT();
   const h = t.home.hero;
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-crema">
@@ -84,7 +83,7 @@ export async function Hero({ featuredLot }: { featuredLot?: Product }) {
                   {featuredLot.name}
                 </span>
                 <span className="block text-[14px] font-semibold">
-                  {featuredLot.price === null ? t.common.header.priceOnRequest : formatPrice(featuredLot.price, locale)}
+                  {t.common.lotIdea.label}
                 </span>
               </span>
             </Link>

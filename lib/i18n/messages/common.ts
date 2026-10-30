@@ -106,6 +106,11 @@ export const common = defineMessages({
       message: "Hola, me gustaría preparar un lote personalizado.",
       subject: "Lote personalizado",
     },
+    lotIdea: {
+      label: "Idea de lote",
+      note: "Los productos se añaden uno a uno en la tienda online.",
+      button: "Ir a la tienda",
+    },
     site: {
       hoursDays: "De martes a sábado",
       noDelivery: "Canarias ni Baleares",
@@ -226,6 +231,11 @@ export const common = defineMessages({
       message: "Hello, I'd like to put together a custom gift set.",
       subject: "Custom gift set",
     },
+    lotIdea: {
+      label: "Gift set idea",
+      note: "Add each product individually in the online shop.",
+      button: "Go to the shop",
+    },
     site: {
       hoursDays: "Tuesday to Saturday",
       noDelivery: "the Canary Islands or the Balearic Islands",
@@ -345,6 +355,11 @@ export const common = defineMessages({
       email: "Envoyez-nous un e-mail",
       message: "Bonjour, je souhaite préparer un coffret personnalisé.",
       subject: "Coffret personnalisé",
+    },
+    lotIdea: {
+      label: "Idée de coffret",
+      note: "Ajoutez chaque produit séparément dans la boutique en ligne.",
+      button: "Aller à la boutique",
     },
     site: {
       hoursDays: "Du mardi au samedi",

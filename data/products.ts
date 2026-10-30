@@ -1,4 +1,5 @@
 import { slugify } from "@/lib/slug";
+import { isLotIdea } from "@/lib/product-utils";
 import type { Product } from "@/lib/types";
 import { DESCRIPTIONS } from "./descriptions";
 import { productImages } from "./images.generated";
@@ -204,7 +205,10 @@ const sheetProducts: Product[] = productRows.map(([sheetCategory, producerSlug, 
   };
 });
 
-/** Hoja de cálculo + lotes especiales (data/lots.ts), que van al final de "Lotes". */
+/**
+ * Hoja de cálculo + lotes especiales (data/lots.ts), que van al final de "Lotes".
+ * Los lotes son ideas sin precio: sus productos se compran uno a uno en la tienda online.
+ */
 export const products: Product[] = [
   ...sheetProducts,
   ...[...giftLots, ...lots].map((lot) => {
@@ -213,4 +217,4 @@ export const products: Product[] = [
     rankByCategory.set(lot.categorySlug, rank);
     return { ...lot, rank };
   }),
-];
+].map((p) => (isLotIdea(p) ? { ...p, price: null } : p));
