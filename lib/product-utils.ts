@@ -18,3 +18,8 @@ export function productHref(product: Pick<Product, "categorySlug" | "slug">): st
 export function categoryHref(category: { slug: string; href?: string }): string {
   return category.href ?? `/tienda/${category.slug}`;
 }
+
+/** Lote de la categoría "Lotes": una idea de lote, sin precio (sus productos se compran uno a uno). */
+export function isLotIdea(p: Pick<Product, "categorySlug">): boolean {
+  return p.categorySlug === "lotes";
+}

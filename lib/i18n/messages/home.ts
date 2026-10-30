@@ -51,8 +51,8 @@ export const home = defineMessages({
       eyebrow: "Lotes",
       title: "Lo mejor de Navarra,",
       em: "en un lote",
-      text: "Selecciones de producto navarro ya preparadas, para disfrutar en casa o para regalar.",
-      button: "Ver todos los lotes",
+      text: "Te presentamos ideas para hacer lotes con nombre propio, para disfrutar en casa o para regalar. Los productos se añaden uno a uno en la tienda online.",
+      button: "Ver todas las ideas de lotes",
     },
     producers: {
       eyebrow: "Productores",
@@ -178,8 +178,8 @@ export const home = defineMessages({
       eyebrow: "Gift sets",
       title: "The best of Navarre,",
       em: "in one set",
-      text: "Ready-made selections of Navarrese products, to enjoy at home or to give as a gift.",
-      button: "See all gift sets",
+      text: "Ideas for named gift sets, to enjoy at home or to give as a gift. Add each product individually in the online shop.",
+      button: "See all gift set ideas",
     },
     producers: {
       eyebrow: "Producers",
@@ -305,8 +305,8 @@ export const home = defineMessages({
       eyebrow: "Coffrets",
       title: "Le meilleur de la Navarre,",
       em: "dans un coffret",
-      text: "Des sélections de produits navarrais toutes prêtes, à savourer chez soi ou à offrir.",
-      button: "Voir tous les coffrets",
+      text: "Des idées de coffrets qui ont un nom, à savourer chez soi ou à offrir. Ajoutez chaque produit séparément dans la boutique en ligne.",
+      button: "Voir toutes les idées de coffrets",
     },
     producers: {
       eyebrow: "Producteurs",

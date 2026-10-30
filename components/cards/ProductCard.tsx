@@ -5,11 +5,11 @@ import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ButtonLink } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { site } from "@/data/site";
-import { compraOnline } from "@/data/tienda-online";
+import { compraOnline, TIENDA_ONLINE } from "@/data/tienda-online";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
 import { useLocale, useT } from "@/lib/i18n/client";
-import { productByline, productHref } from "@/lib/product-utils";
+import { isLotIdea, productByline, productHref } from "@/lib/product-utils";
 import type { Producer, Product } from "@/lib/types";
 
 /** Colores de las etiquetas: la de "Favorito" destaca en dorado. */
@@ -36,6 +36,7 @@ export function ProductCard({
   const all = useT();
   const t = all.home.card;
   const tc = all.common;
+  const lot = isLotIdea(product);
   const locale = useLocale();
   const href = productHref(product);
   const byline = productByline(product, producer);
@@ -110,7 +111,9 @@ export function ProductCard({
           </Link>
         </Heading>
         <div className="mt-auto flex flex-col gap-2 pt-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 lg:pt-4">
-          {product.price === null ? (
+          {lot ? (
+            <p className="text-[14px] font-semibold text-vino lg:text-[15px]">{tc.lotIdea.label}</p>
+          ) : product.price === null ? (
             <p className="text-[14px] font-semibold text-secundario lg:text-[15px]">
               {t.priceOnRequest}
             </p>
@@ -120,7 +123,11 @@ export function ProductCard({
             </p>
           )}
           <div className="relative z-10 sm:w-auto">
-            {product.price === null ? (
+            {lot ? (
+              <ButtonLink href={TIENDA_ONLINE} variant="primary" size="sm" className="w-full sm:w-auto sm:px-5">
+                {tc.lotIdea.button}
+              </ButtonLink>
+            ) : product.price === null ? (
               <ButtonLink
                 href="/visitanos#contacto"
                 variant="secondary"
