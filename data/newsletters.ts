@@ -15,8 +15,8 @@ export type NewsletterSection = {
   list?: string[];
   /** Recuadro "Consejo Estafeta". */
   tip?: string;
-  /** Foto debajo del título de la sección (cuadrada). */
-  image?: { src: string; alt: string };
+  /** Foto debajo del título de la sección (cuadrada si no se indica el tamaño). */
+  image?: { src: string; alt: string; width?: number; height?: number };
 };
 
 export type Newsletter = {
@@ -530,6 +530,12 @@ export const newsletters: Newsletter[] = [
       },
       {
         title: "Sus premios",
+        image: {
+          src: "/images/blog/vermut-oro-nomada-premios.webp",
+          alt: "Medallas de Oro Nómada: Gran Arribe de Oro en Femenino 2023, Great Gold Catavinum 2024, Oro CINVE 2025 y Oro Bacchus 2025",
+          width: 1091,
+          height: 417,
+        },
         list: [
           "**2023 · Gran Arribe de Oro en Femenino**, Premios Vinduero-Vindouro.",
           "**2024 · Great Gold**, Catavinum World Wine & Spirits Competition (CWWSC).",

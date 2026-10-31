@@ -41,7 +41,14 @@ export const posts: Post[] = [
       "Sus premios: Gran Arribe de Oro en Femenino en los Premios Vinduero-Vindouro (2023), Great Gold en el Catavinum World Wine & Spirits Competition (2024), Oro en el concurso internacional CINVE (2025) y Oro en el Concurso Internacional de Vinos Bacchus (2025).",
       "Su hermano pequeño, el Wermujito, es la versión más fresca: cítrico y herbal, con lima, menta y hierbabuena, perfecto para el aperitivo al sol.",
       "Solos, con hielo o en cóctel: dos maneras de brindar con Navarra.",
-    ]),
+    ]).toSpliced(3, 0, {
+      _type: "image",
+      _key: "novedad-vermut-artesano-oro-nomada-premios",
+      src: "/images/blog/vermut-oro-nomada-premios.webp",
+      alt: "Medallas de Oro Nómada: Gran Arribe de Oro en Femenino 2023, Great Gold Catavinum 2024, Oro CINVE 2025 y Oro Bacchus 2025",
+      width: 1091,
+      height: 417,
+    }),
   },
   {
     slug: "ya-estamos-abiertos",
