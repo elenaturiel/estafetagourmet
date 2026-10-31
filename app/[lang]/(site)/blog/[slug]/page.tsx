@@ -68,6 +68,14 @@ const components: PortableTextComponents = {
   },
   types: {
     image: ({ value }) => {
+      // Foto de public/ en las entradas escritas en data/posts.ts: entera, sin recortar.
+      if (typeof value.src === "string") {
+        return (
+          <figure className="my-10">
+            <Image src={value.src} alt={value.alt ?? ""} width={value.width} height={value.height} sizes="(min-width: 768px) 720px, 100vw" className="w-full rounded-eg" />
+          </figure>
+        );
+      }
       const src = sanityImageUrl(value, 1400);
       if (!src) return null;
       return (

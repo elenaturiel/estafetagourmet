@@ -104,8 +104,8 @@ export default async function NewsletterIssuePage({ params }: Params) {
                   <Image
                     src={sec.image.src}
                     alt={sec.image.alt}
-                    width={900}
-                    height={900}
+                    width={sec.image.width ?? 900}
+                    height={sec.image.height ?? 900}
                     sizes="(min-width: 768px) 768px, 100vw"
                     className="mt-5 w-full rounded-eg"
                   />
