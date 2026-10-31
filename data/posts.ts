@@ -18,6 +18,32 @@ function paragraphs(slug: string, texts: string[]): PortableBlock[] {
  */
 export const posts: Post[] = [
   {
+    slug: "novedad-vermut-artesano-oro-nomada",
+    category: "Novedades",
+    title: "Novedad: Oro Nómada, el vermut artesano de Navarra",
+    excerpt:
+      "Desde Cordovilla, a las puertas de Pamplona, llega Oro Nómada, el vermut de Bodega Antonanza: el Original, con Gran Medalla de Oro en el CWWSC 2024, y su hermano pequeño, el Wermujito.",
+    date: "2026-10-31",
+    image: {
+      src: "/images/blog/vermut-oro-nomada.webp",
+      alt: "Botellas de Oro Nómada Original y Wermujito, vermut artesano de Navarra, con dos vasos con hielo, naranja, lima y hierbabuena",
+      placeholder: "Foto · blog",
+    },
+    cover: {
+      src: "/images/blog/vermut-oro-nomada-botellas.webp",
+      alt: "Botellas de Oro Nómada Original y Wermujito, vermut artesano de Navarra, con dos vasos con hielo, naranja, lima y hierbabuena",
+      width: 900,
+      height: 900,
+    },
+    body: paragraphs("novedad-vermut-artesano-oro-nomada", [
+      "Desde Cordovilla, a las puertas de Pamplona, llega Oro Nómada, el vermut de Bodega Antonanza, una pequeña bodega familiar que nació entre padre e hijo.",
+      "El Original parte de un vino Chardonnay, se macera con 33 botánicos y reposa ocho meses en roble francés. Es complejo y especiado, y ganó la Gran Medalla de Oro en el concurso internacional CWWSC 2024.",
+      "Sus premios: Gran Arribe de Oro en Femenino en los Premios Vinduero-Vindouro (2023), Great Gold en el Catavinum World Wine & Spirits Competition (2024), Oro en el concurso internacional CINVE (2025) y Oro en el Concurso Internacional de Vinos Bacchus (2025).",
+      "Su hermano pequeño, el Wermujito, es la versión más fresca: cítrico y herbal, con lima, menta y hierbabuena, perfecto para el aperitivo al sol.",
+      "Solos, con hielo o en cóctel: dos maneras de brindar con Navarra.",
+    ]),
+  },
+  {
     slug: "ya-estamos-abiertos",
     category: "Novedades",
     title: "¡Ya estamos abiertos! Bienvenidos a Estafeta Gourmet",

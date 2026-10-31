@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Link } from "@/components/ui/Link";
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/cards/ProductCard";
@@ -99,6 +100,16 @@ export default async function NewsletterIssuePage({ params }: Params) {
             {issue.sections.map((sec) => (
               <section key={sec.title} className="mt-9 lg:mt-12">
                 <h2 className="text-[22px] leading-tight tracking-[-0.015em] text-tinta lg:text-[32px]">{sec.title}</h2>
+                {sec.image ? (
+                  <Image
+                    src={sec.image.src}
+                    alt={sec.image.alt}
+                    width={900}
+                    height={900}
+                    sizes="(min-width: 768px) 768px, 100vw"
+                    className="mt-5 w-full rounded-eg"
+                  />
+                ) : null}
                 {sec.paragraphs?.map((p) => (
                   <p key={p} className="mt-4">
                     <RichText text={p} />
@@ -124,26 +135,31 @@ export default async function NewsletterIssuePage({ params }: Params) {
           </div>
         </div>
 
-        {products.length > 0 ? (
+        {/* Sin productos del catálogo (p. ej. una novedad que solo está en la tienda online), solo el botón. */}
+        {products.length > 0 || issue.shop.cta ? (
           <section aria-labelledby="en-la-tienda" className="mx-auto mt-12 max-w-5xl border-t border-linea pt-9 lg:mt-20 lg:pt-12">
             <p className="eyebrow text-vino">{n.inShop}</p>
             <h2 id="en-la-tienda" className="mt-2 text-[28px] leading-tight tracking-[-0.02em] lg:text-[36px]">
               {issue.shop.title}
             </h2>
-            <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 lg:mt-8 lg:gap-x-6 lg:gap-y-10">
-              {products.map((p) => (
-                <li key={p.slug}>
-                  <ProductCard product={p} producer={p.producerSlug ? producers[p.producerSlug] : undefined} />
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10 text-center">
+            {products.length > 0 ? (
+              <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 lg:mt-8 lg:gap-x-6 lg:gap-y-10">
+                {products.map((p) => (
+                  <li key={p.slug}>
+                    <ProductCard product={p} producer={p.producerSlug ? producers[p.producerSlug] : undefined} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className={products.length > 0 ? "mt-10 text-center" : "mt-6 text-center"}>
               <ButtonLink href={issue.shop.cta.href}>{issue.shop.cta.label}</ButtonLink>
             </div>
           </section>
         ) : null}
 
-        <p className="mx-auto mt-12 max-w-3xl text-center text-[13px] text-secundario">{locale === "es" ? NEWSLETTER_SOURCE : NEWSLETTER_SOURCE_TEXT[locale]}</p>
+        {issue.source === false ? null : (
+          <p className="mx-auto mt-12 max-w-3xl text-center text-[13px] text-secundario">{locale === "es" ? NEWSLETTER_SOURCE : NEWSLETTER_SOURCE_TEXT[locale]}</p>
+        )}
 
         <nav aria-label={n.others} className="mx-auto mt-12 flex max-w-5xl flex-wrap justify-between gap-4 border-t border-linea pt-8">
           {prev ? (
