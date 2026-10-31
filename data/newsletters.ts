@@ -15,6 +15,8 @@ export type NewsletterSection = {
   list?: string[];
   /** Recuadro "Consejo Estafeta". */
   tip?: string;
+  /** Foto debajo del título de la sección (cuadrada). */
+  image?: { src: string; alt: string };
 };
 
 export type Newsletter = {
@@ -35,7 +37,8 @@ export type Newsletter = {
     title: string;
     products: string[];
     cta: { label: string; href: string };
-  };
+  };  /** false en los boletines que no usan datos de Reyno Gourmet (novedades de la tienda). */
+  source?: false;
 };
 
 export const NEWSLETTER_SOURCE =
@@ -503,6 +506,43 @@ export const newsletters: Newsletter[] = [
       ],
       cta: { label: "Ver los lotes", href: "/tienda/lotes" },
     },
+  },
+  {
+    slug: "novedad-vermut-artesano-oro-nomada",
+    number: 10,
+    theme: "Novedad",
+    title: "Vermut artesano Oro Nómada",
+    subtitle: "Oro Nómada, el vermut artesano de Navarra",
+    excerpt: "Desde Cordovilla, a las puertas de Pamplona, llega Oro Nómada: el Original, Gran Medalla de Oro en el CWWSC 2024, y el fresco Wermujito.",
+    image: { src: "/images/blog/vermut-oro-nomada-4x3.webp", alt: "Botellas de Oro Nómada Original y Wermujito, vermut artesano de Navarra, con dos vasos con hielo, naranja, lima y hierbabuena" },
+    lead: "Desde Cordovilla, a las puertas de Pamplona, llega Oro Nómada, el vermut de Bodega Antonanza, una pequeña bodega familiar que nació entre padre e hijo.",
+    stats: [
+      { value: "Cordovilla", label: "a las puertas de Pamplona" },
+      { value: "33 botánicos", label: "macerados en vino Chardonnay" },
+      { value: "8 meses", label: "de reposo en roble francés" },
+      { value: "Gran Oro", label: "en el concurso internacional CWWSC 2024" },
+    ],
+    sections: [
+      {
+        title: "Oro Nómada Original",
+        image: { src: "/images/blog/vermut-oro-nomada-botellas.webp", alt: "Botellas de Oro Nómada Original y Wermujito, vermut artesano de Navarra, con dos vasos con hielo, naranja, lima y hierbabuena" },
+        paragraphs: ["El Original parte de un vino Chardonnay, se macera con 33 botánicos y reposa ocho meses en roble francés. Es complejo y especiado, y ganó la **Gran Medalla de Oro** en el concurso internacional CWWSC 2024."],
+      },
+      {
+        title: "Wermujito",
+        paragraphs: ["Su hermano pequeño, el Wermujito, es la versión más fresca: cítrico y herbal, con lima, menta y hierbabuena, perfecto para el aperitivo al sol."],
+      },
+      {
+        title: "Dos maneras de brindar con Navarra",
+        paragraphs: ["Solos, con hielo o en cóctel: dos maneras de brindar con Navarra.", "**Ven a probarlos a la Calle Estafeta, 70.**"],
+      },
+    ],
+    shop: {
+      title: "Oro Nómada",
+      products: [],
+      cta: { label: "Comprar en la tienda online", href: "/tienda/licores" },
+    },
+    source: false,
   },
 ];
 
