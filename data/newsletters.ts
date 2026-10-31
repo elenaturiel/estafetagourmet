@@ -520,13 +520,22 @@ export const newsletters: Newsletter[] = [
       { value: "Cordovilla", label: "a las puertas de Pamplona" },
       { value: "33 botánicos", label: "macerados en vino Chardonnay" },
       { value: "8 meses", label: "de reposo en roble francés" },
-      { value: "Gran Oro", label: "en el concurso internacional CWWSC 2024" },
+      { value: "4 premios", label: "internacionales entre 2023 y 2025" },
     ],
     sections: [
       {
         title: "Oro Nómada Original",
         image: { src: "/images/blog/vermut-oro-nomada-botellas.webp", alt: "Botellas de Oro Nómada Original y Wermujito, vermut artesano de Navarra, con dos vasos con hielo, naranja, lima y hierbabuena" },
         paragraphs: ["El Original parte de un vino Chardonnay, se macera con 33 botánicos y reposa ocho meses en roble francés. Es complejo y especiado, y ganó la **Gran Medalla de Oro** en el concurso internacional CWWSC 2024."],
+      },
+      {
+        title: "Sus premios",
+        list: [
+          "**2023 · Gran Arribe de Oro en Femenino**, Premios Vinduero-Vindouro.",
+          "**2024 · Great Gold**, Catavinum World Wine & Spirits Competition (CWWSC).",
+          "**2025 · Oro**, concurso internacional CINVE.",
+          "**2025 · Oro**, Concurso Internacional de Vinos Bacchus (Unión Española de Catadores).",
+        ],
       },
       {
         title: "Wermujito",
