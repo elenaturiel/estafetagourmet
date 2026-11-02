@@ -22,6 +22,8 @@ export function localBusinessJsonLd(description: string = site.description, loca
       addressCountry: site.address.country,
     },
     sameAs: [site.instagram.href],
+    logo: absoluteUrl("/icon.png"),
+    image: absoluteUrl("/icon.png"),
   };
   if (!isPlaceholder(site.email)) data.email = site.email;
   // Solo se publica el horario cuando los días estén confirmados (data/site.ts).
