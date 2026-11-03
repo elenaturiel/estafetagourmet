@@ -94,7 +94,7 @@ export const common = defineMessages({
     buyOnline: "Comprar",
     onlineShop: {
       title: "¡Ya puedes comprar en nuestra tienda online!",
-      text: "Mete tus productos en el carrito y haz tu pedido por WhatsApp. Muy pronto activamos el pago con tarjeta.",
+      text: "Mete tus productos en el carrito y paga con tarjeta, Apple Pay, Google Pay o Bizum (al +34 624 64 27 42).",
       button: "Ir a la tienda online",
     },
     customLots: {
@@ -219,7 +219,7 @@ export const common = defineMessages({
     buyOnline: "Buy",
     onlineShop: {
       title: "You can now shop in our online store!",
-      text: "Add your products to the basket and send us your order on WhatsApp. Card payment is coming very soon.",
+      text: "Add your products to the basket and pay by card, Apple Pay, Google Pay or Bizum (to +34 624 64 27 42).",
       button: "Go to the online store",
     },
     customLots: {
@@ -344,7 +344,7 @@ export const common = defineMessages({
     buyOnline: "Acheter",
     onlineShop: {
       title: "Notre boutique en ligne est ouverte !",
-      text: "Ajoutez vos produits au panier et passez votre commande sur WhatsApp. Le paiement par carte arrive très bientôt.",
+      text: "Ajoutez vos produits au panier et payez par carte, Apple Pay, Google Pay ou Bizum (au +34 624 64 27 42).",
       button: "Aller à la boutique en ligne",
     },
     customLots: {
