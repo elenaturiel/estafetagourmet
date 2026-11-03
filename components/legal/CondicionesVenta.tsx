@@ -45,8 +45,8 @@ export function CondicionesVenta({ locale }: { locale: Locale }) {
 
         <h2>6. Payment methods</h2>
         <p>
-          The available payment methods (card, Bizum or others) are shown at checkout. Payment is processed through a secure gateway: we do not
-          store your card details. The order is prepared once payment is confirmed.
+          You can pay by card, Apple Pay, Google Pay or Bizum (to +34 624 64 27 42). Card, Apple Pay and Google Pay payments are processed
+          through a secure gateway: we do not store your card details. The order is prepared once payment is confirmed.
         </p>
 
         <h2>7. Sale of alcoholic drinks</h2>
@@ -157,8 +157,8 @@ export function CondicionesVenta({ locale }: { locale: Locale }) {
 
         <h2>6. Modes de paiement</h2>
         <p>
-          Les modes de paiement disponibles (carte, Bizum ou autres) sont affichés à la fin de l'achat. Le paiement est traité via une
-          passerelle sécurisée : nous ne conservons pas les données de votre carte. La commande est préparée une fois le paiement confirmé.
+          Vous pouvez payer par carte, Apple Pay, Google Pay ou Bizum (au +34 624 64 27 42). Les paiements par carte, Apple Pay et Google Pay
+          sont traités via une passerelle sécurisée : nous ne conservons pas les données de votre carte. La commande est préparée une fois le paiement confirmé.
         </p>
 
         <h2>7. Vente de boissons alcoolisées</h2>
@@ -270,8 +270,8 @@ export function CondicionesVenta({ locale }: { locale: Locale }) {
 
       <h2>6. Formas de pago</h2>
       <p>
-        Los métodos de pago disponibles (tarjeta, Bizum u otros) se muestran al finalizar la compra. El pago se procesa a través de una
-        pasarela segura: no almacenamos los datos de tu tarjeta. El pedido se prepara una vez confirmado el pago.
+        Puedes pagar con tarjeta, Apple Pay, Google Pay o Bizum (al +34 624 64 27 42). Los pagos con tarjeta, Apple Pay y Google Pay se
+        procesan a través de una pasarela segura: no almacenamos los datos de tu tarjeta. El pedido se prepara una vez confirmado el pago.
       </p>
 
       <h2>7. Venta de bebidas alcohólicas</h2>
