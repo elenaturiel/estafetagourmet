@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Link } from "@/components/ui/Link";
 import { footerNav } from "@/data/navigation";
 import { site } from "@/data/site";
@@ -59,7 +60,26 @@ export async function Footer() {
           <FooterColumn title={f.legal} links={col(footerNav.legal)} />
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-pie-borde pt-6 text-[13px] sm:flex-row sm:items-center sm:justify-between">
+        {/* Publicidad obligatoria de la subvención del Servicio Navarro de Empleo (en castellano y euskera). */}
+        <div className="mt-12 border-t border-pie-borde pt-8 text-center text-[13px] leading-relaxed">
+          <p>“Esta empresa ha recibido una subvención del SNE-NL para la promoción del empleo autónomo”</p>
+          <p lang="eu" className="mt-1">
+            “Enpresa honek Nafar Lansare-Nafarroako Enplegu Zerbitzuaren dirulaguntza bat jaso du enplegu autonomoa sustatzeko”
+          </p>
+          <p className="mt-5 text-[12px] font-semibold tracking-[0.12em] text-crema uppercase">
+            Financiada por: <span lang="eu" className="ml-6">Finantzatzailea:</span>
+          </p>
+          <Image
+            src="/images/subvencion/sne-gobierno-navarra.png"
+            alt="Servicio Navarro de Empleo – Nafar Lansare, Gobierno de Navarra – Nafarroako Gobernua y Agenda 2030"
+            width={1077}
+            height={133}
+            sizes="(min-width: 768px) 640px, 92vw"
+            className="mx-auto mt-4 h-auto w-full max-w-[640px]"
+          />
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-pie-borde pt-6 text-[13px] sm:flex-row sm:items-center sm:justify-between">
           <p>
             {site.name} · {site.address.cityShort}, {site.address.region} · {site.domainLabel.startsWith("[") ? f.domainPlaceholder : site.domainLabel}
           </p>
