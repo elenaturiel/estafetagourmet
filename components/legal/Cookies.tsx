@@ -46,8 +46,8 @@ export function Cookies({ locale }: { locale: Locale }) {
         <ul>
           <li>
             <strong>Usage analytics</strong>: measures which pages are visited in order to improve the website, in aggregate form. It is only
-            switched on if you press “Accept analytics” and it is not loaded if you reject it. [Tool to be decided: it will be named here with
-            its cookies and duration when switched on.]
+            switched on if you press “Accept analytics” and it is not loaded if you reject it. We use Vercel Web Analytics (Vercel Inc.), which
+            does not install cookies or store anything on your device: it counts anonymous visits and does not identify you.
           </li>
         </ul>
 
@@ -111,8 +111,8 @@ export function Cookies({ locale }: { locale: Locale }) {
         <ul>
           <li>
             <strong>Mesure d'audience</strong> : mesure les pages consultées pour améliorer le site, de manière agrégée. Elle ne s'active que
-            si vous cliquez sur « Accepter l'analyse » et n'est pas chargée si vous la refusez. [Outil à définir : il sera indiqué ici avec ses
-            cookies et leur durée lors de son activation.]
+            si vous cliquez sur « Accepter l'analyse » et n'est pas chargée si vous la refusez. Nous utilisons Vercel Web Analytics (Vercel Inc.),
+            qui n'installe pas de cookies et n'enregistre rien sur votre appareil : il compte des visites anonymes et ne vous identifie pas.
           </li>
         </ul>
 
@@ -174,8 +174,8 @@ export function Cookies({ locale }: { locale: Locale }) {
       <ul>
         <li>
           <strong>Analítica de uso</strong>: mide qué páginas se visitan para mejorar la web, de forma agregada. Solo se activa si pulsas
-          «Aceptar analítica» y no se carga si la rechazas. [Herramienta por definir: se indicará aquí con sus cookies y su duración cuando se
-          active.]
+          «Aceptar analítica» y no se carga si la rechazas. Usamos Vercel Web Analytics (Vercel Inc.), que no instala cookies ni guarda nada
+          en tu dispositivo: cuenta visitas anónimas y no te identifica.
         </li>
       </ul>
 

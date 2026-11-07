@@ -1,5 +1,6 @@
 "use client";
 
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Link } from "@/components/ui/Link";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
@@ -108,12 +109,12 @@ export function CookieSettingsButton({ className }: { className?: string }) {
 }
 
 /**
- * Punto único donde se cargaría la analítica. NO carga nada salvo que el
- * usuario haya aceptado. TODO: añadir aquí el script de analítica elegido
- * (p. ej. con next/script) cuando se decida la herramienta.
+ * Punto único donde se carga la analítica: Vercel Web Analytics (sin cookies;
+ * los datos se ven en el panel de Vercel, pestaña Analytics). NO carga nada
+ * salvo que el usuario haya aceptado.
  */
 export function Analytics() {
   const { consent } = useConsent();
   if (consent !== "granted") return null;
-  return null;
+  return <VercelAnalytics />;
 }
