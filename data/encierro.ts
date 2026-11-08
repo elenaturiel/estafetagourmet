@@ -10,8 +10,6 @@ export const ENCIERRO = {
   days: [7, 8, 9, 10, 11, 12, 13, 14],
   /** Plazas de cada día mientras no se cambien en el panel. */
   defaultSeats: 8,
-  /** Días con otras plazas de partida (0 = completo). Lo guardado en el panel manda sobre esto. */
-  initialSeats: { 7: 0, 8: 3, 11: 4 } as Record<number, number>,
 } as const;
 
 /** Plazas libres por día de julio: { 7: 8, 8: 5, … }. */
@@ -21,7 +19,7 @@ export type EncierroSeats = Record<number, number>;
 export const encierroDocId = (year: number = ENCIERRO.year) => `encierro-plazas-${year}`;
 
 export function defaultEncierroSeats(): EncierroSeats {
-  return Object.fromEntries(ENCIERRO.days.map((d) => [d, ENCIERRO.initialSeats[d] ?? ENCIERRO.defaultSeats]));
+  return Object.fromEntries(ENCIERRO.days.map((d) => [d, ENCIERRO.defaultSeats]));
 }
 
 /** Combina lo guardado en Sanity con los valores por defecto (un día sin guardar tiene todas las plazas). */
