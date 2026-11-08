@@ -6,12 +6,16 @@
  * Consulta TODO.md para la lista completa.
  */
 
+/** Dominio de la web publicada. */
+const PUBLIC_SITE_URL = "https://www.estafetagourmet.com";
+
 /**
- * Dirección pública de la web. Se configura con la variable de entorno
- * NEXT_PUBLIC_SITE_URL (p. ej. "https://www.midominio.com").
- * Mientras no haya dominio definitivo, en local se usa http://localhost:3000.
+ * Dirección pública de la web: la de NEXT_PUBLIC_SITE_URL si está definida y,
+ * si no, el dominio de la web (en `next dev`, http://localhost:3000). Es la que
+ * llevan las etiquetas canonical y og:url, el sitemap y los datos para Google.
  */
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const rawSiteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || (process.env.NODE_ENV === "development" ? "" : PUBLIC_SITE_URL);
 export const SITE_URL = (rawSiteUrl || "http://localhost:3000").replace(/\/+$/, "");
 export const HAS_PUBLIC_DOMAIN = Boolean(rawSiteUrl);
 
