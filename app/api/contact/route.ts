@@ -1,14 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { site } from "@/data/site";
+import { escapeHtml as esc, sendWebMail } from "@/lib/mail";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const env = (name: string) => (process.env[name] ?? "").trim();
-const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /**
  * Formulario de contacto: el mensaje llega por correo a CONTACT_TO (si no se
  * define, a site.email) y se puede responder directamente a quien lo escribió.
- * Se envía con Formspree (FORMSPREE_FORM_ID) o, si no está, con Brevo (BREVO_API_KEY y BREVO_SENDER_EMAIL).
+ * Se envía con Formspree o Brevo (lib/mail.ts).
  */
 export async function POST(req: NextRequest) {
   let data: { name?: unknown; email?: unknown; message?: unknown; website?: unknown };
@@ -25,42 +23,12 @@ export async function POST(req: NextRequest) {
   const message = typeof data.message === "string" ? data.message.trim().slice(0, 5000) : "";
   if (!name || !EMAIL_RE.test(email) || message.length < 10) return NextResponse.json({ ok: false }, { status: 400 });
 
-  // Con Formspree (formspree.io): pon FORMSPREE_FORM_ID en Vercel y los mensajes llegan al correo de ese formulario.
-  const formspree = env("FORMSPREE_FORM_ID");
-  if (formspree) {
-    const r = await fetch(`https://formspree.io/f/${encodeURIComponent(formspree)}`, {
-      method: "POST",
-      headers: { "content-type": "application/json", accept: "application/json" },
-      body: JSON.stringify({ name, email, message, _subject: `Mensaje de la web: ${name}` }),
-      cache: "no-store",
-    });
-    if (!r.ok) {
-      console.error("[contact] formspree", r.status);
-      return NextResponse.json({ ok: false, code: `formspree_${r.status}` }, { status: 502 });
-    }
-    return NextResponse.json({ ok: true });
-  }
-
-  const apiKey = env("BREVO_API_KEY");
-  const senderEmail = env("BREVO_SENDER_EMAIL");
-  if (!apiKey || !senderEmail) return NextResponse.json({ ok: false, code: "sin_configurar" }, { status: 503 });
-  const to = env("CONTACT_TO") || site.email;
-
-  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: { "api-key": apiKey, "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify({
-      sender: { name: `${site.name} · Web`, email: senderEmail },
-      to: [{ email: to }],
-      replyTo: { email, name },
-      subject: `Mensaje de la web: ${name}`,
-      htmlContent: `<p><strong>${esc(name)}</strong> (<a href="mailto:${esc(email)}">${esc(email)}</a>) ha escrito desde el formulario de contacto de la web:</p><p style="white-space:pre-wrap">${esc(message)}</p><p style="color:#777;font-size:12px">Puedes responder a este correo: le llegará a esa persona.</p>`,
-    }),
-    cache: "no-store",
+  const sent = await sendWebMail({
+    subject: `Mensaje de la web: ${name}`,
+    fields: { name, email, message },
+    replyTo: { email, name },
+    html: `<p><strong>${esc(name)}</strong> (<a href="mailto:${esc(email)}">${esc(email)}</a>) ha escrito desde el formulario de contacto de la web:</p><p style="white-space:pre-wrap">${esc(message)}</p><p style="color:#777;font-size:12px">Puedes responder a este correo: le llegará a esa persona.</p>`,
   });
-  if (!res.ok) {
-    console.error("[contact]", res.status, (await res.text().catch(() => "")).slice(0, 300));
-    return NextResponse.json({ ok: false, code: `brevo_${res.status}` }, { status: 502 });
-  }
+  if (!sent.ok) return NextResponse.json({ ok: false, code: sent.code }, { status: sent.status });
   return NextResponse.json({ ok: true });
 }
