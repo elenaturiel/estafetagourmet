@@ -12,6 +12,7 @@ const staticPaths = [
   "/productores",
   "/blog",
   "/visitanos",
+  "/el-encierro",
   "/envios-y-devoluciones",
   "/condiciones-de-venta",
   "/aviso-legal",

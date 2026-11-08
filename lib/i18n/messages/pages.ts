@@ -50,6 +50,18 @@ export const pages = defineMessages({
       metaDescription:
         "Nuestra tienda de productos gourmet navarros está en la calle Estafeta, 70, en el casco viejo de Pamplona. Horario, teléfono, cómo llegar y formulario de contacto.",
     },
+    encierro: {
+      metaTitle: "Ver el encierro de San Fermín desde un balcón en la calle Estafeta",
+      metaDescription:
+        "¿Quieres ver el encierro de los Sanfermines desde un balcón en la calle Estafeta de Pamplona? Mándanos un mensaje con la fecha y el número de personas y te informamos.",
+      eyebrow: "Sanfermines · 7 al 14 de julio",
+      title: "El encierro",
+      question: "¿Quieres disfrutar de la experiencia de ver el encierro de Sanfermines desde un balcón en la calle Estafeta?",
+      cta: "¡Mándanos un mensaje y te informamos!",
+      text: "La calle Estafeta es el tramo más largo y emocionante del recorrido. Indícanos la fecha que prefieres y cuántas personas sois, y te llamamos con toda la información.",
+      photoAlt: "Fachada de Estafeta Gourmet en la calle Estafeta, 70 de Pamplona",
+      photoCaption: "Estamos en la calle Estafeta, 70, en pleno recorrido del encierro.",
+    },
     blog: {
       eyebrow: "Blog",
       title: "De la huerta a la despensa",
@@ -134,6 +146,18 @@ export const pages = defineMessages({
       metaDescription:
         "Our shop of gourmet food from Navarre is at Calle Estafeta, 70, in the old town of Pamplona. Opening hours, phone, directions and contact form.",
     },
+    encierro: {
+      metaTitle: "Watch the San Fermín bull run from a balcony on Calle Estafeta",
+      metaDescription:
+        "Would you like to watch the San Fermín bull run from a balcony on Calle Estafeta in Pamplona? Send us your date and number of people and we'll get back to you.",
+      eyebrow: "San Fermín · 7 to 14 July",
+      title: "The bull run",
+      question: "Would you like to experience the San Fermín bull run from a balcony on Calle Estafeta?",
+      cta: "Send us a message and we'll tell you all about it!",
+      text: "Calle Estafeta is the longest and most thrilling stretch of the route. Tell us your preferred date and how many of you there are, and we'll call you with all the details.",
+      photoAlt: "Front of Estafeta Gourmet on Calle Estafeta, 70 in Pamplona",
+      photoCaption: "We are at Calle Estafeta, 70, right on the bull run route.",
+    },
     blog: {
       eyebrow: "Blog",
       title: "From the garden to the pantry",
@@ -217,6 +241,18 @@ export const pages = defineMessages({
       metaTitle: "Rendez-nous visite au 70 Calle Estafeta à Pampelune",
       metaDescription:
         "Notre boutique de produits gourmets de Navarre se trouve au 70 Calle Estafeta, dans le vieux quartier de Pampelune. Horaires, téléphone, itinéraire et formulaire de contact.",
+    },
+    encierro: {
+      metaTitle: "Voir l'encierro de San Fermín depuis un balcon de la calle Estafeta",
+      metaDescription:
+        "Envie de voir l'encierro des fêtes de San Fermín depuis un balcon de la calle Estafeta à Pampelune ? Envoyez-nous la date et le nombre de personnes et nous vous informons.",
+      eyebrow: "San Fermín · du 7 au 14 juillet",
+      title: "L'encierro",
+      question: "Envie de vivre l'encierro de San Fermín depuis un balcon de la calle Estafeta ?",
+      cta: "Envoyez-nous un message et nous vous informons !",
+      text: "La calle Estafeta est le tronçon le plus long et le plus impressionnant du parcours. Indiquez-nous la date souhaitée et le nombre de personnes, et nous vous appelons avec toutes les informations.",
+      photoAlt: "Façade d'Estafeta Gourmet au 70 calle Estafeta à Pampelune",
+      photoCaption: "Nous sommes au 70 calle Estafeta, en plein parcours de l'encierro.",
     },
     blog: {
       eyebrow: "Blog",

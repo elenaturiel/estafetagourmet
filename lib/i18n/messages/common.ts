@@ -19,6 +19,7 @@ export const common = defineMessages({
       newsletter: "Newsletter",
       blog: "Blog y newsletter",
       visit: "Visítanos",
+      encierro: "El encierro",
     },
     header: {
       homeLink: "Estafeta Gourmet, ir al inicio",
@@ -144,6 +145,7 @@ export const common = defineMessages({
       newsletter: "Newsletter",
       blog: "Blog & newsletter",
       visit: "Visit us",
+      encierro: "The bull run",
     },
     header: {
       homeLink: "Estafeta Gourmet, go to the home page",
@@ -269,6 +271,7 @@ export const common = defineMessages({
       newsletter: "Newsletter",
       blog: "Blog et newsletter",
       visit: "Nous rendre visite",
+      encierro: "L'encierro",
     },
     header: {
       homeLink: "Estafeta Gourmet, aller à l'accueil",

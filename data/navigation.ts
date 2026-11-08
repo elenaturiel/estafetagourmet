@@ -9,6 +9,7 @@ export const mainNav = [
   // Blog y newsletter comparten página (/blog); los boletines están en /blog#boletines.
   { href: "/blog", key: "blog" },
   { href: "/visitanos", key: "visit" },
+  { href: "/el-encierro", key: "encierro" },
 ] as const;
 
 export const footerNav = {
