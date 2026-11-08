@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ENCIERRO } from "@/data/encierro";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { PostList } from "@/components/admin/PostList";
@@ -36,6 +38,16 @@ export default async function AdminPage() {
           Falta <code>SANITY_WRITE_TOKEN</code> en Vercel: sin esa clave no se pueden guardar entradas.
         </p>
       ) : null}
+      <Link
+        href="/admin/encierro"
+        className="mb-8 flex items-center justify-between gap-4 border border-vino bg-papel px-5 py-4 hover:bg-crema"
+      >
+        <span>
+          <span className="block font-serif text-[20px]">Plazas del encierro {ENCIERRO.year}</span>
+          <span className="block text-[14px] text-secundario">Cambia cuántas plazas quedan libres cada día del 7 al 14 de julio.</span>
+        </span>
+        <span aria-hidden="true" className="text-[22px] text-vino">→</span>
+      </Link>
       <PostList posts={posts} subscribers={subscribers} />
     </AdminShell>
   );

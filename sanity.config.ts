@@ -39,6 +39,10 @@ export default defineConfig({
               .title("Avisos por correo")
               .schemaType("announcement")
               .child(S.documentTypeList("announcement").title("Avisos por correo")),
+            S.listItem()
+              .title("Plazas del encierro")
+              .schemaType("encierroPlazas")
+              .child(S.documentTypeList("encierroPlazas").title("Plazas del encierro")),
           ]),
     }),
   ],

@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { parseBody } from "next-sanity/webhook";
 import { NextResponse, type NextRequest } from "next/server";
 import { locales } from "@/lib/i18n/config";
@@ -38,6 +38,10 @@ export async function POST(req: NextRequest) {
     refresh("/blog");
     revalidatePath("/sitemap.xml");
     if (body.slug?.current) refresh(`/newsletter/${body.slug.current}`);
+  }
+  if (body?._type === "encierroPlazas") {
+    revalidateTag("encierro", "max");
+    refresh("/el-encierro");
   }
   return NextResponse.json({ ok: true });
 }

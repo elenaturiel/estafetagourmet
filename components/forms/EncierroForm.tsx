@@ -4,6 +4,7 @@ import { Link } from "@/components/ui/Link";
 import { useRef, useState, type FormEvent } from "react";
 import { EMAIL_RE, Field, inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
+import type { EncierroSeats } from "@/data/encierro";
 import { site } from "@/data/site";
 import { submitEncierro } from "@/lib/forms";
 import { fmt } from "@/lib/i18n/config";
@@ -11,12 +12,10 @@ import { useT } from "@/lib/i18n/client";
 
 type Errors = Partial<Record<"name" | "email" | "phone" | "date" | "people" | "privacy", string>>;
 
-/** Días de encierro de San Fermín. */
-const DAYS = [7, 8, 9, 10, 11, 12, 13, 14];
 const PHONE_RE = /^\+?[\d\s().-]{6,20}$/;
 
 /** Formulario de /el-encierro: nombre, correo, teléfono, fecha y número de personas. */
-export function EncierroForm() {
+export function EncierroForm({ seats }: { seats: EncierroSeats }) {
   const t = useT().forms;
   const c = t.encierro;
   const formRef = useRef<HTMLFormElement>(null);
@@ -39,6 +38,7 @@ export function EncierroForm() {
     if (!PHONE_RE.test(phone)) next.phone = c.phoneError;
     if (!date) next.date = c.dateError;
     if (!Number.isInteger(people) || people < 1 || people > 50) next.people = c.peopleError;
+    else if (date in seats && people > seats[Number(date)]) next.people = fmt(c.peopleTooMany, { n: seats[Number(date)] });
     if (!privacy) next.privacy = c.privacyError;
     setErrors(next);
 
@@ -116,11 +116,15 @@ export function EncierroForm() {
             <option value="" disabled>
               {c.datePlaceholder}
             </option>
-            {DAYS.map((d) => (
-              <option key={d} value={String(d)}>
-                {fmt(c.dayOfJuly, { day: d })}
-              </option>
-            ))}
+            {Object.keys(seats).map((key) => {
+              const d = Number(key);
+              return (
+                <option key={d} value={String(d)} disabled={seats[d] === 0}>
+                  {fmt(c.dayOfJuly, { day: d })}
+                  {seats[d] === 0 ? ` (${c.full})` : ""}
+                </option>
+              );
+            })}
             <option value="sin-decidir">{c.dateUndecided}</option>
           </select>
         </Field>
