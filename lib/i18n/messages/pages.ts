@@ -59,8 +59,8 @@ export const pages = defineMessages({
       question: "¿Quieres disfrutar de la experiencia de ver el encierro de Sanfermines desde un balcón en la calle Estafeta?",
       cta: "¡Mándanos un mensaje y te informamos!",
       text: "La calle Estafeta es el tramo más largo y emocionante del recorrido. Indícanos la fecha que prefieres y cuántas personas sois, y te llamamos con toda la información.",
-      photoAlt: "Fachada de Estafeta Gourmet en la calle Estafeta, 70 de Pamplona",
-      photoCaption: "Estamos en la calle Estafeta, 70, en pleno recorrido del encierro.",
+      photoAlt: "Los toros corren por la calle Estafeta durante el encierro de San Fermín, con los corredores vestidos de blanco y rojo y gente en los balcones",
+      photoCaption: "El encierro a su paso por la calle Estafeta, donde está nuestra tienda (Estafeta, 70).",
     },
     blog: {
       eyebrow: "Blog",
@@ -155,8 +155,8 @@ export const pages = defineMessages({
       question: "Would you like to experience the San Fermín bull run from a balcony on Calle Estafeta?",
       cta: "Send us a message and we'll tell you all about it!",
       text: "Calle Estafeta is the longest and most thrilling stretch of the route. Tell us your preferred date and how many of you there are, and we'll call you with all the details.",
-      photoAlt: "Front of Estafeta Gourmet on Calle Estafeta, 70 in Pamplona",
-      photoCaption: "We are at Calle Estafeta, 70, right on the bull run route.",
+      photoAlt: "Bulls running along Calle Estafeta during the San Fermín bull run, with runners in white and red and people watching from the balconies",
+      photoCaption: "The bull run passing along Calle Estafeta, where our shop is (Estafeta, 70).",
     },
     blog: {
       eyebrow: "Blog",
@@ -251,8 +251,8 @@ export const pages = defineMessages({
       question: "Envie de vivre l'encierro de San Fermín depuis un balcon de la calle Estafeta ?",
       cta: "Envoyez-nous un message et nous vous informons !",
       text: "La calle Estafeta est le tronçon le plus long et le plus impressionnant du parcours. Indiquez-nous la date souhaitée et le nombre de personnes, et nous vous appelons avec toutes les informations.",
-      photoAlt: "Façade d'Estafeta Gourmet au 70 calle Estafeta à Pampelune",
-      photoCaption: "Nous sommes au 70 calle Estafeta, en plein parcours de l'encierro.",
+      photoAlt: "Les taureaux courent dans la calle Estafeta pendant l'encierro de San Fermín, avec les coureurs en blanc et rouge et du public aux balcons",
+      photoCaption: "L'encierro dans la calle Estafeta, où se trouve notre boutique (Estafeta, 70).",
     },
     blog: {
       eyebrow: "Blog",
