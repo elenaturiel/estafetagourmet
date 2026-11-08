@@ -145,7 +145,7 @@ export const common = defineMessages({
       newsletter: "Newsletter",
       blog: "Blog & newsletter",
       visit: "Visit us",
-      encierro: "The bull run",
+      encierro: "The Running of the Bulls",
     },
     header: {
       homeLink: "Estafeta Gourmet, go to the home page",
