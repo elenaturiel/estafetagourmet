@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { EncierroForm } from "@/components/forms/EncierroForm";
 import { Eyebrow, Section } from "@/components/ui/Section";
 import { getLocale, getT } from "@/lib/i18n/server";
@@ -30,15 +29,22 @@ export default async function EncierroPage() {
           </div>
         </div>
         <figure className="lg:pt-4">
-          <Image
-            src="/images/encierro/encierro-calle-estafeta.webp"
-            alt={e.photoAlt}
-            width={452}
-            height={678}
-            sizes="(min-width: 1024px) 420px, 100vw"
-            className="mx-auto w-full max-w-[420px] rounded-eg"
+          {/* Vídeo de la tienda grabado desde el balcón (sin sonido): se reproduce solo y en bucle. */}
+          <video
+            src="/images/encierro/encierro-desde-el-balcon.mp4"
+            poster="/images/encierro/encierro-desde-el-balcon.webp"
+            width={464}
+            height={422}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            preload="metadata"
+            aria-label={e.photoAlt}
+            className="mx-auto h-auto w-full max-w-[464px] rounded-eg bg-tinta"
           />
-          <figcaption className="mx-auto mt-3 max-w-[420px] text-center text-[14px] text-secundario">{e.photoCaption}</figcaption>
+          <figcaption className="mx-auto mt-3 max-w-[464px] text-center text-[14px] text-secundario">{e.photoCaption}</figcaption>
         </figure>
       </div>
     </Section>
