@@ -109,7 +109,7 @@ export const forms = defineMessages({
       sendError: "We could not send your message. Please try again or write to us on WhatsApp.",
     },
     encierro: {
-      aria: "Form to watch the bull run from a balcony",
+      aria: "Form to watch the Running of the Bulls from a balcony",
       name: "Name",
       email: "Email",
       phone: "Phone",
