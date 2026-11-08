@@ -31,10 +31,10 @@ export default async function EncierroPage() {
         </div>
         <figure className="lg:pt-4">
           <Image
-            src="/images/blog/ya-estamos-abiertos-fachada.webp"
+            src="/images/encierro/encierro-calle-estafeta.webp"
             alt={e.photoAlt}
-            width={600}
-            height={1067}
+            width={452}
+            height={678}
             sizes="(min-width: 1024px) 420px, 100vw"
             className="mx-auto w-full max-w-[420px] rounded-eg"
           />
