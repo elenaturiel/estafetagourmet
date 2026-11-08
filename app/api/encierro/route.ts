@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { site } from "@/data/site";
+import { getEncierroSeats } from "@/lib/encierro";
 import { escapeHtml as esc, sendWebMail } from "@/lib/mail";
 
 /** Días de encierro (7 al 14 de julio) o "sin decidir". */
@@ -30,6 +31,9 @@ export async function POST(req: NextRequest) {
   if (!name || !EMAIL_RE.test(email) || !PHONE_RE.test(phone) || !DATES.has(date) || !Number.isInteger(people) || people < 1 || people > 50) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
+  // Día completo o sin plazas suficientes (el formulario ya lo evita).
+  const seats = await getEncierroSeats();
+  if (date in seats && people > seats[Number(date)]) return NextResponse.json({ ok: false, code: "sin_plazas" }, { status: 409 });
 
   const dateText = date === "sin-decidir" ? "Aún no lo sabe" : `${date} de julio`;
   const rows: [string, string][] = [

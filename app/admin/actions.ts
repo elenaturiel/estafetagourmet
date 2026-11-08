@@ -7,6 +7,7 @@ import { CATEGORIES, emailPost, getPost, slugify, uniqueSlug, writer } from "@/l
 import { markdownToPortable } from "@/lib/admin-markdown";
 import { CampaignError } from "@/lib/campaign";
 import { locales } from "@/lib/i18n/config";
+import { ENCIERRO, encierroDocId } from "@/data/encierro";
 
 export type ActionState = { ok?: boolean; error?: string; message?: string; id?: string } | null;
 
@@ -143,5 +144,25 @@ export async function sendPost(id: string, mode: "test" | "all", testTo?: string
   } catch (err) {
     console.error("[admin] sendPost", err);
     return { error: err instanceof CampaignError ? err.message : "No se pudo enviar el correo." };
+  }
+}
+
+/** Guarda las plazas libres de cada día del encierro y actualiza /el-encierro al momento. */
+export async function saveEncierroSeats(_: ActionState, form: FormData): Promise<ActionState> {
+  try {
+    await guard();
+    const c = writer();
+    if (!c) return { error: "Falta SANITY_WRITE_TOKEN en Vercel." };
+    const days = ENCIERRO.days.map((day) => {
+      const n = Number(form.get(`seats-${day}`));
+      return { _key: `d${day}`, _type: "dia", day, seats: Number.isFinite(n) ? Math.min(99, Math.max(0, Math.floor(n))) : 0 };
+    });
+    await c.createOrReplace({ _id: encierroDocId(), _type: "encierroPlazas", year: ENCIERRO.year, days });
+    updateTag("encierro");
+    for (const l of locales) revalidatePath(`/${l}/el-encierro`);
+    revalidatePath("/el-encierro");
+    return { ok: true, message: "Guardado. La web ya muestra las plazas nuevas." };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "No se ha podido guardar." };
   }
 }
