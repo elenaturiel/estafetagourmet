@@ -2,20 +2,20 @@
 
 import { Link } from "@/components/ui/Link";
 import { useRef, useState, type FormEvent } from "react";
-import { Field, inputClasses } from "@/components/forms/Field";
+import { EMAIL_RE, Field, inputClasses } from "@/components/forms/Field";
 import { buttonClasses } from "@/components/ui/Button";
 import { site } from "@/data/site";
 import { submitEncierro } from "@/lib/forms";
 import { fmt } from "@/lib/i18n/config";
 import { useT } from "@/lib/i18n/client";
 
-type Errors = Partial<Record<"name" | "phone" | "date" | "people" | "privacy", string>>;
+type Errors = Partial<Record<"name" | "email" | "phone" | "date" | "people" | "privacy", string>>;
 
 /** Días de encierro de San Fermín. */
 const DAYS = [7, 8, 9, 10, 11, 12, 13, 14];
 const PHONE_RE = /^\+?[\d\s().-]{6,20}$/;
 
-/** Formulario de /el-encierro: nombre, teléfono, fecha y número de personas. */
+/** Formulario de /el-encierro: nombre, correo, teléfono, fecha y número de personas. */
 export function EncierroForm() {
   const t = useT().forms;
   const c = t.encierro;
@@ -27,6 +27,7 @@ export function EncierroForm() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const name = data.get("name")?.toString().trim() ?? "";
+    const email = data.get("email")?.toString().trim() ?? "";
     const phone = data.get("phone")?.toString().trim() ?? "";
     const date = data.get("date")?.toString() ?? "";
     const people = Number(data.get("people"));
@@ -34,20 +35,21 @@ export function EncierroForm() {
 
     const next: Errors = {};
     if (!name) next.name = c.nameError;
+    if (!EMAIL_RE.test(email)) next.email = c.emailError;
     if (!PHONE_RE.test(phone)) next.phone = c.phoneError;
     if (!date) next.date = c.dateError;
     if (!Number.isInteger(people) || people < 1 || people > 50) next.people = c.peopleError;
     if (!privacy) next.privacy = c.privacyError;
     setErrors(next);
 
-    const firstInvalid = (["name", "phone", "date", "people", "privacy"] as const).find((k) => next[k]);
+    const firstInvalid = (["name", "email", "phone", "date", "people", "privacy"] as const).find((k) => next[k]);
     if (firstInvalid) {
       formRef.current?.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
       return;
     }
 
     setStatus("sending");
-    const ok = await submitEncierro({ name, phone, date, people, website: data.get("website")?.toString() ?? "" });
+    const ok = await submitEncierro({ name, email, phone, date, people, website: data.get("website")?.toString() ?? "" });
     setStatus(ok ? "done" : "error");
   }
 
@@ -73,6 +75,18 @@ export function EncierroForm() {
             required
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={describedBy("name")}
+            className={`${inputClasses} min-h-[48px]`}
+          />
+        </Field>
+        <Field id="encierro-email" label={c.email} error={errors.email}>
+          <input
+            id="encierro-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={describedBy("email")}
             className={`${inputClasses} min-h-[48px]`}
           />
         </Field>

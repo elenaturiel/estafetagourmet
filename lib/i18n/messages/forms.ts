@@ -33,6 +33,7 @@ export const forms = defineMessages({
     encierro: {
       aria: "Formulario para ver el encierro desde un balcón",
       name: "Nombre",
+      email: "Correo electrónico",
       phone: "Teléfono",
       date: "Fecha elegida",
       datePlaceholder: "Elige un día",
@@ -40,6 +41,7 @@ export const forms = defineMessages({
       dayOfJuly: "{day} de julio",
       people: "Número de personas",
       nameError: "Escribe tu nombre.",
+      emailError: "Escribe un correo electrónico válido.",
       phoneError: "Escribe un teléfono válido.",
       dateError: "Elige una fecha.",
       peopleError: "Indica cuántas personas sois (de 1 a 50).",
@@ -107,6 +109,7 @@ export const forms = defineMessages({
     encierro: {
       aria: "Form to watch the bull run from a balcony",
       name: "Name",
+      email: "Email",
       phone: "Phone",
       date: "Preferred date",
       datePlaceholder: "Choose a day",
@@ -114,6 +117,7 @@ export const forms = defineMessages({
       dayOfJuly: "{day} July",
       people: "Number of people",
       nameError: "Please enter your name.",
+      emailError: "Please enter a valid email address.",
       phoneError: "Please enter a valid phone number.",
       dateError: "Please choose a date.",
       peopleError: "Tell us how many people (1 to 50).",
@@ -181,6 +185,7 @@ export const forms = defineMessages({
     encierro: {
       aria: "Formulaire pour voir l'encierro depuis un balcon",
       name: "Nom",
+      email: "E-mail",
       phone: "Téléphone",
       date: "Date choisie",
       datePlaceholder: "Choisissez un jour",
@@ -188,6 +193,7 @@ export const forms = defineMessages({
       dayOfJuly: "{day} juillet",
       people: "Nombre de personnes",
       nameError: "Indiquez votre nom.",
+      emailError: "Indiquez une adresse e-mail valide.",
       phoneError: "Indiquez un numéro de téléphone valide.",
       dateError: "Choisissez une date.",
       peopleError: "Indiquez le nombre de personnes (de 1 à 50).",

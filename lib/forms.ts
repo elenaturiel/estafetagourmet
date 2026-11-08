@@ -3,7 +3,7 @@
  *
  * - Newsletter: /api/newsletter (Brevo). Ver lib/newsletter.ts.
  * - Contacto: /api/contact (correo por Brevo a CONTACT_TO o al correo de la tienda).
- * - El encierro: /api/encierro (correo a la tienda con nombre, teléfono, fecha y personas).
+ * - El encierro: /api/encierro (correo a la tienda con nombre, correo, teléfono, fecha y personas).
  */
 import type { Locale } from "@/lib/i18n/config";
 
@@ -51,7 +51,7 @@ export async function submitContact(payload: ContactPayload & { website?: string
   }
 }
 
-export type EncierroPayload = { name: string; phone: string; date: string; people: number };
+export type EncierroPayload = { name: string; email: string; phone: string; date: string; people: number };
 
 /** Envía la solicitud de /el-encierro (/api/encierro). Devuelve false si no se pudo enviar. */
 export async function submitEncierro(payload: EncierroPayload & { website?: string }): Promise<boolean> {
