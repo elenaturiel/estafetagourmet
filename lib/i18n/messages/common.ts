@@ -93,6 +93,12 @@ export const common = defineMessages({
       close: "Cerrar",
     },
     buyOnline: "Comprar",
+    christmasShop: {
+      eyebrow: "Navidad",
+      title: "La tienda de la Navidad",
+      text: "Lotes, vinos, dulces y todo lo que necesitas para tu mesa de Navidad, con lo mejor de Navarra.",
+      button: "Ver la tienda de Navidad",
+    },
     onlineShop: {
       title: "¡Nuestra tienda online ya está operativa!",
       text: "Compra con total confianza: te lo enviamos a casa o lo recoges en nuestra tienda de la calle Estafeta.",
@@ -219,6 +225,12 @@ export const common = defineMessages({
       close: "Close",
     },
     buyOnline: "Buy",
+    christmasShop: {
+      eyebrow: "Christmas",
+      title: "The Christmas Shop",
+      text: "Gift sets, wines, sweets and everything you need for your Christmas table, with the best of Navarre.",
+      button: "Visit the Christmas shop",
+    },
     onlineShop: {
       title: "Our online store is now open!",
       text: "Shop with complete confidence: we deliver to your door, or you can collect your order from our shop on Calle Estafeta.",
@@ -345,6 +357,12 @@ export const common = defineMessages({
       close: "Fermer",
     },
     buyOnline: "Acheter",
+    christmasShop: {
+      eyebrow: "Noël",
+      title: "La boutique de Noël",
+      text: "Coffrets, vins, douceurs et tout ce qu'il faut pour votre table de Noël, avec le meilleur de la Navarre.",
+      button: "Voir la boutique de Noël",
+    },
     onlineShop: {
       title: "Notre boutique en ligne est ouverte !",
       text: "Achetez en toute confiance : nous vous livrons à domicile, ou vous retirez votre commande dans notre boutique de la calle Estafeta.",

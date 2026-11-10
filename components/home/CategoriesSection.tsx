@@ -4,6 +4,7 @@ import { Section, SectionHeader } from "@/components/ui/Section";
 import { getCategories } from "@/lib/catalog";
 import { getT } from "@/lib/i18n/server";
 import { TIENDA_ONLINE } from "@/data/tienda-online";
+import { ChristmasShopBanner } from "@/components/shop/ChristmasShopBanner";
 import { OnlineShopBanner } from "@/components/shop/OnlineShopBanner";
 
 /**
@@ -30,7 +31,8 @@ export async function CategoriesSection() {
           </li>
         ))}
       </ul>
-      <OnlineShopBanner className="mt-8 lg:mt-12" />
+      <ChristmasShopBanner className="mt-8 lg:mt-12" />
+      <OnlineShopBanner className="mt-4 lg:mt-5" />
     </Section>
   );
 }

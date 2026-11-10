@@ -14,6 +14,12 @@ export const TIENDA_ONLINE_ORIGEN = "https://ecommerce.estafetagourmet.com";
 export const TIENDA_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/page/1500002";
 
 /**
+ * «La tienda de la Navidad» (banner de temporada): a dónde lleva. Mientras no
+ * estén las categorías de Navidad, a toda la tienda; cámbialo por su dirección.
+ */
+export const TIENDA_NAVIDAD = TIENDA_ONLINE;
+
+/**
  * Categorías que se compran en la tienda online: slug de la categoría
  * (data/categories.ts) → su página allí. Al pinchar la categoría (menú,
  * tarjetas, filtro) se va a esa dirección, y /tienda/<slug> redirige a ella.
