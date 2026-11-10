@@ -13,11 +13,8 @@ export const TIENDA_ONLINE_ORIGEN = "https://ecommerce.estafetagourmet.com";
 /** Los enlaces a "toda la tienda" (sin elegir categoría) llevan aquí. */
 export const TIENDA_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/page/1500002";
 
-/**
- * «La tienda de la Navidad» (banner de temporada): a dónde lleva. Mientras no
- * estén las categorías de Navidad, a toda la tienda; cámbialo por su dirección.
- */
-export const TIENDA_NAVIDAD = TIENDA_ONLINE;
+/** «La tienda de la Navidad» (banner de temporada): las categorías de Navidad de la tienda online. */
+export const TIENDA_NAVIDAD = "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=15";
 
 /**
  * Categorías que se compran en la tienda online: slug de la categoría
