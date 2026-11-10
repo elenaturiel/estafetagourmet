@@ -97,7 +97,8 @@ export const common = defineMessages({
       eyebrow: "Navidad",
       title: "La tienda de la Navidad",
       text: "Lotes, vinos, dulces y todo lo que necesitas para tu mesa de Navidad, con lo mejor de Navarra.",
-      button: "Ver la tienda de Navidad",
+      lots: "Lotes",
+      sweets: "Dulces navideños",
     },
     onlineShop: {
       title: "¡Nuestra tienda online ya está operativa!",
@@ -229,7 +230,8 @@ export const common = defineMessages({
       eyebrow: "Christmas",
       title: "The Christmas Shop",
       text: "Gift sets, wines, sweets and everything you need for your Christmas table, with the best of Navarre.",
-      button: "Visit the Christmas shop",
+      lots: "Gift sets",
+      sweets: "Christmas sweets",
     },
     onlineShop: {
       title: "Our online store is now open!",
@@ -361,7 +363,8 @@ export const common = defineMessages({
       eyebrow: "Noël",
       title: "La boutique de Noël",
       text: "Coffrets, vins, douceurs et tout ce qu'il faut pour votre table de Noël, avec le meilleur de la Navarre.",
-      button: "Voir la boutique de Noël",
+      lots: "Coffrets",
+      sweets: "Douceurs de Noël",
     },
     onlineShop: {
       title: "Notre boutique en ligne est ouverte !",
