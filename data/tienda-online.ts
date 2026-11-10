@@ -16,6 +16,10 @@ export const TIENDA_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/pag
 /** «La tienda de la Navidad» (banner de temporada): las categorías de Navidad de la tienda online. */
 export const TIENDA_NAVIDAD = "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=15";
 
+/** Botones del banner de Navidad. Mientras no tengan su propia dirección, llevan a la categoría de Navidad. */
+export const TIENDA_NAVIDAD_LOTES = TIENDA_NAVIDAD;
+export const TIENDA_NAVIDAD_DULCES = TIENDA_NAVIDAD;
+
 /**
  * Categorías que se compran en la tienda online: slug de la categoría
  * (data/categories.ts) → su página allí. Al pinchar la categoría (menú,
