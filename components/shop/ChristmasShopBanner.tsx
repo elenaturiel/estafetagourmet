@@ -65,16 +65,19 @@ export function ChristmasShopBanner({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        "relative flex flex-col gap-4 overflow-hidden rounded-eg border-2 border-dorado bg-[#1d4a32] px-6 pt-6 pb-16 text-crema sm:flex-row sm:items-center sm:justify-between sm:pb-6 lg:px-10 lg:py-9",
+        "relative flex flex-col gap-5 overflow-hidden rounded-[28px] border-2 border-dorado bg-[#1d4a32] px-6 pt-6 pb-20 text-white sm:flex-row sm:items-center sm:justify-between sm:pb-10 lg:rounded-[36px] lg:px-10 lg:py-12",
         className,
       )}
     >
-      <Holly className="pointer-events-none absolute -top-2 -left-3 w-[140px] -rotate-6 lg:w-[190px]" />
-      <Holly className="pointer-events-none absolute -right-3 -bottom-2 w-[140px] rotate-[174deg] lg:w-[190px]" />
+      {/* Ramitas de acebo en las cuatro esquinas */}
+      <Holly className="pointer-events-none absolute -top-2 -left-3 w-[130px] -rotate-6 lg:w-[180px]" />
+      <Holly className="pointer-events-none absolute -top-3 -right-4 w-[110px] rotate-[200deg] -scale-y-100 lg:w-[150px]" />
+      <Holly className="pointer-events-none absolute -bottom-3 -left-4 w-[110px] rotate-[20deg] -scale-y-100 lg:w-[150px]" />
+      <Holly className="pointer-events-none absolute -right-3 -bottom-2 w-[130px] rotate-[174deg] lg:w-[180px]" />
       <div className="relative pt-14 sm:pt-0 sm:pl-32 lg:pl-44">
         <p className="eyebrow text-dorado">{t.eyebrow}</p>
         <p className="mt-1 font-serif text-[26px] leading-tight lg:text-[34px]">{t.title}</p>
-        <p className="mt-1.5 max-w-xl text-[15px] leading-[1.5] text-crema/85 lg:text-[16px]">{t.text}</p>
+        <p className="mt-1.5 max-w-xl text-[15px] leading-[1.5] text-white/90 lg:text-[16px]">{t.text}</p>
       </div>
       <div className="relative flex shrink-0 flex-col gap-3 sm:mr-28 lg:mr-40">
         {[
@@ -84,9 +87,9 @@ export function ChristmasShopBanner({ className }: { className?: string }) {
           <a
             key={b.label}
             href={b.href}
-            className="inline-flex min-h-[56px] items-center gap-3 rounded-eg bg-crema py-2 pr-6 pl-3 text-[16px] font-semibold text-tinta hover:bg-dorado"
+            className="inline-flex min-h-[64px] items-center gap-3 rounded-full border-2 border-dorado bg-[#2e6b47] py-2 pr-7 pl-2.5 font-serif text-[22px] font-semibold text-white shadow-[0_6px_16px_-8px_rgba(0,0,0,0.6)] hover:bg-[#3a7d54] lg:text-[24px]"
           >
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-papel">{b.icon}</span>
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-papel">{b.icon}</span>
             {b.label}
           </a>
         ))}
