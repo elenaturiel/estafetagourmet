@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ENCIERRO } from "@/data/encierro";
+import { newsletters } from "@/data/newsletters";
+import { WebIssueList } from "@/components/admin/WebIssueList";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { PostList } from "@/components/admin/PostList";
@@ -30,10 +32,19 @@ export default async function AdminPage() {
       </AdminShell>
     );
   }
-  const [posts, subscribers] = await Promise.all([listPosts(), subscriberCount()]);
+  const c = writer();
+  const [posts, subscribers, sent] = await Promise.all([
+    listPosts(),
+    subscriberCount(),
+    c ? c.fetch<{ slug: string; sentAt: string }[]>(`*[_type == "boletinWebEnviado"]{ slug, sentAt }`).catch(() => []) : Promise.resolve([]),
+  ]);
+  const sentAt = new Map(sent.map((x) => [x.slug, x.sentAt]));
+  const issues = [...newsletters]
+    .sort((a, b) => b.number - a.number)
+    .map((n) => ({ slug: n.slug, number: n.number, title: n.title, sentAt: sentAt.get(n.slug) ?? null }));
   return (
     <AdminShell logout>
-      {!writer() ? (
+      {!c ? (
         <p className="mb-6 border border-vino bg-papel p-4 text-[15px]">
           Falta <code>SANITY_WRITE_TOKEN</code> en Vercel: sin esa clave no se pueden guardar entradas.
         </p>
@@ -49,6 +60,7 @@ export default async function AdminPage() {
         <span aria-hidden="true" className="text-[22px] text-vino">→</span>
       </Link>
       <PostList posts={posts} subscribers={subscribers} />
+      <WebIssueList issues={issues} />
     </AdminShell>
   );
 }
