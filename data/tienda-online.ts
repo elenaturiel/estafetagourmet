@@ -17,8 +17,7 @@ export const TIENDA_ONLINE = "https://ecommerce.estafetagourmet.com/commerce/pag
 export const TIENDA_NAVIDAD = "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=15";
 
 /** Botones del banner de Navidad: Lotes y Dulces navideños. */
-// tienda-gourmet/439 abría la portada de la tienda: de momento, la categoría Lotes general.
-export const TIENDA_NAVIDAD_LOTES = "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet?l=1&d=14";
+export const TIENDA_NAVIDAD_LOTES = "https://ecommerce.estafetagourmet.com/commerce/tienda-gourmet/439";
 export const TIENDA_NAVIDAD_DULCES = TIENDA_NAVIDAD;
 
 /**
