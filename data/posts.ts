@@ -11,12 +11,89 @@ function paragraphs(slug: string, texts: string[]): PortableBlock[] {
   }));
 }
 
+/** Bloque de texto enriquecido: trozos de texto, con negrita ("strong") o enlace ({ href }). */
+type Piece = string | { text: string; strong?: boolean; href?: string };
+function rich(key: string, pieces: Piece[], extra: Partial<PortableBlock> = {}): PortableBlock {
+  const markDefs: { _type: "link"; _key: string; href: string }[] = [];
+  const children = pieces.map((piece, i) => {
+    const p = typeof piece === "string" ? { text: piece } : piece;
+    const marks: string[] = p.strong ? ["strong"] : [];
+    if (p.href) {
+      markDefs.push({ _type: "link", _key: `${key}-l${i}`, href: p.href });
+      marks.push(`${key}-l${i}`);
+    }
+    return { _type: "span", _key: `${key}-${i}`, text: p.text, marks };
+  });
+  return { _type: "block", _key: key, style: "normal", markDefs, children, ...extra };
+}
+
 /**
  * Entradas del blog escritas aquí. Se muestran junto a las del panel /admin
  * (Sanity), de la más reciente a la más antigua. `excerpt` es el resumen de
  * las tarjetas y buscadores; el texto completo va en `body`.
  */
 export const posts: Post[] = [
+  {
+    slug: "primer-aceite-2026-artajo-8-bio-en-rama",
+    category: "Novedades",
+    title: "El primer aceite de 2026: ya ha llegado el Artajo 8 BIO en rama",
+    excerpt:
+      "¡Ya tenemos en tienda las primeras unidades del nuevo Artajo 8 Arbequina BIO en rama, el aceite de primera prensada de la cosecha 2026!",
+    date: "2026-11-12",
+    image: {
+      src: "/images/blog/artajo-8-bio-en-rama-2026.webp",
+      alt: "Botella de aceite de oliva virgen extra Artajo 8 Arbequina BIO en rama, recién exprimido, con ramas de olivo",
+      placeholder: "Foto · blog",
+    },
+    cover: {
+      src: "/images/blog/artajo-8-bio-en-rama-2026-botella.webp",
+      alt: "Botella de aceite de oliva virgen extra Artajo 8 Arbequina BIO en rama, recién exprimido, con ramas de olivo",
+      width: 586,
+      height: 662,
+    },
+    body: [
+      rich("primer-aceite-2026-artajo-8-bio-en-rama-0", [
+        { text: "¡Ya tenemos en tienda las primeras unidades del nuevo Artajo 8 Arbequina BIO en rama, el aceite de primera prensada de la cosecha 2026!", strong: true },
+      ]),
+      rich("primer-aceite-2026-artajo-8-bio-en-rama-1", [
+        "Es un zumo de aceituna ecológica de extracción en frío que se envasa sin filtrar. Aceite Artajo lo elabora en su finca de Fontellas, en la Ribera de Navarra, con arbequina de producción propia. La gama Artajo 8 se hace con aceitunas de maduración media y se elabora hacia la primera semana de noviembre.",
+      ]),
+      rich("primer-aceite-2026-artajo-8-bio-en-rama-2", ["Lo que lo hace especial"], { style: "h2" }),
+      rich(
+        "primer-aceite-2026-artajo-8-bio-en-rama-3",
+        [
+          { text: "Recién exprimido: ", strong: true },
+          "se elabora en las dos horas siguientes a la recolección, y por eso tiene un color, un sabor y un aroma frutado tan intensos.",
+        ],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich(
+        "primer-aceite-2026-artajo-8-bio-en-rama-4",
+        [
+          { text: "Sin filtrar: ", strong: true },
+          "como se envasa justo después de la extracción, conserva todos sus polifenoles. Además de los apolares, que tiene cualquier aceite, mantiene los polares, que solo están en el AOVE sin filtrar.",
+        ],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich(
+        "primer-aceite-2026-artajo-8-bio-en-rama-5",
+        [
+          { text: "Acidez de 0,2º, ecológico certificado y de producción limitada: ", strong: true },
+          "solo se elabora durante la época de cosecha.",
+        ],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich("primer-aceite-2026-artajo-8-bio-en-rama-6", [
+        "Viene de una de las almazaras ecológicas más premiadas del mundo. Si quieres saber más sobre cómo trabajan, visita su web: ",
+        { text: "www.artajo.es", href: "https://www.artajo.es" },
+        ".",
+      ]),
+      rich("primer-aceite-2026-artajo-8-bio-en-rama-7", ["Pruébalo en crudo, sobre una buena tostada, para apreciar todo su frescor."]),
+      rich("primer-aceite-2026-artajo-8-bio-en-rama-8", [
+        { text: "Corre, que vuela: ya tenemos en tienda las primeras unidades. ¡Te esperamos en Estafeta Gourmet!", strong: true },
+      ]),
+    ],
+  },
   {
     slug: "novedad-vermut-artesano-oro-nomada",
     category: "Novedades",
