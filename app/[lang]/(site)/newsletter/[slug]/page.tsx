@@ -107,7 +107,9 @@ export default async function NewsletterIssuePage({ params }: Params) {
                     width={sec.image.width ?? 900}
                     height={sec.image.height ?? 900}
                     sizes="(min-width: 768px) 768px, 100vw"
-                    className="mt-5 w-full rounded-eg"
+                    className="mx-auto mt-5 w-full rounded-eg"
+                    // Las fotos verticales (una botella) no ocupan todo el ancho.
+                    style={(sec.image.height ?? 900) > (sec.image.width ?? 900) ? { maxWidth: 420 } : undefined}
                   />
                 ) : null}
                 {sec.paragraphs?.map((p) => (

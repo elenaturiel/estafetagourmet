@@ -559,6 +559,58 @@ export const newsletters: Newsletter[] = [
     },
     source: false,
   },
+  {
+    slug: "primer-aceite-2026-artajo-8-bio-en-rama",
+    number: 11,
+    theme: "Novedad",
+    title: "El primer aceite de 2026",
+    subtitle: "Ya ha llegado el Artajo 8 BIO en rama de la cosecha 2026",
+    excerpt: "¡Ya tenemos en tienda las primeras unidades del nuevo Artajo 8 Arbequina BIO en rama, el aceite de primera prensada de la cosecha 2026!",
+    image: { src: "/images/blog/artajo-8-bio-en-rama-2026-4x3.webp", alt: "Botella de aceite de oliva virgen extra Artajo 8 Arbequina BIO en rama, recién exprimido, con ramas de olivo" },
+    lead: "¡Ya tenemos en tienda las primeras unidades del nuevo Artajo 8 Arbequina BIO en rama, el aceite de primera prensada de la cosecha 2026!",
+    stats: [
+      { value: "0,2º", label: "de acidez" },
+      { value: "2 horas", label: "de la recolección a la almazara" },
+      { value: "Sin filtrar", label: "conserva todos sus polifenoles" },
+      { value: "Fontellas", label: "Ribera de Navarra" },
+    ],
+    sections: [
+      {
+        title: "Zumo de aceituna ecológica",
+        image: {
+          src: "/images/blog/artajo-8-bio-en-rama-2026-botella.webp",
+          alt: "Botella de aceite de oliva virgen extra Artajo 8 Arbequina BIO en rama, recién exprimido, con ramas de olivo",
+          width: 586,
+          height: 662,
+        },
+        paragraphs: [
+          "Es un zumo de aceituna ecológica de extracción en frío que se envasa sin filtrar. Aceite Artajo lo elabora en su finca de Fontellas, en la Ribera de Navarra, con arbequina de producción propia. La gama Artajo 8 se hace con aceitunas de maduración media y se elabora hacia la primera semana de noviembre.",
+        ],
+      },
+      {
+        title: "Lo que lo hace especial",
+        list: [
+          "**Recién exprimido:** se elabora en las dos horas siguientes a la recolección, y por eso tiene un color, un sabor y un aroma frutado tan intensos.",
+          "**Sin filtrar:** como se envasa justo después de la extracción, conserva todos sus polifenoles. Además de los apolares, que tiene cualquier aceite, mantiene los polares, que solo están en el AOVE sin filtrar.",
+          "**Acidez de 0,2º, ecológico certificado y de producción limitada:** solo se elabora durante la época de cosecha.",
+        ],
+      },
+      {
+        title: "Una almazara premiada",
+        paragraphs: [
+          "Viene de una de las almazaras ecológicas más premiadas del mundo. Si quieres saber más sobre cómo trabajan, visita su web: www.artajo.es.",
+          "Pruébalo en crudo, sobre una buena tostada, para apreciar todo su frescor.",
+          "**Corre, que vuela: ya tenemos en tienda las primeras unidades. ¡Te esperamos en Estafeta Gourmet!**",
+        ],
+      },
+    ],
+    shop: {
+      title: "Aceites de Navarra",
+      products: [],
+      cta: { label: "Ver los aceites en la tienda online", href: "/tienda/aceites" },
+    },
+    source: false,
+  },
 ];
 
 export function getNewsletter(slug: string): Newsletter | undefined {

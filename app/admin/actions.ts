@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 import { endSession, isAdmin, passwordMatches, startSession } from "@/lib/admin-auth";
 import { CATEGORIES, emailPost, getPost, slugify, uniqueSlug, writer } from "@/lib/admin-posts";
 import { markdownToPortable } from "@/lib/admin-markdown";
-import { CampaignError } from "@/lib/campaign";
+import { CampaignError, renderEmail, sendCampaign } from "@/lib/campaign";
+import { getNewsletter } from "@/data/newsletters";
+import { SITE_URL } from "@/data/site";
+import { issueBodyHtml, webIssueSentId } from "@/lib/issue-email";
 import { locales } from "@/lib/i18n/config";
 import { ENCIERRO, encierroDocId } from "@/data/encierro";
 
@@ -164,5 +167,43 @@ export async function saveEncierroSeats(_: ActionState, form: FormData): Promise
     return { ok: true, message: "Guardado. La web ya muestra las plazas nuevas." };
   } catch (e) {
     return { error: e instanceof Error ? e.message : "No se ha podido guardar." };
+  }
+}
+
+/** Envía por correo un boletín escrito en la web: una prueba a `testTo` o a toda la lista (solo una vez). */
+export async function sendWebIssue(slug: string, mode: "test" | "all", testTo?: string): Promise<{ ok?: boolean; error?: string; message?: string }> {
+  try {
+    await guard();
+    const issue = getNewsletter(slug);
+    if (!issue) return { error: "No se encontró el boletín." };
+    const c = writer();
+    if (mode === "test") {
+      const to = (testTo ?? "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) return { error: "Escribe un correo válido para la prueba." };
+    } else {
+      if (!c) return { error: "Falta SANITY_WRITE_TOKEN en Vercel (para recordar que ya se envió y no repetirlo)." };
+      const sent = await c.fetch<string | null>(`*[_id == $id][0].sentAt`, { id: webIssueSentId(slug) });
+      if (sent) return { error: "Este boletín ya se envió a la lista." };
+    }
+    await sendCampaign({
+      name: `Boletín: ${issue.title} (${new Date().toISOString().slice(0, 10)})`,
+      subject: issue.title,
+      preheader: issue.excerpt,
+      html: renderEmail({
+        title: issue.title,
+        preheader: issue.excerpt,
+        imageUrl: `${SITE_URL}${issue.image.src}`,
+        imageAlt: issue.image.alt,
+        bodyHtml: issueBodyHtml(issue),
+        cta: { label: "Leer el boletín en la web", href: `${SITE_URL}/newsletter/${issue.slug}` },
+      }),
+      testTo: mode === "test" ? testTo?.trim() : undefined,
+    });
+    if (mode === "test") return { ok: true, message: `Prueba enviada a ${testTo?.trim()}. Puede tardar un par de minutos.` };
+    await c!.createOrReplace({ _id: webIssueSentId(slug), _type: "boletinWebEnviado", slug, sentAt: new Date().toISOString() });
+    return { ok: true, message: "Enviado a todos los suscriptores." };
+  } catch (err) {
+    console.error("[admin] sendWebIssue", err);
+    return { error: err instanceof CampaignError ? err.message : "No se pudo enviar el correo." };
   }
 }
