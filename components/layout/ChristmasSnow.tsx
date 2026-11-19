@@ -2,7 +2,7 @@
  * Nieve cayendo (modo Navidad, temporal). Puramente decorativa:
  * no recibe clics y se oculta con «reducir movimiento». Estilos en app/navidad.css.
  */
-const FLAKES = Array.from({ length: 36 }, (_, i) => {
+const FLAKES = Array.from({ length: 55 }, (_, i) => {
   // Valores fijos pseudoaleatorios para que el servidor y el navegador pinten lo mismo.
   const r = (n: number) => ((Math.sin(i * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
   return {
