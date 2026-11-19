@@ -220,3 +220,26 @@ footer.bg-pie {
     padding-top: 90px;
   }
 }
+
+/* Barra superior con la misma decoración que el pie:
+   flores de pascua y acebo arriba, guirnalda de abeto con bolas debajo. */
+.navidad-topbar {
+  padding-bottom: 150px !important;
+  background-image: url("/navidad/guirnalda-navidad.svg") !important;
+  background-position: center 40px !important;
+  background-size: 1400px 219px !important;
+  background-repeat: repeat-x !important;
+  background-color: var(--navidad-verde-oscuro) !important;
+}
+.navidad-topbar::after {
+  top: 22px;
+  bottom: auto !important;
+}
+@media (max-width: 640px) {
+  .navidad-topbar {
+    padding-bottom: 92px !important;
+    background-position: center 34px !important;
+    background-size: 800px 125px !important;
+  }
+  .navidad-topbar::after { top: 20px; }
+}
