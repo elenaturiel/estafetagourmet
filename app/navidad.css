@@ -187,3 +187,36 @@ main section.bg-vino.relative::before {
 
 /* Más nieve y algo más visible. */
 .navidad-nieve span { color: #ffffff; }
+
+/* Fondo propio con guirnalda de abeto, bolas, bastones de caramelo, acebo y estrellas
+   (dibujo original de Estafeta Gourmet, en public/navidad/). */
+main section.bg-vino.relative {
+  background-image: url("/navidad/guirnalda-navidad.svg"), url("/navidad/guirnalda-navidad-abajo.svg") !important;
+  background-position: top center, bottom center !important;
+  background-size: 1400px 219px, 1400px 219px !important;
+  background-repeat: repeat-x, repeat-x !important;
+  padding-top: 200px !important;
+  padding-bottom: 200px !important;
+}
+main section.bg-vino.relative::before,
+main section.bg-vino.relative::after {
+  display: none !important;
+}
+footer.bg-pie {
+  background-image: url("/navidad/guirnalda-navidad.svg");
+  background-position: top center;
+  background-size: 1400px 219px;
+  background-repeat: repeat-x;
+  padding-top: 150px;
+}
+@media (max-width: 640px) {
+  main section.bg-vino.relative {
+    background-size: 800px 125px, 800px 125px !important;
+    padding-top: 120px !important;
+    padding-bottom: 120px !important;
+  }
+  footer.bg-pie {
+    background-size: 800px 125px;
+    padding-top: 90px;
+  }
+}
