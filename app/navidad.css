@@ -15,6 +15,9 @@
   --navidad-verde-borde: #2d6346;
   --navidad-acebo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 70'%3E%3Cpath d='M60 38C42 20 24 22 6 10c8 10 4 18 12 22-8 4-6 12-14 18 18-6 36-2 56-12z' fill='%233f8a52'/%3E%3Cpath d='M60 38C78 20 96 22 114 10c-8 10-4 18-12 22 8 4 6 12 14 18-18-6-36-2-56-12z' fill='%232f7343'/%3E%3Cpath d='M60 38C42 20 24 22 6 10M60 38C78 20 96 22 114 10' stroke='%23215634' stroke-width='1.5' fill='none'/%3E%3Ccircle cx='53' cy='43' r='7' fill='%23c4262e'/%3E%3Ccircle cx='67' cy='43' r='7' fill='%23a71d25'/%3E%3Ccircle cx='60' cy='32' r='7' fill='%23d8373a'/%3E%3Ccircle cx='58' cy='30' r='2' fill='%23ffffff' opacity='.6'/%3E%3C/svg%3E");
 
+  --navidad-pascua: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='translate(50 50)'%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(20)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(95)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(170)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(245)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(320)'/%3E%3C/g%3E%3Cg transform='translate(50 50)'%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(0.0)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(51.42857142857143)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(102.85714285714286)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(154.28571428571428)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(205.71428571428572)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(257.14285714285717)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(308.57142857142856)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(25.7)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(77.12857142857143)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(128.55714285714285)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(179.98571428571427)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(231.4142857142857)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(282.84285714285716)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(334.27142857142854)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(10.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(82.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(154.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(226.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(298.0)'/%3E%3Ccircle cx='0' cy='0' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='4' cy='-3' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='-4' cy='-3' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='3' cy='4' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='-3' cy='4' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='0' cy='-5' r='2.6' fill='%23f2c230'/%3E%3C/g%3E%3C/svg%3E");
+  --navidad-guirnalda: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 70'%3E%3Cg%3E%3Cpath d='M60 38C42 20 24 22 6 10c8 10 4 18 12 22-8 4-6 12-14 18 18-6 36-2 56-12z' fill='%233f8a52'/%3E%3Cpath d='M60 38C78 20 96 22 114 10c-8 10-4 18-12 22 8 4 6 12 14 18-18-6-36-2-56-12z' fill='%232f7343'/%3E%3Ccircle cx='53' cy='43' r='7' fill='%23c4262e'/%3E%3Ccircle cx='67' cy='43' r='7' fill='%23a71d25'/%3E%3Ccircle cx='60' cy='32' r='7' fill='%23d8373a'/%3E%3C/g%3E%3Cg transform='translate(125 -12) scale(0.95)'%3E%3Cg transform='translate(50 50)'%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(20)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(95)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(170)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(245)'/%3E%3Cellipse cx='0' cy='-30' rx='8' ry='18' fill='%232f7343' transform='rotate(320)'/%3E%3C/g%3E%3Cg transform='translate(50 50)'%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(0.0)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(51.42857142857143)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(102.85714285714286)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(154.28571428571428)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(205.71428571428572)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(257.14285714285717)'/%3E%3Cellipse cx='0' cy='-22' rx='9' ry='24' fill='%23b3121f' transform='rotate(308.57142857142856)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(25.7)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(77.12857142857143)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(128.55714285714285)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(179.98571428571427)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(231.4142857142857)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(282.84285714285716)'/%3E%3Cellipse cx='0' cy='-15' rx='7' ry='17' fill='%23d42a2f' transform='rotate(334.27142857142854)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(10.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(82.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(154.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(226.0)'/%3E%3Cellipse cx='0' cy='-8' rx='4' ry='9' fill='%23e8484a' transform='rotate(298.0)'/%3E%3Ccircle cx='0' cy='0' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='4' cy='-3' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='-4' cy='-3' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='3' cy='4' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='-3' cy='4' r='2.6' fill='%23f2c230'/%3E%3Ccircle cx='0' cy='-5' r='2.6' fill='%23f2c230'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
   /* Pie de página en verde navidad (el texto ya es claro). */
   --color-pie: var(--navidad-verde-oscuro);
   --color-pie-borde: var(--navidad-verde-borde);
@@ -29,19 +32,25 @@ body {
 .navidad-topbar {
   position: relative;
   background-color: var(--navidad-verde) !important;
+  padding-bottom: 34px;
 }
 .navidad-topbar::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -9px;
-  height: 18px;
-  background-image: var(--navidad-acebo);
-  background-size: 66px 22px;
+  bottom: -8px;
+  height: 44px;
+  background-image: var(--navidad-guirnalda);
+  background-size: 151px 44px;
   background-repeat: repeat-x;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
   pointer-events: none;
   z-index: 41;
+}
+@media (max-width: 640px) {
+  .navidad-topbar { padding-bottom: 26px; }
+  .navidad-topbar::after { bottom: -6px; height: 32px; background-size: 110px 32px; }
 }
 
 /* Las bandas granate de la portada (lotes y cinta de productos) pasan a verde navidad. */
@@ -98,10 +107,10 @@ footer.bg-pie::before {
   position: absolute;
   left: 0;
   right: 0;
-  top: -9px;
-  height: 18px;
-  background-image: var(--navidad-acebo);
-  background-size: 66px 22px;
+  top: -22px;
+  height: 44px;
+  background-image: var(--navidad-guirnalda);
+  background-size: 151px 44px;
   background-repeat: repeat-x;
   pointer-events: none;
 }
@@ -138,3 +147,43 @@ footer.bg-pie::before {
 @media (prefers-reduced-motion: reduce) {
   .navidad-nieve { display: none; }
 }
+
+/* Flores de pascua: rama grande en la portada y flores en la banda de lotes. */
+section[aria-labelledby="hero-title"]::after {
+  content: "";
+  position: absolute;
+  left: -45px;
+  top: -40px;
+  width: 170px;
+  height: 170px;
+  background-image: var(--navidad-pascua);
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 2;
+}
+section[aria-labelledby="hero-title"]::before {
+  width: 200px !important;
+  height: 118px !important;
+}
+main section.bg-vino.relative::after {
+  background-image: var(--navidad-pascua) !important;
+  width: 170px !important;
+  height: 170px !important;
+  transform: rotate(-12deg) !important;
+  left: -24px !important;
+  bottom: -24px !important;
+}
+main section.bg-vino.relative::before {
+  width: 190px !important;
+  height: 112px !important;
+}
+@media (max-width: 640px) {
+  section[aria-labelledby="hero-title"]::after { display: none; }
+  section[aria-labelledby="hero-title"]::before,
+  main section.bg-vino.relative::before { width: 110px !important; height: 65px !important; }
+  main section.bg-vino.relative::after { width: 100px !important; height: 100px !important; }
+}
+
+/* Más nieve y algo más visible. */
+.navidad-nieve span { color: #ffffff; }
