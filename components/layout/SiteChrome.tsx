@@ -17,6 +17,7 @@ import { ScrollReveal } from "./ScrollReveal";
 import { ScrollToTop } from "./ScrollToTop";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { TopBar } from "./TopBar";
+import { ChristmasSnow } from "./ChristmasSnow"; // Navidad
 
 /** Estructura común de la web pública: barra superior, cabecera, pie y capas. */
 export async function SiteChrome({ children }: { children: ReactNode }) {
@@ -50,6 +51,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       <WhatsAppButton />
       {site.onlineSales ? <CartDrawer /> : null}
       <ShopGate />
+      <ChristmasSnow /> {/* Navidad: quitar tras las fiestas */}
       <ScrollReveal />
       <ScrollToTop />
       <CookieBanner />

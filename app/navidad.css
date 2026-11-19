@@ -1,0 +1,140 @@
+/*
+ * MODO NAVIDAD (temporal)
+ * --------------------------------------------------------------
+ * Verde navideño, acebo y nieve cayendo.
+ * Para quitarlo después de Navidad, borra este archivo y las dos
+ * líneas marcadas con «Navidad» en:
+ *   - app/[lang]/(site)/layout.tsx  (import "../../navidad.css")
+ *   - components/layout/SiteChrome.tsx  (<ChristmasSnow />)
+ * y en components/layout/TopBar.tsx la clase «navidad-topbar».
+ */
+
+:root {
+  --navidad-verde: #1b4a33;
+  --navidad-verde-oscuro: #12331f;
+  --navidad-verde-borde: #2d6346;
+  --navidad-acebo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 70'%3E%3Cpath d='M60 38C42 20 24 22 6 10c8 10 4 18 12 22-8 4-6 12-14 18 18-6 36-2 56-12z' fill='%233f8a52'/%3E%3Cpath d='M60 38C78 20 96 22 114 10c-8 10-4 18-12 22 8 4 6 12 14 18-18-6-36-2-56-12z' fill='%232f7343'/%3E%3Cpath d='M60 38C42 20 24 22 6 10M60 38C78 20 96 22 114 10' stroke='%23215634' stroke-width='1.5' fill='none'/%3E%3Ccircle cx='53' cy='43' r='7' fill='%23c4262e'/%3E%3Ccircle cx='67' cy='43' r='7' fill='%23a71d25'/%3E%3Ccircle cx='60' cy='32' r='7' fill='%23d8373a'/%3E%3Ccircle cx='58' cy='30' r='2' fill='%23ffffff' opacity='.6'/%3E%3C/svg%3E");
+
+  /* Pie de página en verde navidad (el texto ya es claro). */
+  --color-pie: var(--navidad-verde-oscuro);
+  --color-pie-borde: var(--navidad-verde-borde);
+}
+
+/* Fondo general de la página (asoma al hacer scroll más allá de los bordes). */
+body {
+  background-color: var(--navidad-verde);
+}
+
+/* Barra superior verde con guirnalda de acebo debajo. */
+.navidad-topbar {
+  position: relative;
+  background-color: var(--navidad-verde) !important;
+}
+.navidad-topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 18px;
+  background-image: var(--navidad-acebo);
+  background-size: 66px 22px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+  z-index: 41;
+}
+
+/* Las bandas granate de la portada (lotes y cinta de productos) pasan a verde navidad. */
+main section.bg-vino {
+  background-color: var(--navidad-verde) !important;
+  border-color: var(--navidad-verde-borde) !important;
+}
+
+/* Ramas de acebo en las esquinas de la portada y de la banda de lotes. */
+section[aria-labelledby="hero-title"]::before,
+main section.bg-vino.relative::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 140px;
+  height: 82px;
+  background-image: var(--navidad-acebo);
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(18deg);
+  pointer-events: none;
+  z-index: 2;
+}
+main section.bg-vino.relative::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 120px;
+  height: 70px;
+  background-image: var(--navidad-acebo);
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(-160deg);
+  pointer-events: none;
+  z-index: 2;
+}
+@media (max-width: 640px) {
+  section[aria-labelledby="hero-title"]::before,
+  main section.bg-vino.relative::before,
+  main section.bg-vino.relative::after {
+    width: 84px;
+    height: 50px;
+  }
+}
+
+/* Pie: guirnalda de acebo en el borde superior. */
+footer.bg-pie {
+  position: relative;
+}
+footer.bg-pie::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9px;
+  height: 18px;
+  background-image: var(--navidad-acebo);
+  background-size: 66px 22px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+
+/* Nieve cayendo. */
+.navidad-nieve {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 30;
+}
+.navidad-nieve span {
+  position: absolute;
+  top: -5vh;
+  color: #ffffff;
+  line-height: 1;
+  user-select: none;
+  filter: drop-shadow(0 0 1px rgba(30, 50, 70, 0.7)) drop-shadow(0 0 3px rgba(30, 50, 70, 0.35));
+  animation-name: navidad-caer, navidad-vaiven;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: normal, alternate;
+}
+@keyframes navidad-caer {
+  from { transform: translateY(0); }
+  to { transform: translateY(112vh); }
+}
+@keyframes navidad-vaiven {
+  from { margin-left: -14px; }
+  to { margin-left: 14px; }
+}
+/* Quien tenga activado «reducir movimiento» no ve la nieve. */
+@media (prefers-reduced-motion: reduce) {
+  .navidad-nieve { display: none; }
+}
