@@ -34,6 +34,74 @@ function rich(key: string, pieces: Piece[], extra: Partial<PortableBlock> = {}):
  */
 export const posts: Post[] = [
   {
+    slug: "lotes-y-packs-a-la-carta",
+    category: "Regalos",
+    title: "Lotes y packs a la carta: te los preparamos a tu medida",
+    excerpt:
+      "¿Buscas un regalo y no encuentras el lote perfecto? Lo hacemos contigo: eliges la ocasión, el presupuesto y lo que más le gusta a quien lo va a recibir, y nosotros lo preparamos a mano.",
+    date: "2026-11-20",
+    image: {
+      src: "/images/blog/lotes-a-la-carta.webp",
+      alt: "Cuatro cajas de regalo de Estafeta Gourmet (Navidad, Empresas, Cumpleaños y Pareja) con vino, conservas, embutido ibérico y chocolate",
+      placeholder: "Foto · blog",
+    },
+    cover: {
+      src: "/images/blog/lotes-a-la-carta-cajas.webp",
+      alt: "Cuatro cajas de regalo de Estafeta Gourmet (Navidad, Empresas, Cumpleaños y Pareja) con vino, conservas, embutido ibérico y chocolate",
+      width: 1000,
+      height: 900,
+    },
+    body: [
+      rich("lotes-y-packs-a-la-carta-0", [
+        { text: "¿Buscas un regalo y no acabas de encontrar el lote perfecto? No pasa nada: lo hacemos contigo.", strong: true },
+      ]),
+      rich("lotes-y-packs-a-la-carta-1", [
+        "En Estafeta Gourmet tenemos algunos ",
+        { text: "lotes ya preparados", href: "/tienda/lotes" },
+        ", pero lo que más nos gusta es montarlos a la carta. Cada persona es un mundo, y un buen regalo se nota cuando está pensado para quien lo recibe. Por eso preparamos lotes y packs a medida, a tu gusto y a tu presupuesto.",
+      ]),
+      rich("lotes-y-packs-a-la-carta-2", ["Para cualquier ocasión"], { style: "h2" }),
+      rich(
+        "lotes-y-packs-a-la-carta-3",
+        [{ text: "Navidad: ", strong: true }, "para la familia, los amigos o ese detalle que quieres tener con alguien especial."],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich(
+        "lotes-y-packs-a-la-carta-4",
+        [{ text: "Empresas: ", strong: true }, "para tus clientes, proveedores o equipo, tanto si necesitas un lote como varias decenas."],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich(
+        "lotes-y-packs-a-la-carta-5",
+        [{ text: "Cumpleaños, aniversarios y celebraciones: ", strong: true }, "para sorprender con algo distinto a lo de siempre."],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich(
+        "lotes-y-packs-a-la-carta-6",
+        [{ text: "Para dar las gracias… o simplemente porque sí: ", strong: true }, "darse (y dar) un capricho no necesita excusa."],
+        { listItem: "bullet", level: 1 },
+      ),
+      rich("lotes-y-packs-a-la-carta-7", ["Cómo lo hacemos"], { style: "h2" }),
+      rich("lotes-y-packs-a-la-carta-8", [
+        "Es muy sencillo. Cuéntanos para quién es, qué ocasión es y cuánto te quieres gastar. Si sabes qué le gusta (si es más de vino tinto o de blanco, si le pierde el queso, si es goloso o si prefiere algo salado), mejor todavía. Y si hay algo que no puede tomar, como alcohol, gluten o carne, también lo tenemos en cuenta.",
+      ]),
+      rich("lotes-y-packs-a-la-carta-9", [
+        "Con eso te proponemos una selección de nuestros productos: vinos de Navarra, quesos, embutidos, conservas de la Ribera, aceites, mermeladas, chocolates… Lo ajustamos contigo hasta que quede como tú quieres, y lo preparamos a mano y bien presentado, listo para regalar.",
+      ]),
+      rich("lotes-y-packs-a-la-carta-10", ["Pídenos el tuyo"], { style: "h2" }),
+      rich("lotes-y-packs-a-la-carta-11", [
+        "Pásate por la tienda, en la Calle Estafeta, 70 de Pamplona, y lo vemos juntos. Si te viene mejor, escríbenos por ",
+        { text: "WhatsApp", href: "https://wa.me/34624642742" },
+        ", llámanos al 624 64 27 42 o mándanos un correo a ",
+        { text: "info@estafetagourmet.com", href: "mailto:info@estafetagourmet.com" },
+        ".",
+      ]),
+      rich("lotes-y-packs-a-la-carta-12", [
+        { text: "Y si es para Navidad o para un pedido de empresa, no lo dejes para el último momento: cuanto antes nos lo digas, mejor te lo podremos preparar. ¡Te esperamos!", strong: true },
+      ]),
+    ],
+  },
+  {
     slug: "primer-aceite-2026-artajo-8-bio-en-rama",
     category: "Novedades",
     title: "El primer aceite de 2026: ya ha llegado el Artajo 8 BIO en rama",
