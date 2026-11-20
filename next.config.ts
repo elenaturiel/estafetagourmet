@@ -54,8 +54,10 @@ const nextConfig: NextConfig = {
   images: {
     // Fotos que la dueña sube al blog desde el panel (Sanity).
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
-    // Copia estática para otro servidor (STATIC_COPY=1): fotos sin el optimizador de Next.
-    unoptimized: process.env.STATIC_COPY === "1",
+    // Fotos sin el optimizador de Vercel: el plan gratuito agotó su cuota y las fotos
+    // nuevas daban error 402 (no se veían). Las de /public ya están en webp y a su
+    // tamaño, y las del panel se reducen en el navegador antes de subirlas.
+    unoptimized: true,
   },
   async redirects() {
     // Las redirecciones de la tienda valen también con /en y /fr por delante.
