@@ -7,6 +7,8 @@
  *   - app/[lang]/(site)/layout.tsx  (import "../../navidad.css")
  *   - components/layout/SiteChrome.tsx  (<ChristmasSnow />)
  * y en components/layout/TopBar.tsx la clase «navidad-topbar».
+ * (La clase «blog-navidad» del blog y la newsletter puede quedarse: sin
+ * este archivo no hace nada.)
  */
 
 :root {
@@ -242,4 +244,38 @@ footer.bg-pie {
     background-size: 800px 125px !important;
   }
   .navidad-topbar::after { top: 20px; }
+}
+
+/* Blog y newsletter: texto en blanco sobre el fondo verde, para que se lea bien. */
+.blog-navidad,
+.blog-navidad h1,
+.blog-navidad h2,
+.blog-navidad h3,
+.blog-navidad .text-tinta,
+.blog-navidad blockquote {
+  color: #ffffff !important;
+}
+.blog-navidad .text-secundario,
+.blog-navidad nav[aria-label] a,
+.blog-navidad nav[aria-label] li {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+.blog-navidad .text-vino,
+.blog-navidad a.text-vino,
+.blog-navidad .eyebrow {
+  color: #f2c94c !important;
+}
+.blog-navidad a:hover {
+  color: #f2c94c !important;
+}
+/* …salvo en las cajas de fondo claro (tarjetas de boletines y «Suscríbete»), que siguen en oscuro. */
+.blog-navidad :is(.bg-papel, .bg-crema-oscuro),
+.blog-navidad :is(.bg-papel, .bg-crema-oscuro) :is(h1, h2, h3, .text-tinta, blockquote) {
+  color: var(--color-tinta) !important;
+}
+.blog-navidad :is(.bg-papel, .bg-crema-oscuro) .text-secundario {
+  color: var(--color-secundario) !important;
+}
+.blog-navidad :is(.bg-papel, .bg-crema-oscuro) :is(.text-vino, a.text-vino, .eyebrow, a:hover) {
+  color: var(--color-vino) !important;
 }

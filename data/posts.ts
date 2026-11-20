@@ -36,20 +36,21 @@ export const posts: Post[] = [
   {
     slug: "lotes-y-packs-a-la-carta",
     category: "Regalos",
-    title: "Lotes y packs a la carta: te los preparamos a tu medida",
+    title: "Los mejores lotes para ti",
+    titleStyle: "rotulo",
     excerpt:
       "¿Buscas un regalo y no encuentras el lote perfecto? Lo hacemos contigo: eliges la ocasión, el presupuesto y lo que más le gusta a quien lo va a recibir, y nosotros lo preparamos a mano.",
     date: "2026-11-20",
     image: {
-      src: "/images/blog/lotes-a-la-carta.webp",
-      alt: "Cuatro cajas de regalo de Estafeta Gourmet (Navidad, Empresas, Cumpleaños y Pareja) con vino, conservas, embutido ibérico y chocolate",
+      src: "/images/blog/lotes-a-la-carta-cesta-16x9.webp",
+      alt: "Lote de regalo de Estafeta Gourmet en una bandeja negra: vino blanco Ochoa, aceite Ánfora de Queiles con trufa blanca, cecina de bellota, queso de oveja con trufa Leyendas de Baztán, yemas de espárrago La Catedral y bloc de foie gras Katealde",
       placeholder: "Foto · blog",
     },
     cover: {
-      src: "/images/blog/lotes-a-la-carta-cajas.webp",
-      alt: "Cuatro cajas de regalo de Estafeta Gourmet (Navidad, Empresas, Cumpleaños y Pareja) con vino, conservas, embutido ibérico y chocolate",
-      width: 1000,
-      height: 900,
+      src: "/images/blog/lotes-a-la-carta-cesta.webp",
+      alt: "Lote de regalo de Estafeta Gourmet en una bandeja negra: vino blanco Ochoa, aceite Ánfora de Queiles con trufa blanca, cecina de bellota, queso de oveja con trufa Leyendas de Baztán, yemas de espárrago La Catedral y bloc de foie gras Katealde",
+      width: 800,
+      height: 800,
     },
     body: [
       rich("lotes-y-packs-a-la-carta-0", [

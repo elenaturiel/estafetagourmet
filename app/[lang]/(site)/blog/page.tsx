@@ -28,7 +28,7 @@ export default async function BlogPage() {
   const tab =
     "inline-flex min-h-[44px] items-center border-b-2 border-transparent px-1 text-[14px] font-semibold tracking-[0.06em] uppercase transition-colors hover:border-vino hover:text-vino";
   return (
-    <>
+    <div className="blog-navidad">
       <PageHeader eyebrow={b.eyebrow} title={b.title} intro={b.intro} />
       <div className="container-site">
         <nav aria-label={b.eyebrow} className="flex gap-6 border-b border-linea">
@@ -87,6 +87,6 @@ export default async function BlogPage() {
           <NewsletterForm source="web" />
         </div>
       </section>
-    </>
+    </div>
   );
 }
