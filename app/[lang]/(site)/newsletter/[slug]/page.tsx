@@ -53,7 +53,7 @@ export default async function NewsletterIssuePage({ params }: Params) {
   const next = sorted[i + 1];
 
   return (
-    <article className="pb-12 lg:pb-24">
+    <article className="blog-navidad pb-12 lg:pb-24">
       <JsonLd
         data={{
           "@context": "https://schema.org",
