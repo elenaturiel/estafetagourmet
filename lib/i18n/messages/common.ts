@@ -84,7 +84,7 @@ export const common = defineMessages({
       message: "Hola, os escribo desde la web de Estafeta Gourmet.",
       productMessage: "Hola, os escribo desde la web de Estafeta Gourmet. Me interesa: {product}",
     },
-    music: { play: "Poner música navideña", pause: "Pausar la música" }, // Navidad
+    music: { play: "Poner música navideña", pause: "Pausar la música", hint: "Toca para escuchar música" }, // Navidad
     shopNotice: {
       title: "Tienda online en construcción",
       text: "Mientras tanto, puedes hacer tus pedidos por WhatsApp.",
@@ -218,7 +218,7 @@ export const common = defineMessages({
       message: "Hello, I'm writing from the Estafeta Gourmet website.",
       productMessage: "Hello, I'm writing from the Estafeta Gourmet website. I'm interested in: {product}",
     },
-    music: { play: "Play Christmas music", pause: "Pause the music" }, // Navidad
+    music: { play: "Play Christmas music", pause: "Pause the music", hint: "Tap to hear the music" }, // Navidad
     shopNotice: {
       title: "Online shop under construction",
       text: "In the meantime, you can place your orders on WhatsApp.",
@@ -352,7 +352,7 @@ export const common = defineMessages({
       message: "Bonjour, je vous écris depuis le site d'Estafeta Gourmet.",
       productMessage: "Bonjour, je vous écris depuis le site d'Estafeta Gourmet. Je suis intéressé(e) par : {product}",
     },
-    music: { play: "Mettre la musique de Noël", pause: "Mettre la musique en pause" }, // Navidad
+    music: { play: "Mettre la musique de Noël", pause: "Mettre la musique en pause", hint: "Touchez pour écouter la musique" }, // Navidad
     shopNotice: {
       title: "Boutique en ligne en construction",
       text: "En attendant, vous pouvez passer vos commandes sur WhatsApp.",
