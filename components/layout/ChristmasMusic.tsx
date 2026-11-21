@@ -20,10 +20,10 @@ const KEY = "eg-musica-navidad";
 export function ChristmasMusic() {
   const t = useT().common.music;
   const audio = useRef<HTMLAudioElement>(null);
-  const button = useRef<HTMLButtonElement>(null);
   const chosen = useRef(false); // El visitante ya usó el botón: no arrancar sola.
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
+  const [blocked, setBlocked] = useState(false); // El navegador no la deja sonar aún.
 
   const remember = (on: boolean) => {
     try {
@@ -41,10 +41,10 @@ export function ChristmasMusic() {
     const stop = () => events.forEach((e) => window.removeEventListener(e, start));
     function start(e?: Event) {
       // El propio botón ya enciende/apaga la música: aquí no se toca.
-      if (e?.target instanceof Node && button.current?.contains(e.target)) return;
+      if (e?.target instanceof Element && e.target.closest("[data-musica]")) return;
       const a = audio.current;
       if (!a || !a.paused || chosen.current) return stop();
-      a.play().then(stop, () => {});
+      a.play().then(stop, () => setBlocked(true));
     }
     events.forEach((e) => window.addEventListener(e, start));
     start(); // Por si el navegador permite el autoplay.
@@ -71,13 +71,26 @@ export function ChristmasMusic() {
         src={SRC}
         loop
         preload="auto"
-        onPlay={() => setPlaying(true)}
+        onPlay={() => {
+          setPlaying(true);
+          setBlocked(false);
+        }}
         onPause={() => setPlaying(false)}
         onError={() => setAvailable(false)}
       />
+      {available && blocked && !playing ? (
+        <button
+          data-musica
+          type="button"
+          onClick={toggle}
+          className="fixed left-[64px] z-40 rounded-full bg-crema px-4 py-2 text-[14px] font-semibold text-[var(--navidad-verde,#1b4a33)] shadow-[0_10px_30px_-8px_rgba(42,31,26,0.55)] bottom-[calc(var(--cookie-h,0px)+18px)] lg:left-[88px] lg:bottom-[calc(var(--cookie-h,0px)+32px)]"
+        >
+          🎵 {t.hint}
+        </button>
+      ) : null}
       {available ? (
         <button
-          ref={button}
+          data-musica
           type="button"
           onClick={toggle}
           aria-pressed={playing}
