@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Música de Navidad</title>
+<!--
+  Reproductor de música navideña para la tienda online (HIOPOS).
+  La tienda lo incrusta con un bloque «Iframe» apuntando a
+  https://www.estafetagourmet.com/navidad/musica.html
+  Modo Navidad (temporal): quitar tras las fiestas junto con el bloque Iframe.
+-->
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+  body { font-family: "Muli", "Mulish", system-ui, -apple-system, sans-serif; }
+  .musica { display: flex; align-items: center; gap: 8px; height: 100vh; padding: 0 4px; box-sizing: border-box; cursor: pointer; }
+  button {
+    flex: none; display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border: 0; border-radius: 50%;
+    background: #1b4a33; color: #fff; cursor: pointer;
+    box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.55);
+    transition: transform .15s ease-out, filter .15s ease-out;
+  }
+  button:hover { filter: brightness(1.15); }
+  button:active { transform: scale(.94); }
+  button:focus-visible { outline: 3px solid #f2c94c; outline-offset: 2px; }
+  .aviso {
+    padding: 8px 14px; border-radius: 999px; background: #fff; color: #1b4a33;
+    font-size: 14px; font-weight: 700; white-space: nowrap;
+    box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.55);
+  }
+  .aviso[hidden] { display: none; }
+  .i-pausa { display: none; }
+  .sonando .i-pausa { display: block; }
+  .sonando .i-nota { display: none; }
+</style>
+</head>
+<body>
+<div class="musica" id="musica">
+  <button type="button" id="boton" aria-pressed="false" aria-label="Poner música navideña" title="Poner música navideña">
+    <svg class="i-nota" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 17.5V6.2a1 1 0 0 1 .76-.97l9-2.25A1 1 0 0 1 20 4v11.5a2.5 2.5 0 1 1-2-2.45V7.03l-7 1.75v8.72A2.5 2.5 0 1 1 9 17.5Z"/></svg>
+    <svg class="i-pausa" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+  </button>
+  <span class="aviso" id="aviso">🎵 Toca para escuchar música</span>
+</div>
+<audio id="audio" src="/navidad/musica.mp3" loop preload="auto"></audio>
+<script>
+  (function () {
+    var KEY = "eg-musica-navidad";
+    var audio = document.getElementById("audio");
+    var caja = document.getElementById("musica");
+    var boton = document.getElementById("boton");
+    var aviso = document.getElementById("aviso");
+
+    function guardar(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function pintar() {
+      var on = !audio.paused;
+      caja.classList.toggle("sonando", on);
+      boton.setAttribute("aria-pressed", on ? "true" : "false");
+      var t = on ? "Pausar la música" : "Poner música navideña";
+      boton.setAttribute("aria-label", t);
+      boton.title = t;
+      aviso.hidden = on;
+    }
+    audio.addEventListener("play", pintar);
+    audio.addEventListener("pause", pintar);
+
+    caja.addEventListener("click", function () {
+      if (audio.paused) { audio.play().catch(function () {}); guardar("1"); }
+      else { audio.pause(); guardar("0"); }
+    });
+
+    // Intenta sonar al abrir (si el navegador lo permite y el visitante no la pausó antes).
+    var pausada = false;
+    try { pausada = localStorage.getItem(KEY) === "0"; } catch (e) {}
+    if (!pausada) audio.play().catch(function () {});
+    pintar();
+  })();
+</script>
+</body>
+</html>
