@@ -5,7 +5,7 @@
  * Para quitarlo después de Navidad, borra este archivo y las dos
  * líneas marcadas con «Navidad» en:
  *   - app/[lang]/(site)/layout.tsx  (import "../../navidad.css")
- *   - components/layout/SiteChrome.tsx  (<ChristmasSnow />)
+ *   - components/layout/SiteChrome.tsx  (<ChristmasSnow /> y <ChristmasMusic />)
  * y en components/layout/TopBar.tsx la clase «navidad-topbar».
  * (La clase «blog-navidad» del blog y la newsletter puede quedarse: sin
  * este archivo no hace nada.)
