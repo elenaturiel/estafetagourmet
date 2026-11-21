@@ -10,15 +10,18 @@ const KEY = "eg-musica-navidad";
 /**
  * Música de fondo navideña (modo Navidad, temporal).
  *
- * - Los navegadores no dejan sonar audio sin que el visitante haga algo, así
- *   que empieza apagada y se enciende con el botón (abajo a la izquierda).
- * - Si el visitante la encendió en otra visita, se reanuda con su primer clic
- *   o tecla en la página.
+ * - Intenta sonar nada más abrir la web. Casi todos los navegadores lo
+ *   bloquean hasta que el visitante interactúa, así que en ese caso empieza
+ *   con su primer clic, toque o tecla.
+ * - Si el visitante la pausa con el botón (abajo a la izquierda), se recuerda
+ *   y no vuelve a sonar sola en sus próximas visitas.
  * - Sigue sonando al cambiar de página (el componente vive en el layout).
  */
 export function ChristmasMusic() {
   const t = useT().common.music;
   const audio = useRef<HTMLAudioElement>(null);
+  const button = useRef<HTMLButtonElement>(null);
+  const chosen = useRef(false); // El visitante ya usó el botón: no arrancar sola.
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
 
@@ -29,27 +32,29 @@ export function ChristmasMusic() {
   };
 
   useEffect(() => {
-    let wanted = false;
+    let off = false;
     try {
-      wanted = localStorage.getItem(KEY) === "1";
+      off = localStorage.getItem(KEY) === "0";
     } catch {}
-    if (!wanted) return;
-    const resume = () => {
-      audio.current?.play().catch(() => {});
-      window.removeEventListener("pointerdown", resume);
-      window.removeEventListener("keydown", resume);
-    };
-    window.addEventListener("pointerdown", resume);
-    window.addEventListener("keydown", resume);
-    return () => {
-      window.removeEventListener("pointerdown", resume);
-      window.removeEventListener("keydown", resume);
-    };
+    if (off) return;
+    const events = ["pointerdown", "keydown", "touchend"] as const;
+    const stop = () => events.forEach((e) => window.removeEventListener(e, start));
+    function start(e?: Event) {
+      // El propio botón ya enciende/apaga la música: aquí no se toca.
+      if (e?.target instanceof Node && button.current?.contains(e.target)) return;
+      const a = audio.current;
+      if (!a || !a.paused || chosen.current) return stop();
+      a.play().then(stop, () => {});
+    }
+    events.forEach((e) => window.addEventListener(e, start));
+    start(); // Por si el navegador permite el autoplay.
+    return stop;
   }, []);
 
   const toggle = () => {
     const a = audio.current;
     if (!a) return;
+    chosen.current = true;
     if (a.paused) {
       a.play().catch(() => {});
       remember(true);
@@ -65,13 +70,14 @@ export function ChristmasMusic() {
         ref={audio}
         src={SRC}
         loop
-        preload="none"
+        preload="auto"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onError={() => setAvailable(false)}
       />
       {available ? (
         <button
+          ref={button}
           type="button"
           onClick={toggle}
           aria-pressed={playing}
