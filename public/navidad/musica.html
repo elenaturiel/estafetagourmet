@@ -66,15 +66,30 @@
     audio.addEventListener("play", pintar);
     audio.addEventListener("pause", pintar);
 
-    caja.addEventListener("click", function () {
-      if (audio.paused) { audio.play().catch(function () {}); guardar("1"); }
-      else { audio.pause(); guardar("0"); }
-    });
-
-    // Intenta sonar al abrir (si el navegador lo permite y el visitante no la pausó antes).
     var pausada = false;
     try { pausada = localStorage.getItem(KEY) === "0"; } catch (e) {}
-    if (!pausada) audio.play().catch(function () {});
+
+    caja.addEventListener("click", function () {
+      if (audio.paused) { pausada = false; audio.play().catch(function () {}); guardar("1"); }
+      else { pausada = true; audio.pause(); guardar("0"); }
+    });
+
+    // Al cambiar de página en la tienda el reproductor se carga de nuevo:
+    // se sigue por donde iba la canción (si fue hace menos de 15 s).
+    var POS = "eg-musica-navidad-pos";
+    try {
+      var g = JSON.parse(localStorage.getItem(POS) || "null");
+      if (g && Date.now() - g.t < 15000) audio.currentTime = g.s;
+    } catch (e) {}
+    setInterval(function () {
+      if (!audio.paused) try { localStorage.setItem(POS, JSON.stringify({ s: audio.currentTime, t: Date.now() })); } catch (e) {}
+    }, 1000);
+
+    // Intenta sonar al abrir y, si el navegador aún no lo deja, lo reintenta cada segundo:
+    // con allow="autoplay" en el iframe, empieza en cuanto el visitante toca la tienda.
+    function intentar() { if (!pausada && audio.paused) audio.play().catch(function () {}); }
+    intentar();
+    setInterval(intentar, 1000);
     pintar();
   })();
 </script>
