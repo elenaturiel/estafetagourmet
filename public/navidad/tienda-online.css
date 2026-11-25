@@ -1,0 +1,23 @@
+/*
+ * Navidad en la tienda online (HIOPOS): banner más pequeño para que la
+ * portada se vea antes sin hacer scroll. Probado en 1440 px de ancho.
+ * Pegar este CSS donde la tienda guarda su CSS personalizado,
+ * o importarlo con:  @import url("https://www.estafetagourmet.com/navidad/tienda-online.css");
+ * Modo Navidad (temporal): quitar tras las fiestas.
+ */
+/* Guirnalda de arriba: más baja y con los adornos más pequeños. */
+app-block.block-header {
+  background-size: 700px 110px !important;
+  padding-top: 84px !important;
+}
+/* Franja roja con la frase «Lo mejor de la gastronomía navarra…». */
+.wrapper > .text[style*="164, 5, 40"] {
+  min-height: 0 !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+/* Guirnalda del pie, a juego. */
+.footer-wrapper {
+  background-size: 700px 110px !important;
+  padding-top: 84px !important;
+}
